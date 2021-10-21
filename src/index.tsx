@@ -83,7 +83,7 @@ errorTracker.init();
 // so we need to explicitly set them
 const linkOptions = {
   credentials: "include",
-  uri: API_URI
+  uri: API_URI || `${location.origin.replace('9000', '8000')}/graphql/`
 };
 const uploadLink = createUploadLink(linkOptions);
 const batchLink = new BatchHttpLink({
