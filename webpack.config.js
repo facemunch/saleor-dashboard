@@ -55,9 +55,9 @@ module.exports = speedMeasureWrapper((env, argv) => {
   let fileLoaderPath;
   let output;
 
-  if (!process.env.API_URI) {
-    throw new Error("Environment variable API_URI not set");
-  }
+  // if (!process.env.API_URI) {
+  //   throw new Error("Environment variable API_URI not set");
+  // }
 
   const publicPath = process.env.STATIC_URL || "/";
   if (!devMode) {
@@ -111,9 +111,7 @@ module.exports = speedMeasureWrapper((env, argv) => {
       hot: true,
       port: 9000,
       disableHostCheck: true,
-      allowedHosts: [
-        '.localhost'
-      ]
+      allowedHosts: [".localhost"]
     },
     devtool: devMode ? "cheap-module-source-map" : "source-map",
     entry: {
