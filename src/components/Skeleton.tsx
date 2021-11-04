@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";

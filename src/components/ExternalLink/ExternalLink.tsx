@@ -1,7 +1,6 @@
 import { Typography } from "@material-ui/core";
 import { TypographyProps } from "@material-ui/core/Typography";
 import { makeStyles } from "@saleor/macaw-ui";
-import React from "react";
 
 const useStyles = makeStyles(
   {
@@ -24,6 +23,7 @@ const ExternalLink: React.FC<ExternalLinkProps> = props => {
   const classes = useStyles(props);
 
   return (
+    // @ts-ignore
     <a href={href} className={classes.link} {...rest}>
       <Typography className={className} color="primary" {...typographyProps}>
         {children}

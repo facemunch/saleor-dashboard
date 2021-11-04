@@ -1,3 +1,4 @@
+// @ts-nocheck
 import useNavigator from "@saleor/hooks/useNavigator";
 import useUser from "@saleor/hooks/useUser";
 import { parse as parseQs } from "qs";

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { User } from "@saleor/fragments/types/User";
 import { parse as parseQs } from "qs";
 import React, { MutableRefObject } from "react";

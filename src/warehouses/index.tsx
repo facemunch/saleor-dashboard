@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { sectionNames } from "@saleor/intl";
 import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";

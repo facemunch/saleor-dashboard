@@ -129,6 +129,8 @@ const FileUploadField: React.FC<FileUploadFieldProps> = props => {
           </Typography>
         )}
       </div>
+      {/*
+        // @ts-ignore */}
       <input
         className={classes.fileField}
         id="fileUpload"

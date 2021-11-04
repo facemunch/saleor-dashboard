@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { TableCell } from "@material-ui/core";
 import { TableCellProps } from "@material-ui/core/TableCell";
 import { makeStyles } from "@saleor/macaw-ui";

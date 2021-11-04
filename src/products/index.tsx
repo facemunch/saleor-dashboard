@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { sectionNames } from "@saleor/intl";
 import { asSortParams } from "@saleor/utils/sort";
 import { getArrayQueryParam } from "@saleor/utils/urls";

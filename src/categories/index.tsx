@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { sectionNames } from "@saleor/intl";
 import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
@@ -50,7 +51,7 @@ const CategoryCreate: React.FC<RouteComponentProps<
 );
 
 const CategoryList: React.FC<RouteComponentProps<{}>> = ({ location }) => {
-  const qs = parseQs(location.search.substr(1));
+  const qs = parseQs(location.search.substr(1)) as any;
   const params: CategoryListUrlQueryParams = {
     ...asSortParams(qs, CategoryListUrlSortField)
   };

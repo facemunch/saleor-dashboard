@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { CardContent } from "@material-ui/core";
 import HorizontalSpacer from "@saleor/apps/components/HorizontalSpacer";
 import CardSpacer from "@saleor/components/CardSpacer";

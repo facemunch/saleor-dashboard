@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React from "react";

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { sectionNames } from "@saleor/intl";
 import { parse as parseQs } from "qs";
 import React from "react";

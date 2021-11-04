@@ -67,7 +67,7 @@ const CardMenu: React.FC<CardMenuProps> = props => {
     setOpen(false);
   };
 
-  const handleListKeyDown = (event: React.KeyboardEvent) => {
+  const handleListKeyDown = (event: React.KeyboardEvent<HTMLUListElement>) => {
     if (event.key === "Tab") {
       event.preventDefault();
       setOpen(false);
