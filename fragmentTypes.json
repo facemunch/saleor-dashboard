@@ -6,10 +6,10 @@
         "name": "DeliveryMethod",
         "possibleTypes": [
           {
-            "name": "Warehouse"
+            "name": "ShippingMethod"
           },
           {
-            "name": "ShippingMethod"
+            "name": "Warehouse"
           }
         ]
       },
@@ -348,37 +348,37 @@
         "name": "TranslatableItem",
         "possibleTypes": [
           {
-            "name": "ProductTranslatableContent"
-          },
-          {
-            "name": "CollectionTranslatableContent"
-          },
-          {
-            "name": "CategoryTranslatableContent"
-          },
-          {
             "name": "AttributeTranslatableContent"
           },
           {
             "name": "AttributeValueTranslatableContent"
           },
           {
-            "name": "ProductVariantTranslatableContent"
+            "name": "CategoryTranslatableContent"
+          },
+          {
+            "name": "CollectionTranslatableContent"
+          },
+          {
+            "name": "MenuItemTranslatableContent"
           },
           {
             "name": "PageTranslatableContent"
           },
           {
-            "name": "ShippingMethodTranslatableContent"
+            "name": "ProductTranslatableContent"
+          },
+          {
+            "name": "ProductVariantTranslatableContent"
           },
           {
             "name": "SaleTranslatableContent"
           },
           {
-            "name": "VoucherTranslatableContent"
+            "name": "ShippingMethodTranslatableContent"
           },
           {
-            "name": "MenuItemTranslatableContent"
+            "name": "VoucherTranslatableContent"
           }
         ]
       },
@@ -387,40 +387,40 @@
         "name": "_Entity",
         "possibleTypes": [
           {
-            "name": "App"
-          },
-          {
             "name": "Address"
           },
           {
-            "name": "User"
-          },
-          {
-            "name": "Group"
-          },
-          {
-            "name": "ProductVariant"
-          },
-          {
-            "name": "Product"
-          },
-          {
-            "name": "ProductType"
-          },
-          {
-            "name": "Collection"
+            "name": "App"
           },
           {
             "name": "Category"
           },
           {
-            "name": "ProductMedia"
+            "name": "Collection"
+          },
+          {
+            "name": "Group"
+          },
+          {
+            "name": "PageType"
+          },
+          {
+            "name": "Product"
           },
           {
             "name": "ProductImage"
           },
           {
-            "name": "PageType"
+            "name": "ProductMedia"
+          },
+          {
+            "name": "ProductType"
+          },
+          {
+            "name": "ProductVariant"
+          },
+          {
+            "name": "User"
           }
         ]
       }
