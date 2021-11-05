@@ -5,7 +5,7 @@ import useNotifier from "@saleor/hooks/useNotifier";
 import getAppErrorMessage from "@saleor/utils/errors/app";
 import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router";
 
 import AppInstallErrorPage from "../../components/AppInstallErrorPage";
 import AppInstallPage from "../../components/AppInstallPage";

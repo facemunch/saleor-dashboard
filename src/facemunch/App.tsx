@@ -12,8 +12,8 @@ import { ApolloProvider } from "react-apollo";
 import ErrorBoundary from "react-error-boundary";
 import TagManager from "react-gtm-module";
 import { useIntl } from "react-intl";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-
+import { BrowserRouter, Routes } from "react-router-dom";
+import { Route } from "react-router";
 import introspectionQueryResultData from "../../fragmentTypes.json";
 import AppsSection from "../apps";
 import { ExternalAppProvider } from "../apps/components/ExternalAppContext";
@@ -82,7 +82,7 @@ errorTracker.init();
 // so we need to explicitly set them
 const linkOptions = {
   credentials: "include",
-  uri: API_URI || `${location.origin.replace('8001', '8000')}/graphql/`
+  uri: API_URI || `https://alex.commerce.fcmn.ch/graphql/`
 };
 const uploadLink = createUploadLink(linkOptions);
 const batchLink = new BatchHttpLink({
@@ -117,7 +117,7 @@ const apolloClient = new ApolloClient({
 
 const App: React.FC = () => (
   <ApolloProvider client={apolloClient}>
-    <BrowserRouter basename={"/ecommerce"}>
+    {/* <HashRouter basename={"/ecommerce"}> */}
       <ThemeProvider overrides={themeOverrides}>
         <DateProvider>
           <LocaleProvider>
@@ -129,7 +129,7 @@ const App: React.FC = () => (
                     <ShopProvider>
                       <AppChannelProvider>
                         <ExternalAppProvider>
-                          <Routes />
+                          <Routes2 />
                         </ExternalAppProvider>
                       </AppChannelProvider>
                     </ShopProvider>
@@ -140,11 +140,11 @@ const App: React.FC = () => (
           </LocaleProvider>
         </DateProvider>
       </ThemeProvider>
-    </BrowserRouter>
+    {/* </HashRouter> */}
   </ApolloProvider>
 );
 
-const Routes: React.FC = () => {
+const Routes2: React.FC = () => {
   const intl = useIntl();
   const [, dispatchAppState] = useAppState();
   const {
@@ -187,37 +187,37 @@ const Routes: React.FC = () => {
               });
             }}
           >
-            <Switch>
-              <SectionRoute exact path="/" component={HomePage} />
-              <SectionRoute
+            <Routes>
+              <SectionRoute path="/" element={<HomePage />} />
+              {/* <SectionRoute
                 permissions={[PermissionEnum.MANAGE_PRODUCTS]}
                 path="/categories"
-                component={CategorySection}
+                element={<CategorySection />}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_PRODUCTS]}
                 path="/collections"
-                component={CollectionSection}
+                element={<CollectionSection />}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_USERS]}
                 path="/customers"
-                component={CustomerSection}
+                element={<CustomerSection />}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_GIFT_CARD]}
                 path={giftCardsSectionUrlName}
-                component={GiftCardSection}
+                element={<GiftCardSection />}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_DISCOUNTS]}
                 path="/discounts"
-                component={DiscountSection}
+                element={<DiscountSection />}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_PAGES]}
                 path="/pages"
-                component={PageSection}
+                element={<PageSection />}
               />
               <SectionRoute
                 permissions={[
@@ -225,65 +225,70 @@ const Routes: React.FC = () => {
                   PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
                 ]}
                 path="/page-types"
-                component={PageTypesSection}
+                element={<PageTypesSection />}
                 matchPermission="any"
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_PLUGINS]}
                 path="/plugins"
-                component={PluginsSection}
+                element={<PluginsSection />}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_ORDERS]}
                 path="/orders"
-                component={OrdersSection}
+                element={<OrdersSection />}
+              /> */}
+              <SectionRoute
+                permissions={[PermissionEnum.MANAGE_PRODUCTS]}
+                path="products"
+                element={ <ProductSection />}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_PRODUCTS]}
-                path="/products"
-                component={ProductSection}
+                path="products/*"
+                element={ <ProductSection />}
               />
-              <SectionRoute
+              {/* <SectionRoute
                 permissions={[
                   PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES
                 ]}
                 path="/product-types"
-                component={ProductTypesSection}
+                element={<ProductTypesSection />}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_STAFF]}
                 path="/staff"
-                component={StaffSection}
+                element={<StaffSection />}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_STAFF]}
                 path="/permission-groups"
-                component={PermissionGroupSection}
+                element={<PermissionGroupSection />}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_SETTINGS]}
                 path="/site-settings"
-                component={SiteSettingsSection}
+                element={<SiteSettingsSection />}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_SETTINGS]}
                 path="/taxes"
-                component={TaxesSection}
+                element={<TaxesSection />}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_SHIPPING]}
                 path="/shipping"
-                component={ShippingSection}
+                element={<ShippingSection />}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_TRANSLATIONS]}
                 path="/translations"
-                component={TranslationsSection}
+                element={<TranslationsSection />}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_MENUS]}
                 path={navigationSection}
-                component={NavigationSection}
+                element={<NavigationSection />}
               />
               <SectionRoute
                 permissions={[
@@ -291,33 +296,32 @@ const Routes: React.FC = () => {
                   PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
                 ]}
                 path={attributeSection}
-                component={AttributeSection}
+                element={<AttributeSection />}
                 matchPermission="any"
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_APPS]}
                 path={appsSection}
-                component={AppsSection}
+                element={<AppsSection />}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_PRODUCTS]}
                 path={warehouseSection}
-                component={WarehouseSection}
+                element={<WarehouseSection />}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_CHANNELS]}
                 path={channelsSection}
-                component={ChannelsSection}
+                element={<ChannelsSection />}
               />
               <SectionRoute
                 matchPermission="any"
                 permissions={getConfigMenuItemsPermissions(intl)}
-                exact
                 path="/configuration"
-                component={ConfigurationSection}
-              />
+                element={<ConfigurationSection />}
+              /> */}
               <Route component={NotFound} />
-            </Switch>
+            </Routes>
           </ErrorBoundary>
         </AppLayout>
       ) : homePageLoading ? (

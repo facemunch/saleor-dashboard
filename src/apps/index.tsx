@@ -3,7 +3,8 @@ import WebhooksRoutes from "@saleor/webhooks";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import { RouteComponentProps } from "react-router";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
@@ -88,22 +89,19 @@ const Component = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.apps)} />
-      <Switch>
-        <Route exact path={appsListPath} component={AppsList} />
+      <Routes>
+        {/* <Route path={appsListPath} component={AppsList} />
         <Route
-          exact
           path={customAppAddPath}
           render={() => <CustomAppCreateView setToken={setToken} />}
         />
-        <Route exact path={appInstallPath} component={AppInstall} />
-        <Route exact path={appPath(":id")} component={AppDetails} />
+        <Route path={appInstallPath} component={AppInstall} />
+        <Route path={appPath(":id")} component={AppDetails} />
         <Route
-          exact
           path={appSettingsPath(":id")}
           component={AppDetailsSettings}
         />
         <Route
-          exact
           path={customAppPath(":id")}
           render={props => (
             <CustomAppDetails
@@ -112,10 +110,10 @@ const Component = () => {
               onTokenClose={() => setToken(null)}
             />
           )}
-        />
+        /> */}
 
         <WebhooksRoutes />
-      </Switch>
+      </Routes>
     </>
   );
 };

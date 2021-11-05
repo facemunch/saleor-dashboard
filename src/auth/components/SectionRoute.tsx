@@ -1,6 +1,6 @@
 import useUser from "@saleor/hooks/useUser";
 import React from "react";
-import { Route, RouteProps } from "react-router-dom";
+import { Route, PathRouteProps } from "react-router-dom";
 
 import NotFound from "../../NotFound";
 import { PermissionEnum } from "../../types/globalTypes";
@@ -8,7 +8,7 @@ import { hasAllPermissions, hasAnyPermissions } from "../misc";
 
 type MatchPermissionType = "all" | "any";
 
-interface SectionRouteProps extends RouteProps {
+interface SectionRouteProps extends PathRouteProps {
   permissions?: PermissionEnum[];
   matchPermission?: MatchPermissionType;
 }

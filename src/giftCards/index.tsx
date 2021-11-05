@@ -3,7 +3,8 @@ import { sectionNames } from "@saleor/intl";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Routes } from "react-router-dom";
+import { Route, RouteComponentProps } from "react-router";
 
 import GiftCardSettings from "./GiftCardSettings";
 import GiftCardListComponent from "./GiftCardsList";
@@ -39,11 +40,11 @@ const Component: React.FC = ({}) => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.giftCards)} />
-      <Switch>
+      <Routes>
         <Route path={giftCardSettingsUrl} component={GiftCardSettings} />
         <Route exact path={giftCardsListPath} component={GiftCardList} />
         <Route path={giftCardUrl(":id")} component={GiftCardUpdatePage} />
-      </Switch>
+      </Routes>
     </>
   );
 };

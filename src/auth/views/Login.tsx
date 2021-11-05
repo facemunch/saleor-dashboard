@@ -3,8 +3,8 @@ import useNavigator from "@saleor/hooks/useNavigator";
 import useUser from "@saleor/hooks/useUser";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-apollo";
+//import { useLocation } from "react-router";
 import urlJoin from "url-join";
-import useRouter from "use-react-router";
 
 import LoginPage from "../components/LoginPage";
 import { LoginFormData } from "../components/LoginPage/form";
@@ -22,7 +22,7 @@ interface LoginViewProps {
 
 const LoginView: React.FC<LoginViewProps> = ({ params }) => {
   const navigate = useNavigator();
-  const { location } = useRouter();
+  // const location = useLocation();
   const {
     login,
     requestLoginByExternalPlugin,
@@ -37,6 +37,8 @@ const LoginView: React.FC<LoginViewProps> = ({ params }) => {
   } = useQuery<AvailableExternalAuthentications>(
     availableExternalAuthentications
   );
+
+  console.log("LoginView");
 
   const handleSubmit = async (data: LoginFormData) => {
     const result = await login(data.email, data.password);
@@ -71,7 +73,7 @@ const LoginView: React.FC<LoginViewProps> = ({ params }) => {
 
   useEffect(() => {
     const { code, state } = params;
-    const isCallbackPath = location.pathname.includes(loginCallbackPath);
+    const isCallbackPath = window.location.pathname.includes(loginCallbackPath);
 
     if (code && state && isCallbackPath) {
       handleExternalAuthentication(code, state);

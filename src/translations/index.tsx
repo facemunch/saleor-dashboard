@@ -3,7 +3,7 @@ import { sectionNames } from "@saleor/intl";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Route, RouteComponentProps, Routes } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import { LanguageCodeEnum } from "../types/globalTypes";
@@ -220,7 +220,7 @@ const TranslationsRouter: React.FC = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.translations)} />
-      <Switch>
+      <Routes>
         <Route
           exact
           path={languageListPath}
@@ -314,7 +314,7 @@ const TranslationsRouter: React.FC = () => {
           )}
           component={TranslationsShippingMethod}
         />
-      </Switch>
+      </Routes>
     </>
   );
 };

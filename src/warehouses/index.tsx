@@ -4,7 +4,7 @@ import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Route, RouteComponentProps, Routes } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
@@ -49,11 +49,11 @@ export const WarehouseSection: React.FC = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.warehouses)} />
-      <Switch>
+      <Routes>
         <Route exact path={warehouseListPath} component={WarehouseList} />
         <Route exact path={warehouseAddPath} component={WarehouseCreate} />
         <Route path={warehousePath(":id")} component={WarehouseDetails} />
-      </Switch>
+      </Routes>
     </>
   );
 };

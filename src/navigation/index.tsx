@@ -2,7 +2,7 @@
 import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React from "react";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Route, RouteComponentProps, Routes } from "react-router-dom";
 
 import {
   menuListPath,
@@ -35,10 +35,10 @@ const MenuDetails: React.FC<RouteComponentProps<{ id: string }>> = ({
 };
 
 const NavigationRouter: React.FC = () => (
-  <Switch>
+  <Routes>
     <Route exact component={MenuList} path={menuListPath} />
     <Route component={MenuDetails} path={menuPath(":id")} />
-  </Switch>
+  </Routes>
 );
 
 export default NavigationRouter;

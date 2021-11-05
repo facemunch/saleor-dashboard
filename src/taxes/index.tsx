@@ -1,7 +1,8 @@
 import { sectionNames } from "@saleor/intl";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Routes } from "react-router-dom";
+import { Route, RouteComponentProps } from "react-router";
 
 import { WindowTitle } from "../components/WindowTitle";
 import { countryListPath, countryTaxRatesPath } from "./urls";
@@ -20,14 +21,14 @@ const Component = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.taxes)} />
-      <Switch>
+      <Routes>
         <Route exact path={countryListPath} component={CountryList} />
         <Route
           exact
           path={countryTaxRatesPath(":code")}
           component={CountryTaxes}
         />
-      </Switch>
+      </Routes>
     </>
   );
 };

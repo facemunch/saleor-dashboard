@@ -4,7 +4,7 @@ import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Route, RouteComponentProps, Routes } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import { saleDetailsPageTab } from "./components/SaleDetailsPage";
@@ -103,14 +103,14 @@ export const DiscountSection: React.FC<{}> = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.vouchers)} />
-      <Switch>
+      <Routes>
         <Route exact path={saleListPath} component={SaleListView} />
         <Route exact path={saleAddPath} component={SaleCreateView} />
         <Route exact path={voucherAddPath} component={VoucherCreateView} />
         <Route path={salePath(":id")} component={SaleDetailsView} />
         <Route exact path={voucherListPath} component={VoucherListView} />
         <Route path={voucherPath(":id")} component={VoucherDetailsView} />
-      </Switch>
+      </Routes>
     </>
   );
 };

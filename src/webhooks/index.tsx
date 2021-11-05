@@ -1,6 +1,6 @@
 import WebhooksCreateView from "@saleor/webhooks/views/WebhooksCreate";
 import React from "react";
-import { Route, RouteComponentProps } from "react-router-dom";
+import { Route, RouteComponentProps } from "react-router";
 
 import { webhookAddPath, webhookPath } from "./urls";
 import WebhooksDetails from "./views/WebhooksDetails";

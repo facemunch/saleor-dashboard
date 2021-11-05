@@ -4,7 +4,7 @@ import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Route, RouteComponentProps, Routes } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
@@ -58,7 +58,7 @@ const Component = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.permissionGroups)} />
-      <Switch>
+      <Routes>
         <Route
           exact
           path={permissionGroupListPath}
@@ -72,7 +72,7 @@ const Component = () => {
           path={permissionGroupDetailsPath(":id")}
           component={PermissionGroupDetails}
         />
-      </Switch>
+      </Routes>
     </>
   );
 };

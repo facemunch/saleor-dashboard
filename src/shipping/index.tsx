@@ -2,7 +2,8 @@ import { sectionNames } from "@saleor/intl";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Routes } from "react-router-dom";
+import { Route, RouteComponentProps } from "react-router";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
@@ -114,7 +115,7 @@ export const ShippingRouter: React.FC = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.shipping)} />
-      <Switch>
+      <Routes>
         <Route
           exact
           path={shippingZonesListPath}
@@ -146,7 +147,7 @@ export const ShippingRouter: React.FC = () => {
           path={shippingPriceRatesEditPath(":id", ":rateId")}
           component={PriceRatesUpdate}
         />
-      </Switch>
+      </Routes>
     </>
   );
 };
