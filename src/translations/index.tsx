@@ -56,7 +56,7 @@ const TranslationsEntities: React.FC = () => {
 const TranslationsCategories: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsCategoriesQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
   const match = useParams();
   return (
@@ -70,7 +70,7 @@ const TranslationsCategories: React.FC = () => {
 const TranslationsCollections: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsCollectionsQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
   const match = useParams();
   return (
@@ -84,7 +84,7 @@ const TranslationsCollections: React.FC = () => {
 const TranslationsProducts: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsProductsQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
   const match = useParams();
   return (
@@ -99,7 +99,7 @@ const TranslationsProducts: React.FC = () => {
 const TranslationsProductVariants: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsProductVariantsQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
   const match = useParams();
   return (
@@ -114,7 +114,7 @@ const TranslationsProductVariants: React.FC = () => {
 const TranslationsSales: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsSalesQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
   const match = useParams();
   return (
@@ -128,7 +128,7 @@ const TranslationsSales: React.FC = () => {
 const TranslationsVouchers: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsVouchersQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
   const match = useParams();
   return (
@@ -142,7 +142,7 @@ const TranslationsVouchers: React.FC = () => {
 const TranslationsPages: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsPagesQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
   const match = useParams();
   return (
@@ -156,7 +156,7 @@ const TranslationsPages: React.FC = () => {
 const TranslationsAttributes: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsAttributesQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
   const match = useParams();
   return (
@@ -170,7 +170,7 @@ const TranslationsAttributes: React.FC = () => {
 const TranslationsShippingMethod: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsShippingMethodQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
   const match = useParams();
   return (

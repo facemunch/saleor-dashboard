@@ -1,6 +1,5 @@
-import useUser from "@saleor/hooks/useUser";
 import React from "react";
-import { Route, PathRouteProps } from "react-router-dom";
+import useUser from "@saleor/hooks/useUser";
 
 import NotFound from "../../NotFound";
 import { PermissionEnum } from "../../types/globalTypes";
@@ -8,17 +7,17 @@ import { hasAllPermissions, hasAnyPermissions } from "../misc";
 
 type MatchPermissionType = "all" | "any";
 
-interface SectionRouteProps extends PathRouteProps {
+interface SectionRouteProps {
   permissions?: PermissionEnum[];
   matchPermission?: MatchPermissionType;
 }
 
 const matchAll = (match: MatchPermissionType) => match === "all";
 
-export const SectionRoute: React.FC<SectionRouteProps> = ({
+export const SectionRoute: React.FC<React.PropsWithChildren<SectionRouteProps>> = ({
   permissions,
   matchPermission = "all",
-  ...props
+  children,
 }) => {
   const { user } = useUser();
 
@@ -34,7 +33,7 @@ export const SectionRoute: React.FC<SectionRouteProps> = ({
     return hasAnyPermissions(permissions, user);
   };
 
-  return hasSectionPermissions() ? <Route {...props} /> : <NotFound />;
+  return hasSectionPermissions() ? <>{children}</> : <NotFound />;
 };
-SectionRoute.displayName = "Route";
+
 export default SectionRoute;

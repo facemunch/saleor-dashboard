@@ -11,11 +11,9 @@ function useNavigator(): UseNavigatorResult {
 
   return (url: string, replace = false, preserveQs = false) => {
     const targetUrl = preserveQs ? url + window.location.search : url;
-    if (replace) {
-      navigator(`${urlJoin('/ecommerce', targetUrl)}`, { replace: true });
-    } else {
-      navigator(`${urlJoin('/ecommerce', targetUrl)}`);
-    }
+    const clientIntegration = location.pathname.includes('ecommerce');
+    const path = `${urlJoin(clientIntegration ? '/ecommerce' : '/', targetUrl)}`;
+    navigator(path, { replace: replace });
 
     window.scrollTo({ behavior: "smooth", top: 0 });
   };
