@@ -327,6 +327,11 @@ const Routes2: React.FC = () => {
                 element={<PermissionGroupSection />}
               />
               <SectionRoute
+                permissions={[PermissionEnum.MANAGE_STAFF]}
+                path="/permission-groups/*"
+                element={<PermissionGroupSection />}
+              />
+              <SectionRoute
                 permissions={[PermissionEnum.MANAGE_SETTINGS]}
                 path="/site-settings"
                 element={<SiteSettingsSection />}
