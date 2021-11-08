@@ -48,7 +48,7 @@ export type SaleListUrlQueryParams = ActiveTab &
   SaleListUrlSort;
 export const saleListUrl = (params?: SaleListUrlQueryParams) =>
   saleListPath + "?" + stringifyQs(params);
-export const salePath = (id: string) => urlJoin(saleSection, id);
+export const salePath = (id: string, section = saleSection) => urlJoin(section, id);
 export type SaleUrlDialog =
   | "assign-category"
   | "assign-collection"
@@ -106,7 +106,7 @@ export type VoucherListUrlQueryParams = ActiveTab &
   VoucherListUrlSort;
 export const voucherListUrl = (params?: VoucherListUrlQueryParams) =>
   voucherListPath + "?" + stringifyQs(params);
-export const voucherPath = (id: string) => urlJoin(voucherSection, id);
+export const voucherPath = (id: string, section = voucherSection) => urlJoin(section, id);
 export type VoucherUrlDialog =
   | "assign-category"
   | "assign-collection"
