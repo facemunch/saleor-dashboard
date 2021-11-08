@@ -37,7 +37,7 @@ export type CollectionListUrlQueryParams = ActiveTab &
 export const collectionListUrl = (params?: CollectionListUrlQueryParams) =>
   collectionSectionUrl + "?" + stringifyQs(params);
 
-export const collectionPath = (id: string) => urlJoin(collectionSectionUrl, id);
+export const collectionPath = (id: string, section = collectionSectionUrl) => urlJoin(section, id);
 export type CollectionUrlDialog =
   | "remove"
   | "removeImage"

@@ -205,13 +205,23 @@ const Routes2: React.FC = () => {
                 element={<CollectionSection />}
               />
               <SectionRoute
+                permissions={[PermissionEnum.MANAGE_PRODUCTS]}
+                path="/collections/*"
+                element={<CollectionSection />}
+              />
+              <SectionRoute
                 permissions={[PermissionEnum.MANAGE_USERS]}
                 path="/customers"
                 element={<CustomerSection />}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_GIFT_CARD]}
-                path={giftCardsSectionUrlName}
+                path="/gift-cards"
+                element={<GiftCardSection />}
+              />
+              <SectionRoute
+                permissions={[PermissionEnum.MANAGE_GIFT_CARD]}
+                path="/gift-cards/*"
                 element={<GiftCardSection />}
               />
               <SectionRoute

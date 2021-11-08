@@ -12,7 +12,7 @@ function useNavigator(): UseNavigatorResult {
   return (url: string, replace = false, preserveQs = false) => {
     const targetUrl = preserveQs ? url + window.location.search : url;
     if (replace) {
-      //window.location.replace(`${urlJoin('/ecommerce', targetUrl)}`);
+      navigator(`${urlJoin('/ecommerce', targetUrl)}`, { replace: true });
     } else {
       navigator(`${urlJoin('/ecommerce', targetUrl)}`);
     }
