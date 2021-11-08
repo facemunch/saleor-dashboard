@@ -5,7 +5,7 @@ import usePaginator, {
 import useShop from "@saleor/hooks/useShop";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import { stringifyQs } from "@saleor/utils/urls";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { PAGINATE_BY } from "../../config";
 import { maybe } from "../../misc";
@@ -43,70 +43,73 @@ const TranslationsEntities: React.FC<TranslationsEntitiesProps> = ({
   const navigate = useNavigator();
   const paginate = usePaginator();
   const shop = useShop();
+  const pathName = location.pathname.replace('/ecommerce/', '');
 
-  if (Object.keys(TranslatableEntities).indexOf(params.tab) === -1) {
-    navigate(
-      "?" +
-        stringifyQs({
-          tab: TranslatableEntities.categories
-        }),
-      true
-    );
-  }
+  useEffect(() => {
+    if (Object.keys(TranslatableEntities).indexOf(params.tab) === -1) {
+      navigate(
+        `${pathName}?` +
+          stringifyQs({
+            tab: TranslatableEntities.categories
+          }),
+        true
+      );
+    }
+  }, [])
 
   const filterCallbacks = {
     onCategoriesTabClick: () =>
       navigate(
-        "?" +
+        `${pathName}?` +
           stringifyQs({
             tab: TranslatableEntities.categories
           })
       ),
     onCollectionsTabClick: () =>
       navigate(
-        "?" +
+        `${pathName}?` +
           stringifyQs({
             tab: TranslatableEntities.collections
           })
       ),
     onPagesTabClick: () =>
       navigate(
-        "?" +
+        `${pathName}?` +
           stringifyQs({
             tab: TranslatableEntities.pages
           })
       ),
     onAttributesTabClick: () =>
       navigate(
-        "?" +
+        `${pathName}?` +
           stringifyQs({
             tab: TranslatableEntities.attributes
           })
       ),
     onProductsTabClick: () =>
       navigate(
-        "?" +
+        `${pathName}?` +
           stringifyQs({
             tab: TranslatableEntities.products
           })
       ),
     onSalesTabClick: () =>
       navigate(
-        "?" +
+        `${pathName}?` +
           stringifyQs({
             tab: TranslatableEntities.sales
           })
       ),
     onShippingMethodsTabClick: () =>
       navigate(
-        "?" +
+        `${pathName}?` +
           stringifyQs({
             tab: TranslatableEntities.shippingMethods
           })
       ),
     onVouchersTabClick: () =>
       navigate(
-        "?" +
+        `${pathName}?` +
           stringifyQs({
             tab: TranslatableEntities.vouchers
           })

@@ -21,8 +21,8 @@ const translationsSection = "/translations/";
 export const languageListPath = translationsSection;
 export const languageListUrl = translationsSection;
 
-export const languageEntitiesPath = (code: string) =>
-  urlJoin(translationsSection, code);
+export const languageEntitiesPath = (code: string, section = translationsSection) =>
+  urlJoin(section, code);
 export type LanguageEntitiesUrlQueryParams = Pagination &
   Partial<{
     query: string;
@@ -30,31 +30,42 @@ export type LanguageEntitiesUrlQueryParams = Pagination &
   }>;
 export const languageEntitiesUrl = (
   code: string,
-  params: LanguageEntitiesUrlQueryParams
-) => languageEntitiesPath(code) + "?" + stringifyQs(params);
+  params: LanguageEntitiesUrlQueryParams,
+  section = translationsSection
+) => { 
+  console.log(section)
+  return languageEntitiesPath(code, section) + "?" + stringifyQs(params);
+}
 
 export const languageEntityPath = (
+  section = translationsSection,
   code: string,
   entity: TranslatableEntities,
   id: string,
   ...args: string[]
-) => urlJoin(languageEntitiesPath(code), entity.toString(), id, ...args);
+) => urlJoin(languageEntitiesPath(code, section), entity.toString(), id, ...args);
 export const languageEntityUrl = (
   code: string,
   entity: TranslatableEntities,
   id: string,
+  section = translationsSection,
   ...args: string[]
-) => languageEntityPath(code, entity, encodeURIComponent(id), ...args);
+) => {
+  console.log(section)
+  return languageEntityPath(section, code, entity, encodeURIComponent(id), ...args);
+}
 
 export const productVariantUrl = (
   code: string,
   productId: string,
-  variantId: string
+  variantId: string,
+  section = translationsSection
 ) =>
   languageEntityUrl(
     code,
     TranslatableEntities.products,
     productId,
+    section,
     TranslatableEntities.productVariants,
     variantId
   );

@@ -367,6 +367,11 @@ const Routes2: React.FC = () => {
                 element={<TranslationsSection />}
               />
               <SectionRoute
+                permissions={[PermissionEnum.MANAGE_TRANSLATIONS]}
+                path="/translations/*"
+                element={<TranslationsSection />}
+              />
+              <SectionRoute
                 permissions={[PermissionEnum.MANAGE_MENUS]}
                 path={navigationSection}
                 element={<NavigationSection />}
