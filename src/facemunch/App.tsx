@@ -12,7 +12,7 @@ import { ApolloProvider } from "react-apollo";
 import ErrorBoundary from "react-error-boundary";
 import TagManager from "react-gtm-module";
 import { useIntl } from "react-intl";
-import { BrowserRouter, Routes } from "react-router-dom";
+import { Routes } from "react-router-dom";
 import { Route } from "react-router";
 import introspectionQueryResultData from "../../fragmentTypes.json";
 import AppsSection from "../apps";
@@ -38,7 +38,7 @@ import { LocaleProvider } from "../components/Locale";
 import MessageManagerProvider from "../components/messages";
 import { ShopProvider } from "../components/Shop";
 import { WindowTitle } from "../components/WindowTitle";
-import { API_URI, APP_MOUNT_URI, DEMO_MODE, GTM_ID } from "../config";
+import { API_URI, DEMO_MODE, GTM_ID } from "../config";
 import ConfigurationSection from "../configuration";
 import { getConfigMenuItemsPermissions } from "../configuration/utils";
 import AppStateProvider from "../containers/AppState";
@@ -47,11 +47,9 @@ import ServiceWorker from "../containers/ServiceWorker/ServiceWorker";
 import { CustomerSection } from "../customers";
 import DiscountSection from "../discounts";
 import GiftCardSection from "../giftCards";
-import { giftCardsSectionUrlName } from "../giftCards/urls";
 import HomePage from "../home";
 import { commonMessages } from "../intl";
 import NavigationSection from "../navigation";
-import { navigationSection } from "../navigation/urls";
 import { NotFound } from "../NotFound";
 import OrdersSection from "../orders";
 import PageSection from "../pages";
@@ -373,7 +371,12 @@ const Routes2: React.FC = () => {
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_MENUS]}
-                path={navigationSection}
+                path="/navigation"
+                element={<NavigationSection />}
+              />
+              <SectionRoute
+                permissions={[PermissionEnum.MANAGE_MENUS]}
+                path="/navigation/*"
                 element={<NavigationSection />}
               />
               <SectionRoute
