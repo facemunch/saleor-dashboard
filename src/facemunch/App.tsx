@@ -273,6 +273,11 @@ const Routes2: React.FC = () => {
                 element={<PluginsSection />}
               />
               <SectionRoute
+                permissions={[PermissionEnum.MANAGE_PLUGINS]}
+                path="/plugins/*"
+                element={<PluginsSection />}
+              />
+              <SectionRoute
                 permissions={[PermissionEnum.MANAGE_ORDERS]}
                 path="/orders"
                 element={<OrdersSection />}
