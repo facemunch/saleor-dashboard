@@ -305,6 +305,13 @@ const Routes2: React.FC = () => {
                 element={<ProductTypesSection />}
               />
               <SectionRoute
+                permissions={[
+                  PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES
+                ]}
+                path="/product-types/*"
+                element={<ProductTypesSection />}
+              />
+              <SectionRoute
                 permissions={[PermissionEnum.MANAGE_STAFF]}
                 path="/staff"
                 element={<StaffSection />}

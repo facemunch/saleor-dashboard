@@ -45,7 +45,7 @@ export const productTypeAddPath = urlJoin(productTypeSection, "add");
 export const productTypeAddUrl = (params?: ProductTypeAddUrlQueryParams) =>
   productTypeAddPath + "?" + stringifyQs(params);
 
-export const productTypePath = (id: string) => urlJoin(productTypeSection, id);
+export const productTypePath = (id: string, section = productTypeSection) => urlJoin(section, id);
 export type ProductTypeUrlDialog =
   | "assign-attribute"
   | "unassign-attribute"
