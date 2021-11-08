@@ -5,5 +5,5 @@ export const taxSection = "/taxes/";
 export const countryListPath = taxSection;
 export const countryListUrl = taxSection;
 
-export const countryTaxRatesPath = (code: string) => urlJoin(taxSection, code);
+export const countryTaxRatesPath = (code: string, section = taxSection) => urlJoin(section, code);
 export const countryTaxRatesUrl = countryTaxRatesPath;

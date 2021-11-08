@@ -1,19 +1,15 @@
 import { sectionNames } from "@saleor/intl";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Routes } from "react-router-dom";
-import { Route, RouteComponentProps } from "react-router";
+import { Routes, useParams } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
-import { countryListPath, countryTaxRatesPath } from "./urls";
+import { countryTaxRatesPath } from "./urls";
 import CountryList from "./views/CountryList";
-import CountryTaxesComponent, {
-  CountryTaxesParams
-} from "./views/CountryTaxes";
+import CountryTaxesComponent from "./views/CountryTaxes";
 
-const CountryTaxes: React.FC<RouteComponentProps<CountryTaxesParams>> = ({
-  match
-}) => <CountryTaxesComponent code={match.params.code} />;
+const CountryTaxes: React.FC = () => <CountryTaxesComponent code={useParams().code} />;
 
 const Component = () => {
   const intl = useIntl();
@@ -22,11 +18,10 @@ const Component = () => {
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.taxes)} />
       <Routes>
-        <Route exact path={countryListPath} component={CountryList} />
+        <Route path="" element={<CountryList />} />
         <Route
-          exact
-          path={countryTaxRatesPath(":code")}
-          component={CountryTaxes}
+          path={countryTaxRatesPath(":code", "")}
+          element={<CountryTaxes />}
         />
       </Routes>
     </>
