@@ -62,8 +62,8 @@ const AuthRouter: React.FC = () => (
     <Routes>
       <Route path={passwordResetSuccessPath} element={<ResetPasswordSuccess />} />
       <Route path={passwordResetPath} element={<ResetPassword />} />
-      {/* <Route path={newPasswordPath} element={<NewPassword />} /> */}
-      <Route path="" element={<LoginView />} />
+      <Route path={newPasswordPath} element={<NewPassword />} />
+      <Route path="/*" element={<LoginView />} />
     </Routes>
   </Layout>
 );

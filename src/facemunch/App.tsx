@@ -12,8 +12,7 @@ import { ApolloProvider } from "react-apollo";
 import ErrorBoundary from "react-error-boundary";
 import TagManager from "react-gtm-module";
 import { useIntl } from "react-intl";
-import { Routes } from "react-router-dom";
-import { Route } from "react-router";
+import { Routes, Route } from "react-router-dom";
 import introspectionQueryResultData from "../../fragmentTypes.json";
 import AppsSection from "../apps";
 import { ExternalAppProvider } from "../apps/components/ExternalAppContext";
@@ -429,7 +428,7 @@ const Routes2: React.FC = () => {
                 path="/configuration"
                 element={<ConfigurationSection />}
               />
-              <Route component={NotFound} />
+              <Route element={<NotFound />} />
             </Routes>
           </ErrorBoundary>
         </AppLayout>

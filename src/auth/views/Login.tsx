@@ -3,7 +3,6 @@ import useNavigator from "@saleor/hooks/useNavigator";
 import useUser from "@saleor/hooks/useUser";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-apollo";
-//import { useLocation } from "react-router";
 import urlJoin from "url-join";
 
 import LoginPage from "../components/LoginPage";
