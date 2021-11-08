@@ -1,9 +1,7 @@
-// @ts-nocheck
 import useNavigator from "@saleor/hooks/useNavigator";
 import useUser from "@saleor/hooks/useUser";
 import { parse as parseQs } from "qs";
 import React from "react";
-import { RouteComponentProps } from "react-router";
 
 import NewPasswordPage, {
   NewPasswordPageFormData
@@ -12,7 +10,7 @@ import { SetPasswordMutation } from "../mutations";
 import { SetPassword } from "../types/SetPassword";
 import { NewPasswordUrlQueryParams } from "../urls";
 
-const NewPassword: React.FC<RouteComponentProps> = ({ location }) => {
+const NewPassword: React.FC = () => {
   const navigate = useNavigator();
   const { loginByToken } = useUser();
 
