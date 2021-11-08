@@ -189,9 +189,14 @@ const Routes2: React.FC = () => {
           >
             <Routes>
               <SectionRoute path="/" element={<HomePage />} />
-              {/* <SectionRoute
+              <SectionRoute
                 permissions={[PermissionEnum.MANAGE_PRODUCTS]}
                 path="/categories"
+                element={<CategorySection />}
+              />
+              <SectionRoute
+                permissions={[PermissionEnum.MANAGE_PRODUCTS]}
+                path="/categories/*"
                 element={<CategorySection />}
               />
               <SectionRoute
@@ -237,7 +242,7 @@ const Routes2: React.FC = () => {
                 permissions={[PermissionEnum.MANAGE_ORDERS]}
                 path="/orders"
                 element={<OrdersSection />}
-              /> */}
+              />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_PRODUCTS]}
                 path="products"
@@ -248,7 +253,7 @@ const Routes2: React.FC = () => {
                 path="products/*"
                 element={ <ProductSection />}
               />
-              {/* <SectionRoute
+              <SectionRoute
                 permissions={[
                   PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES
                 ]}
@@ -319,7 +324,7 @@ const Routes2: React.FC = () => {
                 permissions={getConfigMenuItemsPermissions(intl)}
                 path="/configuration"
                 element={<ConfigurationSection />}
-              /> */}
+              />
               <Route component={NotFound} />
             </Routes>
           </ErrorBoundary>

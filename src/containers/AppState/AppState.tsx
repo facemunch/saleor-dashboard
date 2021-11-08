@@ -1,5 +1,4 @@
 import React from "react";
-import { useLocation } from "react-router";
 import appStateReducer, { AppStateReducerAction } from "./reducer";
 import IAppState, { initialAppState } from "./state";
 
@@ -12,20 +11,19 @@ export const AppStateContext = React.createContext<AppStateContextType>([
   () => undefined
 ]);
 const AppStateProvider: React.FC = ({ children }) => {
-  // const location = useLocation();
   const stateAndDispatch = React.useReducer(appStateReducer, initialAppState);
   const [state, dispatch] = stateAndDispatch;
 
-  // React.useEffect(() => {
-  //   if (!!state.error) {
-  //     dispatch({
-  //       payload: {
-  //         error: undefined
-  //       },
-  //       type: "displayError"
-  //     });
-  //   }
-  // }, [location]);
+  React.useEffect(() => {
+    if (!!state.error) {
+      dispatch({
+        payload: {
+          error: undefined
+        },
+        type: "displayError"
+      });
+    }
+  }, [location]);
 
   return (
     <AppStateContext.Provider value={stateAndDispatch}>

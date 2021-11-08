@@ -4,15 +4,13 @@ import { getArrayQueryParam } from "@saleor/utils/urls";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Location, PathMatch, Route, Routes, useLocation, useMatch, useParams } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
-  productAddPath,
   ProductCreateUrlQueryParams,
   productImagePath,
   ProductImageUrlQueryParams,
-  productListPath,
   ProductListUrlQueryParams,
   ProductListUrlSortField,
   productPath,
@@ -71,23 +69,23 @@ const ProductCreate: React.FC = () => {
   return <ProductCreateComponent params={params} />;
 };
 
-// const ProductVariant: React.FC<RouteComponentProps<any>> = ({ match }) => {
-//   const qs = parseQs(location.search.substr(1));
-//   const params: ProductVariantEditUrlQueryParams = qs;
+const ProductVariant: React.FC = () => {
+  const qs = parseQs(location.search.substr(1));
+  const params: ProductVariantEditUrlQueryParams = qs;
+  const match = useParams();
 
-//   return (
-//     <ProductVariantComponent
-//       variantId={decodeURIComponent(match.params.variantId)}
-//       productId={decodeURIComponent(match.params.productId)}
-//       params={params}
-//     />
-//   );
-// };
+  return (
+    <ProductVariantComponent
+      variantId={decodeURIComponent(match.variantId)}
+      productId={decodeURIComponent(match.productId)}
+      params={params}
+    />
+  );
+};
 
 const ProductImage: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ProductImageUrlQueryParams = qs;
-
   const match = useParams();
 
   return (
@@ -99,25 +97,23 @@ const ProductImage: React.FC = () => {
   );
 };
 
-// const ProductVariantCreate: React.FC<RouteComponentProps<any>> = ({
-//   match
-// }) => {
-//   const qs = parseQs(location.search.substr(1));
-//   const params: ProductVariantAddUrlQueryParams = qs;
+const ProductVariantCreate: React.FC = () => {
+  const qs = parseQs(location.search.substr(1));
+  const params: ProductVariantAddUrlQueryParams = qs;
+  const match = useParams();
 
-//   return (
-//     <ProductVariantCreateComponent
-//       productId={decodeURIComponent(match.params.id)}
-//       params={params}
-//     />
-//   );
-// };
+  return (
+    <ProductVariantCreateComponent
+      productId={decodeURIComponent(match.id)}
+      params={params}
+    />
+  );
+};
 
-// const ProductVariantCreator: React.FC<RouteComponentProps<{
-//   id: string;
-// }>> = ({ match }) => (
-//   <ProductVariantCreatorComponent id={decodeURIComponent(match.params.id)} />
-// );
+const ProductVariantCreator: React.FC = () => {
+  const match = useParams();
+  return <ProductVariantCreatorComponent id={decodeURIComponent(match.id)} />
+};
 
 const Component = () => {
   const intl = useIntl();
@@ -128,23 +124,23 @@ const Component = () => {
       <Routes>
         <Route path="" element={<ProductList />} />
         <Route path="add" element={<ProductCreate />} />
-        {/* <Route
-          path={productVariantCreatorPath(":id")}
-          element={ProductVariantCreator}
+        <Route
+          path={productVariantCreatorPath(":id", "")}
+          element={<ProductVariantCreator />}
         />
         <Route
-          path={productVariantAddPath(":id")}
-          element={ProductVariantCreate}
+          path={productVariantAddPath(":id", "")}
+          element={<ProductVariantCreate />}
         />
         <Route
-          path={productVariantEditPath(":productId", ":variantId")}
-          element={ProductVariant}
-        />*/}
+          path={productVariantEditPath(":productId", ":variantId", "")}
+          element={<ProductVariant />}
+        />
         <Route
-          path={":productId/image/:imageId"}
+          path={productImagePath(":productId", ":imageId", "")}
           element={<ProductImage />}
         /> 
-        <Route path=":id" element={<ProductUpdate />} />
+        <Route path={productPath(":id", "")} element={<ProductUpdate />} />
       </Routes>
     </>
   );
