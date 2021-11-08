@@ -338,6 +338,11 @@ const Routes2: React.FC = () => {
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_SETTINGS]}
+                path="/site-settings/*"
+                element={<SiteSettingsSection />}
+              />
+              <SectionRoute
+                permissions={[PermissionEnum.MANAGE_SETTINGS]}
                 path="/taxes"
                 element={<TaxesSection />}
               />

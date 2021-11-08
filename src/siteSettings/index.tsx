@@ -1,12 +1,12 @@
 import { parse as parseQs } from "qs";
 import React from "react";
-import { Route, RouteComponentProps } from "react-router";
+import { Route, Routes } from "react-router-dom";
 
 
-import { siteSettingsPath, SiteSettingsUrlQueryParams } from "./urls";
+import { SiteSettingsUrlQueryParams } from "./urls";
 import SiteSettingsComponent from "./views/";
 
-const SiteSettings: React.FC<RouteComponentProps<{}>> = ({ location }) => {
+const SiteSettings: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: SiteSettingsUrlQueryParams = qs;
 
@@ -14,6 +14,8 @@ const SiteSettings: React.FC<RouteComponentProps<{}>> = ({ location }) => {
 };
 
 export const SiteSettingsSection: React.FC = () => (
-  <Route path={siteSettingsPath} component={SiteSettings} />
+  <Routes>
+    <Route path="" element={<SiteSettings />} />
+  </Routes>
 );
 export default SiteSettingsSection;
