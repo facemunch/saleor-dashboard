@@ -34,7 +34,7 @@ export type StaffListUrlQueryParams = ActiveTab &
 export const staffListUrl = (params?: StaffListUrlQueryParams) =>
   staffListPath + "?" + stringifyQs(params);
 
-export const staffMemberDetailsPath = (id: string) => urlJoin(staffSection, id);
+export const staffMemberDetailsPath = (id: string, section = staffSection) => urlJoin(section, id);
 export type StaffMemberDetailsUrlDialog =
   | "change-password"
   | "remove"

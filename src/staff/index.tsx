@@ -1,14 +1,12 @@
-// @ts-nocheck
 import { sectionNames } from "@saleor/intl";
 import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, RouteComponentProps, Routes } from "react-router-dom";
+import { Route, useParams, Routes } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
-  staffListPath,
   StaffListUrlQueryParams,
   StaffListUrlSortField,
   staffMemberDetailsPath,
@@ -17,7 +15,7 @@ import {
 import StaffDetailsComponent from "./views/StaffDetails";
 import StaffListComponent from "./views/StaffList";
 
-const StaffList: React.FC<RouteComponentProps<{}>> = ({ location }) => {
+const StaffList: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: StaffListUrlQueryParams = asSortParams(
     qs,
@@ -27,18 +25,14 @@ const StaffList: React.FC<RouteComponentProps<{}>> = ({ location }) => {
   return <StaffListComponent params={params} />;
 };
 
-interface StaffDetailsRouteProps {
-  id: string;
-}
-const StaffDetails: React.FC<RouteComponentProps<StaffDetailsRouteProps>> = ({
-  match
-}) => {
+const StaffDetails: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: StaffMemberDetailsUrlQueryParams = qs;
+  const match = useParams();
 
   return (
     <StaffDetailsComponent
-      id={decodeURIComponent(match.params.id)}
+      id={decodeURIComponent(match.id)}
       params={params}
     />
   );
@@ -51,8 +45,8 @@ const Component = () => {
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.staff)} />
       <Routes>
-        <Route exact path={staffListPath} component={StaffList} />
-        <Route path={staffMemberDetailsPath(":id")} component={StaffDetails} />
+        <Route path="" element={<StaffList />} />
+        <Route path={staffMemberDetailsPath(":id", "")} element={<StaffDetails />} />
       </Routes>
     </>
   );
