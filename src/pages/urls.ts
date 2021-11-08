@@ -36,7 +36,7 @@ export type PageListUrlQueryParams = BulkAction &
 export const pageListUrl = (params?: PageListUrlQueryParams) =>
   pageListPath + "?" + stringifyQs(params);
 
-export const pagePath = (id: string) => urlJoin(pagesSection, id);
+export const pagePath = (id: string, section = pagesSection) => urlJoin(section, id);
 export type PageUrlDialog = "remove" | "assign-attribute-value";
 export type PageUrlQueryParams = Dialog<PageUrlDialog> & SingleAction;
 export const pageUrl = (id: string, params?: PageUrlQueryParams) =>

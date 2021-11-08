@@ -1,15 +1,12 @@
-// @ts-nocheck
 import { sectionNames } from "@saleor/intl";
 import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, RouteComponentProps, Routes } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
-  pageCreatePath,
-  pageListPath,
   PageListUrlQueryParams,
   PageListUrlSortField,
   pagePath,
@@ -19,7 +16,7 @@ import PageCreateComponent from "./views/PageCreate";
 import PageDetailsComponent from "./views/PageDetails";
 import PageListComponent from "./views/PageList";
 
-const PageList: React.FC<RouteComponentProps<any>> = ({ location }) => {
+const PageList: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: PageListUrlQueryParams = asSortParams(
     qs,
@@ -29,25 +26,27 @@ const PageList: React.FC<RouteComponentProps<any>> = ({ location }) => {
   return <PageListComponent params={params} />;
 };
 
-const PageCreate: React.FC<RouteComponentProps<any>> = ({ match }) => {
+const PageCreate: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: PageUrlQueryParams = qs;
+  const match = useParams();
 
   return (
     <PageCreateComponent
-      id={decodeURIComponent(match.params.id)}
+      id={decodeURIComponent(match.id)}
       params={params}
     />
   );
 };
 
-const PageDetails: React.FC<RouteComponentProps<any>> = ({ match }) => {
+const PageDetails: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: PageUrlQueryParams = qs;
+  const match = useParams();
 
   return (
     <PageDetailsComponent
-      id={decodeURIComponent(match.params.id)}
+      id={decodeURIComponent(match.id)}
       params={params}
     />
   );
@@ -60,9 +59,9 @@ const Component = () => {
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.pages)} />
       <Routes>
-        <Route exact path={pageListPath} component={PageList} />
-        <Route exact path={pageCreatePath} component={PageCreate} />
-        <Route path={pagePath(":id")} component={PageDetails} />
+        <Route path="" element={<PageList />} />
+        <Route path="add" element={<PageCreate />} />
+        <Route path={pagePath(":id", "")} element={<PageDetails />} />
       </Routes>
     </>
   );

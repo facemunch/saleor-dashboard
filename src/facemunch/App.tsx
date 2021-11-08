@@ -245,6 +245,11 @@ const Routes2: React.FC = () => {
                 element={<PageSection />}
               />
               <SectionRoute
+                permissions={[PermissionEnum.MANAGE_PAGES]}
+                path="/pages/*"
+                element={<PageSection />}
+              />
+              <SectionRoute
                 permissions={[
                   PermissionEnum.MANAGE_PAGES,
                   PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
