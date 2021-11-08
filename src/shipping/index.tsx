@@ -2,8 +2,7 @@ import { sectionNames } from "@saleor/intl";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Routes } from "react-router-dom";
-import { Route, RouteComponentProps } from "react-router";
+import { Routes, Route, useParams } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
@@ -13,9 +12,7 @@ import {
   ShippingRateUrlQueryParams,
   shippingWeightRatesEditPath,
   shippingWeightRatesPath,
-  shippingZoneAddPath,
   shippingZonePath,
-  shippingZonesListPath,
   ShippingZonesListUrlQueryParams,
   ShippingZoneUrlQueryParams
 } from "./urls";
@@ -27,83 +24,73 @@ import ShippingZonesListComponent from "./views/ShippingZonesList";
 import WeightRatesCreateComponent from "./views/WeightRatesCreate";
 import WeightRatesUpdateComponent from "./views/WeightRatesUpdate";
 
-const ShippingZonesList: React.FC<RouteComponentProps<{}>> = ({ location }) => {
+const ShippingZonesList: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ShippingZonesListUrlQueryParams = qs;
   return <ShippingZonesListComponent params={params} />;
 };
 
-interface ShippingZoneDetailsRouteProps {
-  id: string;
-}
-const ShippingZoneDetails: React.FC<RouteComponentProps<
-  ShippingZoneDetailsRouteProps
->> = ({ location, match }) => {
+const ShippingZoneDetails: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ShippingZoneUrlQueryParams = qs;
+  const match = useParams();
   return (
     <ShippingZoneDetailsComponent
-      id={decodeURIComponent(match.params.id)}
+      id={decodeURIComponent(match.id)}
       params={params}
     />
   );
 };
 
-const PriceRatesCreate: React.FC<RouteComponentProps<{ id: string }>> = ({
-  match
-}) => {
+const PriceRatesCreate: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ShippingRateCreateUrlQueryParams = qs;
+  const match = useParams();
 
   return (
     <PriceRatesCreateComponent
-      id={decodeURIComponent(match.params.id)}
+      id={decodeURIComponent(match.id)}
       params={params}
     />
   );
 };
 
-const WeightRatesCreate: React.FC<RouteComponentProps<{ id: string }>> = ({
-  match
-}) => {
+const WeightRatesCreate: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ShippingRateCreateUrlQueryParams = qs;
+  const match = useParams();
 
   return (
     <WeightRatesCreateComponent
-      id={decodeURIComponent(match.params.id)}
+      id={decodeURIComponent(match.id)}
       params={params}
     />
   );
 };
 
-const WeightRatesUpdate: React.FC<RouteComponentProps<{
-  id: string;
-  rateId: string;
-}>> = ({ match }) => {
+const WeightRatesUpdate: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ShippingRateUrlQueryParams = qs;
+  const match = useParams();
 
   return (
     <WeightRatesUpdateComponent
-      id={decodeURIComponent(match.params.id)}
-      rateId={decodeURIComponent(match.params.rateId)}
+      id={decodeURIComponent(match.id)}
+      rateId={decodeURIComponent(match.rateId)}
       params={params}
     />
   );
 };
 
-const PriceRatesUpdate: React.FC<RouteComponentProps<{
-  id: string;
-  rateId: string;
-}>> = ({ match }) => {
+const PriceRatesUpdate: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ShippingRateUrlQueryParams = qs;
+  const match = useParams();
 
   return (
     <PriceRatesUpdateComponent
-      id={decodeURIComponent(match.params.id)}
-      rateId={decodeURIComponent(match.params.rateId)}
+      id={decodeURIComponent(match.id)}
+      rateId={decodeURIComponent(match.rateId)}
       params={params}
     />
   );
@@ -117,35 +104,32 @@ export const ShippingRouter: React.FC = () => {
       <WindowTitle title={intl.formatMessage(sectionNames.shipping)} />
       <Routes>
         <Route
-          exact
-          path={shippingZonesListPath}
-          component={ShippingZonesList}
+          path=""
+          element={<ShippingZonesList />}
         />
         <Route
-          exact
-          path={shippingZoneAddPath}
-          component={ShippingZoneCreate}
+          path="add"
+          element={<ShippingZoneCreate />}
         />
         <Route
-          exact
-          path={shippingZonePath(":id")}
-          component={ShippingZoneDetails}
+          path={shippingZonePath(":id", "")}
+          element={<ShippingZoneDetails />}
         />
         <Route
-          path={shippingPriceRatesPath(":id")}
-          component={PriceRatesCreate}
+          path={shippingPriceRatesPath(":id", "")}
+          element={<PriceRatesCreate />}
         />
         <Route
-          path={shippingWeightRatesPath(":id")}
-          component={WeightRatesCreate}
+          path={shippingWeightRatesPath(":id", "")}
+          element={<WeightRatesCreate />}
         />
         <Route
-          path={shippingWeightRatesEditPath(":id", ":rateId")}
-          component={WeightRatesUpdate}
+          path={shippingWeightRatesEditPath(":id", ":rateId", "")}
+          element={<WeightRatesUpdate />}
         />
         <Route
-          path={shippingPriceRatesEditPath(":id", ":rateId")}
-          component={PriceRatesUpdate}
+          path={shippingPriceRatesEditPath(":id", ":rateId", "")}
+          element={<PriceRatesUpdate />}
         />
       </Routes>
     </>

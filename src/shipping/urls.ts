@@ -17,8 +17,8 @@ export const shippingZonesListUrl = (
   params?: ShippingZonesListUrlQueryParams
 ) => shippingZonesListPath + "?" + stringifyQs(params);
 
-export const shippingZonePath = (id: string) =>
-  urlJoin(shippingZonesListPath, id);
+export const shippingZonePath = (id: string, section = shippingZonesListPath) =>
+  urlJoin(section, id);
 export type ShippingZoneUrlDialog =
   | "add-rate"
   | "add-warehouse"
@@ -58,23 +58,23 @@ export type ShippingRateCreateUrlQueryParams = Dialog<
 > &
   SingleAction;
 
-export const shippingPriceRatesPath = (id: string) =>
-  urlJoin(shippingZonePath(id), "price", "add");
+export const shippingPriceRatesPath = (id: string, section = shippingZonesListPath) =>
+  urlJoin(shippingZonePath(id, section), "price", "add");
 export const shippingPriceRatesUrl = (
   id: string,
   params?: ShippingRateCreateUrlQueryParams
 ) => shippingPriceRatesPath(encodeURIComponent(id)) + "?" + stringifyQs(params);
 
-export const shippingWeightRatesPath = (id: string) =>
-  urlJoin(shippingZonePath(id), "weight", "add");
+export const shippingWeightRatesPath = (id: string, section = shippingZonesListPath) =>
+  urlJoin(shippingZonePath(id, section), "weight", "add");
 export const shippingWeightRatesUrl = (
   id: string,
   params?: ShippingRateCreateUrlQueryParams
 ) =>
   shippingWeightRatesPath(encodeURIComponent(id)) + "?" + stringifyQs(params);
 
-export const shippingPriceRatesEditPath = (id: string, rateId: string) =>
-  urlJoin(shippingZonePath(id), "price", rateId);
+export const shippingPriceRatesEditPath = (id: string, rateId: string, section = shippingZonesListPath) =>
+  urlJoin(shippingZonePath(id, section), "price", rateId);
 export const shippingPriceRatesEditUrl = (
   id: string,
   rateId: string,
@@ -87,8 +87,8 @@ export const shippingPriceRatesEditUrl = (
   "?" +
   stringifyQs(params);
 
-export const shippingWeightRatesEditPath = (id: string, rateId: string) =>
-  urlJoin(shippingZonePath(id), "weight", rateId);
+export const shippingWeightRatesEditPath = (id: string, rateId: string, section = shippingZonesListPath) =>
+  urlJoin(shippingZonePath(id, section), "weight", rateId);
 export const shippingWeightRatesEditUrl = (
   id: string,
   rateId: string,
