@@ -93,7 +93,7 @@ export const orderDraftListUrl = (
   }
 };
 
-export const orderPath = (id: string) => urlJoin(orderSectionUrl, id);
+export const orderPath = (id: string, section = orderSectionUrl) => urlJoin(section, id);
 
 export type OrderUrlDialog =
   | "add-order-line"
@@ -117,17 +117,17 @@ export type OrderUrlQueryParams = Dialog<OrderUrlDialog> & SingleAction;
 export const orderUrl = (id: string, params?: OrderUrlQueryParams) =>
   orderPath(encodeURIComponent(id)) + "?" + stringifyQs(params);
 
-export const orderFulfillPath = (id: string) =>
-  urlJoin(orderPath(id), "fulfill");
+export const orderFulfillPath = (id: string, section = orderSectionUrl) =>
+  urlJoin(orderPath(id, section), "fulfill");
 
-export const orderReturnPath = (id: string) => urlJoin(orderPath(id), "return");
+export const orderReturnPath = (id: string, section = orderSectionUrl) => urlJoin(orderPath(id, section), "return");
 
 export const orderFulfillUrl = (id: string) =>
   orderFulfillPath(encodeURIComponent(id));
 
 export const orderSettingsPath = urlJoin(orderSectionUrl, "settings");
 
-export const orderRefundPath = (id: string) => urlJoin(orderPath(id), "refund");
+export const orderRefundPath = (id: string, section = orderSectionUrl) => urlJoin(orderPath(id, section), "refund");
 
 export const orderRefundUrl = (id: string) =>
   orderRefundPath(encodeURIComponent(id));
