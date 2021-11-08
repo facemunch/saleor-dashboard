@@ -14,14 +14,14 @@ export type WebhookListUrlQueryParams = ActiveTab &
   Dialog<WebhookListUrlDialog> &
   SingleAction;
 
-export const webhookPath = (id: string) =>
-  urlJoin(appsSection, webhookSection, id);
+export const webhookPath = (id: string, section = appsSection) =>
+  urlJoin(section, webhookSection, id);
 
 export type WebhookUrlDialog = "remove";
 export type WebhookUrlQueryParams = Dialog<WebhookUrlDialog> & SingleAction;
 export const webhookUrl = (id: string, params?: WebhookUrlQueryParams) =>
   webhookPath(encodeURIComponent(id)) + "?" + stringifyQs(params);
 
-export const webhookAddPath = (id: string) =>
-  urlJoin(customAppListPath, id, webhookSection, "add");
+export const webhookAddPath = (id: string, section = customAppListPath) =>
+  urlJoin(section, id, webhookSection, "add");
 export const webhookAddUrl = webhookAddPath;

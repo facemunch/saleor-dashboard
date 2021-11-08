@@ -3,19 +3,15 @@ import WebhooksRoutes from "@saleor/webhooks";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Routes, Route } from "react-router-dom";
-import { RouteComponentProps } from "react-router";
+import { Routes, Route, useParams } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
   AppDetailsUrlQueryParams,
-  appInstallPath,
   AppInstallUrlQueryParams,
   AppListUrlQueryParams,
   appPath,
   appSettingsPath,
-  appsListPath,
-  customAppAddPath,
   customAppPath,
   CustomAppUrlQueryParams
 } from "./urls";
@@ -26,41 +22,37 @@ import AppsListView from "./views/AppsList";
 import CustomAppCreateView from "./views/CustomAppCreate";
 import CustomAppDetailsView from "./views/CustomAppDetails";
 
-const AppDetails: React.FC<RouteComponentProps<{ id: string }>> = ({
-  match
-}) => {
+const AppDetails: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: AppDetailsUrlQueryParams = qs;
+  const match = useParams();
 
   return (
-    <AppDetailsView id={decodeURIComponent(match.params.id)} params={params} />
+    <AppDetailsView id={decodeURIComponent(match.id)} params={params} />
   );
 };
 
-const AppDetailsSettings: React.FC<RouteComponentProps<{ id: string }>> = ({
-  match
-}) => <AppDetailsSettingsView id={decodeURIComponent(match.params.id)} />;
+const AppDetailsSettings: React.FC = () => <AppDetailsSettingsView id={decodeURIComponent(useParams().id)} />;
 
-const AppInstall: React.FC<RouteComponentProps> = props => {
+const AppInstall: React.FC = props => {
   const qs = parseQs(location.search.substr(1));
   const params: AppInstallUrlQueryParams = qs;
 
   return <AppInstallView params={params} {...props} />;
 };
 
-interface CustomAppDetailsProps extends RouteComponentProps<{ id?: string }> {
+interface CustomAppDetailsProps {
   token: string;
   onTokenClose: () => void;
 }
 
 const CustomAppDetails: React.FC<CustomAppDetailsProps> = ({
-  match,
   token,
   onTokenClose
 }) => {
   const qs = parseQs(location.search.substr(1));
   const params: CustomAppUrlQueryParams = qs;
-  const id = match.params.id;
+  const id = useParams().id;
 
   if (!id) {
     throw new Error("No ID provided");
@@ -68,7 +60,7 @@ const CustomAppDetails: React.FC<CustomAppDetailsProps> = ({
 
   return (
     <CustomAppDetailsView
-      id={decodeURIComponent(match.params.id)}
+      id={decodeURIComponent(id)}
       params={params}
       token={token}
       onTokenClose={onTokenClose}
@@ -76,7 +68,7 @@ const CustomAppDetails: React.FC<CustomAppDetailsProps> = ({
   );
 };
 
-const AppsList: React.FC<RouteComponentProps> = () => {
+const AppsList: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: AppListUrlQueryParams = qs;
 
@@ -90,30 +82,28 @@ const Component = () => {
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.apps)} />
       <Routes>
-        {/* <Route path={appsListPath} component={AppsList} />
+        <Route path="" element={<AppsList />} />
         <Route
-          path={customAppAddPath}
-          render={() => <CustomAppCreateView setToken={setToken} />}
+          path="custom/add"
+          element={<CustomAppCreateView setToken={setToken} />}
         />
-        <Route path={appInstallPath} component={AppInstall} />
-        <Route path={appPath(":id")} component={AppDetails} />
+        <Route path="install" element={<AppInstall />} />
+        <Route path={appPath(":id", "")} element={<AppDetails />} />
         <Route
-          path={appSettingsPath(":id")}
-          component={AppDetailsSettings}
+          path={appSettingsPath(":id", "")}
+          element={<AppDetailsSettings />}
         />
         <Route
-          path={customAppPath(":id")}
-          render={props => (
+          path={customAppPath(":id", "custom")}
+          element={
             <CustomAppDetails
-              {...props}
               token={token}
               onTokenClose={() => setToken(null)}
             />
-          )}
-        /> */}
-
-        <WebhooksRoutes />
+          }
+        />
       </Routes>
+      <WebhooksRoutes />
     </>
   );
 };

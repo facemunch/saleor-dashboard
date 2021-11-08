@@ -399,7 +399,12 @@ const Routes2: React.FC = () => {
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_APPS]}
-                path={appsSection}
+                path="/apps"
+                element={<AppsSection />}
+              />
+              <SectionRoute
+                permissions={[PermissionEnum.MANAGE_APPS]}
+                path="/apps/*"
                 element={<AppsSection />}
               />
               <SectionRoute

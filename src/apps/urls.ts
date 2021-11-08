@@ -37,10 +37,10 @@ export const appsListPath = appsSection;
 
 export const customAppListPath = "/apps/custom/";
 
-export const appPath = (id: string) => urlJoin(appsSection, id);
-export const appSettingsPath = (id: string) =>
-  urlJoin(appsSection, id, "settings");
-export const customAppPath = (id: string) => urlJoin(customAppListPath, id);
+export const appPath = (id: string, section = appsSection) => urlJoin(section, id);
+export const appSettingsPath = (id: string, section = appsSection) =>
+  urlJoin(section, id, "settings");
+export const customAppPath = (id: string, section = customAppListPath) => urlJoin(section, id);
 export const appInstallPath = urlJoin(appsSection, "install");
 export const appInstallUrl = appInstallPath;
 
