@@ -17,9 +17,7 @@ import { Route } from "react-router";
 import introspectionQueryResultData from "../../fragmentTypes.json";
 import AppsSection from "../apps";
 import { ExternalAppProvider } from "../apps/components/ExternalAppContext";
-import { appsSection } from "../apps/urls";
 import AttributeSection from "../attributes";
-import { attributeSection } from "../attributes/urls";
 import Auth from "../auth";
 import AuthProvider, { useAuth } from "../auth/AuthProvider";
 import LoginLoading from "../auth/components/LoginLoading/LoginLoading";
@@ -67,7 +65,6 @@ import themeOverrides from "../themeOverrides";
 import TranslationsSection from "../translations";
 import { PermissionEnum } from "../types/globalTypes";
 import WarehouseSection from "../warehouses";
-import { warehouseSection } from "../warehouses/urls";
 
 if (process.env.GTM_ID) {
   TagManager.initialize({ gtmId: GTM_ID });
@@ -409,7 +406,12 @@ const Routes2: React.FC = () => {
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_PRODUCTS]}
-                path={warehouseSection}
+                path="/warehouses"
+                element={<WarehouseSection />}
+              />
+              <SectionRoute
+                permissions={[PermissionEnum.MANAGE_PRODUCTS]}
+                path="/warehouses/*"
                 element={<WarehouseSection />}
               />
               <SectionRoute

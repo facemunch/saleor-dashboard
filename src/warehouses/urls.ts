@@ -32,7 +32,7 @@ export type WarehouseListUrlQueryParams = ActiveTab &
 export const warehouseListUrl = (params?: WarehouseListUrlQueryParams) =>
   warehouseListPath + "?" + stringifyQs(params);
 
-export const warehousePath = (id: string) => urlJoin(warehouseSection, id);
+export const warehousePath = (id: string, section = warehouseSection) => urlJoin(section, id);
 export type WarehouseUrlDialog = "delete";
 export type WarehouseUrlQueryParams = Dialog<WarehouseUrlDialog> & SingleAction;
 export const warehouseUrl = (id: string, params?: WarehouseUrlQueryParams) =>
