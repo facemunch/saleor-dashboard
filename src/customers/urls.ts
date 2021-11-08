@@ -39,7 +39,7 @@ export type CustomerListUrlQueryParams = ActiveTab &
 export const customerListUrl = (params?: CustomerListUrlQueryParams) =>
   customerListPath + "?" + stringifyQs(params);
 
-export const customerPath = (id: string) => urlJoin(customerSection, id);
+export const customerPath = (id: string, section = customerSection) => urlJoin(section, id);
 export type CustomerUrlDialog = "remove";
 export type CustomerUrlQueryParams = Dialog<CustomerUrlDialog>;
 export const customerUrl = (id: string, params?: CustomerUrlQueryParams) =>
@@ -48,8 +48,8 @@ export const customerUrl = (id: string, params?: CustomerUrlQueryParams) =>
 export const customerAddPath = urlJoin(customerSection, "add");
 export const customerAddUrl = customerAddPath;
 
-export const customerAddressesPath = (id: string) =>
-  urlJoin(customerPath(id), "addresses");
+export const customerAddressesPath = (id: string, section = customerSection) =>
+  urlJoin(customerPath(id, section), "addresses");
 export type CustomerAddressesUrlDialog = "add" | "edit" | "remove";
 export type CustomerAddressesUrlQueryParams = Dialog<
   CustomerAddressesUrlDialog
