@@ -384,7 +384,16 @@ const Routes2: React.FC = () => {
                   PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES,
                   PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
                 ]}
-                path={attributeSection}
+                path="/attributes"
+                element={<AttributeSection />}
+                matchPermission="any"
+              />
+              <SectionRoute
+                permissions={[
+                  PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES,
+                  PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
+                ]}
+                path="/attributes/*"
                 element={<AttributeSection />}
                 matchPermission="any"
               />
