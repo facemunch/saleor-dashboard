@@ -31,7 +31,7 @@ export const channelsListUrl = (params?: ChannelsListUrlQueryParams) =>
 export const channelAddPath = urlJoin(channelsSection, "add");
 export const channelAddUrl = channelAddPath;
 
-export const channelPath = (id: string) => urlJoin(channelsSection, id);
+export const channelPath = (id: string, section = channelsSection) => urlJoin(section, id);
 
 export const channelUrl = (id: string, params?: ChannelsListUrlQueryParams) =>
   channelPath(encodeURIComponent(id)) + "?" + stringifyQs(params);

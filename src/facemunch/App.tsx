@@ -25,7 +25,6 @@ import SectionRoute from "../auth/components/SectionRoute";
 import authLink from "../auth/link";
 import CategorySection from "../categories";
 import ChannelsSection from "../channels";
-import { channelsSection } from "../channels/urls";
 import CollectionSection from "../collections";
 import AppLayout from "../components/AppLayout";
 import useAppChannel, {
@@ -416,7 +415,12 @@ const Routes2: React.FC = () => {
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_CHANNELS]}
-                path={channelsSection}
+                path="/channels"
+                element={<ChannelsSection />}
+              />
+              <SectionRoute
+                permissions={[PermissionEnum.MANAGE_CHANNELS]}
+                path="/channels/*"
                 element={<ChannelsSection />}
               />
               <SectionRoute
