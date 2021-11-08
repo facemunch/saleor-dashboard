@@ -37,7 +37,7 @@ export const pageTypeListUrl = (params?: PageTypeListUrlQueryParams) =>
 export const pageTypeAddPath = urlJoin(pageTypeSection, "add");
 export const pageTypeAddUrl = pageTypeAddPath;
 
-export const pageTypePath = (id: string) => urlJoin(pageTypeSection, id);
+export const pageTypePath = (id: string, section = pageTypeSection) => urlJoin(section, id);
 export type PageTypeUrlDialog =
   | "assign-attribute"
   | "unassign-attribute"

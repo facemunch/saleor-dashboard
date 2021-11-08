@@ -259,6 +259,15 @@ const Routes2: React.FC = () => {
                 matchPermission="any"
               />
               <SectionRoute
+                permissions={[
+                  PermissionEnum.MANAGE_PAGES,
+                  PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
+                ]}
+                path="/page-types/*"
+                element={<PageTypesSection />}
+                matchPermission="any"
+              />
+              <SectionRoute
                 permissions={[PermissionEnum.MANAGE_PLUGINS]}
                 path="/plugins"
                 element={<PluginsSection />}
