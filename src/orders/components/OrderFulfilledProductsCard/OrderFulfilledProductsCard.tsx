@@ -1,4 +1,4 @@
-import { Card, IconButton, TableBody } from "@material-ui/core";
+import { Card, IconButton, TableBody } from "@mui/material";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import { OrderDetailsFragment } from "@saleor/fragments/types/OrderDetailsFragment";

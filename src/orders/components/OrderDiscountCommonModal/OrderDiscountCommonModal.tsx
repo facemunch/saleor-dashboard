@@ -3,9 +3,9 @@ import {
   CardContent,
   Popper,
   TextField,
-  Typography
-} from "@material-ui/core";
-import { PopperPlacementType } from "@material-ui/core/Popper";
+  Typography,
+  PopperPlacementType
+} from "@mui/material";
 import DialogButtons from "@saleor/components/ActionDialog/DialogButtons";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ConfirmButton, {

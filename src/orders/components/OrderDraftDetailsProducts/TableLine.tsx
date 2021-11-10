@@ -1,5 +1,5 @@
-import { IconButton, TableCell, TableRow, Typography } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { IconButton, TableCell, TableRow, Typography } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import Link from "@saleor/components/Link";
 import Money from "@saleor/components/Money";
 import TableCellAvatar from "@saleor/components/TableCellAvatar";

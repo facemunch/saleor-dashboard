@@ -1,4 +1,4 @@
-import { TableCell, TableRow } from "@material-ui/core";
+import { TableCell, TableRow } from "@mui/material";
 import Skeleton from "@saleor/components/Skeleton";
 import React from "react";
 

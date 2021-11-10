@@ -4,7 +4,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle
-} from "@material-ui/core";
+} from "@mui/material";
 import { ProductMediaFragment } from "@saleor/fragments/types/ProductMediaFragment";
 import { buttonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";

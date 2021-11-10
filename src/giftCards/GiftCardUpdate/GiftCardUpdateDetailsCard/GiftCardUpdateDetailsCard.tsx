@@ -4,7 +4,7 @@ import {
   CardContent,
   Divider,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import VerticalSpacer from "@saleor/apps/components/VerticalSpacer";
 import CardSpacer from "@saleor/components/CardSpacer";
 import CardTitle from "@saleor/components/CardTitle";

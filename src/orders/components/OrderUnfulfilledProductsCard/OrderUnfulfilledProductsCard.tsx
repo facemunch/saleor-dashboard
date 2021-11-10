@@ -4,7 +4,7 @@ import {
   CardActions,
   TableBody,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import { commonMessages } from "@saleor/intl";

@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@material-ui/core";
+import { Card, CardContent } from "@mui/material";
 import AddressEdit from "@saleor/components/AddressEdit";
 import { mapCountriesToChoices } from "@saleor/utils/maps";
 import { storiesOf } from "@storybook/react";

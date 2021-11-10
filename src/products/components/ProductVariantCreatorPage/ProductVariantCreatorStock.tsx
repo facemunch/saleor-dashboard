@@ -6,7 +6,7 @@ import {
   RadioGroup,
   TextField,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import CardSpacer from "@saleor/components/CardSpacer";
 import CardTitle from "@saleor/components/CardTitle";
 import ControlledCheckbox from "@saleor/components/ControlledCheckbox";

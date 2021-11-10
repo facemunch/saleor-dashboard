@@ -1,4 +1,4 @@
-import { LinearProgress, useMediaQuery } from "@material-ui/core";
+import { LinearProgress, useMediaQuery } from "@mui/material";
 import useAppState from "@saleor/hooks/useAppState";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useUser from "@saleor/hooks/useUser";

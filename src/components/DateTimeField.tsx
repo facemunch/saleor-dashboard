@@ -1,5 +1,4 @@
-import { TextField } from "@material-ui/core";
-import { TextFieldProps } from "@material-ui/core/TextField";
+import { TextField, TextFieldProps } from "@mui/material";
 import { getErrorMessage } from "@saleor/components/Attributes/utils";
 import { PageErrorWithAttributesFragment } from "@saleor/fragments/types/PageErrorWithAttributesFragment";
 import { ProductErrorWithAttributesFragment } from "@saleor/fragments/types/ProductErrorWithAttributesFragment";

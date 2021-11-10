@@ -1,6 +1,5 @@
-import { IconButton, TextField, Typography } from "@material-ui/core";
-import { fade } from "@material-ui/core/styles/colorManipulator";
-import CloseIcon from "@material-ui/icons/Close";
+import { IconButton, TextField, Typography, alpha } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import Debounce, { DebounceProps } from "@saleor/components/Debounce";
 import ArrowDropdownIcon from "@saleor/icons/ArrowDropdown";
 import { makeStyles } from "@saleor/macaw-ui";
@@ -34,7 +33,7 @@ const useStyles = makeStyles(
         color: theme.palette.primary.contrastText
       },
       alignItems: "center",
-      background: fade(theme.palette.primary.main, 0.8),
+      background: alpha(theme.palette.primary.main, 0.8),
       borderRadius: 18,
       color: theme.palette.primary.contrastText,
       display: "flex",
@@ -55,7 +54,7 @@ const useStyles = makeStyles(
         color: theme.palette.grey[200]
       },
       alignItems: "center",
-      background: fade(theme.palette.grey[400], 0.8),
+      background: alpha(theme.palette.grey[400], 0.8),
       borderRadius: 18,
       color: theme.palette.primary.contrastText,
       display: "flex",

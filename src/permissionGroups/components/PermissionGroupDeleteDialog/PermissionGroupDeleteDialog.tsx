@@ -1,4 +1,4 @@
-import { DialogContentText, Typography } from "@material-ui/core";
+import { DialogContentText, Typography } from "@mui/material";
 import ActionDialog from "@saleor/components/ActionDialog";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import { PermissionGroupErrorFragment } from "@saleor/fragments/types/PermissionGroupErrorFragment";

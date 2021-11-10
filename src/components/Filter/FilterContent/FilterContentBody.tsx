@@ -1,5 +1,4 @@
-import { FormControlLabel, Radio, TextField } from "@material-ui/core";
-import { fade } from "@material-ui/core/styles/colorManipulator";
+import { FormControlLabel, Radio, TextField, alpha } from "@mui/material";
 import { FilterDateTimeField } from "@saleor/components/Filter/FilterContent/FilterDateTimeField";
 import { FilterNumericField } from "@saleor/components/Filter/FilterContent/FilterNumericField";
 import { FilterSingleSelectField } from "@saleor/components/Filter/FilterContent/FilterSingleSelectField";
@@ -19,7 +18,7 @@ import { FieldType, IFilterElement } from "../types";
 const useStyles = makeStyles(
   theme => ({
     filterSettings: {
-      background: fade(theme.palette.primary.main, 0.1),
+      background: alpha(theme.palette.primary.main, 0.1),
       padding: theme.spacing(2, 3)
     },
 

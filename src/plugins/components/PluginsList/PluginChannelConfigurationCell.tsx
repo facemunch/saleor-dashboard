@@ -1,4 +1,4 @@
-import { TableCell } from "@material-ui/core";
+import { TableCell } from "@mui/material";
 import { PluginBaseFragment } from "@saleor/fragments/types/PluginBaseFragment";
 import { isPluginGlobal } from "@saleor/plugins/views/utils";
 import React from "react";

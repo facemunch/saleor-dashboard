@@ -1,4 +1,4 @@
-import { Card, CardContent, TextField } from "@material-ui/core";
+import { Card, CardContent, TextField } from "@mui/material";
 import { NumericUnits } from "@saleor/attributes/components/AttributeDetails/NumericUnits";
 import CardTitle from "@saleor/components/CardTitle";
 import ControlledCheckbox from "@saleor/components/ControlledCheckbox";
@@ -55,7 +55,7 @@ export interface AttributeDetailsProps
   canChangeType: boolean;
   disabled: boolean;
   apiErrors: AttributeErrorFragment[];
-  onChange: (event: React.ChangeEvent<any>) => void;
+  onChange: (event: any) => void;
 }
 
 const AttributeDetails: React.FC<AttributeDetailsProps> = props => {

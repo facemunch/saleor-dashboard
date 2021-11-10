@@ -1,4 +1,4 @@
-import { InputAdornment } from "@material-ui/core";
+import { InputAdornment } from "@mui/material";
 import HorizontalSpacer from "@saleor/apps/components/HorizontalSpacer";
 import BasicAttributeRow from "@saleor/components/Attributes/BasicAttributeRow";
 import {

@@ -1,4 +1,4 @@
-import { Tooltip } from "@material-ui/core";
+import { Tooltip } from "@mui/material";
 import moment from "moment-timezone";
 import React from "react";
 import ReactMoment from "react-moment";

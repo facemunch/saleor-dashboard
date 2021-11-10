@@ -1,4 +1,4 @@
-import { Button, DialogContentText } from "@material-ui/core";
+import { Button, DialogContentText } from "@mui/material";
 import ActionDialog from "@saleor/components/ActionDialog";
 import { DEFAULT_INITIAL_PAGINATION_DATA } from "@saleor/config";
 import { configurationMenuUrl } from "@saleor/configuration";

@@ -1,5 +1,4 @@
-import { Typography } from "@material-ui/core";
-import { fade } from "@material-ui/core/styles/colorManipulator";
+import { Typography, alpha } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
@@ -22,7 +21,7 @@ interface ImageUploadProps {
 const useStyles = makeStyles(
   theme => ({
     backdrop: {
-      background: fade(theme.palette.primary.main, 0.1),
+      background: alpha(theme.palette.primary.main, 0.1),
       color: theme.palette.primary.main
     },
     fileField: {

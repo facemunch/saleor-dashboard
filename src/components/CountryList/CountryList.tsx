@@ -6,9 +6,9 @@ import {
   TableBody,
   TableCell,
   TableRow
-} from "@material-ui/core";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import DeleteIcon from "@material-ui/icons/Delete";
+} from "@mui/material";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import DeleteIcon from "@mui/icons-material/Delete";
 import CardTitle from "@saleor/components/CardTitle";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";

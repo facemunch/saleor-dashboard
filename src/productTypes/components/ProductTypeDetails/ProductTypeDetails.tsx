@@ -4,7 +4,7 @@ import {
   Divider,
   TextField,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import RadioGroupField from "@saleor/components/RadioGroupField";
 import { commonMessages } from "@saleor/intl";

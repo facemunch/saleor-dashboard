@@ -1,4 +1,4 @@
-import { Button, DialogActions } from "@material-ui/core";
+import { Button, DialogActions } from "@mui/material";
 import { buttonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";

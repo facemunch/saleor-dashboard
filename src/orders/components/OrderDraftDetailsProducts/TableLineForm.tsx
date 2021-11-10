@@ -1,4 +1,4 @@
-import { TextField } from "@material-ui/core";
+import { TextField } from "@mui/material";
 import DebounceForm from "@saleor/components/DebounceForm";
 import Form from "@saleor/components/Form";
 import { makeStyles } from "@saleor/macaw-ui";

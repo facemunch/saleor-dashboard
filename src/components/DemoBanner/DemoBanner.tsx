@@ -1,5 +1,4 @@
-import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme, useMediaQuery } from "@mui/material";
 import ExternalLink from "@saleor/components/ExternalLink";
 import React from "react";
 import { FormattedMessage } from "react-intl";

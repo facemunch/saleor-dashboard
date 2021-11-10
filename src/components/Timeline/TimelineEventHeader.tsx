@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";

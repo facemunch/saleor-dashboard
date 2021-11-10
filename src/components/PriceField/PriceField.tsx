@@ -1,5 +1,4 @@
-import { InputAdornment, TextField } from "@material-ui/core";
-import { InputProps } from "@material-ui/core/Input";
+import { InputAdornment, TextField, InputProps } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage } from "react-intl";

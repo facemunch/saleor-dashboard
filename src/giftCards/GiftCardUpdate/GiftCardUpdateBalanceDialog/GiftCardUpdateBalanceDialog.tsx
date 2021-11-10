@@ -1,4 +1,4 @@
-import { TextField, Typography } from "@material-ui/core";
+import { TextField, Typography } from "@mui/material";
 import ActionDialog from "@saleor/components/ActionDialog";
 import CardSpacer from "@saleor/components/CardSpacer";
 import { IMessage } from "@saleor/components/messages";

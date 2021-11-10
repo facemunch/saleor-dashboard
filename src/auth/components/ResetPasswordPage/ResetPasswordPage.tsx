@@ -1,4 +1,4 @@
-import { Button, TextField, Typography } from "@material-ui/core";
+import { Button, TextField, Typography } from "@mui/material";
 import Form from "@saleor/components/Form";
 import FormSpacer from "@saleor/components/FormSpacer";
 import { commonMessages } from "@saleor/intl";

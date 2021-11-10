@@ -1,4 +1,4 @@
-import { Button, Typography } from "@material-ui/core";
+import { Button, Typography } from "@mui/material";
 import CardSpacer from "@saleor/components/CardSpacer";
 import Container from "@saleor/components/Container";
 import Grid from "@saleor/components/Grid";

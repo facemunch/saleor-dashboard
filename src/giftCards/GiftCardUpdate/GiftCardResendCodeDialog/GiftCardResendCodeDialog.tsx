@@ -1,4 +1,4 @@
-import { CircularProgress, TextField, Typography } from "@material-ui/core";
+import { CircularProgress, TextField, Typography } from "@mui/material";
 import VerticalSpacer from "@saleor/apps/components/VerticalSpacer";
 import { useChannelsList } from "@saleor/channels/queries";
 import ActionDialog from "@saleor/components/ActionDialog";

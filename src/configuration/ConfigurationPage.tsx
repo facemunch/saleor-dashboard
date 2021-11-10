@@ -1,7 +1,5 @@
-import { Card, CardContent, Typography } from "@material-ui/core";
-import { IconProps } from "@material-ui/core/Icon";
-import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { Card, CardContent, Typography, IconProps, useMediaQuery} from "@mui/material";
+import { useTheme } from "@mui/styles";
 import { User } from "@saleor/fragments/types/User";
 import { sectionNames } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
@@ -113,7 +111,7 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
   } = props;
   const classes = useStyles(props);
   const theme = useTheme();
-  const isSmUp = useMediaQuery(theme.breakpoints.up("sm"));
+  const isSmUp = true; // TODO RA MIGRATION useMediaQuery(theme.breakpoints.up("sm")); 
 
   const renderVersionInfo = (
     <VersionInfo

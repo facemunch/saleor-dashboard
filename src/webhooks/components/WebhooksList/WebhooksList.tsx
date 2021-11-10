@@ -6,8 +6,8 @@ import {
   TableCell,
   TableHead,
   TableRow
-} from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { App_app_webhooks } from "@saleor/apps/types/App";
 import CardTitle from "@saleor/components/CardTitle";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";

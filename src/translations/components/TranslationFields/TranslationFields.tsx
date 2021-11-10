@@ -5,8 +5,8 @@ import {
   CardContent,
   IconButton,
   Typography
-} from "@material-ui/core";
-import ArrowIcon from "@material-ui/icons/ArrowDropDown";
+} from "@mui/material";
+import ArrowIcon from "@mui/icons-material/ArrowDropDown";
 import CardTitle from "@saleor/components/CardTitle";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Grid from "@saleor/components/Grid";

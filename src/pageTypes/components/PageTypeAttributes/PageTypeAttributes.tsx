@@ -4,8 +4,8 @@ import {
   IconButton,
   TableCell,
   TableRow
-} from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import CardTitle from "@saleor/components/CardTitle";
 import Checkbox from "@saleor/components/Checkbox";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";

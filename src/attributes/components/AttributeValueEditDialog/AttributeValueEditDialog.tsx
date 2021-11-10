@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogTitle,
   TextField
-} from "@material-ui/core";
+} from "@mui/material";
 import { getAttributeValueErrorMessage } from "@saleor/attributes/errors";
 import ConfirmButton, {
   ConfirmButtonTransitionState

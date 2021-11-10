@@ -4,9 +4,9 @@ import {
   CardContent,
   Hidden,
   TableCell,
-  Typography
-} from "@material-ui/core";
-import { fade } from "@material-ui/core/styles/colorManipulator";
+  Typography,
+  alpha
+} from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import Checkbox from "@saleor/components/Checkbox";
 import LimitReachedAlert from "@saleor/components/LimitReachedAlert";
@@ -105,7 +105,7 @@ const useStyles = makeStyles(
     colSku: {},
     colStatus: {},
     defaultVariant: {
-      color: fade(theme.palette.text.secondary, 0.6),
+      color: alpha(theme.palette.text.secondary, 0.6),
       display: "block"
     },
     link: {

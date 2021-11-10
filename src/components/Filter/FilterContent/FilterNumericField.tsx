@@ -1,4 +1,4 @@
-import { TextField } from "@material-ui/core";
+import { TextField } from "@mui/material";
 import { FieldType } from "@saleor/components/Filter";
 import Arrow from "@saleor/components/Filter/Arrow";
 import React from "react";

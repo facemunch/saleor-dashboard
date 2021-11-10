@@ -1,4 +1,4 @@
-import { Fade, Modal, Paper } from "@material-ui/core";
+import { Fade, Modal, Paper } from "@mui/material";
 import { APP_VERSION } from "@saleor/config";
 import useLocalStorage from "@saleor/hooks/useLocalStorage";
 import useNotifier from "@saleor/hooks/useNotifier";

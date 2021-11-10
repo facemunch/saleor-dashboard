@@ -1,5 +1,4 @@
-import { TableCell, Toolbar } from "@material-ui/core";
-import { IconButtonProps } from "@material-ui/core/IconButton";
+import { TableCell, Toolbar, IconButtonProps } from "@mui/material";
 import RowNumberSelect from "@saleor/components/RowNumberSelect";
 import { makeStyles } from "@saleor/macaw-ui";
 import { maybe } from "@saleor/misc";

@@ -1,4 +1,4 @@
-import { Card, CardContent, TextField } from "@material-ui/core";
+import { Card, CardContent, TextField } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import { MenuErrorFragment } from "@saleor/fragments/types/MenuErrorFragment";
 import { commonMessages } from "@saleor/intl";

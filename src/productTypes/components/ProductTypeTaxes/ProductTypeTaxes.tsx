@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@material-ui/core";
+import { Card, CardContent } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import SingleAutocompleteSelectField from "@saleor/components/SingleAutocompleteSelectField";
 import { makeStyles } from "@saleor/macaw-ui";

@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@material-ui/core";
+import { Card, CardContent } from "@mui/material";
 import { getMeasurementUnitMessage } from "@saleor/attributes/components/AttributeDetails/utils";
 import { getMultiChoices } from "@saleor/components/Attributes/utils";
 import CardSpacer from "@saleor/components/CardSpacer";

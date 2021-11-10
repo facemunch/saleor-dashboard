@@ -4,7 +4,7 @@ import {
   CardContent,
   TextField,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import { CollectionErrorFragment } from "@saleor/fragments/types/CollectionErrorFragment";
 import { PageErrorFragment } from "@saleor/fragments/types/PageErrorFragment";
 import { ProductErrorFragment } from "@saleor/fragments/types/ProductErrorFragment";

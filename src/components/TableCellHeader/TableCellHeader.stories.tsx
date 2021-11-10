@@ -4,7 +4,7 @@ import {
   TableCell,
   TableHead,
   TableRow
-} from "@material-ui/core";
+} from "@mui/material";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import { storiesOf } from "@storybook/react";
 import React from "react";

@@ -5,7 +5,7 @@ import {
   TableCell,
   TableHead,
   TableRow
-} from "@material-ui/core";
+} from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import { DateTime } from "@saleor/components/Date";
 import Money from "@saleor/components/Money";

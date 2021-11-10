@@ -3,7 +3,7 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup
-} from "@material-ui/core";
+} from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";

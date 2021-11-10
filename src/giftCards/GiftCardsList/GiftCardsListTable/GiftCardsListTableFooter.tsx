@@ -1,4 +1,4 @@
-import { TableFooter, TableRow } from "@material-ui/core";
+import { TableFooter, TableRow } from "@mui/material";
 import TablePagination from "@saleor/components/TablePagination";
 import usePaginator from "@saleor/hooks/usePaginator";
 import React from "react";

@@ -4,8 +4,8 @@ import {
   TextField,
   Tooltip,
   Typography
-} from "@material-ui/core";
-import InfoIcon from "@material-ui/icons/Info";
+} from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
 import CardTitle from "@saleor/components/CardTitle";
 import ControlledSwitch from "@saleor/components/ControlledSwitch";
 import { PluginConfigurationFragment_configuration } from "@saleor/fragments/types/PluginConfigurationFragment";
@@ -113,7 +113,7 @@ const PluginSettings: React.FC<PluginSettingsProps> = ({
                     fieldData.type === ConfigurationTypeFieldEnum.MULTILINE
                   }
                   InputProps={{
-                    rowsMax: 6,
+                    maxRows: 6,
                     readOnly:
                       fieldData.type === ConfigurationTypeFieldEnum.OUTPUT
                   }}

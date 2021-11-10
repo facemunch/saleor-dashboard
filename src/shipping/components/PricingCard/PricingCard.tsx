@@ -5,7 +5,7 @@ import {
   TableCell,
   TableRow,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import { ChannelShippingData } from "@saleor/channels/utils";
 import CardTitle from "@saleor/components/CardTitle";
 import PriceField from "@saleor/components/PriceField";

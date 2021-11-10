@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { useIntl } from "react-intl";

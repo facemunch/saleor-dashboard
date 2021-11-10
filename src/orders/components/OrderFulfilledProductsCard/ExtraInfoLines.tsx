@@ -1,4 +1,4 @@
-import { TableCell, TableRow, Typography } from "@material-ui/core";
+import { TableCell, TableRow, Typography } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import { getStringOrPlaceholder } from "@saleor/misc";
 import { FulfillmentStatus } from "@saleor/types/globalTypes";

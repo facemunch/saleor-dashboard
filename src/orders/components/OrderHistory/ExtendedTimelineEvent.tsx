@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import Money from "@saleor/components/Money";
 import { TimelineEvent } from "@saleor/components/Timeline";
 import { makeStyles } from "@saleor/macaw-ui";

@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import VerticalSpacer from "@saleor/apps/components/VerticalSpacer";
 import React from "react";
 

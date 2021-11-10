@@ -111,7 +111,8 @@ const apolloClient = new ApolloClient({
 const App: React.FC = () => (
   <ApolloProvider client={apolloClient}>
     {/* <HashRouter basename={"/ecommerce"}> */}
-      <ThemeProvider overrides={themeOverrides}>
+      {/* TODO RA MIGRATION <ThemeProvider overrides={themeOverrides}> */}
+      <ThemeProvider>
         <DateProvider>
           <LocaleProvider>
             <MessageManagerProvider>

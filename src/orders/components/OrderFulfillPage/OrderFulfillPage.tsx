@@ -6,9 +6,8 @@ import {
   TableHead,
   TableRow,
   TextField,
-  Typography
-} from "@material-ui/core";
-import { CSSProperties } from "@material-ui/styles";
+  Typography,
+} from "@mui/material";
 import { drawerWidthExpanded } from "@saleor/components/AppLayout/consts";
 import CardTitle from "@saleor/components/CardTitle";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
@@ -44,7 +43,7 @@ import { messages } from "./messages";
 
 const useStyles = makeStyles(
   theme => {
-    const inputPadding: CSSProperties = {
+    const inputPadding = {
       paddingBottom: theme.spacing(2),
       paddingTop: theme.spacing(2)
     };

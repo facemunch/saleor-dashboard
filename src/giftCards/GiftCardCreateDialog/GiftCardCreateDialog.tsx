@@ -1,4 +1,4 @@
-import { Dialog, DialogTitle } from "@material-ui/core";
+import { Dialog, DialogTitle } from "@mui/material";
 import { IMessage } from "@saleor/components/messages";
 import useCurrentDate from "@saleor/hooks/useCurrentDate";
 import useNotifier from "@saleor/hooks/useNotifier";

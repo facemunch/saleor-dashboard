@@ -1,7 +1,8 @@
-import MuiCheckbox, {
-  CheckboxProps as MuiCheckboxProps
-} from "@material-ui/core/Checkbox";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import {
+  Checkbox as MuiCheckbox,
+  CheckboxProps as MuiCheckboxProps,
+  FormHelperText
+} from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 

@@ -14,11 +14,11 @@ import {
   TableHead,
   TableRow,
   TextField,
-  Typography
-} from "@material-ui/core";
-import { fade } from "@material-ui/core/styles/colorManipulator";
-import AddIcon from "@material-ui/icons/Add";
-import DeleteIcon from "@material-ui/icons/Delete";
+  Typography,
+  alpha
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   ChannelData,
   ChannelPriceAndPreorderArgs
@@ -127,7 +127,7 @@ const useStyles = makeStyles(
       padding: theme.spacing(2)
     },
     popper: {
-      boxShadow: `0px 5px 10px 0 ${fade(theme.palette.common.black, 0.05)}`,
+      boxShadow: `0px 5px 10px 0 ${alpha(theme.palette.common.black, 0.05)}`,
       marginTop: theme.spacing(1),
       zIndex: 2
     },

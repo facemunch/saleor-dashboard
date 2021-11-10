@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogTitle,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import ConfirmButton, {
   ConfirmButtonTransitionState
 } from "@saleor/components/ConfirmButton";

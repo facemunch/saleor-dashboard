@@ -1,5 +1,5 @@
-import { Button, IconButton, Typography } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { Button, IconButton, Typography } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { FileFragment } from "@saleor/fragments/types/FileFragment";
 import { commonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";

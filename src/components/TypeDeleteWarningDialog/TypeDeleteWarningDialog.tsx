@@ -1,4 +1,4 @@
-import { Card, CardContent, CircularProgress, Modal } from "@material-ui/core";
+import { Card, CardContent, CircularProgress, Modal } from "@mui/material";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import ModalTitle from "@saleor/orders/components/OrderDiscountCommonModal/ModalTitle";
 import { getById } from "@saleor/orders/components/OrderReturnPage/utils";

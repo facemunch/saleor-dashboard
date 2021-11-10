@@ -6,7 +6,7 @@ import {
   TableCell,
   TableRow,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import Date from "@saleor/components/Date";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";

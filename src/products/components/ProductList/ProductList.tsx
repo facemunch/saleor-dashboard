@@ -4,7 +4,7 @@ import {
   TableFooter,
   TableRow,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import AvailabilityStatusLabel from "@saleor/components/AvailabilityStatusLabel";
 import { ChannelsAvailabilityDropdown } from "@saleor/components/ChannelsAvailabilityDropdown";
 import Checkbox from "@saleor/components/Checkbox";

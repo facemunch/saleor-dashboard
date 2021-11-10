@@ -5,9 +5,8 @@ import {
   MenuItem,
   OutlinedInput,
   Select
-} from "@material-ui/core";
-import { InputProps } from "@material-ui/core/Input";
-import { SelectProps } from "@material-ui/core/Select";
+} from "@mui/material";
+import { InputProps, SelectProps } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
@@ -50,7 +49,7 @@ interface SingleSelectFieldProps {
   placeholder?: string;
   value?: string;
   InputProps?: InputProps;
-  onChange(event: any);
+  onChange(event: any): void;
 }
 
 export const SingleSelectField: React.FC<SingleSelectFieldProps> = props => {
@@ -90,7 +89,6 @@ export const SingleSelectField: React.FC<SingleSelectFieldProps> = props => {
       </InputLabel>
       <Select
         data-test-id={testId}
-        variant="outlined"
         fullWidth
         renderValue={choiceValue =>
           choiceValue ? choicesByKey[choiceValue.toString()] : placeholder
@@ -105,7 +103,6 @@ export const SingleSelectField: React.FC<SingleSelectFieldProps> = props => {
               })
             }}
             name={name}
-            labelWidth={180}
             {...InputProps}
           />
         }

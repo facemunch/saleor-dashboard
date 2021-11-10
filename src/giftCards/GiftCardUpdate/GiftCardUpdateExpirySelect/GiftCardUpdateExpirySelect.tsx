@@ -1,4 +1,4 @@
-import { TextField, Typography } from "@material-ui/core";
+import { TextField, Typography } from "@mui/material";
 import VerticalSpacer from "@saleor/apps/components/VerticalSpacer";
 import ControlledCheckbox from "@saleor/components/ControlledCheckbox";
 import { getGiftCardErrorMessage } from "@saleor/giftCards/GiftCardUpdate/messages";

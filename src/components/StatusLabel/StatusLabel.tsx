@@ -1,6 +1,6 @@
-import { Typography } from "@material-ui/core";
-import grey from "@material-ui/core/colors/grey";
-import yellow from "@material-ui/core/colors/yellow";
+import { Typography, } from "@mui/material";
+import grey from "@mui/material/colors/grey"
+import yellow from "@mui/material/colors/yellow";
 import { makeStyles } from "@saleor/macaw-ui";
 import Label from "@saleor/orders/components/OrderHistory/Label";
 import classNames from "classnames";

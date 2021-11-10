@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import Container from "@saleor/components/Container";
 import Form from "@saleor/components/Form";
 import { Grid } from "@saleor/components/Grid";

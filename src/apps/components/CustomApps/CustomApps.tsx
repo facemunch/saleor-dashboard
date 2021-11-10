@@ -6,8 +6,8 @@ import {
   TableCell,
   TableRow,
   Typography
-} from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { commonMessages } from "@saleor/intl";
 import { renderCollection, stopPropagation } from "@saleor/misc";
 import React from "react";

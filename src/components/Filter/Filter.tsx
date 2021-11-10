@@ -3,9 +3,9 @@ import {
   ClickAwayListener,
   Grow,
   Popper,
-  Typography
-} from "@material-ui/core";
-import { fade } from "@material-ui/core/styles/colorManipulator";
+  Typography,
+  alpha
+} from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React, { useState } from "react";
@@ -34,7 +34,7 @@ const useStyles = makeStyles(
     addFilterButton: {
       "&$filterButton": {
         "&:hover, &:focus": {
-          backgroundColor: fade(theme.palette.primary.main, 0.1)
+          backgroundColor: alpha(theme.palette.primary.main, 0.1)
         },
         backgroundColor: theme.palette.background.paper,
         border: `1px solid ${theme.palette.primary.main}`,
@@ -47,7 +47,7 @@ const useStyles = makeStyles(
     },
     addFilterButtonActive: {
       "&$addFilterButton": {
-        backgroundColor: fade(theme.palette.primary.main, 0.1)
+        backgroundColor: alpha(theme.palette.primary.main, 0.1)
       }
     },
     addFilterIcon: {
@@ -61,7 +61,7 @@ const useStyles = makeStyles(
     },
     filterButton: {
       alignItems: "center",
-      backgroundColor: fade(theme.palette.primary.main, 0.6),
+      backgroundColor: alpha(theme.palette.primary.main, 0.6),
       borderRadius: "4px",
       display: "flex",
       height: 40,
@@ -178,18 +178,23 @@ const Filter: React.FC<FilterProps> = props => {
           transition
           disablePortal
           placement="bottom-start"
-          modifiers={{
-            flip: {
-              enabled: false
+          modifiers={[
+            {
+              name: 'flip',
+              enabled: true,
             },
-            hide: {
-              enabled: false
+            {
+              name: 'hide',
+              enabled: true,
             },
-            preventOverflow: {
-              boundariesElement: "scrollParent",
-              enabled: false
-            }
-          }}
+            {
+              name: 'preventOverflow',
+              options: {
+                boundariesElement: "scrollParent"
+              },
+              enabled: true
+            },
+          ]}
         >
           {({ TransitionProps, placement }) => (
             <Grow

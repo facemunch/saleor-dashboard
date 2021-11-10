@@ -3,9 +3,9 @@ import {
   CardContent,
   TableCell,
   TextField,
-  Typography
-} from "@material-ui/core";
-import { TextFieldProps } from "@material-ui/core/TextField";
+  Typography,
+  TextFieldProps
+} from "@mui/material";
 import useForm from "@saleor/hooks/useForm";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";

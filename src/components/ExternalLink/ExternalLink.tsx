@@ -1,5 +1,4 @@
-import { Typography } from "@material-ui/core";
-import { TypographyProps } from "@material-ui/core/Typography";
+import { Typography, TypographyProps } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 
 const useStyles = makeStyles(

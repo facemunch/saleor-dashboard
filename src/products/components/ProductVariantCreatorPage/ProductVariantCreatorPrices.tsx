@@ -5,7 +5,7 @@ import {
   Radio,
   RadioGroup,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import { ChannelPriceData } from "@saleor/channels/utils";
 import CardTitle from "@saleor/components/CardTitle";
 import FormSpacer from "@saleor/components/FormSpacer";

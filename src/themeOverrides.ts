@@ -1,15 +1,17 @@
-import { Theme } from "@material-ui/core/styles";
+import { Theme } from "@mui/material/styles";
 
 const themeOverrides: Partial<Theme> = {
-  overrides: {
+  components: {
     MuiTableCell: {
-      body: {
-        paddingBottom: 8,
-        paddingTop: 8
-      },
-      root: {
-        height: 56,
-        padding: "4px 24px"
+      styleOverrides: {
+        body: {
+          paddingBottom: 8,
+          paddingTop: 8
+        },
+        root: {
+          height: 56,
+          padding: "4px 24px"
+        }
       }
     }
   }

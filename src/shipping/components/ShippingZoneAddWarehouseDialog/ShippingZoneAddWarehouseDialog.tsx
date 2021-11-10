@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogTitle,
   TextField
-} from "@material-ui/core";
+} from "@mui/material";
 import CompanyAddressForm from "@saleor/components/CompanyAddressInput/CompanyAddressForm";
 import ConfirmButton, {
   ConfirmButtonTransitionState

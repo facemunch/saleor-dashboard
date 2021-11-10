@@ -1,4 +1,4 @@
-import { Card, CardContent, Divider } from "@material-ui/core";
+import { Card, CardContent, Divider } from "@mui/material";
 import { BaseChannels_channels } from "@saleor/channels/types/BaseChannels";
 import CardTitle from "@saleor/components/CardTitle";
 import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";

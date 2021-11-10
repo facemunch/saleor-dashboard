@@ -1,5 +1,5 @@
 import { OutputData } from "@editorjs/editorjs";
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import RichTextEditor from "@saleor/components/RichTextEditor";
 import RichTextEditorContent from "@saleor/components/RichTextEditor/RichTextEditorContent";

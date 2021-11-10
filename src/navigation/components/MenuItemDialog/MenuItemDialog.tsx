@@ -6,7 +6,7 @@ import {
   DialogTitle,
   TextField,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import AutocompleteSelectMenu from "@saleor/components/AutocompleteSelectMenu";
 import ConfirmButton, {
   ConfirmButtonTransitionState

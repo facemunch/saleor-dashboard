@@ -12,9 +12,9 @@ import {
   TableRow,
   TextField,
   Typography
-} from "@material-ui/core";
-import ToggleIcon from "@material-ui/icons/ArrowDropDown";
-import DeleteIcon from "@material-ui/icons/Delete";
+} from "@mui/material";
+import ToggleIcon from "@mui/icons-material/ArrowDropDown";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { FormChange } from "@saleor/hooks/useForm";
 import { MetadataInput } from "@saleor/types/globalTypes";
 import React, { useEffect } from "react";

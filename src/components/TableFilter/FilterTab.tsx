@@ -1,4 +1,4 @@
-import { Tab } from "@material-ui/core";
+import { Tab } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
@@ -46,9 +46,10 @@ export const FilterTab: React.FC<FilterTabProps> = props => {
       label={label}
       classes={{
         root: classes.tabRoot,
-        wrapper: classNames(classes.tabLabel, {
-          [classes.selectedTabLabel]: selected
-        })
+        // TODO RA MIGRATION
+        // wrapper: classNames(classes.tabLabel, { 
+        //   [classes.selectedTabLabel]: selected
+        // })
       }}
       onClick={onClick}
       value={value}

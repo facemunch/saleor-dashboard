@@ -1,4 +1,4 @@
-import { FormControlLabel, Switch } from "@material-ui/core";
+import { FormControlLabel, Switch } from "@mui/material";
 import { User } from "@saleor/fragments/types/User";
 import { makeStyles, UserChipMenu, UserChipMenuItem } from "@saleor/macaw-ui";
 import { getUserInitials, getUserName } from "@saleor/misc";

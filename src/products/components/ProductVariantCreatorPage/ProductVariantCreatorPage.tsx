@@ -1,4 +1,4 @@
-import { Button, Typography } from "@material-ui/core";
+import { Button, Typography } from "@mui/material";
 import { drawerWidthExpanded } from "@saleor/components/AppLayout/consts";
 import Container from "@saleor/components/Container";
 import Hr from "@saleor/components/Hr";

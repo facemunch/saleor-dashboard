@@ -1,4 +1,4 @@
-import { TableCell, TableRow } from "@material-ui/core";
+import { TableCell, TableRow } from "@mui/material";
 import Money from "@saleor/components/Money";
 import Skeleton from "@saleor/components/Skeleton";
 import TableCellAvatar from "@saleor/components/TableCellAvatar";

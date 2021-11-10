@@ -4,7 +4,7 @@ import {
   TableCell,
   TableRow,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import VerticalSpacer from "@saleor/apps/components/VerticalSpacer";
 import { ChannelShippingData } from "@saleor/channels/utils";
 import CardTitle from "@saleor/components/CardTitle";

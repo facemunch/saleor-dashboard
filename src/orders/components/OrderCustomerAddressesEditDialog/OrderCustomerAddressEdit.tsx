@@ -1,4 +1,4 @@
-import { FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
+import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import AddressEdit from "@saleor/components/AddressEdit";
 import CardSpacer from "@saleor/components/CardSpacer";
 import FormSpacer from "@saleor/components/FormSpacer";

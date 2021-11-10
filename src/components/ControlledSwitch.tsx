@@ -1,4 +1,4 @@
-import { FormControlLabel, Switch } from "@material-ui/core";
+import { FormControlLabel, Switch } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 

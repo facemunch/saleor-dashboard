@@ -1,4 +1,4 @@
-import { fade } from "@material-ui/core";
+import { fade } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 
 const useStyles = makeStyles(

@@ -5,7 +5,7 @@ import {
   TableCell,
   TableRow,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import ControlledCheckbox from "@saleor/components/ControlledCheckbox";
 import { FormSpacer } from "@saleor/components/FormSpacer";

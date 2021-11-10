@@ -4,7 +4,7 @@ import {
   CardContent,
   CircularProgress,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import useElementScroll from "@saleor/hooks/useElementScroll";
 import { buttonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
@@ -160,13 +160,12 @@ const ColumnPickerContent: React.FC<ColumnPickerContentProps> = props => {
         })}
       >
         <div className={classes.actionBar}>
-          <Button color="default" onClick={onReset}>
+          <Button onClick={onReset}>
             <FormattedMessage defaultMessage="Reset" description="button" />
           </Button>
           <div>
             <Button
               className={classes.cancelButton}
-              color="default"
               onClick={onCancel}
             >
               <FormattedMessage {...buttonMessages.cancel} />

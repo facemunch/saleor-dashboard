@@ -1,5 +1,4 @@
-import { Button, Card, TableCell, TableRow } from "@material-ui/core";
-import { fade } from "@material-ui/core/styles/colorManipulator";
+import { Button, Card, TableCell, TableRow, alpha } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
@@ -27,7 +26,7 @@ const useStyles = makeStyles(
       paddingLeft: 0
     },
     defaultVariant: {
-      color: fade(theme.palette.text.secondary, 0.6),
+      color: alpha(theme.palette.text.secondary, 0.6),
       display: "block"
     },
     firstVariant: {

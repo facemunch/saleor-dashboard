@@ -6,10 +6,10 @@ import {
   Paper,
   Popper,
   TextField,
-  Typography
-} from "@material-ui/core";
-import { TextFieldProps } from "@material-ui/core/TextField";
-import DropdownIcon from "@material-ui/icons/ArrowDropDown";
+  Typography,
+  TextFieldProps
+} from "@mui/material";
+import DropdownIcon from "@mui/icons-material/ArrowDropDown";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 

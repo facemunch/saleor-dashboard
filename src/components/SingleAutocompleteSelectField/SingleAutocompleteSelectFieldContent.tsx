@@ -4,8 +4,8 @@ import {
   MenuItem,
   Paper,
   Typography
-} from "@material-ui/core";
-import Add from "@material-ui/icons/Add";
+} from "@mui/material";
+import Add from "@mui/icons-material/Add";
 import useElementScroll, {
   isScrolledToBottom
 } from "@saleor/hooks/useElementScroll";

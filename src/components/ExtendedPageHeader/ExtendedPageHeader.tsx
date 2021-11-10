@@ -1,4 +1,4 @@
-import { Divider } from "@material-ui/core";
+import { Divider } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";

@@ -1,4 +1,4 @@
-import { DialogContentText } from "@material-ui/core";
+import { DialogContentText } from "@mui/material";
 import ActionDialog from "@saleor/components/ActionDialog";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import React from "react";

@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import { appUrl } from "@saleor/apps/urls";
 import CardSpacer from "@saleor/components/CardSpacer";
 import Link from "@saleor/components/Link";

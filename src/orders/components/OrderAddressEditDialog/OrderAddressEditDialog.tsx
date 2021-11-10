@@ -4,7 +4,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle
-} from "@material-ui/core";
+} from "@mui/material";
 import AddressEdit from "@saleor/components/AddressEdit";
 import ConfirmButton, {
   ConfirmButtonTransitionState

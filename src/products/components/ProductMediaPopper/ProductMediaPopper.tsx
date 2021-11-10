@@ -5,7 +5,7 @@ import {
   MenuList as Menu,
   Paper,
   Popper
-} from "@material-ui/core";
+} from "@mui/material";
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 

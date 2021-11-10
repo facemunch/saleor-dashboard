@@ -5,8 +5,8 @@ import {
   DialogTitle,
   IconButton,
   Typography
-} from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
 
 import { useStyles } from "./styles";
@@ -20,7 +20,7 @@ export const AppDialog: React.FC<AppDialogProps> = ({ children, ...props }) => {
 
   return (
     <Dialog aria-labelledby="extension app dialog" {...props}>
-      <DialogTitle disableTypography className={classes.header}>
+      <DialogTitle className={classes.header}>
         <Typography variant="h6" component="h2">
           {props.title}
         </Typography>

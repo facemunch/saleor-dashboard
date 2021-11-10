@@ -1,4 +1,4 @@
-import { TextField, Typography } from "@material-ui/core";
+import { TextField, Typography } from "@mui/material";
 import { ControlledCheckbox } from "@saleor/components/ControlledCheckbox";
 import Hr from "@saleor/components/Hr";
 import { makeStyles } from "@saleor/macaw-ui";

@@ -4,9 +4,9 @@ import {
   FormHelperText,
   InputLabel,
   MenuItem,
-  Select
-} from "@material-ui/core";
-import { SelectProps } from "@material-ui/core/Select";
+  Select,
+  SelectProps
+} from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage } from "react-intl";

@@ -3,7 +3,7 @@ import {
   Divider,
   TextField,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import VerticalSpacer from "@saleor/apps/components/VerticalSpacer";
 import DialogButtons from "@saleor/components/ActionDialog/DialogButtons";
 import CardSpacer from "@saleor/components/CardSpacer";
