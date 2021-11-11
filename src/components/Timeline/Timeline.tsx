@@ -45,7 +45,7 @@ const useStyles = makeStyles(
         paddingRight: 0
       },
       alignItems: "center",
-      background: theme.palette.background.default,
+      // background: theme.palette.background.default,
       display: "flex",
       paddingLeft: theme.spacing(3)
     },
