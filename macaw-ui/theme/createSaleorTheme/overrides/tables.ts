@@ -17,10 +17,10 @@ export const tableOverrides = (
   MuiTableCell: {
     styleOverrides: {
       body: {
-        fontSize: "1.6rem",
+        fontSize: "1rem",
       },
       head: {
-        fontSize: "1.4rem",
+        fontSize: "1rem",
         fontWeight: 400,
         color: colors.font.textDisabled,
       },
