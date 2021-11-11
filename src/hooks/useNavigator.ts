@@ -15,7 +15,7 @@ function useNavigator(): UseNavigatorResult {
     const path = `${urlJoin(clientIntegration ? '/ecommerce' : '/', targetUrl)}`;
     navigator(path, { replace: replace });
 
-    window.scrollTo({ behavior: "smooth", top: 0 });
+    // window.scrollTo({ behavior: "smooth", top: 0 });
   };
 }
 
