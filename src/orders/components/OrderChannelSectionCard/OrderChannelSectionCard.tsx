@@ -17,7 +17,7 @@ export const OrderChannelSectionCard: React.FC<OrderChannelSectionCardProps> = (
     <Card data-test-id="order-sales-channel">
       <CardTitle
         title={intl.formatMessage({
-          defaultMessage: "Sales channel",
+          defaultMessage: "Via Munch Link",
           description: "section header"
         })}
       />

@@ -137,7 +137,7 @@ export const PriceRatesCreate: React.FC<PriceRatesCreateProps> = ({
           onClose={handleChannelsModalClose}
           open={isChannelsModalOpen}
           title={intl.formatMessage({
-            defaultMessage: "Manage Channel Availability"
+            defaultMessage: "Manage Munch Link Availability"
           })}
           confirmButtonState="default"
           selected={channelListElements.length}

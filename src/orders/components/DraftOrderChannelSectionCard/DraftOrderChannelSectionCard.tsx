@@ -17,7 +17,7 @@ export const DraftOrderChannelSectionCard: React.FC<DraftOrderChannelSectionCard
     <Card>
       <CardTitle
         title={intl.formatMessage({
-          defaultMessage: "Sales channel",
+          defaultMessage: "Via Munch Link",
           description: "section header"
         })}
       />

@@ -70,7 +70,7 @@ export const messages = defineMessages({
     description: "dialog header"
   },
   saleDetailsChannelAvailabilityDialogHeader: {
-    defaultMessage: "Manage Channel Availability",
+    defaultMessage: "Manage Munch Link Availability",
     description: "channel availability dialog header"
   }
 });

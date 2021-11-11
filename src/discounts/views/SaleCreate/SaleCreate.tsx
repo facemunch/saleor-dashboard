@@ -89,7 +89,7 @@ export const SaleCreateView: React.FC<SaleCreateProps> = ({ params }) => {
           onClose={handleChannelsModalClose}
           open={isChannelsModalOpen}
           title={intl.formatMessage({
-            defaultMessage: "Manage Sales Channel Availability"
+            defaultMessage: "Manage Munch Link Availability"
           })}
           confirmButtonState="default"
           selected={channelListElements.length}

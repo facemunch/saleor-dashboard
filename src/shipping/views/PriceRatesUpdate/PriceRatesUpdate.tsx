@@ -310,7 +310,7 @@ export const PriceRatesUpdate: React.FC<PriceRatesUpdateProps> = ({
           onClose={handleChannelsModalClose}
           open={isChannelsModalOpen}
           title={intl.formatMessage({
-            defaultMessage: "Manage Channel Availability"
+            defaultMessage: "Manage Munch Link Availability"
           })}
           selected={channelListElements.length}
           confirmButtonState="default"
