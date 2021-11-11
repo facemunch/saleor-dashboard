@@ -46,8 +46,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     dark,
     ...palettes,
   };
-  // const theme = merge(createTheme(themes[themeType]), useTheme(), overrides);
-    const theme = useTheme();
+  const theme = merge(createTheme(themes[themeType]), useTheme(), overrides);
+    // const theme = useTheme();
 
   const sendThemeToExtension = () => {}
     sendMessageToExtension<ThemeChangeMessage>(

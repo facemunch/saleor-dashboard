@@ -7,7 +7,7 @@ export const overrides = (
   colors: SaleorThemeColors,
   fontFamily: string
 ) => ({
-  // ...inputOverrides(colors),
-  // ...tableOverrides(colors, fontFamily),
-  // ...buttonOverrides(colors),
+  ...inputOverrides(colors),
+  ...tableOverrides(colors, fontFamily),
+  ...buttonOverrides(colors),
 });
