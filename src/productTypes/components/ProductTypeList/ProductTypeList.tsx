@@ -159,6 +159,7 @@ const ProductTypeList: React.FC<ProductTypeListProps> = props => {
                   {productType ? (
                     <>
                       <span data-test="name">{productType.name}</span>
+                      <br/>
                       <Typography variant="caption">
                         {maybe(() => productType.hasVariants)
                           ? intl.formatMessage({
