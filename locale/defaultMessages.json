@@ -2535,7 +2535,7 @@
     "string": "Product Settings"
   },
   "src_dot_configuration_dot_887806978": {
-    "string": "Multichannel"
+    "string": "Multi-project"
   },
   "src_dot_confirm": {
     "context": "button",
@@ -7208,7 +7208,7 @@
     "string": "These are general information about your store. They define what is the URL of your store and what is shown in browsers taskbar."
   },
   "src_dot_somethingWentWrong": {
-    "string": "Saleor ran into an unexpected problem"
+    "string": "FaceMunch ran into an unexpected problem"
   },
   "src_dot_staff": {
     "context": "staff section name",

@@ -2154,7 +2154,7 @@
     "string": "Configurações do Produto"
   },
   "src_dot_configuration_dot_887806978": {
-    "string": "Multichannel"
+    "string": "Multi-project"
   },
   "src_dot_confirm": {
     "context": "button",
@@ -5737,7 +5737,7 @@
     "string": "É aqui que você encontra todas as configurações que determinam os e-mails das suas lojas. Você pode determinar o endereço de email principal e parte do conteúdo dos seus emails."
   },
   "src_dot_somethingWentWrong": {
-    "string": "Saleor ran into an unexpected problem"
+    "string": "FaceMunch ran into an unexpected problem"
   },
   "src_dot_staff": {
     "context": "staff section name",

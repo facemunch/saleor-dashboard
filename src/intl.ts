@@ -88,7 +88,7 @@ export const commonMessages = defineMessages({
     defaultMessage: "Your session has expired. Please log in again to continue."
   },
   somethingWentWrong: {
-    defaultMessage: "Saleor ran into an unexpected problem"
+    defaultMessage: "FaceMunch ran into an unexpected problem"
   },
   startDate: {
     defaultMessage: "Start Date"
@@ -242,7 +242,7 @@ export const sectionNames = defineMessages({
     description: "categories section name"
   },
   channels: {
-    defaultMessage: "Channels",
+    defaultMessage: "Multi Home",
     description: "channels section name"
   },
   collections: {

@@ -150,12 +150,12 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
     },
     {
       label: intl.formatMessage({
-        defaultMessage: "Multichannel"
+        defaultMessage: "Multi Project"
       }),
       menuItems: [
         {
           description: intl.formatMessage({
-            defaultMessage: "Define and manage your sales channels",
+            defaultMessage: "Manage your sales via different munch homes",
             id: "configurationMenuChannels"
           }),
           icon: <Channels fontSize="inherit" viewBox="0 0 44 44" />,
