@@ -104,7 +104,8 @@ const useStyles = makeStyles(
       flex: 1,
       flexGrow: 1,
       marginLeft: 0,
-      paddingBottom: theme.spacing(),
+      // paddingBottom: theme.spacing(),
+      paddingBottom: '6em',
       [theme.breakpoints.up("sm")]: {
         paddingBottom: theme.spacing(3)
       }
