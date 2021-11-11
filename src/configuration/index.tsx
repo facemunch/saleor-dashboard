@@ -203,17 +203,17 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
         defaultMessage: "Miscellaneous"
       }),
       menuItems: [
-        {
-          description: intl.formatMessage({
-            defaultMessage: "Define how users can navigate through your store",
-            id: "configurationMenuNavigation"
-          }),
-          icon: <Navigation fontSize="inherit" viewBox="0 0 44 44" />,
-          permissions: [PermissionEnum.MANAGE_MENUS],
-          title: intl.formatMessage(sectionNames.navigation),
-          url: menuListUrl(),
-          testId: "configurationMenuNavigation"
-        },
+        // {
+        //   description: intl.formatMessage({
+        //     defaultMessage: "Define how users can navigate through your store",
+        //     id: "configurationMenuNavigation"
+        //   }),
+        //   icon: <Navigation fontSize="inherit" viewBox="0 0 44 44" />,
+        //   permissions: [PermissionEnum.MANAGE_MENUS],
+        //   title: intl.formatMessage(sectionNames.navigation),
+        //   url: menuListUrl(),
+        //   testId: "configurationMenuNavigation"
+        // },
         {
           description: intl.formatMessage({
             defaultMessage: "View and update your site settings",
