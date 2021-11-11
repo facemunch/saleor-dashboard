@@ -37,6 +37,7 @@ const GiftCardSettingsExpirySelect: React.FC<GiftCardSettingsExpirySelectProps> 
         label={
           <>
             <FormattedMessage {...messages.setExpirationPeriodTitle} />
+            <br/>
             <Typography variant="caption">
               <FormattedMessage {...messages.setExpirationPeriodDescription} />
             </Typography>

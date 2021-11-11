@@ -14,7 +14,7 @@ const useExpanderStyles = makeStyles(
   theme => ({
     expanded: {},
     root: {
-      boxShadow: "none",
+      boxShadow: "none !important",
       margin: 0,
       padding: 0,
       paddingBottom: theme.spacing(2),
