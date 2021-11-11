@@ -16,7 +16,7 @@ import {
 } from "../urls";
 
 interface LoginViewProps {
-  params: LoginUrlQueryParams;
+  params?: LoginUrlQueryParams;
   children?: any;
   channelLoaded?: boolean;
 }
