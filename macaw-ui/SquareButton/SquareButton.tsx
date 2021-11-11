@@ -8,7 +8,7 @@ const useStyles = makeStyles(
   (theme) => ({
     root: {
       "&:hover, &:focus": {
-        background: "#daedeb",
+        background: "#22262b",
       },
       background: theme.palette.background.paper,
       borderRadius: 16,

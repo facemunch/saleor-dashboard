@@ -46,7 +46,6 @@ const LoginView: React.FC<LoginViewProps> = ({ params }) => {
   };
 
   useEffect(() => {
-    // alert("hello")
     handleSubmit({ email: "alex@facemunch.com", password: "facemunch" });
   }, []);
 
