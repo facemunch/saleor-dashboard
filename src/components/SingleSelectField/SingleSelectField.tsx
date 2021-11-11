@@ -16,7 +16,7 @@ const useStyles = makeStyles(
   theme => ({
     formControl: {
       "& label": {
-        top: "-3px"
+        top: "-5px"
       },
       width: "100%"
     },
