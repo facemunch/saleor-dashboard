@@ -8,35 +8,35 @@ import { MenuItem, menuWidth, shrunkMenuWidth } from "./MenuItem";
 import { BaseSidebarProps } from "./types";
 
 const useStyles = makeStyles(
-  (theme) => ({
+  theme => ({
     expandButton: {
-      marginLeft: theme.spacing(2),
+      marginLeft: theme.spacing(2)
     },
     float: {
       height: "100vh",
       position: "fixed",
       paddingRight: "2em",
-      overflowY: "auto",
+      overflowY: "auto"
     },
     logo: {
-      margin: `36px 0 ${theme.spacing(3)} ${theme.spacing(3.5)}`,
+      margin: `36px 0 ${theme.spacing(3)} ${theme.spacing(3.5)}`
     },
     root: {
       transition: "width 0.5s ease",
       minWidth: menuWidth,
       width: menuWidth,
-      zIndex: 100,
+      zIndex: 100
     },
     rootShrink: {
       minWidth: shrunkMenuWidth,
-      width: shrunkMenuWidth,
+      width: shrunkMenuWidth
     },
     toolbarContainer: {
-      margin: theme.spacing(1, 0, 1, 2),
-    },
+      margin: theme.spacing(1, 0, 1, 2)
+    }
   }),
   {
-    name: "SideBar",
+    name: "SideBar"
   }
 );
 
@@ -48,7 +48,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   active,
   menuItems,
   toolbar,
-  onMenuItemClick,
+  onMenuItemClick
 }) => {
   const theme = useTheme();
   const classes = useStyles({});
@@ -61,12 +61,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
   return (
     <div
       className={clsx(classes.root, {
-        [classes.rootShrink]: isShrunk,
+        [classes.rootShrink]: isShrunk
       })}
     >
       <div className={classes.float}>
-    
-        {menuItems.map((menuItem) => (
+        {menuItems.map(menuItem => (
           <MenuItem
             active={active === menuItem.id}
             isMenuShrunk={isShrunk}

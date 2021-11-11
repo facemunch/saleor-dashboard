@@ -113,6 +113,12 @@ const Navigator: React.FC<NavigatorProps> = ({ visible, setVisibility }) => {
 
   return (
     <Modal
+      sx={{
+        " .MuiBackdrop-root ": {
+          background:
+            "linear-gradient(75deg, rgb(0 0 0 / 46%) 0%, rgb(0 0 0) 100%);"
+        }
+      }}
       className={classes.modal}
       open={visible}
       onClose={() => setVisibility(false)}

@@ -2,6 +2,8 @@ import { LinearProgress, useMediaQuery } from "@mui/material";
 import useAppState from "@saleor/hooks/useAppState";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useUser from "@saleor/hooks/useUser";
+import Portal from "@mui/material/Portal";
+
 import {
   makeStyles,
   SaleorTheme,
@@ -38,11 +40,12 @@ const useStyles = makeStyles(
       },
       bottom: 0,
       gridColumn: 2,
-      position: "sticky",
-      zIndex: 10
+      position: "fixed",
+      zIndex: 100000
     },
     appActionDocked: {
-      position: "static"
+      position: "fixed",
+      zIndex: 100000
     },
     appLoader: {
       height: appLoaderHeight,
@@ -177,7 +180,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             <div>
               <Container>
                 <div className={classes.header}>
-                  <div className={classes.headerAnchor} ref={appHeaderAnchor} />
+                {/* //hidden for mobile views, might be good for desktop */}
+                  {/* <div className={classes.headerAnchor} ref={appHeaderAnchor} /> */}
                   <div className={classes.headerToolbar}>
                     {!isMdUp && (
                       <SidebarDrawer
@@ -223,12 +227,14 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                 : children}
             </main>
           </div>
-          <div
-            className={classNames(classes.appAction, {
-              [classes.appActionDocked]: docked
-            })}
-            ref={appActionAnchor}
-          />
+          <Portal>
+            <div
+              className={classNames(classes.appAction, {
+                [classes.appActionDocked]: docked
+              })}
+              ref={appActionAnchor}
+            />
+          </Portal>
         </div>
       </div>
     </>

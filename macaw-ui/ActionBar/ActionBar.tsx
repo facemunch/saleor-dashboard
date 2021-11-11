@@ -40,7 +40,7 @@ export const ActionBar: React.FC<ActionBarProps> = ({
   return (
     <Portal container={anchor.current}>
       <div className={classes.root} {...rest}>
-        <Container maxWidth="lg">
+        <Container sx={{ p: 0 }}>
           <Card
             className={classes.paper}
             elevation={!(docked || scrolledToBottom) ? 16 : 0}
