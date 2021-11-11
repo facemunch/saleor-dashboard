@@ -52,7 +52,7 @@ const useStyles = makeStyles(
       overflowY: "visible"
     },
     productCheckboxCell: {
-      "&:first-child": {
+      "&:first-of-type": {
         paddingLeft: 0,
         paddingRight: 0
       }

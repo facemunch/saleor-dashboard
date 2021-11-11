@@ -25,7 +25,7 @@ export const tableOverrides = (
         color: colors.font.textDisabled,
       },
       paddingCheckbox: {
-        "&:first-child": {
+        "&:first-of-type": {
           padding: "0 12px",
           width: 72,
         },
@@ -35,7 +35,7 @@ export const tableOverrides = (
         },
       },
       root: {
-        "&:first-child": {
+        "&:first-of-type": {
           "&:not($paddingCheckbox)": {
             paddingLeft: 24 + "px",
             textAlign: "left" as "left",
@@ -50,7 +50,7 @@ export const tableOverrides = (
     styleOverrides: {
       input: {
         color: colors.primary,
-        fontSize: "1.4rem",
+        fontSize: "1rem",
       },
     }
   },

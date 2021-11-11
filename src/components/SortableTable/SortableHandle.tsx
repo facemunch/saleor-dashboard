@@ -7,7 +7,7 @@ import { SortableHandle as SortableHandleHoc } from "react-sortable-hoc";
 const useStyles = makeStyles(
   theme => ({
     columnDrag: {
-      "&:first-child": {
+      "&:first-of-type": {
         paddingRight: theme.spacing(2)
       },
       cursor: "grab",

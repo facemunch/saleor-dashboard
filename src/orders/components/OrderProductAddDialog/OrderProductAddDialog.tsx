@@ -73,7 +73,7 @@ const useStyles = makeStyles(
       margin: theme.spacing(0, 3, 3, 3)
     },
     productCheckboxCell: {
-      "&:first-child": {
+      "&:first-of-type": {
         paddingLeft: 0,
         paddingRight: 0
       }

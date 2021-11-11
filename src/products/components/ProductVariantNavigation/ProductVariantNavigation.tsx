@@ -39,7 +39,7 @@ const useStyles = makeStyles(
       textAlign: "right"
     },
     tabActive: {
-      "& > td:first-child": {
+      "& > td:first-of-type": {
         "&:before": {
           background: theme.palette.primary.main,
           content: '""',

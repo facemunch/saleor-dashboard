@@ -45,7 +45,7 @@ const useStyles = makeStyles(
       position: "absolute"
     },
     offsetCell: {
-      "&:first-child": {
+      "&:first-of-type": {
         paddingLeft: theme.spacing(3)
       },
       position: "relative"
@@ -66,7 +66,7 @@ const useStyles = makeStyles(
       textAlign: "right"
     },
     toLeft: {
-      "&:first-child": {
+      "&:first-of-type": {
         paddingLeft: 0
       }
     },

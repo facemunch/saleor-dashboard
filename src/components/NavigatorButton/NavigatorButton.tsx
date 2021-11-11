@@ -18,7 +18,7 @@ const useStyles = makeStyles(
 
     return {
       keyTile: {
-        "&:first-child": {
+        "&:first-of-type": {
           marginLeft: theme.spacing()
         },
         alignItems: "center",
