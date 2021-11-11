@@ -45,6 +45,11 @@ const LoginView: React.FC<LoginViewProps> = ({ params }) => {
     return errors;
   };
 
+  useEffect(() => {
+    // alert("hello")
+    handleSubmit({ email: "alex@facemunch.com", password: "facemunch" });
+  }, []);
+
   const handleRequestExternalAuthentication = (pluginId: string) =>
     requestLoginByExternalPlugin(pluginId, {
       redirectUri: urlJoin(
