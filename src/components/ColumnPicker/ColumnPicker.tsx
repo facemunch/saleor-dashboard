@@ -49,9 +49,8 @@ const ColumnPicker: React.FC<ColumnPickerProps> = props => {
   const classes = useStyles(props);
   const anchor = React.useRef<HTMLDivElement>();
   const [isExpanded, setExpansionState] = React.useState(false);
-  const [selectedColumns, setSelectedColumns] = useStateFromProps(
-    initialColumns
-  );
+  const [selectedColumns, setSelectedColumns] =
+    useStateFromProps(initialColumns);
 
   React.useEffect(() => {
     setTimeout(() => setExpansionState(initialOpen), 100);
@@ -95,17 +94,19 @@ const ColumnPicker: React.FC<ColumnPickerProps> = props => {
                   placement === "bottom" ? "right bottom" : "right top"
               }}
             >
-              <ColumnPickerContent
-                columns={columns}
-                hasMore={hasMore}
-                selectedColumns={selectedColumns}
-                total={total}
-                onCancel={handleCancel}
-                onColumnToggle={handleColumnToggle}
-                onFetchMore={onFetchMore}
-                onReset={handleReset}
-                onSave={handleSave}
-              />
+              <div>
+                <ColumnPickerContent
+                  columns={columns}
+                  hasMore={hasMore}
+                  selectedColumns={selectedColumns}
+                  total={total}
+                  onCancel={handleCancel}
+                  onColumnToggle={handleColumnToggle}
+                  onFetchMore={onFetchMore}
+                  onReset={handleReset}
+                  onSave={handleSave}
+                />
+              </div>
             </Grow>
           )}
         </Popper>

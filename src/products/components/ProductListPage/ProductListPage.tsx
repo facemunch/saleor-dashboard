@@ -3,9 +3,9 @@ import { mapToMenuItems, useExtensions } from "@saleor/apps/useExtensions";
 import { drawerWidthExpanded } from "@saleor/components/AppLayout/consts";
 import { ButtonWithSelect } from "@saleor/components/ButtonWithSelect";
 import CardMenu from "@saleor/components/CardMenu";
-// import ColumnPicker, {
-//   ColumnPickerChoice
-// } from "@saleor/components/ColumnPicker";
+import ColumnPicker, {
+  ColumnPickerChoice
+} from "@saleor/components/ColumnPicker";
 import Container from "@saleor/components/Container";
 import FilterBar from "@saleor/components/FilterBar";
 import LimitReachedAlert from "@saleor/components/LimitReachedAlert";
@@ -114,31 +114,31 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
   const intl = useIntl();
   const classes = useStyles(props);
 
-  // const handleSave = (columns: ProductListColumns[]) =>
-  //   onUpdateListSettings("columns", columns);
+  const handleSave = (columns: ProductListColumns[]) =>
+    onUpdateListSettings("columns", columns);
 
   const filterStructure = createFilterStructure(intl, filterOpts);
 
-  // const columns: ColumnPickerChoice[] = [
-  //   {
-  //     label: intl.formatMessage({
-  //       defaultMessage: "Price",
-  //       description: "product price"
-  //     }),
-  //     value: "price" as ProductListColumns
-  //   },
-  //   {
-  //     label: intl.formatMessage({
-  //       defaultMessage: "Type",
-  //       description: "product type"
-  //     }),
-  //     value: "productType" as ProductListColumns
-  //   },
-  //   ...availableInGridAttributes.map(attribute => ({
-  //     label: attribute.name,
-  //     value: `attribute:${attribute.id}`
-  //   }))
-  // ];
+  const columns: ColumnPickerChoice[] = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Price",
+        description: "product price"
+      }),
+      value: "price" as ProductListColumns
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Type",
+        description: "product type"
+      }),
+      value: "productType" as ProductListColumns
+    },
+    ...availableInGridAttributes.map(attribute => ({
+      label: attribute.name,
+      value: `attribute:${attribute.id}`
+    }))
+  ];
 
   const limitReached = isLimitReached(limits, "productVariants");
   const { create, moreActions } = useExtensions(
@@ -182,7 +182,7 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
           ]}
           data-test="menu"
         />
-        {/* <ColumnPicker
+        <ColumnPicker
           className={classes.columnPicker}
           columns={columns}
           defaultColumns={defaultSettings.columns}
@@ -195,7 +195,7 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
           }
           onFetchMore={onFetchMore}
           onSave={handleSave}
-        /> */}
+        />
         <ButtonWithSelect
           options={extensionCreateButtonItems}
           data-test="add-product"
