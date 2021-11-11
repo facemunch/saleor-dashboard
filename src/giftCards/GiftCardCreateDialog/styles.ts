@@ -19,7 +19,7 @@ export const useGiftCardCreateDialogFormStyles = makeStyles(
     currencySelectField: {
       width: 100
     },
-    balanceContainer: { width: "100%" }
+    balanceContainer: { width: "100%", marginTop: "1em" }
   }),
   { name: "GiftCardCreateDialogForm" }
 );

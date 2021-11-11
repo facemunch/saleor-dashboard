@@ -197,6 +197,7 @@ const GiftCardCreateDialogForm: React.FC<GiftCardCreateDialogFormProps> = ({
           label={
             <>
               <FormattedMessage {...messages.requiresActivationLabel} />
+              <br/>
               <Typography variant="caption">
                 <FormattedMessage {...messages.requiresActivationCaption} />
               </Typography>

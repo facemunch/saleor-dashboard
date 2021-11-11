@@ -6,13 +6,13 @@ export const dark: SaleorThemeColors = {
       error: "#E0444E",
       info: "#2E2F31",
       success: "#5DC292",
-      warning: "#E29A2E",
+      warning: "#b8a7fd36",
     },
     icon: {
       error: "#FE6E76",
       info: "#FAFAFA",
       success: "#5DC292",
-      warning: "#FFB84E",
+      warning: "#b8a7fd",
     },
   },
   highlightInactive: {
@@ -50,7 +50,7 @@ export const dark: SaleorThemeColors = {
     textHover: "#616161",
   },
   paperBorder: "#252728",
-  primary: "#13BEBB",
+  primary: "#b8a7fd",
   secondary: "#21125E",
   success: "#5DC292",
   theme: "dark",
@@ -67,7 +67,7 @@ export const light: SaleorThemeColors = {
       error: "#FE6E76",
       info: "#28234A",
       success: "#5DC292",
-      warning: "#FFB84E",
+      warning: "#8459f4",
     },
   },
   highlightInactive: {
