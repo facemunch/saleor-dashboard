@@ -1,38 +1,38 @@
 import { makeStyles } from "../theme";
 
 const useStyles = makeStyles(
-  (theme) => ({
+  theme => ({
     activeMenuLabel: {
-      display: "flex",
+      display: "flex"
     },
     container: {
       overflowX: "hidden",
-      width: "100%",
+      width: "100%"
     },
     containerSubMenu: {
       "&$container": {
-        overflow: "hidden",
-      },
+        overflow: "hidden"
+      }
     },
     content: {
-      width: "50%",
+      width: "50%"
     },
     icon: {
-      marginRight: theme.spacing(2),
+      marginRight: theme.spacing(2)
     },
     innerContainer: {
       display: "flex",
       position: "relative",
       right: 0,
       transition: theme.transitions.duration.short + "ms",
-      width: "200%",
+      width: "200%"
     },
     label: {
-      fontWeight: "bold",
+      fontWeight: "bold"
     },
     logo: {
       display: "block",
-      marginBottom: theme.spacing(4),
+      marginBottom: theme.spacing(4)
     },
     menuItemBtn: {
       alignItems: "center",
@@ -42,27 +42,28 @@ const useStyles = makeStyles(
       display: "flex",
       marginBottom: theme.spacing(3),
       padding: 0,
-      textDecoration: "none",
+      textDecoration: "none"
     },
     root: {
-      background: theme.palette.background.default,
+      background: "#161616",
       borderBottomRightRadius: 32,
+      height: "auto",
       borderTopRightRadius: 32,
       padding: theme.spacing(3),
-      width: 260,
+      width: 260
     },
     secondaryContentActive: {
-      right: "100%",
+      right: "100%"
     },
     subMenuTopBar: {
       alignItems: "center",
       display: "flex",
       justifyContent: "space-between",
-      marginBottom: theme.spacing(3),
-    },
+      marginBottom: theme.spacing(3)
+    }
   }),
   {
-    name: "SideBarDrawer",
+    name: "SideBarDrawer"
   }
 );
 

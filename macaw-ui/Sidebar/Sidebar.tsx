@@ -1,8 +1,5 @@
 import clsx from "clsx";
 import React from "react";
-
-import { Logo } from "../icons/Logo";
-import { LogoLight } from "../icons/LogoLight";
 import { localStorageKeys } from "../localStorageKeys";
 import { makeStyles, useTheme } from "../theme";
 import useLocalStorage from "../tools/useLocalStorage";
@@ -68,9 +65,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       })}
     >
       <div className={classes.float}>
-        <div className={classes.logo}>
-          {theme.themeType === "light" ? <Logo /> : <LogoLight />}
-        </div>
+    
         {menuItems.map((menuItem) => (
           <MenuItem
             active={active === menuItem.id}

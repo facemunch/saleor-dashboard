@@ -267,7 +267,6 @@ export const ConfigurationSection: React.FC = () => {
         menu={createConfigurationMenu(intl)}
         user={maybe(() => user.user)}
         onSectionClick={navigate}
-        versionInfo={versions}
       />
     </>
   );

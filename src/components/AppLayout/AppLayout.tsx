@@ -22,9 +22,9 @@ import Container from "../Container";
 import ErrorPage from "../ErrorPage";
 import Navigator from "../Navigator";
 import NavigatorButton from "../NavigatorButton/NavigatorButton";
-import UserChip from "../UserChip";
-import useAppChannel from "./AppChannelContext";
-import AppChannelSelect from "./AppChannelSelect";
+// import UserChip from "../UserChip";
+// import useAppChannel from "./AppChannelContext";
+// import AppChannelSelect from "./AppChannelSelect";
 import { appLoaderHeight } from "./consts";
 import createMenuStructure from "./menuStructure";
 import { isMenuActive } from "./utils";
@@ -133,12 +133,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const isMdUp = useMediaQuery((theme: SaleorTheme) =>
     theme.breakpoints.up("md")
   );
-  const {
-    availableChannels,
-    channel,
-    isPickerActive,
-    setChannel
-  } = useAppChannel(false);
+  // const { availableChannels, channel, isPickerActive, setChannel } =
+  //   useAppChannel(false);
 
   const menuStructure = createMenuStructure(intl, user);
   const activeMenu = menuStructure.find(menuItem =>
@@ -195,14 +191,14 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                         isMac={navigator.platform.toLowerCase().includes("mac")}
                         onClick={() => setNavigatorVisibility(true)}
                       />
-                      {isPickerActive && (
+                      {/* {isPickerActive && (
                         <AppChannelSelect
                           channels={availableChannels}
                           selectedChannelId={channel?.id}
                           onChannelSelect={setChannel}
                         />
-                      )}
-                      <UserChip
+                      )} */}
+                      {/* <UserChip
                         isDarkThemeEnabled={isDarkTheme(themeType)}
                         user={user}
                         onLogout={logout}
@@ -210,7 +206,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                           navigate(staffMemberDetailsUrl(user?.id))
                         }
                         onThemeToggle={toggleTheme}
-                      />
+                      /> */}
                     </div>
                   </div>
                 </div>

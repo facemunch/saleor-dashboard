@@ -4,9 +4,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import clsx from "clsx";
 import React from "react";
 import SVG from "react-inlinesvg";
-
-import { Logo } from "../icons/Logo";
-import { LogoLight } from "../icons/LogoLight";
 import { BaseSidebarProps, SidebarMenuItem } from "../Sidebar/types";
 import { SquareButton } from "../SquareButton";
 import { useTheme } from "../theme";
@@ -17,7 +14,7 @@ export type SideBarDrawerProps = BaseSidebarProps;
 
 export const SidebarDrawer: React.FC<SideBarDrawerProps> = ({
   menuItems,
-  onMenuItemClick,
+  onMenuItemClick
 }) => {
   const theme = useTheme();
   const [isOpened, setOpened] = React.useState(false);
@@ -38,7 +35,7 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = ({
     setActiveMenu(menuItem);
     setShowSubmenu(true);
     container.current?.scrollTo({
-      top: 0,
+      top: 0
     });
   };
 
@@ -49,27 +46,29 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = ({
       </SquareButton>
       <Drawer
         classes={{
-          paper: classes.root,
+          paper: classes.root
+        }}
+        sx={{
+          " .MuiBackdrop-root ": {
+            background: "#1616169e"
+          }
         }}
         open={isOpened}
         onClose={() => setOpened(false)}
       >
         <div
           className={clsx(classes.container, {
-            [classes.containerSubMenu]: showSubmenu,
+            [classes.containerSubMenu]: showSubmenu
           })}
           ref={container}
         >
           <div
             className={clsx(classes.innerContainer, {
-              [classes.secondaryContentActive]: showSubmenu,
+              [classes.secondaryContentActive]: showSubmenu
             })}
           >
             <div className={classes.content}>
-              <div className={classes.logo}>
-                {theme.themeType === "light" ? <Logo /> : <LogoLight />}
-              </div>
-              {menuItems.map((menuItem) => (
+              {menuItems.map(menuItem => (
                 <MenuItemBtn
                   menuItem={menuItem}
                   onClick={
@@ -96,7 +95,7 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = ({
                     <ArrowLeftIcon />
                   </SquareButton>
                 </div>
-                {activeMenu.children?.map((subMenuItem) => (
+                {activeMenu.children?.map(subMenuItem => (
                   <MenuItemBtn
                     menuItem={subMenuItem}
                     onClick={handleMenuItemClick}
