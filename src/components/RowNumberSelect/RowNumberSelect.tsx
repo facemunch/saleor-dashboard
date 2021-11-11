@@ -6,6 +6,7 @@ import { FormattedMessage } from "react-intl";
 const useStyles = makeStyles(
   theme => ({
     label: {
+      marginLeft: '22px',
       fontSize: 14
     },
     select: {

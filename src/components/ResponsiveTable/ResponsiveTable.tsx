@@ -11,10 +11,11 @@ const useStyles = makeStyles(
         }
       },
       "& table": {
-        tableLayout: "auto"
+        tableLayout: "auto",
+        width: "96vw"
       },
       overflowX: "auto",
-      width: "100%"
+      width: "96vw"
     }
   }),
   {

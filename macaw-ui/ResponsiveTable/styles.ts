@@ -1,22 +1,23 @@
 import { makeStyles } from "../theme";
 
 const useStyles = makeStyles(
-  (theme) => ({
+  theme => ({
     root: {
       [theme.breakpoints.up("md")]: {
         "&& table": {
-          tableLayout: "fixed",
-        },
+          tableLayout: "fixed"
+        }
       },
       "& table": {
         tableLayout: "auto",
+        width: "96vw"
       },
       overflowX: "auto",
-      width: "100%",
-    },
+      width: "96vw"
+    }
   }),
   {
-    name: "ResponsiveTable",
+    name: "ResponsiveTable"
   }
 );
 
