@@ -156,19 +156,19 @@ const SiteSettingsPage: React.FC<SiteSettingsPageProps> = props => {
                   messages.sectionDetailsDescription
                 )}
               />
-              <SiteSettingsDetailsCard
+              {/* <SiteSettingsDetailsCard
                 data={data}
                 errors={errors}
                 disabled={disabled}
                 onChange={change}
-              />
-              <Hr className={classes.hr} />
-              <PageSectionHeader
+              /> */}
+              {/* <Hr className={classes.hr} /> */}
+              {/* <PageSectionHeader
                 title={intl.formatMessage(messages.sectionCheckoutTitle)}
                 description={intl.formatMessage(
                   messages.sectionCheckoutDescription
                 )}
-              />
+              /> */}
               <SiteCheckoutSettingsCard
                 data={data}
                 errors={errors}
