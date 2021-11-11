@@ -166,38 +166,38 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
         }
       ]
     },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Content Management"
-      }),
-      menuItems: [
-        {
-          description: intl.formatMessage({
-            defaultMessage: "Define types of content pages used in your store",
-            id: "configurationMenuPageTypes"
-          }),
-          icon: <PageTypes fontSize="inherit" viewBox="0 0 44 44" />,
-          permissions: [
-            PermissionEnum.MANAGE_PAGES,
-            PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
-          ],
-          title: intl.formatMessage(sectionNames.pageTypes),
-          url: pageTypeListUrl(),
-          testId: "configurationMenuPageTypes"
-        },
-        {
-          description: intl.formatMessage({
-            defaultMessage: "Manage and add additional pages",
-            id: "configurationMenuPages"
-          }),
-          icon: <Pages fontSize="inherit" viewBox="0 0 44 44" />,
-          permissions: [PermissionEnum.MANAGE_PAGES],
-          title: intl.formatMessage(sectionNames.pages),
-          url: pageListUrl(),
-          testId: "configurationMenuPages"
-        }
-      ]
-    },
+    // {
+    //   label: intl.formatMessage({
+    //     defaultMessage: "Content Management"
+    //   }),
+    //   menuItems: [
+    //     {
+    //       description: intl.formatMessage({
+    //         defaultMessage: "Define types of content pages used in your store",
+    //         id: "configurationMenuPageTypes"
+    //       }),
+    //       icon: <PageTypes fontSize="inherit" viewBox="0 0 44 44" />,
+    //       permissions: [
+    //         PermissionEnum.MANAGE_PAGES,
+    //         PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
+    //       ],
+    //       title: intl.formatMessage(sectionNames.pageTypes),
+    //       url: pageTypeListUrl(),
+    //       testId: "configurationMenuPageTypes"
+    //     },
+    //     {
+    //       description: intl.formatMessage({
+    //         defaultMessage: "Manage and add additional pages",
+    //         id: "configurationMenuPages"
+    //       }),
+    //       icon: <Pages fontSize="inherit" viewBox="0 0 44 44" />,
+    //       permissions: [PermissionEnum.MANAGE_PAGES],
+    //       title: intl.formatMessage(sectionNames.pages),
+    //       url: pageListUrl(),
+    //       testId: "configurationMenuPages"
+    //     }
+    //   ]
+    // },
     {
       label: intl.formatMessage({
         defaultMessage: "Miscellaneous"
