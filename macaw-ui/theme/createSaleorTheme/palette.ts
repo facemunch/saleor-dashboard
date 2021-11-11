@@ -26,7 +26,6 @@ export const createPalette = (
   },
   text: {
     disabled: colors.font.gray,
-    // hint: colors.font.gray, TODO RA MIGRATION
     primary: colors.font.default,
     secondary: colors.font.gray,
   },

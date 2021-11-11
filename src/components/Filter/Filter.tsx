@@ -175,7 +175,7 @@ const Filter: React.FC<FilterProps> = props => {
           className={classes.popover}
           open={isFilterMenuOpened}
           anchorEl={anchor.current}
-          transition
+          // TODO RA MIGRATION transition
           disablePortal
           placement="bottom-start"
           modifiers={[

@@ -64,7 +64,7 @@ const useStyles = makeStyles(
     arrowInnerContainer: {
       alignItems: "center",
       background:
-        theme.palette.type === "light"
+        theme.palette.mode === "light"
           ? theme.palette.grey[50]
           : theme.palette.grey[900],
       bottom: 0,

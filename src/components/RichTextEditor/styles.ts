@@ -102,7 +102,7 @@ const useStyles = makeStyles(
         boxShadow: `inset 0px 0px 0 2px ${theme.palette.primary.main}`
       },
       rootDisabled: {
-        ...theme.overrides?.MuiOutlinedInput?.root?.["&$disabled"]["& fieldset"]
+        ...theme.components?.MuiOutlinedInput?.styleOverrides?.root?.["&$disabled"]["& fieldset"]
       },
       rootError: {
         borderColor: theme.palette.error.main

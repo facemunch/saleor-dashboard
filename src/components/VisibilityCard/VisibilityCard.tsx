@@ -45,7 +45,7 @@ const useStyles = makeStyles(
       marginTop: 9
     },
     secondLabel: {
-      color: theme.palette.text.hint,
+      color: theme.palette.text.secondary,
       fontSize: 12,
       marginBottom: theme.spacing(2)
     },
