@@ -53,6 +53,7 @@ const RowNumberSelect: React.FC<RowNumberSelectProps> = ({
         data-test-id="rowNumberSelect"
         className={classes.select}
         value={rowNumber}
+        sx={{ ml: 1, " .MuiSelect-select": { p: 0 } }}
         onChange={event => onChange(event.target.value as number)}
       >
         {choices.length > 0 &&

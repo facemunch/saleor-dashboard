@@ -36,12 +36,15 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
   React.useEffect(
     () => {
+      console.log("data", { data, disabled });
+
       if (data !== undefined) {
         editor.current = new EditorJS({
           data,
           holder: editorContainer.current,
           logLevel: "ERROR" as LogLevels,
           onChange: async api => {
+            console.log("api", api);
             const savedData = await api.saver.save();
             onChange(savedData);
           },
@@ -54,6 +57,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               onReady();
             }
           },
+          // TODO: [SB-50] Need to investigate why this editor is not working
           readOnly: disabled,
           tools
         });

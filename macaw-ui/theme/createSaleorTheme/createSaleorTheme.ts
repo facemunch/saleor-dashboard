@@ -14,9 +14,9 @@ export const createTheme = (colors: SaleorThemeColors): SaleorTheme =>
     components: {
       ...overrides(colors, fontFamily),
       MuiCard: {
-        defaultProps: {
-          elevation: 0,
-        },
+        // defaultProps: {
+        //   elevation: 0,
+        // },
         styleOverrides: {
           root: {
             borderColor: colors.paperBorder,
@@ -134,11 +134,11 @@ export const createTheme = (colors: SaleorThemeColors): SaleorTheme =>
       },
       MuiSvgIcon: {
         styleOverrides: {
-          root: {
-            fontSize: "2.4rem",
-            height: "1em",
-            width: "1em",
-          },
+          // root: {
+          //   fontSize: "2.4rem",
+          //   height: "1em",
+          //   width: "1em",
+          // },
         }
       },
       MuiList: {

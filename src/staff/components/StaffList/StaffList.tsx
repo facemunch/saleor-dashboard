@@ -47,7 +47,10 @@ const useStyles = makeStyles(
       background: theme.palette.primary.main,
       height: 47,
       textAlign: "center",
-      width: 47
+      width: 47,
+      alignItems: "center",
+      display: "flex",
+      justifyContent: "center"
     },
     avatarImage: {
       pointerEvents: "none",

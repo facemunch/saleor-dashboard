@@ -107,7 +107,7 @@ const useStyles = makeStyles(
       overflow: "hidden",
       position: "absolute",
       right: 0,
-      zIndex: 22
+      zIndex: 220000
     }
   }),
   {

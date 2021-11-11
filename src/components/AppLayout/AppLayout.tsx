@@ -25,7 +25,7 @@ import ErrorPage from "../ErrorPage";
 import Navigator from "../Navigator";
 import NavigatorButton from "../NavigatorButton/NavigatorButton";
 // import UserChip from "../UserChip";
-// import useAppChannel from "./AppChannelContext";
+import useAppChannel from "./AppChannelContext";
 // import AppChannelSelect from "./AppChannelSelect";
 import { appLoaderHeight } from "./consts";
 import createMenuStructure from "./menuStructure";
@@ -105,7 +105,7 @@ const useStyles = makeStyles(
       flexGrow: 1,
       marginLeft: 0,
       // paddingBottom: theme.spacing(),
-      paddingBottom: '6em',
+      paddingBottom: "6em",
       [theme.breakpoints.up("sm")]: {
         paddingBottom: theme.spacing(3)
       }
@@ -137,8 +137,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const isMdUp = useMediaQuery((theme: SaleorTheme) =>
     theme.breakpoints.up("md")
   );
-  // const { availableChannels, channel, isPickerActive, setChannel } =
-  //   useAppChannel(false);
+  const { availableChannels, channel, isPickerActive, setChannel } =
+    useAppChannel(true);
 
   const menuStructure = createMenuStructure(intl, user);
   const activeMenu = menuStructure.find(menuItem =>
@@ -181,7 +181,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             <div>
               <Container>
                 <div className={classes.header}>
-                {/* //hidden for mobile views, might be good for desktop */}
+                  {/* //hidden for mobile views, might be good for desktop */}
                   {/* <div className={classes.headerAnchor} ref={appHeaderAnchor} /> */}
                   <div className={classes.headerToolbar}>
                     {!isMdUp && (

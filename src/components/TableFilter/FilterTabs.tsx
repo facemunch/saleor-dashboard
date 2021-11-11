@@ -7,6 +7,12 @@ const useStyles = makeStyles(
     tabsRoot: {
       borderBottom: `1px solid ${theme.palette.divider}`,
       paddingLeft: theme.spacing(3)
+    },
+    " .MuiTabs-indicator": {
+      left: "0px",
+      width: "15px",
+      height: "7px",
+      borderRadius: "5px 5px 0 0"
     }
   }),
   { name: "FilterTabs" }
