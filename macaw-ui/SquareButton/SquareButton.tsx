@@ -5,21 +5,31 @@ import React from "react";
 import { makeStyles } from "../theme";
 
 const useStyles = makeStyles(
-  (theme) => ({
+  theme => ({
     root: {
-      "&:hover, &:focus": {
-        background: "#22262b",
-      },
-      background: theme.palette.background.paper,
-      borderRadius: 16,
-      color: theme.palette.primary.main,
-      height: 48,
-      transition: theme.transitions.duration.shortest + "ms",
-      width: 48,
-    },
+      // "&:hover, &:focus": {
+      //   background: "#22262b"
+      // },
+      // background: theme.palette.background.paper,
+      // borderRadius: "50%",
+      // color: theme.palette.primary.main,
+      // height: 48,
+      // transition: theme.transitions.duration.shortest + "ms",
+      // width: 48,
+
+      color: "#ffffff",
+      width: "38px",
+      height: "38px",
+      background: "#000",
+      transition: "150ms",
+      borderRadius: "50%",
+      border: "solid 1px #a9a9a973",
+      padding: "0px",
+      marginTop: "5px"
+    }
   }),
   {
-    name: "ExpandButton",
+    name: "ExpandButton"
   }
 );
 

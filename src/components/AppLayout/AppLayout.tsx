@@ -111,7 +111,8 @@ const useStyles = makeStyles(
       }
     },
     viewContainer: {
-      minHeight: `calc(100vh + ${appLoaderHeight + 70}px - ${theme.spacing(2)})`
+      minHeight: `calc(var(--vh) * 100)`,
+      marginTop: "-30px"
     }
   }),
   {

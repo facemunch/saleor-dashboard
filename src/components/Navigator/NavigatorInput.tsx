@@ -8,7 +8,7 @@ const useStyles = makeStyles(
   theme => {
     const typography = {
       color: theme.palette.text.primary,
-      fontSize: 24,
+      fontSize: 14,
       lineHeight: 1.33
     };
 

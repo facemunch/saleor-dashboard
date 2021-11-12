@@ -50,7 +50,6 @@ const useStyles = makeStyles(
       height: "auto",
       borderTopRightRadius: 32,
       padding: theme.spacing(3),
-      marginTop: "2em",
       width: 260
     },
     secondaryContentActive: {
