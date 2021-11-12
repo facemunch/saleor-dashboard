@@ -45,7 +45,7 @@ const useStyles = makeStyles(
       textDecoration: "none"
     },
     root: {
-      background: "#161616",
+      background: "#000000",
       borderBottomRightRadius: 32,
       height: "auto",
       borderTopRightRadius: 32,

@@ -50,7 +50,7 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = ({
         }}
         sx={{
           " .MuiBackdrop-root ": {
-            background: "#1616169e"
+            background: "#0000009e"
           }
         }}
         open={isOpened}
