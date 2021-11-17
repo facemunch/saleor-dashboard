@@ -44,8 +44,12 @@ const useStyles = makeStyles(
       zIndex: 100000
     },
     appActionDocked: {
+      margin: "16px",
+      bottom: "env(safe-area-inset-bottom, 10px)",
+      zIndex: 100000,
       position: "fixed",
-      zIndex: 100000
+      width: "calc(100% - 32px)",
+      borderRadius: 16
     },
     appLoader: {
       height: appLoaderHeight,

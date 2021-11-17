@@ -25,8 +25,6 @@ const useStyles = makeStyles(
         gridRowGap: theme.spacing(1),
         gridTemplateColumns: "1fr"
       },
-      transform: "scale(0.9)",
-      transformOrigin: "top"
     },
     uniform: {
       gridTemplateColumns: "1fr 1fr"
