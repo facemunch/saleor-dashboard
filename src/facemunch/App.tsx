@@ -12,7 +12,7 @@ import { ApolloProvider } from "react-apollo";
 import ErrorBoundary from "react-error-boundary";
 import TagManager from "react-gtm-module";
 import { useIntl } from "react-intl";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import introspectionQueryResultData from "../../fragmentTypes.json";
 import AppsSection from "../apps";
 import { ExternalAppProvider } from "../apps/components/ExternalAppContext";
@@ -27,7 +27,7 @@ import ChannelsSection from "../channels";
 import CollectionSection from "../collections";
 import AppLayout from "../components/AppLayout";
 import AuthSandbox from "../auth/views/LoginSandBox";
-
+import MinimalTheme from "../minimalTheme";
 import useAppChannel, {
   AppChannelProvider
 } from "../components/AppLayout/AppChannelContext";
@@ -112,31 +112,33 @@ const apolloClient = new ApolloClient({
 
 const App: React.FC = () => (
   <ApolloProvider client={apolloClient}>
-    {/* <HashRouter basename={"/ecommerce"}> */}
-    {/* TODO RA MIGRATION <ThemeProvider overrides={themeOverrides}> */}
-    <ThemeProvider>
-      <DateProvider>
-        <LocaleProvider>
-          <MessageManagerProvider>
-            <ServiceWorker />
-            <BackgroundTasksProvider>
-              <AppStateProvider>
-                <AuthProvider>
-                  <ShopProvider>
-                    <AppChannelProvider>
-                      <ExternalAppProvider>
-                        <RoutesApp />
-                      </ExternalAppProvider>
-                    </AppChannelProvider>
-                  </ShopProvider>
-                </AuthProvider>
-              </AppStateProvider>
-            </BackgroundTasksProvider>
-          </MessageManagerProvider>
-        </LocaleProvider>
-      </DateProvider>
-    </ThemeProvider>
-    {/* </HashRouter> */}
+    <BrowserRouter basename={"/ecommerce/"}>
+      {/* TODO RA MIGRATION <ThemeProvider overrides={themeOverrides}> */}
+      <ThemeProvider>
+        <MinimalTheme>
+          <DateProvider>
+            <LocaleProvider>
+              <MessageManagerProvider>
+                <ServiceWorker />
+                <BackgroundTasksProvider>
+                  <AppStateProvider>
+                    <AuthProvider>
+                      <ShopProvider>
+                        <AppChannelProvider>
+                          <ExternalAppProvider>
+                            <RoutesApp />
+                          </ExternalAppProvider>
+                        </AppChannelProvider>
+                      </ShopProvider>
+                    </AuthProvider>
+                  </AppStateProvider>
+                </BackgroundTasksProvider>
+              </MessageManagerProvider>
+            </LocaleProvider>
+          </DateProvider>
+        </MinimalTheme>
+      </ThemeProvider>
+    </BrowserRouter>
   </ApolloProvider>
 );
 
@@ -149,7 +151,7 @@ const RoutesApp: React.FC = () => {
   const { channel } = useAppChannel(false);
 
   const channelLoaded = typeof channel !== "undefined";
-
+  console.log("HashRouter");
   const homePageLoaded =
     channelLoaded &&
     isAuthenticated &&

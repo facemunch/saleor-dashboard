@@ -7,12 +7,18 @@ export type UseNavigatorResult = (
   preserveQs?: boolean
 ) => void;
 function useNavigator(): UseNavigatorResult {
-  const navigator = useNavigate()
+  const navigator = useNavigate();
 
   return (url: string, replace = false, preserveQs = false) => {
     const targetUrl = preserveQs ? url + window.location.search : url;
-    const clientIntegration = location.pathname.includes('ecommerce');
-    const path = `${urlJoin(clientIntegration ? '/ecommerce' : '/', targetUrl)}`;
+    console.log("location from useNavigator", location);
+    // const clientIntegration = location.pathname.includes("ecommerce");
+    const clientIntegration = false;
+
+    const path = `${urlJoin(
+      clientIntegration ? "/ecommerce" : "/",
+      targetUrl
+    )}`;
     navigator(path, { replace: replace });
 
     // window.scrollTo({ behavior: "smooth", top: 0 });

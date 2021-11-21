@@ -159,7 +159,6 @@ const RoutesApp: React.FC = () => {
 
   const homePageLoading =
     (isAuthenticated && !channelLoaded) || (hasToken && tokenVerifyLoading);
-
   return (
     <AuthSandbox>
       <AppLayout>
