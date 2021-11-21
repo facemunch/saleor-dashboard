@@ -59,31 +59,31 @@ const useStyles = makeStyles(
         paddingLeft: `calc(${theme.spacing(2)} + 2px)`
       },
       colName: {
-        width: 250,
-        [theme.breakpoints.up("lg")]: {
-          width: ({ warehouses }: OrderFulfillPageProps) =>
-            warehouses?.length > 3 ? 250 : "auto"
-        },
-        [theme.breakpoints.only("md")]: {
-          width: ({ warehouses }: OrderFulfillPageProps) =>
-            warehouses?.length > 2 ? 250 : "auto"
-        }
+        // width: 250,
+        // [theme.breakpoints.up("lg")]: {
+        //   width: ({ warehouses }: OrderFulfillPageProps) =>
+        //     warehouses?.length > 3 ? 250 : "auto"
+        // },
+        // [theme.breakpoints.only("md")]: {
+        //   width: ({ warehouses }: OrderFulfillPageProps) =>
+        //     warehouses?.length > 2 ? 250 : "auto"
+        // }
       },
       colQuantity: {
         textAlign: "right",
-        width: 210
+        // width: 210
       },
       colQuantityHeader: {
         textAlign: "right"
       },
       colQuantityTotal: {
         textAlign: "right",
-        width: 180
+        // width: 180
       },
       colSku: {
         textAlign: "right",
         textOverflow: "ellipsis",
-        width: 150
+        // width: 150
       },
       error: {
         color: theme.palette.error.main

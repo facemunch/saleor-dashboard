@@ -37,7 +37,7 @@ const useStyles = makeStyles(
       },
       colQuantity: {
         textAlign: "right",
-        width: 210
+        // width: 210
       },
       notice: {
         marginBottom: theme.spacing(1),

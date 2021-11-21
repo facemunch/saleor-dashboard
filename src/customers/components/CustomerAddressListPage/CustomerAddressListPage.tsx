@@ -59,7 +59,7 @@ const useStyles = makeStyles(
     empty: {
       margin: `${theme.spacing(13)}px auto 0`,
       textAlign: "center",
-      width: 600
+      // width: 600
     },
     root: {
       display: "grid",

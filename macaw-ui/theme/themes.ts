@@ -50,7 +50,7 @@ export const dark: SaleorThemeColors = {
   },
   paperBorder: "#252728",
   primary: "#b8a7fd",
-  secondary: "#21125E",
+  secondary: "#b8a7fd",
   success: "#5DC292",
   theme: "dark"
 };
@@ -105,7 +105,7 @@ export const light: SaleorThemeColors = {
   },
   paperBorder: "#252728",
   primary: "#b8a7fd",
-  secondary: "#21125E",
+  secondary: "#b8a7fd",
   success: "#5DC292",
   theme: "light"
 };

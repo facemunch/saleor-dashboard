@@ -49,7 +49,7 @@ const useStyles = makeStyles(
       background: theme.palette.primary.main,
       height: 120,
       textAlign: "center",
-      width: 120
+      // width: 120
     },
     avatarHover: {
       background: "#00000080",
@@ -63,7 +63,7 @@ const useStyles = makeStyles(
       textAlign: "center",
       textTransform: "uppercase",
       transition: "opacity 0.5s",
-      width: 120
+      // width: 120
     },
     avatarImage: {
       pointerEvents: "none",
@@ -87,7 +87,7 @@ const useStyles = makeStyles(
     root: {
       display: "grid",
       gridColumnGap: theme.spacing(4),
-      gridTemplateColumns: "120px 1fr"
+      // gridTemplateColumns: "120px 1fr"
     }
   }),
   { name: "StaffProperties" }

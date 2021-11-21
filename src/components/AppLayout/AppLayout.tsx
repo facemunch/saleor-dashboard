@@ -102,6 +102,8 @@ const useStyles = makeStyles(
     },
 
     view: {
+      padding: 16,
+      // padding: 2,
       flex: 1,
       flexGrow: 1,
       marginLeft: 0,
@@ -203,16 +205,13 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                 </div>
               </Container>
             </div>
-            <main className={classes.view}>
-              {appState.error
-                ? appState.error.type === "unhandled" && (
-                    <ErrorPage
-                      id={appState.error.id}
-                      onBack={handleErrorBack}
-                    />
-                  )
-                : children}
-            </main>
+            {/* <main className={classes.view}> */}
+            {appState.error
+              ? appState.error.type === "unhandled" && (
+                  <ErrorPage id={appState.error.id} onBack={handleErrorBack} />
+                )
+              : children}
+            {/* </main> */}
           </div>
           <Portal>
             <div

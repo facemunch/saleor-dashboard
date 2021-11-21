@@ -9,7 +9,7 @@ export const useTypeDeleteWarningDialogStyles = makeStyles(
       height: "100%"
     },
     content: {
-      width: 600
+      // width: 600
     },
     consentLabel: {
       color: theme.palette.primary.main

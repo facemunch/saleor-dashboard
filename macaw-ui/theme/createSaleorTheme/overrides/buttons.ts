@@ -20,6 +20,8 @@ export const buttonOverrides = (
         boxShadow: "none"
       },
       containedPrimary: {
+        backgroundColor: "yellow !important",
+
         "&:active": {
           backgroundColor: darken(colors.primary, 0.4)
         },
