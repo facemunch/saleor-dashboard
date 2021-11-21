@@ -40,15 +40,14 @@ export const ActionBar: React.FC<ActionBarProps> = ({
   return (
     <Portal container={anchor.current}>
       <div className={classes.root} {...rest}>
-        <Container>
-          <Card
-            className={classes.paper}
-            sx={{ borderRadius: "16px !important" }}
-            elevation={!(docked || scrolledToBottom) ? 16 : 0}
-          >
-            <CardContent className={classes.content}>{children}</CardContent>
-          </Card>
-        </Container>
+        {/* <Container> */}
+        <Card
+          // className={classes.paper}
+          elevation={!(docked || scrolledToBottom) ? 16 : 0}
+        >
+          <CardContent className={classes.content}>{children}</CardContent>
+        </Card>
+        {/* </Container> */}
       </div>
     </Portal>
   );

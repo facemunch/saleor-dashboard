@@ -44,12 +44,9 @@ const useStyles = makeStyles(
       zIndex: 100000
     },
     appActionDocked: {
-      margin: "16px",
       bottom: "env(safe-area-inset-bottom, 10px)",
       zIndex: 100000,
-      position: "fixed",
-      width: "calc(100% - 32px)",
-      borderRadius: 16
+      position: "fixed"
     },
     appLoader: {
       height: appLoaderHeight,
@@ -91,10 +88,10 @@ const useStyles = makeStyles(
       }
     },
     root: {
-      [theme.breakpoints.up("md")]: {
-        display: "flex"
-      },
-      width: `100%`
+      // [theme.breakpoints.up("md")]: {
+      // display: "flex"
+      // }
+      // width: `100%`
     },
     spacer: {
       flex: 1
@@ -115,8 +112,8 @@ const useStyles = makeStyles(
       }
     },
     viewContainer: {
-      minHeight: `calc(var(--vh) * 100)`,
-      marginTop: "-30px"
+      // minHeight: `calc(var(--vh) * 100)`,
+      // marginTop: "-30px"
     }
   }),
   {
@@ -201,22 +198,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                         isMac={navigator.platform.toLowerCase().includes("mac")}
                         onClick={() => setNavigatorVisibility(true)}
                       />
-                      {/* {isPickerActive && (
-                        <AppChannelSelect
-                          channels={availableChannels}
-                          selectedChannelId={channel?.id}
-                          onChannelSelect={setChannel}
-                        />
-                      )} */}
-                      {/* <UserChip
-                        isDarkThemeEnabled={isDarkTheme(themeType)}
-                        user={user}
-                        onLogout={logout}
-                        onProfileClick={() =>
-                          navigate(staffMemberDetailsUrl(user?.id))
-                        }
-                        onThemeToggle={toggleTheme}
-                      /> */}
                     </div>
                   </div>
                 </div>
