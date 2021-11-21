@@ -32,7 +32,7 @@ export interface ThemeProviderProps {
 }
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   children,
-  defaultTheme = "light",
+  defaultTheme = "dark",
   palettes = {},
   overrides = {},
 }) => {

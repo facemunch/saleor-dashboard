@@ -14,9 +14,9 @@ export const createTheme = (colors: SaleorThemeColors): SaleorTheme =>
     components: {
       ...overrides(colors, fontFamily),
       MuiCard: {
-        // defaultProps: {
-        //   elevation: 0,
-        // },
+        defaultProps: {
+          elevation: 0,
+        },
         styleOverrides: {
           root: {
             borderColor: colors.paperBorder,

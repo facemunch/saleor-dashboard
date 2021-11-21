@@ -10,7 +10,7 @@ interface ErrorNoticeBarProps {
 const useStyles = makeStyles(
   theme => ({
     root: {
-      background: theme.palette.alert.paper.error
+      // background: theme.palette.alert.paper.error
     }
   }),
   {

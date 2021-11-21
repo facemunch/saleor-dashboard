@@ -19,8 +19,8 @@ export const dark: SaleorThemeColors = {
   },
   autofill: "#5D5881",
   background: {
-    default: "#1D1E1F",
-    paper: "#2E2F31"
+    default: "#22262C",
+    paper: "#22262C"
   },
   checkbox: {
     default: "#FFFFFF"
@@ -74,8 +74,8 @@ export const light: SaleorThemeColors = {
   },
   autofill: "#5D5881",
   background: {
-    default: "#1D1E1F",
-    paper: "#2E2F31"
+    default: "#22262C",
+    paper: "#22262C"
   },
   checkbox: {
     default: "#FFFFFF"
@@ -108,58 +108,4 @@ export const light: SaleorThemeColors = {
   secondary: "#21125E",
   success: "#5DC292",
   theme: "light"
-  // alert: {
-  //   paper: {
-  //     error: "#FFD6D9",
-  //     info: "#FFFFFF",
-  //     success: "#DFF3E9",
-  //     warning: "#FFF4E4",
-  //   },
-  //   icon: {
-  //     error: "#FE6E76",
-  //     info: "#28234A",
-  //     success: "#5DC292",
-  //     warning: "#8459f4",
-  //   },
-  // },
-  // highlightInactive: {
-  //   default: "#C8C8C8",
-  // },
-  // autofill: "#f4f6c5",
-  // background: {
-  //   default: "#EFF5F8",
-  //   paper: "#FFFFFF",
-  // },
-  // checkbox: {
-  //   default: "#616161",
-  // },
-  // divider: "#EAEAEA",
-  // error: "#FE6D76",
-  // font: {
-  //   button: "#FFFFFF",
-  //   default: "#3D3D3D",
-  //   gray: "#616161",
-  //   textButton: "#06847B",
-  //   textDisabled: "#616161",
-  // },
-  // gray: {
-  //   default: "#C8C8C8",
-  //   disabled: "rgba(216, 216, 216, 0.3)",
-  // },
-
-  // input: {
-  //   border: "#BDBDBD",
-  //   default: "#FFFFFF",
-  //   disabled: "#EAEAEA",
-  //   disabledBackground: "#F4F4F4",
-  //   disabledText: "#9D9D9D",
-  //   error: "#8C2054",
-  //   text: "#3D3D3D",
-  //   textHover: "#616161",
-  // },
-  // paperBorder: "#EAEAEA",
-  // primary: "#06847B",
-  // secondary: "#21125E",
-  // success: "#5DC292",
-  // theme: "light",
 };

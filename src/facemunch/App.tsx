@@ -27,7 +27,6 @@ import ChannelsSection from "../channels";
 import CollectionSection from "../collections";
 import AppLayout from "../components/AppLayout";
 import AuthSandbox from "../auth/views/LoginSandBox";
-import MinimalTheme from "../minimalTheme";
 import useAppChannel, {
   AppChannelProvider
 } from "../components/AppLayout/AppChannelContext";
@@ -113,28 +112,26 @@ const App: React.FC = () => (
   <ApolloProvider client={apolloClient}>
     <BrowserRouter basename={"/ecommerce/"}>
       <ThemeProvider>
-        <MinimalTheme>
-          <DateProvider>
-            <LocaleProvider>
-              <MessageManagerProvider>
-                <ServiceWorker />
-                <BackgroundTasksProvider>
-                  <AppStateProvider>
-                    <AuthProvider>
-                      <ShopProvider>
-                        <AppChannelProvider>
-                          <ExternalAppProvider>
-                            <RoutesApp />
-                          </ExternalAppProvider>
-                        </AppChannelProvider>
-                      </ShopProvider>
-                    </AuthProvider>
-                  </AppStateProvider>
-                </BackgroundTasksProvider>
-              </MessageManagerProvider>
-            </LocaleProvider>
-          </DateProvider>
-        </MinimalTheme>
+        <DateProvider>
+          <LocaleProvider>
+            <MessageManagerProvider>
+              <ServiceWorker />
+              <BackgroundTasksProvider>
+                <AppStateProvider>
+                  <AuthProvider>
+                    <ShopProvider>
+                      <AppChannelProvider>
+                        <ExternalAppProvider>
+                          <RoutesApp />
+                        </ExternalAppProvider>
+                      </AppChannelProvider>
+                    </ShopProvider>
+                  </AuthProvider>
+                </AppStateProvider>
+              </BackgroundTasksProvider>
+            </MessageManagerProvider>
+          </LocaleProvider>
+        </DateProvider>
       </ThemeProvider>
     </BrowserRouter>
   </ApolloProvider>

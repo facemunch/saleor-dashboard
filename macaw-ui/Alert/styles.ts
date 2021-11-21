@@ -29,13 +29,13 @@ const useStyles = makeStyles(
       position: "relative",
     },
     error: {
-      background: theme.palette.alert.paper.error,
+      // background: theme.palette.alert.paper.error,
     },
     warning: {
-      background: theme.palette.alert.paper.warning,
+      // background: theme.palette.alert.paper.warning,
     },
     success: {
-      background: theme.palette.alert.paper.success,
+      // background: theme.palette.alert.paper.success,
     },
   }),
   {

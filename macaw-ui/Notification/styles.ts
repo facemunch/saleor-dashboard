@@ -22,9 +22,9 @@ const useStyles = makeStyles(
     closeBtnInfo: {
       color: theme.palette.text.primary,
     },
-    error: {
-      backgroundColor: theme.palette.alert.paper.error,
-    },
+    // error: {
+    //   backgroundColor: theme.palette.alert.paper.error,
+    // },
     hiddenText: {
       maxHeight: 0,
     },
@@ -43,14 +43,14 @@ const useStyles = makeStyles(
       paddingLeft: `calc(${iconWidth}px + ${theme.spacing(2)})`,
     },
     success: {
-      backgroundColor: theme.palette.alert.paper.success,
+      // backgroundColor: theme.palette.alert.paper.success,
     },
     text: {
       fontWeight: 400,
       paddingTop: 5,
     },
     warning: {
-      backgroundColor: theme.palette.alert.paper.warning,
+      // backgroundColor: theme.palette.alert.paper.warning,
     },
 
     messageContainer: {
