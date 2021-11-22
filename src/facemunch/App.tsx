@@ -111,28 +111,28 @@ const apolloClient = new ApolloClient({
 const App: React.FC = () => (
   <ApolloProvider client={apolloClient}>
     {/* <BrowserRouter basename={"/ecommerce/"}> */}
-      <ThemeProvider>
-        <DateProvider>
-          <LocaleProvider>
-            <MessageManagerProvider>
-              <ServiceWorker />
-              <BackgroundTasksProvider>
-                <AppStateProvider>
-                  <AuthProvider>
-                    <ShopProvider>
-                      <AppChannelProvider>
-                        <ExternalAppProvider>
-                          <RoutesApp />
-                        </ExternalAppProvider>
-                      </AppChannelProvider>
-                    </ShopProvider>
-                  </AuthProvider>
-                </AppStateProvider>
-              </BackgroundTasksProvider>
-            </MessageManagerProvider>
-          </LocaleProvider>
-        </DateProvider>
-      </ThemeProvider>
+    <ThemeProvider>
+      <DateProvider>
+        <LocaleProvider>
+          <MessageManagerProvider>
+            <ServiceWorker />
+            <BackgroundTasksProvider>
+              <AppStateProvider>
+                <AuthProvider>
+                  <ShopProvider>
+                    <AppChannelProvider>
+                      <ExternalAppProvider>
+                        <RoutesApp />
+                      </ExternalAppProvider>
+                    </AppChannelProvider>
+                  </ShopProvider>
+                </AuthProvider>
+              </AppStateProvider>
+            </BackgroundTasksProvider>
+          </MessageManagerProvider>
+        </LocaleProvider>
+      </DateProvider>
+    </ThemeProvider>
     {/* </BrowserRouter> */}
   </ApolloProvider>
 );
@@ -173,6 +173,7 @@ const RoutesApp: React.FC = () => {
           }}
         >
           <Routes>
+            {/* <Route path="/ecommerce"> */}
             <Route
               path="/"
               element={
@@ -182,7 +183,15 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/categories"
+              path="home"
+              element={
+                <SectionRoute>
+                  <HomePage />
+                </SectionRoute>
+              }
+            />
+            <Route
+              path="categories"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                   <CategorySection />
@@ -190,7 +199,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/categories/*"
+              path="categories/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                   <CategorySection />
@@ -198,7 +207,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/collections"
+              path="collections"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                   <CollectionSection />
@@ -206,7 +215,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/collections/*"
+              path="collections/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                   <CollectionSection />
@@ -214,7 +223,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/customers"
+              path="customers"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_USERS]}>
                   <CustomerSection />
@@ -222,7 +231,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/customers/*"
+              path="customers/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_USERS]}>
                   <CustomerSection />
@@ -230,7 +239,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/gift-cards"
+              path="gift-cards"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_GIFT_CARD]}>
                   <GiftCardSection />
@@ -238,7 +247,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/gift-cards/*"
+              path="gift-cards/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_GIFT_CARD]}>
                   <GiftCardSection />
@@ -246,7 +255,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/discounts"
+              path="discounts"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_DISCOUNTS]}>
                   <DiscountSection />
@@ -254,7 +263,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/discounts/*"
+              path="discounts/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_DISCOUNTS]}>
                   <DiscountSection />
@@ -262,7 +271,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/pages"
+              path="pages"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_PAGES]}>
                   <PageSection />
@@ -270,7 +279,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/pages/*"
+              path="pages/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_PAGES]}>
                   <PageSection />
@@ -278,7 +287,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/page-types"
+              path="page-types"
               element={
                 <SectionRoute
                   permissions={[
@@ -291,7 +300,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/page-types/*"
+              path="page-types/*"
               element={
                 <SectionRoute
                   permissions={[
@@ -304,7 +313,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/plugins"
+              path="plugins"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_PLUGINS]}>
                   <PluginsSection />
@@ -312,7 +321,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/plugins/*"
+              path="plugins/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_PLUGINS]}>
                   <PluginsSection />
@@ -320,7 +329,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/orders"
+              path="orders"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_ORDERS]}>
                   <OrdersSection />
@@ -328,7 +337,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/orders/*"
+              path="orders/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_ORDERS]}>
                   <OrdersSection />
@@ -336,7 +345,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/products"
+              path="products"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                   <ProductSection />
@@ -344,7 +353,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/products/*"
+              path="products/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                   <ProductSection />
@@ -352,7 +361,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/product-types"
+              path="product-types"
               element={
                 <SectionRoute
                   permissions={[
@@ -364,7 +373,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/product-types/*"
+              path="product-types/*"
               element={
                 <SectionRoute
                   permissions={[
@@ -376,7 +385,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/staff"
+              path="staff"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_STAFF]}>
                   <StaffSection />
@@ -384,7 +393,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/staff/*"
+              path="staff/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_STAFF]}>
                   <StaffSection />
@@ -392,7 +401,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/permission-groups"
+              path="permission-groups"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_STAFF]}>
                   <PermissionGroupSection />
@@ -400,7 +409,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/permission-groups/*"
+              path="permission-groups/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_STAFF]}>
                   <PermissionGroupSection />
@@ -408,7 +417,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/site-settings"
+              path="site-settings"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_SETTINGS]}>
                   <SiteSettingsSection />
@@ -416,7 +425,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/site-settings/*"
+              path="site-settings/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_SETTINGS]}>
                   <SiteSettingsSection />
@@ -424,7 +433,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/taxes"
+              path="taxes"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_SETTINGS]}>
                   <TaxesSection />
@@ -432,7 +441,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/taxes/*"
+              path="taxes/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_SETTINGS]}>
                   <TaxesSection />
@@ -440,7 +449,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/shipping"
+              path="shipping"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_SHIPPING]}>
                   <ShippingSection />
@@ -448,7 +457,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/shipping/*"
+              path="shipping/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_SHIPPING]}>
                   <ShippingSection />
@@ -456,7 +465,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/translations"
+              path="translations"
               element={
                 <SectionRoute
                   permissions={[PermissionEnum.MANAGE_TRANSLATIONS]}
@@ -466,7 +475,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/translations/*"
+              path="translations/*"
               element={
                 <SectionRoute
                   permissions={[PermissionEnum.MANAGE_TRANSLATIONS]}
@@ -476,7 +485,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/navigation"
+              path="navigation"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_MENUS]}>
                   <NavigationSection />
@@ -484,7 +493,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/navigation/*"
+              path="navigation/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_MENUS]}>
                   <NavigationSection />
@@ -492,7 +501,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/attributes"
+              path="attributes"
               element={
                 <SectionRoute
                   permissions={[
@@ -505,7 +514,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/attributes/*"
+              path="attributes/*"
               element={
                 <SectionRoute
                   permissions={[
@@ -518,7 +527,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/apps"
+              path="apps"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_APPS]}>
                   <AppsSection />
@@ -526,7 +535,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/apps/*"
+              path="apps/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_APPS]}>
                   <AppsSection />
@@ -534,7 +543,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/warehouses"
+              path="warehouses"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                   <WarehouseSection />
@@ -542,7 +551,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/warehouses/*"
+              path="warehouses/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                   <WarehouseSection />
@@ -550,7 +559,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/channels"
+              path="channels"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_CHANNELS]}>
                   <ChannelsSection />
@@ -558,7 +567,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/channels/*"
+              path="channels/*"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_CHANNELS]}>
                   <ChannelsSection />
@@ -566,7 +575,7 @@ const RoutesApp: React.FC = () => {
               }
             />
             <Route
-              path="/configuration"
+              path="configuration"
               element={
                 <SectionRoute
                   matchPermission="any"
@@ -576,7 +585,14 @@ const RoutesApp: React.FC = () => {
                 </SectionRoute>
               }
             />
-            <Route element={<NotFound />} />
+            <Route
+              element={
+                <SectionRoute>
+                  <HomePage />
+                </SectionRoute>
+              }
+            />
+            {/* </Route> */}
           </Routes>
         </ErrorBoundary>
       </AppLayout>

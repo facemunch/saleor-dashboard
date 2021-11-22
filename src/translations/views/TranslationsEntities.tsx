@@ -44,7 +44,7 @@ const TranslationsEntities: React.FC<TranslationsEntitiesProps> = ({
   const paginate = usePaginator();
   const shop = useShop();
   console.log("location moo", location);
-  const pathName = location.pathname.replace("/ecommerce/", "");
+  const pathName = location.pathname.replace("/ecommerce/", "/ecommerce/");
 
   useEffect(() => {
     if (Object.keys(TranslatableEntities).indexOf(params.tab) === -1) {

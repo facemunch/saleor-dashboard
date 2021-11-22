@@ -36,7 +36,7 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
       iconSrc: homeIcon,
       label: intl.formatMessage(sectionNames.home),
       id: "home",
-      url: "/"
+      url: "/home"
     },
     {
       ariaLabel: "catalogue",
