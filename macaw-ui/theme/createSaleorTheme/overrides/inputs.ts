@@ -81,7 +81,7 @@ export const inputOverrides = (
           boxShadow: "0 0 0px 1000px rgba(19, 190, 187, 0.1) inset",
         },
         color: colors.input.text,
-        padding: "23px 12px 10px 12px",
+        // padding: "23px 12px 10px 12px",
       },
       inputMultiline: {
         left: -2,

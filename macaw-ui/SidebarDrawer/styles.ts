@@ -18,7 +18,8 @@ const useStyles = makeStyles(
       width: "50%"
     },
     icon: {
-      marginRight: theme.spacing(2)
+      marginRight: theme.spacing(2),
+      color: "white"
     },
     innerContainer: {
       display: "flex",

@@ -1,5 +1,8 @@
 import type { Theme } from "@mui/material";
-import { ThemeProvider as MuiThemeProvider, useTheme } from "@mui/material/styles"
+import {
+  ThemeProvider as MuiThemeProvider,
+  useTheme
+} from "@mui/material/styles";
 import { merge } from "lodash";
 import React, { useEffect } from "react";
 
@@ -8,7 +11,7 @@ import { BacklinkProvider } from "../Backlink/context";
 import {
   ExtensionMessageType,
   sendMessageToExtension,
-  ThemeChangeMessage,
+  ThemeChangeMessage
 } from "../extensions";
 import { localStorageKeys } from "../localStorageKeys";
 import useLocalStorage from "../tools/useLocalStorage";
@@ -34,7 +37,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   children,
   defaultTheme = "dark",
   palettes = {},
-  overrides = {},
+  overrides = {}
 }) => {
   const { value: themeTypeName, setValue: setThemeType } = useLocalStorage(
     localStorageKeys.theme,
@@ -44,19 +47,20 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   const themes = {
     light,
     dark,
-    ...palettes,
+    ...palettes
   };
-  const theme = merge(createTheme(themes[themeType]), useTheme(), overrides);
-    // const theme = useTheme();
+  console.log("defaultTheme",defaultTheme)
+  const theme = merge(createTheme(themes[defaultTheme]), useTheme(), overrides);
+  // const theme = useTheme();
 
-  const sendThemeToExtension = () => {}
-    sendMessageToExtension<ThemeChangeMessage>(
-      {
-        theme: themeType,
-        type: ExtensionMessageType.THEME,
-      },
-      "*"
-    );
+  const sendThemeToExtension = () => {};
+  sendMessageToExtension<ThemeChangeMessage>(
+    {
+      theme: themeType,
+      type: ExtensionMessageType.THEME
+    },
+    "*"
+  );
 
   useEffect(() => {
     sendThemeToExtension();
@@ -66,9 +70,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   return (
     <ThemeContext.Provider
       value={{
-        themeType: themeType,
+        themeType: defaultTheme,
         sendThemeToExtension,
-        setTheme: setThemeType,
+        setTheme: setThemeType
       }}
     >
       <MuiThemeProvider theme={theme}>

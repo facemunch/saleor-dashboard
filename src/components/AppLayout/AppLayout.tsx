@@ -45,7 +45,7 @@ const useStyles = makeStyles(
     },
     appActionDocked: {
       bottom: "env(safe-area-inset-bottom, 10px)",
-      zIndex: 100000,
+      zIndex: 10000,
       position: "fixed"
     },
     appLoader: {
@@ -114,6 +114,7 @@ const useStyles = makeStyles(
       }
     },
     viewContainer: {
+      marginBottom: "4em"
       // minHeight: `calc(var(--vh) * 100)`,
       // marginTop: "-30px"
     }
