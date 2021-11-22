@@ -1,3 +1,5 @@
+
+// not in user defined
 import DemoBanner from "@saleor/components/DemoBanner";
 import useAppState from "@saleor/hooks/useAppState";
 import { ThemeProvider } from "@saleor/macaw-ui";
@@ -113,32 +115,32 @@ const apolloClient = new ApolloClient({
 });
 
 const App: React.FC = () => (
-  <ApolloProvider client={apolloClient}>
-    <BrowserRouter basename={APP_MOUNT_URI}>
-      <ThemeProvider overrides={themeOverrides}>
-        <DateProvider>
-          <LocaleProvider>
-            <MessageManagerProvider>
-              <ServiceWorker />
-              <BackgroundTasksProvider>
-                <AppStateProvider>
-                  <AuthProvider>
-                    <ShopProvider>
-                      <AppChannelProvider>
-                        <ExternalAppProvider>
-                          <RoutesApp />
-                        </ExternalAppProvider>
-                      </AppChannelProvider>
-                    </ShopProvider>
-                  </AuthProvider>
-                </AppStateProvider>
-              </BackgroundTasksProvider>
-            </MessageManagerProvider>
-          </LocaleProvider>
-        </DateProvider>
-      </ThemeProvider>
-    </BrowserRouter>
-  </ApolloProvider>
+  // <ApolloProvider client={apolloClient}>
+  //   <BrowserRouter basename={APP_MOUNT_URI}>
+  //     <ThemeProvider overrides={themeOverrides}>
+  //       <DateProvider>
+  //         <LocaleProvider>
+  //           <MessageManagerProvider>
+  //             <ServiceWorker />
+  //             <BackgroundTasksProvider>
+  //               <AppStateProvider>
+  //                 <AuthProvider>
+  //                   <ShopProvider>
+  //                     <AppChannelProvider>
+  //                       <ExternalAppProvider>
+  //                         <RoutesApp />
+  //                       </ExternalAppProvider>
+  //                     </AppChannelProvider>
+  //                   </ShopProvider>
+  //                 </AuthProvider>
+  //               </AppStateProvider>
+  //             </BackgroundTasksProvider>
+  //           </MessageManagerProvider>
+  //         </LocaleProvider>
+  //       </DateProvider>
+  //     </ThemeProvider>
+  //   </BrowserRouter>
+  // </ApolloProvider>
 );
 
 const RoutesApp: React.FC = () => {

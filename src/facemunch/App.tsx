@@ -110,7 +110,7 @@ const apolloClient = new ApolloClient({
 
 const App: React.FC = () => (
   <ApolloProvider client={apolloClient}>
-    <BrowserRouter basename={"/ecommerce/"}>
+    {/* <BrowserRouter basename={"/ecommerce/"}> */}
       <ThemeProvider>
         <DateProvider>
           <LocaleProvider>
@@ -133,7 +133,7 @@ const App: React.FC = () => (
           </LocaleProvider>
         </DateProvider>
       </ThemeProvider>
-    </BrowserRouter>
+    {/* </BrowserRouter> */}
   </ApolloProvider>
 );
 
