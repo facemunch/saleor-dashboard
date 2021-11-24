@@ -17,7 +17,7 @@ function useNavigator(): UseNavigatorResult {
       clientIntegration ? "/ecommerce" : "/",
       targetUrl
     )}`;
-    navigator(path, { replace: true });
+    navigator(path, { replace: replace });
 
     // window.scrollTo({ behavior: "smooth", top: 0 });
   };

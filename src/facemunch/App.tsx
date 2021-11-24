@@ -12,14 +12,12 @@ import { ApolloProvider } from "react-apollo";
 import ErrorBoundary from "react-error-boundary";
 import TagManager from "react-gtm-module";
 import { useIntl } from "react-intl";
-import { Routes, Route, BrowserRouter, useLocation, useNavigate } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import introspectionQueryResultData from "../../fragmentTypes.json";
 import AppsSection from "../apps";
 import { ExternalAppProvider } from "../apps/components/ExternalAppContext";
 import AttributeSection from "../attributes";
-import Auth from "../auth";
-import AuthProvider, { useAuth } from "../auth/AuthProvider";
-import LoginLoading from "../auth/components/LoginLoading/LoginLoading";
+import AuthProvider from "../auth/AuthProvider";
 import SectionRoute from "../auth/components/SectionRoute";
 import authLink from "../auth/link";
 import CategorySection from "../categories";
@@ -35,7 +33,7 @@ import { LocaleProvider } from "../components/Locale";
 import MessageManagerProvider from "../components/messages";
 import { ShopProvider } from "../components/Shop";
 // import { WindowTitle } from "../components/WindowTitle";
-import { API_URI, DEMO_MODE, GTM_ID } from "../config";
+import { API_URI, GTM_ID } from "../config";
 import ConfigurationSection from "../configuration";
 import { getConfigMenuItemsPermissions } from "../configuration/utils";
 import AppStateProvider from "../containers/AppState";
@@ -45,9 +43,7 @@ import { CustomerSection } from "../customers";
 import DiscountSection from "../discounts";
 import GiftCardSection from "../giftCards";
 import HomePage from "../home";
-import { commonMessages } from "../intl";
 import NavigationSection from "../navigation";
-import { NotFound } from "../NotFound";
 import OrdersSection from "../orders";
 import PageSection from "../pages";
 import PageTypesSection from "../pageTypes";
@@ -63,7 +59,6 @@ import TaxesSection from "../taxes";
 import TranslationsSection from "../translations";
 import { PermissionEnum } from "../types/globalTypes";
 import WarehouseSection from "../warehouses";
-import useNavigator from "@saleor/hooks/useNavigator";
 
 if (process.env.GTM_ID) {
   TagManager.initialize({ gtmId: GTM_ID });
@@ -146,35 +141,33 @@ const App: React.FC<IProps> = ({onRouteUpdate, route}) => (
 const RoutesApp: React.FC<IProps> = ({onRouteUpdate, route}) => {
   const intl = useIntl();
   const [, dispatchAppState] = useAppState();
-  const { hasToken, isAuthenticated, tokenAuthLoading, tokenVerifyLoading } =
-    useAuth();
+  // const { hasToken, isAuthenticated, tokenAuthLoading, tokenVerifyLoading } =
+  //   useAuth();
 
   const location = useLocation();
-  const nav = useNavigator();
-  let navigate = useNavigate();
-
-  route((path: string) => navigate(path, {
-    replace: false
-  }));
+  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(window.location.pathname);    
-    setTimeout(() => onRouteUpdate(window.location.pathname), 500);
-    
+    route((path: string) => navigate(path, {
+      replace: false
+    }));
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => onRouteUpdate(window.location.pathname), 0);
   }, [location]);
 
   const { channel } = useAppChannel(false);
 
   const channelLoaded = typeof channel !== "undefined";
-  console.log("HashRouter");
-  const homePageLoaded =
-    channelLoaded &&
-    isAuthenticated &&
-    !tokenAuthLoading &&
-    !tokenVerifyLoading;
+  // const homePageLoaded =
+  //   channelLoaded &&
+  //   isAuthenticated &&
+  //   !tokenAuthLoading &&
+  //   !tokenVerifyLoading;
 
-  const homePageLoading =
-    (isAuthenticated && !channelLoaded) || (hasToken && tokenVerifyLoading);
+  // const homePageLoading =
+  //   (isAuthenticated && !channelLoaded) || (hasToken && tokenVerifyLoading);
 
   return (
     <AuthSandbox channelLoaded={channelLoaded}>
