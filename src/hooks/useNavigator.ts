@@ -12,14 +12,12 @@ function useNavigator(): UseNavigatorResult {
   return (url: string, replace = false, preserveQs = false) => {
     const targetUrl = preserveQs ? url + window.location.search : url;
     console.log("location from useNavigator", location);
-    // const clientIntegration = location.pathname.includes("ecommerce");
-    const clientIntegration = false;
-
+    const clientIntegration = location.pathname.includes("ecommerce");
     const path = `${urlJoin(
       clientIntegration ? "/ecommerce" : "/",
       targetUrl
     )}`;
-    navigator(path, { replace: replace });
+    navigator(path, { replace: true });
 
     // window.scrollTo({ behavior: "smooth", top: 0 });
   };
