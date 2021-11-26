@@ -194,14 +194,22 @@ const RoutesApp: React.FC<IProps> = ({onRouteUpdate, route}) => {
                 </SectionRoute>
               }
             />
-            {/* <Route
+            <Route
               path="/m/*"
               element={
                 <SectionRoute>
                   <HomePage />
                 </SectionRoute>
               }
-            /> */}
+            />
+             <Route
+              path="/apps/*"
+              element={
+                <SectionRoute>
+                  <HomePage />
+                </SectionRoute>
+              }
+            />
             <Route
               path="/"
               element={
