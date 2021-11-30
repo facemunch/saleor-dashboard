@@ -106,10 +106,9 @@ const apolloClient = new ApolloClient({
 
 interface IProps {
   onRouteUpdate: (route: string) => void;
-  route: (route: (string) => void) => void;
 }
 
-const App: React.FC<IProps> = ({onRouteUpdate, route}) => (
+const App: React.FC<IProps> = ({onRouteUpdate}) => (
   <ApolloProvider client={apolloClient}>
     {/* <BrowserRouter basename={"/ecommerce"}> */}
       <ThemeProvider>
@@ -123,7 +122,7 @@ const App: React.FC<IProps> = ({onRouteUpdate, route}) => (
                     <ShopProvider>
                       <AppChannelProvider>
                         <ExternalAppProvider>
-                          <RoutesApp onRouteUpdate={onRouteUpdate} route={route}/>
+                          <RoutesApp onRouteUpdate={onRouteUpdate} />
                         </ExternalAppProvider>
                       </AppChannelProvider>
                     </ShopProvider>
@@ -138,20 +137,13 @@ const App: React.FC<IProps> = ({onRouteUpdate, route}) => (
   </ApolloProvider>
 );
 
-const RoutesApp: React.FC<IProps> = ({onRouteUpdate, route}) => {
+const RoutesApp: React.FC<IProps> = ({onRouteUpdate}) => {
   const intl = useIntl();
   const [, dispatchAppState] = useAppState();
   // const { hasToken, isAuthenticated, tokenAuthLoading, tokenVerifyLoading } =
   //   useAuth();
 
   const location = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    route((path: string) => navigate(path, {
-      replace: false
-    }));
-  }, []);
 
   useEffect(() => {
     setTimeout(() => onRouteUpdate(window.location.pathname), 0);
@@ -194,14 +186,22 @@ const RoutesApp: React.FC<IProps> = ({onRouteUpdate, route}) => {
                 </SectionRoute>
               }
             />
-            {/* <Route
+            <Route
               path="/m/*"
               element={
                 <SectionRoute>
                   <HomePage />
                 </SectionRoute>
               }
-            /> */}
+            />
+            <Route
+              path="/settings/*"
+              element={
+                <SectionRoute>
+                  <HomePage />
+                </SectionRoute>
+              }
+            />
             <Route
               path="/"
               element={
