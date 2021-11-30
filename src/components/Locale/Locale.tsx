@@ -141,7 +141,8 @@ const { Consumer: LocaleConsumer, Provider: RawLocaleProvider } = LocaleContext;
 const LocaleProvider: React.FC = ({ children }) => {
   const [locale, setLocale] = useLocalStorage(
     "locale",
-    getMatchingLocale(navigator.languages) || defaultLocale
+    defaultLocale
+    //getMatchingLocale(navigator.languages) || defaultLocale
   );
   const [messages, setMessages] = React.useState(undefined);
 
