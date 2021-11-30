@@ -1,4 +1,4 @@
-import { Button, DialogContentText } from "@material-ui/core";
+import { Button, DialogContentText } from "@mui/material";
 import { categoryUrl } from "@saleor/categories/urls";
 import {
   ChannelSaleData,

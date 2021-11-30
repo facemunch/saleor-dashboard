@@ -6,8 +6,8 @@ import {
   TableFooter,
   TableRow,
   Typography
-} from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import CardTitle from "@saleor/components/CardTitle";
 import TablePagination from "@saleor/components/TablePagination";
 import { renderCollection, stopPropagation } from "@saleor/misc";

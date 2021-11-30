@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 
 export interface UseStateFromPropsOpts<T> {
   mergeFunc?: (prevData: T, state: T, newData: T) => T;
-  onRefresh?: (data: T) => void;
+  onRefresh?: (oldData: T, newData: T) => void;
 }
 
 function useStateFromProps<T>(
@@ -25,7 +25,7 @@ function useStateFromProps<T>(
     setState(newData);
     setPrevData(data);
     if (typeof onRefresh === "function") {
-      onRefresh(newData);
+      onRefresh(state, newData);
     }
   }
 

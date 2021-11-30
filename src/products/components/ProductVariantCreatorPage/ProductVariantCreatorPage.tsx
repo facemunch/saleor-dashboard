@@ -1,4 +1,4 @@
-import { Button, Typography } from "@material-ui/core";
+import { Button, Typography } from "@mui/material";
 import { drawerWidthExpanded } from "@saleor/components/AppLayout/consts";
 import Container from "@saleor/components/Container";
 import Hr from "@saleor/components/Hr";
@@ -32,7 +32,7 @@ const useStyles = makeStyles(
       [theme.breakpoints.up("md")]: {
         position: "absolute",
         width: `calc(100vw - ${drawerWidthExpanded}px + ${theme.spacing(6)}px)`,
-        maxWidth: `calc(${theme.breakpoints.width("lg")}px - ${theme.spacing(
+        maxWidth: `calc(${theme.breakpoints.values.lg}px - ${theme.spacing(
           6
         )}px)`
       }

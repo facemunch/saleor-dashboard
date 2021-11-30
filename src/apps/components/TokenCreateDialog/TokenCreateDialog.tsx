@@ -7,7 +7,7 @@ import {
   Paper,
   TextField,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ConfirmButton, {
   ConfirmButtonTransitionState

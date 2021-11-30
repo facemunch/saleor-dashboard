@@ -2046,11 +2046,11 @@
   },
   "src_dot_components_dot_ColumnPicker_dot_2539195044": {
     "context": "select visible columns button",
-    "string": "Columns"
+    "string": "Extra Info"
   },
   "src_dot_components_dot_ColumnPicker_dot_2715399461": {
     "context": "pick columns to display",
-    "string": "{numberOfSelected} columns selected out of {numberOfTotal}"
+    "string": "{numberOfSelected} visible out of {numberOfTotal}"
   },
   "src_dot_components_dot_CompanyAddressInput_dot_1139500589": {
     "string": "Country"
@@ -2535,7 +2535,7 @@
     "string": "Product Settings"
   },
   "src_dot_configuration_dot_887806978": {
-    "string": "Multichannel"
+    "string": "Multi-project"
   },
   "src_dot_confirm": {
     "context": "button",
@@ -3317,7 +3317,7 @@
   },
   "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsChannelAvailabilityDialogHeader": {
     "context": "channel availability dialog header",
-    "string": "Manage Channel Availability"
+    "string": "Manage Munch Link Availability"
   },
   "src_dot_discounts_dot_views_dot_SaleDetails_dot_saleDetailsSaleDelate": {
     "context": "sale Details delete button",
@@ -3425,7 +3425,7 @@
     "string": "Are you sure you want to delete {voucherCode}?"
   },
   "src_dot_discounts_dot_views_dot_VoucherDetails_dot_3823295269": {
-    "string": "Manage Channel Availability"
+    "string": "Manage Munch Link Availability"
   },
   "src_dot_discounts_dot_views_dot_VoucherDetails_dot_767268203": {
     "context": "dialog content",
@@ -7105,10 +7105,10 @@
     "string": "{counter,plural,one{Are you sure you want to delete this shipping zone?} other{Are you sure you want to delete {displayQuantity} shipping zones?}}"
   },
   "src_dot_shipping_dot_views_dot_PriceRatesCreate_dot_3823295269": {
-    "string": "Manage Channel Availability"
+    "string": "Manage Munch Link Availability"
   },
   "src_dot_shipping_dot_views_dot_PriceRatesUpdate_dot_3823295269": {
-    "string": "Manage Channel Availability"
+    "string": "Manage Munch Link Availability"
   },
   "src_dot_shipping_dot_views_dot_PriceRatesUpdate_dot_870815507": {
     "context": "unassign products from shipping method, button",
@@ -7208,7 +7208,7 @@
     "string": "These are general information about your store. They define what is the URL of your store and what is shown in browsers taskbar."
   },
   "src_dot_somethingWentWrong": {
-    "string": "Saleor ran into an unexpected problem"
+    "string": "FaceMunch ran into an unexpected problem"
   },
   "src_dot_staff": {
     "context": "staff section name",

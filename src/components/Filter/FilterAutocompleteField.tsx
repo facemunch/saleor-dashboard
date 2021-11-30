@@ -1,4 +1,4 @@
-import { FormControlLabel, TextField, Typography } from "@material-ui/core";
+import { FormControlLabel, TextField, Typography } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import { toggle } from "@saleor/utils/lists";
 import React from "react";

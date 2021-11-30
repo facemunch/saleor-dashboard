@@ -8,8 +8,8 @@ import {
   MenuList,
   Paper,
   Popper
-} from "@material-ui/core";
-import { ArrowDropDown as ArrowDropDownIcon } from "@material-ui/icons";
+} from "@mui/material";
+import { ArrowDropDown as ArrowDropDownIcon } from "@mui/icons-material";
 import React from "react";
 
 import { useStyles } from "./styles";
@@ -48,7 +48,7 @@ export const ButtonWithSelect: React.FC<ButtonWithSelectProps> = ({
     setOpen(prevOpen => !prevOpen);
   };
 
-  const handleClose = (event: React.MouseEvent<Document, MouseEvent>) => {
+  const handleClose = (event: any) => {
     if (
       anchorRef.current &&
       anchorRef.current.contains(event.target as HTMLElement)

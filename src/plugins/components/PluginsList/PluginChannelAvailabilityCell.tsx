@@ -1,4 +1,4 @@
-import { TableCell } from "@material-ui/core";
+import { TableCell } from "@mui/material";
 import Skeleton from "@saleor/components/Skeleton";
 import { PluginBaseFragment } from "@saleor/fragments/types/PluginBaseFragment";
 import React, { useRef, useState } from "react";

@@ -4,7 +4,7 @@ import {
   TableFooter,
   TableRow,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import AvailabilityStatusLabel from "@saleor/components/AvailabilityStatusLabel";
 import { ChannelsAvailabilityDropdown } from "@saleor/components/ChannelsAvailabilityDropdown";
 import Checkbox from "@saleor/components/Checkbox";
@@ -151,12 +151,12 @@ export const ProductList: React.FC<ProductListProps> = props => {
           <DisplayColumn column="productType" displayColumns={settings.columns}>
             <col className={classes.colType} />
           </DisplayColumn>
-          <DisplayColumn
+          {/* <DisplayColumn
             column="availability"
             displayColumns={settings.columns}
           >
             <col className={classes.colPublished} />
-          </DisplayColumn>
+          </DisplayColumn> */}
           {gridAttributesFromSettings.map(gridAttribute => (
             <col className={classes.colAttribute} key={gridAttribute} />
           ))}
@@ -206,7 +206,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
               />
             </TableCellHeader>
           </DisplayColumn>
-          <DisplayColumn
+          {/* <DisplayColumn
             column="availability"
             displayColumns={settings.columns}
           >
@@ -231,7 +231,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
                 description="product channels"
               />
             </TableCellHeader>
-          </DisplayColumn>
+          </DisplayColumn> */}
           {gridAttributesFromSettings.map(gridAttributeFromSettings => {
             const attributeId = getAttributeIdFromColumnValue(
               gridAttributeFromSettings
@@ -362,7 +362,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
                       {product?.productType?.name || <Skeleton />}
                     </TableCell>
                   </DisplayColumn>
-                  <DisplayColumn
+                  {/* <DisplayColumn
                     column="availability"
                     displayColumns={settings.columns}
                   >
@@ -388,7 +388,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
                           />
                         ))}
                     </TableCell>
-                  </DisplayColumn>
+                  </DisplayColumn> */}
                   {gridAttributesFromSettings.map(gridAttribute => (
                     <TableCell
                       className={classes.colAttribute}

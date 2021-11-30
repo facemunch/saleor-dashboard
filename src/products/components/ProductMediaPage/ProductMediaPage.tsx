@@ -1,4 +1,4 @@
-import { Card, CardContent, TextField } from "@material-ui/core";
+import { Card, CardContent, TextField } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Container from "@saleor/components/Container";

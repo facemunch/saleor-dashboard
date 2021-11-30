@@ -3,12 +3,11 @@ import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
   categoryAddPath,
-  categoryListPath,
   CategoryListUrlQueryParams,
   CategoryListUrlSortField,
   categoryPath,
@@ -18,39 +17,32 @@ import { CategoryCreateView } from "./views/CategoryCreate";
 import CategoryDetailsView, { getActiveTab } from "./views/CategoryDetails";
 import CategoryListComponent from "./views/CategoryList";
 
-interface CategoryDetailsRouteParams {
-  id: string;
-}
-const CategoryDetails: React.FC<RouteComponentProps<
-  CategoryDetailsRouteParams
->> = ({ location, match }) => {
+const CategoryDetails: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: CategoryUrlQueryParams = {
     ...qs,
     activeTab: getActiveTab(qs.activeTab)
   };
-
+  const match = useParams();
+  
   return (
     <CategoryDetailsView
-      id={decodeURIComponent(match.params.id)}
+      id={decodeURIComponent(match.id)}
       params={params}
     />
   );
 };
 
-interface CategoryCreateRouteParams {
-  id: string;
-}
-const CategoryCreate: React.FC<RouteComponentProps<
-  CategoryCreateRouteParams
->> = ({ match }) => (
-  <CategoryCreateView
-    parentId={match.params.id ? decodeURIComponent(match.params.id) : undefined}
-  />
-);
+const CategoryCreate: React.FC = () => {
+  const match = useParams();
 
-const CategoryList: React.FC<RouteComponentProps<{}>> = ({ location }) => {
-  const qs = parseQs(location.search.substr(1));
+  return <CategoryCreateView
+    parentId={match.id ? decodeURIComponent(match.id) : undefined}
+  />
+};
+
+const CategoryList: React.FC = () => {
+  const qs = parseQs(location.search.substr(1)) as any;
   const params: CategoryListUrlQueryParams = {
     ...asSortParams(qs, CategoryListUrlSortField)
   };
@@ -64,12 +56,12 @@ const Component = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.categories)} />
-      <Switch>
-        <Route exact path={categoryListPath} component={CategoryList} />
-        <Route exact path={categoryAddPath()} component={CategoryCreate} />
-        <Route exact path={categoryAddPath(":id")} component={CategoryCreate} />
-        <Route path={categoryPath(":id")} component={CategoryDetails} />
-      </Switch>
+      <Routes>
+        <Route path="" element={<CategoryList />} />
+        <Route path={categoryAddPath("", "")} element={<CategoryCreate />} />
+        <Route path={categoryAddPath(":id", "")} element={<CategoryCreate />} />
+        <Route path={categoryPath(":id", "")} element={<CategoryDetails />} />
+      </Routes>
     </>
   );
 };

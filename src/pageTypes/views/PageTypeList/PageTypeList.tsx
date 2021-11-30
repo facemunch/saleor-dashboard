@@ -1,5 +1,5 @@
-import { IconButton } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteFilterTabDialog from "@saleor/components/DeleteFilterTabDialog";
 import SaveFilterTabDialog, {
   SaveFilterTabDialogFormData

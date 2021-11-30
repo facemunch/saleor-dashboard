@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import VerticalSpacer from "@saleor/apps/components/VerticalSpacer";
 import ControlledCheckbox from "@saleor/components/ControlledCheckbox";
 import { GiftCardSettingsErrorFragment } from "@saleor/fragments/types/GiftCardSettingsErrorFragment";
@@ -37,6 +37,7 @@ const GiftCardSettingsExpirySelect: React.FC<GiftCardSettingsExpirySelectProps> 
         label={
           <>
             <FormattedMessage {...messages.setExpirationPeriodTitle} />
+            <br/>
             <Typography variant="caption">
               <FormattedMessage {...messages.setExpirationPeriodDescription} />
             </Typography>

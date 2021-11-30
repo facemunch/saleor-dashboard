@@ -40,7 +40,7 @@ export type PluginListUrlQueryParams = ActiveTab &
 export const pluginListUrl = (params?: PluginListUrlQueryParams) =>
   pluginListPath + "?" + stringifyQs(params);
 
-export const pluginPath = (id: string) => urlJoin(pluginSection, id);
+export const pluginPath = (id: string, section = pluginSection) => urlJoin(section, id);
 export type PluginUrlDialog = "clear" | "edit";
 export type PluginUrlQueryParams = Dialog<PluginUrlDialog> & SingleAction;
 export const pluginUrl = (id: string, params?: PluginUrlQueryParams) =>

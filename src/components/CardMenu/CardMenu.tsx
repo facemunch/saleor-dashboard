@@ -6,8 +6,8 @@ import {
   MenuList,
   Paper,
   Popper
-} from "@material-ui/core";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+} from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 
@@ -56,7 +56,7 @@ const CardMenu: React.FC<CardMenuProps> = props => {
 
   const handleToggle = () => setOpen(prevOpen => !prevOpen);
 
-  const handleClose = (event: React.MouseEvent<EventTarget>) => {
+  const handleClose = (event: any) => {
     if (
       anchorRef.current &&
       anchorRef.current.contains(event.target as HTMLElement)
@@ -67,7 +67,7 @@ const CardMenu: React.FC<CardMenuProps> = props => {
     setOpen(false);
   };
 
-  const handleListKeyDown = (event: React.KeyboardEvent) => {
+  const handleListKeyDown = (event: React.KeyboardEvent<HTMLUListElement>) => {
     if (event.key === "Tab") {
       event.preventDefault();
       setOpen(false);

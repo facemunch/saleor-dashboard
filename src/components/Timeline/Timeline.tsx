@@ -1,6 +1,6 @@
-import { Avatar, Button, CardContent, TextField } from "@material-ui/core";
-import deepPurple from "@material-ui/core/colors/deepPurple";
-import PersonIcon from "@material-ui/icons/Person";
+import { Avatar, Button, CardContent, TextField } from "@mui/material";
+import deepPurple from "@mui/material/colors/deepPurple";
+import PersonIcon from "@mui/icons-material/Person";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -45,7 +45,7 @@ const useStyles = makeStyles(
         paddingRight: 0
       },
       alignItems: "center",
-      background: theme.palette.background.default,
+      // background: theme.palette.background.default,
       display: "flex",
       paddingLeft: theme.spacing(3)
     },

@@ -1,4 +1,4 @@
-import { TextField } from "@material-ui/core";
+import { TextField } from "@mui/material";
 import FormSpacer from "@saleor/components/FormSpacer";
 import Grid from "@saleor/components/Grid";
 import SingleAutocompleteSelectField, {

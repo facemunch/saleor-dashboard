@@ -7,9 +7,9 @@ import {
   TableRow,
   Tooltip,
   Typography
-} from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
-import ErrorIcon from "@material-ui/icons/Error";
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ErrorIcon from "@mui/icons-material/Error";
 import CardTitle from "@saleor/components/CardTitle";
 import { renderCollection, stopPropagation } from "@saleor/misc";
 import classNames from "classnames";

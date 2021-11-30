@@ -5,7 +5,7 @@ import {
   MenuList as Menu,
   Paper,
   Popper
-} from "@material-ui/core";
+} from "@mui/material";
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 
@@ -59,13 +59,14 @@ export const ProductMediaPopper = ({
                 >
                   {intl.formatMessage(messages.uploadImages)}
                 </MenuItem>
-                <MenuItem
+                {/* TODO: [SB-49] investigate why this is broken */}
+                {/* <MenuItem
                   onClick={openMediaUrlModal}
                   data-test="uploadMediaUrl"
                   key="upload-media-url"
                 >
                   {intl.formatMessage(messages.uploadUrl)}
-                </MenuItem>
+                </MenuItem> */}
               </Menu>
             </ClickAwayListener>
           </Paper>

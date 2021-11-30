@@ -68,7 +68,7 @@ function useForm<T extends FormData>(
   const [errors, setErrors] = useState<FormErrors<T>>({});
   const [data, setData] = useStateFromProps(initial, {
     mergeFunc: merge,
-    onRefresh: newData => handleRefresh(data, newData, setChanged)
+    onRefresh: (oldData, newData) => handleRefresh(oldData, newData, setChanged)
   });
 
   function toggleValue(event: ChangeEvent, cb?: () => void) {

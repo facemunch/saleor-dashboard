@@ -1,4 +1,4 @@
-import { TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
+import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import EditableTableCell from "@saleor/components/EditableTableCell";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import { storiesOf } from "@storybook/react";

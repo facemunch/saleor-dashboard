@@ -12,6 +12,7 @@
     "paths": {
       "@assets/*": ["assets/*"],
       "@locale/*": ["locale/*"],
+      "@saleor/macaw-ui": ["macaw-ui"],
       "@saleor/*": ["src/*"],
       "@test/*": ["testUtils/*"]
     },

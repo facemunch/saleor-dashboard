@@ -1,4 +1,5 @@
-import { CardContent } from "@material-ui/core";
+// @ts-nocheck
+import { CardContent } from "@mui/material";
 import HorizontalSpacer from "@saleor/apps/components/HorizontalSpacer";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ConfirmButton from "@saleor/components/ConfirmButton";

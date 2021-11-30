@@ -35,7 +35,7 @@ export type CategoryListUrlQueryParams = ActiveTab &
 export const categoryListUrl = (params?: CategoryListUrlQueryParams) =>
   categorySectionUrl + "?" + stringifyQs(params);
 
-export const categoryPath = (id: string) => urlJoin(categorySectionUrl, id);
+export const categoryPath = (id: string, section = categorySectionUrl) => urlJoin(section, id);
 export type CategoryUrlDialog =
   | "delete"
   | "delete-categories"
@@ -47,11 +47,11 @@ export type CategoryUrlQueryParams = BulkAction &
 export const categoryUrl = (id: string, params?: CategoryUrlQueryParams) =>
   categoryPath(encodeURIComponent(id)) + "?" + stringifyQs(params);
 
-export const categoryAddPath = (parentId?: string) => {
+export const categoryAddPath = (parentId?: string, section = categorySectionUrl) => {
   if (parentId) {
-    return urlJoin(categoryPath(parentId), "add");
+    return urlJoin(categoryPath(parentId, section), "add");
   }
-  return urlJoin(categorySectionUrl, "add");
+  return urlJoin(section, "add");
 };
 export const categoryAddUrl = (parentId?: string) =>
   categoryAddPath(parentId ? encodeURIComponent(parentId) : undefined);

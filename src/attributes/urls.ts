@@ -63,6 +63,6 @@ export type AttributeUrlDialog =
 export type AttributeUrlQueryParams = BulkAction &
   Dialog<AttributeUrlDialog> &
   SingleAction;
-export const attributePath = (id: string) => urlJoin(attributeSection, id);
+export const attributePath = (id: string, section = attributeSection) => urlJoin(section, id);
 export const attributeUrl = (id: string, params?: AttributeUrlQueryParams) =>
   attributePath(encodeURIComponent(id)) + "?" + stringifyQs(params);

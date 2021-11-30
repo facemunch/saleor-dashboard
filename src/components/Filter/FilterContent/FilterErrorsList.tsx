@@ -1,5 +1,5 @@
-import { Typography } from "@material-ui/core";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { Typography, alpha } from "@mui/material";
+import { makeStyles } from "@saleor/macaw-ui"
 import InlineAlert from "@saleor/components/Alert/InlineAlert";
 import { useStyles as useDotStyles } from "@saleor/components/StatusLabel";
 import errorTracker from "@saleor/services/errorTracking";
@@ -13,7 +13,7 @@ import { FilterErrorMessages, FilterErrors, IFilterElement } from "../types";
 const useStyles = makeStyles(
   theme => ({
     container: {
-      backgroundColor: fade(theme.palette.primary.main, 0.1),
+      backgroundColor: alpha(theme.palette.primary.main, 0.1),
       padding: theme.spacing(3, 3, 0, 3)
     },
     listItemTitle: {

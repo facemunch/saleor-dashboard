@@ -4,7 +4,7 @@ import {
   Divider,
   TextField,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import { AvailableExternalAuthentications_shop_availableExternalAuthentications } from "@saleor/auth/types/AvailableExternalAuthentications";
 import { FormSpacer } from "@saleor/components/FormSpacer";
 import { SubmitPromise } from "@saleor/hooks/useForm";

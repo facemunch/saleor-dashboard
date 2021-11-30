@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, IconButton } from "@material-ui/core";
-import RefreshIcon from "@material-ui/icons/Refresh";
+import { Card, CardContent, CardHeader, IconButton } from "@mui/material";
+import RefreshIcon from "@mui/icons-material/Refresh";
 import React from "react";
 import { useIntl } from "react-intl";
 

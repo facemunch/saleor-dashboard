@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import { IMessage } from "@saleor/components/messages";
 import useNotifier from "@saleor/hooks/useNotifier";
 import { storiesOf } from "@storybook/react";

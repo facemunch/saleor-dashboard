@@ -1,4 +1,4 @@
-import { Card, CardContent, TextField, Typography } from "@material-ui/core";
+import { Card, CardContent, TextField, Typography } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import { ControlledCheckbox } from "@saleor/components/ControlledCheckbox";
 import Skeleton from "@saleor/components/Skeleton";

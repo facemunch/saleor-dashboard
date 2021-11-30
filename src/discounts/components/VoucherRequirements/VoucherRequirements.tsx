@@ -6,7 +6,7 @@ import {
   TableRow,
   TextField,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import { FormSpacer } from "@saleor/components/FormSpacer";
 import PriceField from "@saleor/components/PriceField";

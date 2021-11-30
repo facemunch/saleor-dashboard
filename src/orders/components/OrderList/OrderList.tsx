@@ -4,8 +4,7 @@ import {
   TableFooter,
   TableHead,
   TableRow
-} from "@material-ui/core";
-import { CSSProperties } from "@material-ui/styles";
+} from "@mui/material";
 import { DateTime } from "@saleor/components/Date";
 import Money from "@saleor/components/Money";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
@@ -30,7 +29,7 @@ import { OrderList_orders_edges_node } from "../../types/OrderList";
 
 const useStyles = makeStyles(
   theme => {
-    const overflowing: CSSProperties = {
+    const overflowing = {
       overflow: "hidden",
       textOverflow: "ellipsis"
     };

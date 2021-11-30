@@ -1,8 +1,8 @@
 import {
-  ExpansionPanel,
-  ExpansionPanelSummary,
+  Accordion,
+  AccordionSummary,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import { ChannelData } from "@saleor/channels/utils";
 import { Messages } from "@saleor/components/ChannelsAvailabilityCard/types";
 import IconChevronDown from "@saleor/icons/ChevronDown";
@@ -119,8 +119,8 @@ const ChannelWithVariantsAvailabilityItemWrapper: React.FC<ChannelAvailabilityIt
     : messages.variantCountLabel;
 
   return (
-    <ExpansionPanel classes={expanderClasses}>
-      <ExpansionPanelSummary
+    <Accordion classes={expanderClasses}>
+      <AccordionSummary
         expandIcon={<IconChevronDown />}
         classes={summaryClasses}
       >
@@ -129,9 +129,9 @@ const ChannelWithVariantsAvailabilityItemWrapper: React.FC<ChannelAvailabilityIt
           <Label text={intl.formatMessage(variantsLabel, { variantsCount })} />
           <Label text={commonChannelMessages.availableDateText} />
         </div>
-      </ExpansionPanelSummary>
+      </AccordionSummary>
       {children}
-    </ExpansionPanel>
+    </Accordion>
   );
 };
 

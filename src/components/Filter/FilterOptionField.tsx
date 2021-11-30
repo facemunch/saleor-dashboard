@@ -1,4 +1,4 @@
-import { FormControlLabel, Radio } from "@material-ui/core";
+import { FormControlLabel, Radio } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import { toggle } from "@saleor/utils/lists";
 import classNames from "classnames";

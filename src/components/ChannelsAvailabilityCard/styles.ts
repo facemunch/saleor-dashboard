@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@saleor/macaw-ui";
 
 export const useStyles = makeStyles(
   theme => ({
@@ -70,7 +70,7 @@ export const useStyles = makeStyles(
       transform: "rotate(180deg)"
     },
     secondLabel: {
-      color: theme.palette.text.hint,
+      color: theme.palette.text.secondary,
       fontSize: 12
     },
     setPublicationDate: {

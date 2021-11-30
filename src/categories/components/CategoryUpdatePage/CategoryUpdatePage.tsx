@@ -1,4 +1,4 @@
-import { Button, Card } from "@material-ui/core";
+import { Button, Card } from "@mui/material";
 import { CardSpacer } from "@saleor/components/CardSpacer";
 import CardTitle from "@saleor/components/CardTitle";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";

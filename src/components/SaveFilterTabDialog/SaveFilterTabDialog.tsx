@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogTitle,
   TextField
-} from "@material-ui/core";
+} from "@mui/material";
 import { buttonMessages } from "@saleor/intl";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";

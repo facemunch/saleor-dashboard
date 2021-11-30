@@ -5,7 +5,7 @@ import {
   TableHead,
   TableRow,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import TableCellHeader from "@saleor/components/TableCellHeader";
@@ -47,7 +47,10 @@ const useStyles = makeStyles(
       background: theme.palette.primary.main,
       height: 47,
       textAlign: "center",
-      width: 47
+      width: 47,
+      alignItems: "center",
+      display: "flex",
+      justifyContent: "center"
     },
     avatarImage: {
       pointerEvents: "none",

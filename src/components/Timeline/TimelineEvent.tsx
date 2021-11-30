@@ -1,10 +1,10 @@
 import {
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Typography
-} from "@material-ui/core";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 
@@ -93,8 +93,8 @@ export const TimelineEvent: React.FC<TimelineEventProps> = props => {
     <div className={classes.root}>
       <span className={classes.dot} />
       {children ? (
-        <ExpansionPanel className={classes.panel} elevation={0}>
-          <ExpansionPanelSummary
+        <Accordion className={classes.panel} elevation={0}>
+          <AccordionSummary
             className={classes.panelExpander}
             expandIcon={<ExpandMoreIcon />}
           >
@@ -103,11 +103,11 @@ export const TimelineEvent: React.FC<TimelineEventProps> = props => {
               date={date}
               titleElements={titleElements}
             />
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
+          </AccordionSummary>
+          <AccordionDetails>
             <Typography>{children}</Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+          </AccordionDetails>
+        </Accordion>
       ) : (
         <TimelineEventHeader
           title={title}

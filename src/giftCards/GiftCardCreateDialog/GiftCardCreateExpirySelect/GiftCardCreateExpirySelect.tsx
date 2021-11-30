@@ -1,4 +1,4 @@
-import { TextField, Typography } from "@material-ui/core";
+import { TextField, Typography } from "@mui/material";
 import HorizontalSpacer from "@saleor/apps/components/HorizontalSpacer";
 import VerticalSpacer from "@saleor/apps/components/VerticalSpacer";
 import ControlledCheckbox from "@saleor/components/ControlledCheckbox";

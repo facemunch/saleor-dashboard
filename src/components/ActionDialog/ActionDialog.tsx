@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
+import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { DialogProps } from "@saleor/types";
 import React from "react";
 

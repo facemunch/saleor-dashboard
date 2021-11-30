@@ -4,7 +4,7 @@ import {
   InputAdornment,
   TextField,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import VerticalSpacer from "@saleor/apps/components/VerticalSpacer";
 import CardTitle from "@saleor/components/CardTitle";
 import ControlledCheckbox from "@saleor/components/ControlledCheckbox";

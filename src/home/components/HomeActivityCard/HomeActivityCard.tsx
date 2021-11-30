@@ -4,7 +4,7 @@ import {
   ListItem,
   ListItemText,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import { DateTime } from "@saleor/components/Date";
 import Skeleton from "@saleor/components/Skeleton";

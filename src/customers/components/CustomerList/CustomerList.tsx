@@ -1,4 +1,4 @@
-import { TableBody, TableCell, TableFooter, TableRow } from "@material-ui/core";
+import { TableBody, TableCell, TableFooter, TableRow } from "@mui/material";
 import Checkbox from "@saleor/components/Checkbox";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";

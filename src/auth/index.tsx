@@ -1,7 +1,7 @@
 import { User } from "@saleor/fragments/types/User";
 import { parse as parseQs } from "qs";
 import React, { MutableRefObject } from "react";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import Layout from "./components/Layout";
 import {
@@ -21,7 +21,7 @@ import NewPassword from "./views/NewPassword";
 import ResetPassword from "./views/ResetPassword";
 import ResetPasswordSuccess from "./views/ResetPasswordSuccess";
 
-const LoginView: React.FC<RouteComponentProps<any>> = () => {
+const LoginView: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: LoginUrlQueryParams = qs;
 
@@ -59,12 +59,12 @@ export const UserContext = React.createContext<UserContext>({
 
 const AuthRouter: React.FC = () => (
   <Layout>
-    <Switch>
-      <Route path={passwordResetSuccessPath} component={ResetPasswordSuccess} />
-      <Route path={passwordResetPath} component={ResetPassword} />
-      <Route path={newPasswordPath} component={NewPassword} />
-      <Route component={LoginView} />
-    </Switch>
+    <Routes>
+      <Route path={passwordResetSuccessPath} element={<ResetPasswordSuccess />} />
+      <Route path={passwordResetPath} element={<ResetPassword />} />
+      <Route path={newPasswordPath} element={<NewPassword />} />
+      <Route path="/*" element={<LoginView />} />
+    </Routes>
   </Layout>
 );
 

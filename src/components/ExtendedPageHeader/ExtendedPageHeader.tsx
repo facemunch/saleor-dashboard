@@ -1,4 +1,4 @@
-import { Divider } from "@material-ui/core";
+import { Divider } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
@@ -31,10 +31,11 @@ const useStyles = makeStyles(
       marginTop: theme.spacing(-2)
     },
     root: {
-      alignItems: "center",
+      alignItems: "end",
       display: "flex",
       marginBottom: theme.spacing(3),
-      wordBreak: "break-all"
+      wordBreak: "break-all",
+      flexDirection: "column"
     },
     subtitle: {
       alignItems: "center",

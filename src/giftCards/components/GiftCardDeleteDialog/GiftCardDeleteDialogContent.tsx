@@ -2,7 +2,7 @@ import {
   CircularProgress,
   DialogContentText,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import ActionDialog, {
   ActionDialogProps
 } from "@saleor/components/ActionDialog";

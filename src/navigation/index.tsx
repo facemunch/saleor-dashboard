@@ -1,10 +1,9 @@
 import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React from "react";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 
 import {
-  menuListPath,
   MenuListUrlQueryParams,
   MenuListUrlSortField,
   menuPath
@@ -12,32 +11,30 @@ import {
 import MenuDetailsComponent from "./views/MenuDetails";
 import MenuListComponent from "./views/MenuList";
 
-const MenuList: React.FC<RouteComponentProps<{}>> = ({ location }) => {
+const MenuList: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: MenuListUrlQueryParams = asSortParams(qs, MenuListUrlSortField);
 
   return <MenuListComponent params={params} />;
 };
 
-const MenuDetails: React.FC<RouteComponentProps<{ id: string }>> = ({
-  location,
-  match
-}) => {
+const MenuDetails: React.FC= () => {
   const qs = parseQs(location.search.substr(1));
+  const match = useParams();
 
   return (
     <MenuDetailsComponent
-      id={decodeURIComponent(match.params.id)}
+      id={decodeURIComponent(match.id)}
       params={qs}
     />
   );
 };
 
 const NavigationRouter: React.FC = () => (
-  <Switch>
-    <Route exact component={MenuList} path={menuListPath} />
-    <Route component={MenuDetails} path={menuPath(":id")} />
-  </Switch>
+  <Routes>
+    <Route element={<MenuList />} path="" />
+    <Route element={<MenuDetails />} path={menuPath(":id", "")} />
+  </Routes>
 );
 
 export default NavigationRouter;

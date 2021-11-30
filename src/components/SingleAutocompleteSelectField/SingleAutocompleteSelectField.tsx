@@ -1,5 +1,4 @@
-import { InputBase, TextField } from "@material-ui/core";
-import { InputProps } from "@material-ui/core/Input";
+import { InputBase, TextField, InputProps } from "@mui/material";
 import { ExtendedFormHelperTextProps } from "@saleor/channels/components/ChannelForm/types";
 import { makeStyles } from "@saleor/macaw-ui";
 import { FetchMoreProps } from "@saleor/types";

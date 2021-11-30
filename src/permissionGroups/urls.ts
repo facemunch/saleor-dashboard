@@ -37,8 +37,8 @@ export enum MembersListUrlSortField {
 }
 export type MembersListUrlSort = Sort<MembersListUrlSortField>;
 
-export const permissionGroupDetailsPath = (id: string) =>
-  urlJoin(permissionGroupSection, id);
+export const permissionGroupDetailsPath = (id: string, section = permissionGroupSection) =>
+  urlJoin(section, id);
 export type PermissionGroupDetailsUrlDialog =
   | "remove"
   | "assign"

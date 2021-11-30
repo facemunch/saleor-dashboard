@@ -1,4 +1,4 @@
-import { Card, CardContent, TextField, Typography } from "@material-ui/core";
+import { Card, CardContent, TextField, Typography } from "@mui/material";
 import { ATTRIBUTE_TYPES_WITH_CONFIGURABLE_FACED_NAVIGATION } from "@saleor/attributes/utils/data";
 import CardSpacer from "@saleor/components/CardSpacer";
 import CardTitle from "@saleor/components/CardTitle";

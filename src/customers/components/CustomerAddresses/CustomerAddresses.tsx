@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, Typography } from "@material-ui/core";
+import { Button, Card, CardContent, Typography } from "@mui/material";
 import AddressFormatter from "@saleor/components/AddressFormatter";
 import CardTitle from "@saleor/components/CardTitle";
 import { Hr } from "@saleor/components/Hr";

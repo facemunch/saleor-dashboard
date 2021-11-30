@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { User } from "@saleor/fragments/types/User";
 
 export const isSupported = !!(

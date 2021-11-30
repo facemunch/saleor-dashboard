@@ -6,7 +6,7 @@ import {
   DialogTitle,
   TextField,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import Form from "@saleor/components/Form";
 import FormSpacer from "@saleor/components/FormSpacer";
 import { buttonMessages } from "@saleor/intl";

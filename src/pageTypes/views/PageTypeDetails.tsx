@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import { attributeUrl } from "@saleor/attributes/urls";
 import AssignAttributeDialog from "@saleor/components/AssignAttributeDialog";
 import AttributeUnassignDialog from "@saleor/components/AttributeUnassignDialog";

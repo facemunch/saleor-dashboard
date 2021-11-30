@@ -1,4 +1,4 @@
-import { Button, Card } from "@material-ui/core";
+import { Button, Card } from "@mui/material";
 import Container from "@saleor/components/Container";
 import LimitReachedAlert from "@saleor/components/LimitReachedAlert";
 import PageHeader from "@saleor/components/PageHeader";

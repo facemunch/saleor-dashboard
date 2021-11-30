@@ -3,21 +3,18 @@ import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
-  orderDraftListPath,
   OrderDraftListUrlQueryParams,
   OrderDraftListUrlSortField,
   orderFulfillPath,
-  orderListPath,
   OrderListUrlQueryParams,
   OrderListUrlSortField,
   orderPath,
   orderRefundPath,
   orderReturnPath,
-  orderSettingsPath,
   OrderUrlQueryParams
 } from "./urls";
 import OrderDetailsComponent from "./views/OrderDetails";
@@ -28,7 +25,7 @@ import OrderRefundComponent from "./views/OrderRefund";
 import OrderReturnComponent from "./views/OrderReturn";
 import OrderSettings from "./views/OrderSettings";
 
-const OrderList: React.FC<RouteComponentProps<any>> = ({ location }) => {
+const OrderList: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: OrderListUrlQueryParams = asSortParams(
     qs,
@@ -38,7 +35,7 @@ const OrderList: React.FC<RouteComponentProps<any>> = ({ location }) => {
   );
   return <OrderListComponent params={params} />;
 };
-const OrderDraftList: React.FC<RouteComponentProps<any>> = ({ location }) => {
+const OrderDraftList: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: OrderDraftListUrlQueryParams = asSortParams(
     qs,
@@ -50,27 +47,24 @@ const OrderDraftList: React.FC<RouteComponentProps<any>> = ({ location }) => {
   return <OrderDraftListComponent params={params} />;
 };
 
-const OrderDetails: React.FC<RouteComponentProps<any>> = ({
-  location,
-  match
-}) => {
+const OrderDetails: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: OrderUrlQueryParams = qs;
-  const id = match.params.id;
+  const id = useParams().id;
 
   return <OrderDetailsComponent id={decodeURIComponent(id)} params={params} />;
 };
 
-const OrderFulfill: React.FC<RouteComponentProps<any>> = ({ match }) => (
-  <OrderFulfillComponent orderId={decodeURIComponent(match.params.id)} />
+const OrderFulfill: React.FC = () => (
+  <OrderFulfillComponent orderId={decodeURIComponent(useParams().id)} />
 );
 
-const OrderRefund: React.FC<RouteComponentProps<any>> = ({ match }) => (
-  <OrderRefundComponent orderId={decodeURIComponent(match.params.id)} />
+const OrderRefund: React.FC = () => (
+  <OrderRefundComponent orderId={decodeURIComponent(useParams().id)} />
 );
 
-const OrderReturn: React.FC<RouteComponentProps<any>> = ({ match }) => (
-  <OrderReturnComponent orderId={decodeURIComponent(match.params.id)} />
+const OrderReturn: React.FC = () => (
+  <OrderReturnComponent orderId={decodeURIComponent(useParams().id)} />
 );
 
 const Component = () => {
@@ -79,15 +73,15 @@ const Component = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.orders)} />
-      <Switch>
-        <Route exact path={orderSettingsPath} component={OrderSettings} />
-        <Route exact path={orderDraftListPath} component={OrderDraftList} />
-        <Route exact path={orderListPath} component={OrderList} />
-        <Route path={orderFulfillPath(":id")} component={OrderFulfill} />
-        <Route path={orderReturnPath(":id")} component={OrderReturn} />
-        <Route path={orderRefundPath(":id")} component={OrderRefund} />
-        <Route path={orderPath(":id")} component={OrderDetails} />
-      </Switch>
+      <Routes>
+        <Route path="" element={<OrderList />} />
+        <Route path="settings" element={<OrderSettings />} />
+        <Route path="drafts" element={<OrderDraftList />} />
+        <Route path={orderFulfillPath(":id", "")} element={<OrderFulfill />} />
+        <Route path={orderReturnPath(":id", "")} element={<OrderReturn />} />
+        <Route path={orderRefundPath(":id", "")} element={<OrderRefund />} />
+        <Route path={orderPath(":id", "")} element={<OrderDetails />} />
+      </Routes>
     </>
   );
 };

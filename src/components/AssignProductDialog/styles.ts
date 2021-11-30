@@ -3,7 +3,7 @@ import { makeStyles } from "@saleor/macaw-ui";
 export const useStyles = makeStyles(
   {
     avatar: {
-      "&&:first-child": {
+      "&&:first-of-type": {
         paddingLeft: 0
       },
       width: 72

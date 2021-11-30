@@ -1,4 +1,4 @@
-import { Fade, Modal, Paper } from "@material-ui/core";
+import { Fade, Modal, Paper } from "@mui/material";
 import { APP_VERSION } from "@saleor/config";
 import useLocalStorage from "@saleor/hooks/useLocalStorage";
 import useNotifier from "@saleor/hooks/useNotifier";
@@ -113,6 +113,12 @@ const Navigator: React.FC<NavigatorProps> = ({ visible, setVisibility }) => {
 
   return (
     <Modal
+      sx={{
+        " .MuiBackdrop-root ": {
+          background:
+            "linear-gradient(75deg, rgb(0 0 0 / 46%) 0%, rgb(0 0 0) 100%);"
+        }
+      }}
       className={classes.modal}
       open={visible}
       onClose={() => setVisibility(false)}

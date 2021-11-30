@@ -1,4 +1,4 @@
-import { DialogContentText } from "@material-ui/core";
+import { DialogContentText } from "@mui/material";
 import ActionDialog from "@saleor/components/ActionDialog";
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@saleor/config";
 import useNavigator from "@saleor/hooks/useNavigator";

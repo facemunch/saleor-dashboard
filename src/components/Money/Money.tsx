@@ -1,4 +1,5 @@
-import { makeStyles, Typography, TypographyProps } from "@material-ui/core";
+import { Typography, TypographyProps } from "@mui/material";
+import { makeStyles } from "@saleor/macaw-ui";
 import HorizontalSpacer from "@saleor/apps/components/HorizontalSpacer";
 import React from "react";
 

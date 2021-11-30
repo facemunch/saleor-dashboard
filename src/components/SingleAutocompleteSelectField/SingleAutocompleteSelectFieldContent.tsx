@@ -4,8 +4,8 @@ import {
   MenuItem,
   Paper,
   Typography
-} from "@material-ui/core";
-import Add from "@material-ui/icons/Add";
+} from "@mui/material";
+import Add from "@mui/icons-material/Add";
 import useElementScroll, {
   isScrolledToBottom
 } from "@saleor/hooks/useElementScroll";
@@ -64,7 +64,7 @@ const useStyles = makeStyles(
     arrowInnerContainer: {
       alignItems: "center",
       background:
-        theme.palette.type === "light"
+        theme.palette.mode === "light"
           ? theme.palette.grey[50]
           : theme.palette.grey[900],
       bottom: 0,
@@ -107,7 +107,7 @@ const useStyles = makeStyles(
       overflow: "hidden",
       position: "absolute",
       right: 0,
-      zIndex: 22
+      zIndex: 220000
     }
   }),
   {

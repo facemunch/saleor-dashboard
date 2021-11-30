@@ -1,5 +1,5 @@
-import { TableBody, TableCell, TableFooter, TableRow } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
+import { TableBody, TableCell, TableFooter, TableRow } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import TablePagination from "@saleor/components/TablePagination";

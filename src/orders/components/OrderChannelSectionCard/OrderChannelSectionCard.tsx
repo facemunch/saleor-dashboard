@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from "@material-ui/core";
+import { Card, CardContent, Typography } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import Skeleton from "@saleor/components/Skeleton";
 import React from "react";
@@ -17,7 +17,7 @@ export const OrderChannelSectionCard: React.FC<OrderChannelSectionCardProps> = (
     <Card data-test-id="order-sales-channel">
       <CardTitle
         title={intl.formatMessage({
-          defaultMessage: "Sales channel",
+          defaultMessage: "Via Munch Link",
           description: "section header"
         })}
       />

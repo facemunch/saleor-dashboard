@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { makeStyles } from "@saleor/macaw-ui";
 
 const useStyles = makeStyles(

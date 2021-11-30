@@ -1,5 +1,5 @@
-import { Typography } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
+import { Typography } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";

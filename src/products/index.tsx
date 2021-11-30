@@ -4,15 +4,13 @@ import { getArrayQueryParam } from "@saleor/utils/urls";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
-  productAddPath,
   ProductCreateUrlQueryParams,
   productImagePath,
   ProductImageUrlQueryParams,
-  productListPath,
   ProductListUrlQueryParams,
   ProductListUrlSortField,
   productPath,
@@ -31,7 +29,7 @@ import ProductVariantComponent from "./views/ProductVariant";
 import ProductVariantCreateComponent from "./views/ProductVariantCreate";
 import ProductVariantCreatorComponent from "./views/ProductVariantCreator";
 
-const ProductList: React.FC<RouteComponentProps<any>> = ({ location }) => {
+const ProductList: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ProductListUrlQueryParams = asSortParams(
     {
@@ -47,13 +45,15 @@ const ProductList: React.FC<RouteComponentProps<any>> = ({ location }) => {
   return <ProductListComponent params={params} />;
 };
 
-const ProductUpdate: React.FC<RouteComponentProps<any>> = ({ match }) => {
+const ProductUpdate: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ProductUrlQueryParams = qs;
 
+  const match = useParams();
+
   return (
     <ProductUpdateComponent
-      id={decodeURIComponent(match.params.id)}
+      id={decodeURIComponent(match.id)}
       params={{
         ...params,
         ids: getArrayQueryParam(qs.ids)
@@ -62,61 +62,58 @@ const ProductUpdate: React.FC<RouteComponentProps<any>> = ({ match }) => {
   );
 };
 
-const ProductCreate: React.FC<RouteComponentProps<any>> = () => {
+const ProductCreate: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ProductCreateUrlQueryParams = qs;
 
   return <ProductCreateComponent params={params} />;
 };
 
-const ProductVariant: React.FC<RouteComponentProps<any>> = ({ match }) => {
+const ProductVariant: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ProductVariantEditUrlQueryParams = qs;
+  const match = useParams();
 
   return (
     <ProductVariantComponent
-      variantId={decodeURIComponent(match.params.variantId)}
-      productId={decodeURIComponent(match.params.productId)}
+      variantId={decodeURIComponent(match.variantId)}
+      productId={decodeURIComponent(match.productId)}
       params={params}
     />
   );
 };
 
-const ProductImage: React.FC<RouteComponentProps<any>> = ({
-  location,
-  match
-}) => {
+const ProductImage: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ProductImageUrlQueryParams = qs;
+  const match = useParams();
 
   return (
     <ProductImageComponent
-      mediaId={decodeURIComponent(match.params.imageId)}
-      productId={decodeURIComponent(match.params.productId)}
+      mediaId={decodeURIComponent(match.imageId)}
+      productId={decodeURIComponent(match.productId)}
       params={params}
     />
   );
 };
 
-const ProductVariantCreate: React.FC<RouteComponentProps<any>> = ({
-  match
-}) => {
+const ProductVariantCreate: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ProductVariantAddUrlQueryParams = qs;
+  const match = useParams();
 
   return (
     <ProductVariantCreateComponent
-      productId={decodeURIComponent(match.params.id)}
+      productId={decodeURIComponent(match.id)}
       params={params}
     />
   );
 };
 
-const ProductVariantCreator: React.FC<RouteComponentProps<{
-  id: string;
-}>> = ({ match }) => (
-  <ProductVariantCreatorComponent id={decodeURIComponent(match.params.id)} />
-);
+const ProductVariantCreator: React.FC = () => {
+  const match = useParams();
+  return <ProductVariantCreatorComponent id={decodeURIComponent(match.id)} />
+};
 
 const Component = () => {
   const intl = useIntl();
@@ -124,28 +121,27 @@ const Component = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.products)} />
-      <Switch>
-        <Route exact path={productListPath} component={ProductList} />
-        <Route exact path={productAddPath} component={ProductCreate} />
+      <Routes>
+        <Route path="" element={<ProductList />} />
+        <Route path="add" element={<ProductCreate />} />
         <Route
-          path={productVariantCreatorPath(":id")}
-          component={ProductVariantCreator}
+          path={productVariantCreatorPath(":id", "")}
+          element={<ProductVariantCreator />}
         />
         <Route
-          exact
-          path={productVariantAddPath(":id")}
-          component={ProductVariantCreate}
+          path={productVariantAddPath(":id", "")}
+          element={<ProductVariantCreate />}
         />
         <Route
-          path={productVariantEditPath(":productId", ":variantId")}
-          component={ProductVariant}
+          path={productVariantEditPath(":productId", ":variantId", "")}
+          element={<ProductVariant />}
         />
         <Route
-          path={productImagePath(":productId", ":imageId")}
-          component={ProductImage}
-        />
-        <Route path={productPath(":id")} component={ProductUpdate} />
-      </Switch>
+          path={productImagePath(":productId", ":imageId", "")}
+          element={<ProductImage />}
+        /> 
+        <Route path={productPath(":id", "")} element={<ProductUpdate />} />
+      </Routes>
     </>
   );
 };

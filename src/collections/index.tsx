@@ -3,13 +3,11 @@ import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
-  collectionAddPath,
   CollectionCreateUrlQueryParams,
-  collectionListPath,
   CollectionListUrlQueryParams,
   CollectionListUrlSortField,
   collectionPath,
@@ -19,7 +17,7 @@ import CollectionCreateView from "./views/CollectionCreate";
 import CollectionDetailsView from "./views/CollectionDetails";
 import CollectionListView from "./views/CollectionList";
 
-const CollectionList: React.FC<RouteComponentProps<{}>> = ({ location }) => {
+const CollectionList: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: CollectionListUrlQueryParams = asSortParams(
     qs,
@@ -28,23 +26,19 @@ const CollectionList: React.FC<RouteComponentProps<{}>> = ({ location }) => {
   return <CollectionListView params={params} />;
 };
 
-interface CollectionDetailsRouteProps {
-  id: string;
-}
-const CollectionDetails: React.FC<RouteComponentProps<
-  CollectionDetailsRouteProps
->> = ({ location, match }) => {
+const CollectionDetails: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: CollectionUrlQueryParams = qs;
+  const match = useParams();
   return (
     <CollectionDetailsView
-      id={decodeURIComponent(match.params.id)}
+      id={decodeURIComponent(match.id)}
       params={params}
     />
   );
 };
 
-const CollectionCreate: React.FC<RouteComponentProps> = ({ location }) => {
+const CollectionCreate: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: CollectionCreateUrlQueryParams = qs;
   return <CollectionCreateView params={params} />;
@@ -56,11 +50,11 @@ const Component = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.collections)} />
-      <Switch>
-        <Route exact path={collectionListPath} component={CollectionList} />
-        <Route exact path={collectionAddPath} component={CollectionCreate} />
-        <Route path={collectionPath(":id")} component={CollectionDetails} />
-      </Switch>
+      <Routes>
+        <Route path="" element={<CollectionList />} />
+        <Route path="add" element={<CollectionCreate />} />
+        <Route path={collectionPath(":id", "")} element={<CollectionDetails />} />
+      </Routes>
     </>
   );
 };

@@ -1,6 +1,6 @@
 import saleorDarkLogoSmall from "@assets/images/logo-dark-small.svg";
 import plusIcon from "@assets/images/plus-icon.svg";
-import { Button, Card, CardContent, Grid, Typography } from "@material-ui/core";
+import { Button, Card, CardContent, Grid, Typography } from "@mui/material";
 import CardSpacer from "@saleor/components/CardSpacer";
 import CardTitle from "@saleor/components/CardTitle";
 import Container from "@saleor/components/Container";
@@ -125,7 +125,7 @@ export const AppInstallPage: React.FC<AppInstallPageProps> = ({
         </CardContent>
       </Card>
       <CardSpacer />
-      <Grid container justify="space-between">
+      <Grid container justifyContent="space-between">
         <Grid xs={6} item>
           <Button
             variant="outlined"

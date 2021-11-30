@@ -1,4 +1,4 @@
-import { CardContent, Divider, Typography } from "@material-ui/core";
+import { CardContent, Divider, Typography } from "@mui/material";
 import CardSpacer from "@saleor/components/CardSpacer";
 import CollectionWithDividers from "@saleor/components/CollectionWithDividers";
 import StatusLabel from "@saleor/components/StatusLabel";

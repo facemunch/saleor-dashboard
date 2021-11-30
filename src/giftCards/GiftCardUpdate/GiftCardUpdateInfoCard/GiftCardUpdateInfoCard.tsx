@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@material-ui/core";
+import { Card, CardContent } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import Skeleton from "@saleor/components/Skeleton";
 import React from "react";

@@ -1,7 +1,6 @@
-import { Card, CardContent, Typography } from "@material-ui/core";
+import { Card, CardContent, Typography } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import Container from "@saleor/components/Container";
-import PageHeader from "@saleor/components/PageHeader";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -16,16 +15,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ user }) => {
 
   return (
     <Container>
-      <PageHeader
-        title={intl.formatMessage(
-          {
-            defaultMessage: "Hello there, {userName}",
-            description: "header",
-            id: "homeScreenHeader"
-          },
-          { userName: user.email }
-        )}
-      />
+     
       <Card>
         <CardTitle
           title={intl.formatMessage({

@@ -1,4 +1,4 @@
-import { Card } from "@material-ui/core";
+import { Card } from "@mui/material";
 import { mapToMenuItems, useExtensions } from "@saleor/apps/useExtensions";
 import { drawerWidthExpanded } from "@saleor/components/AppLayout/consts";
 import { ButtonWithSelect } from "@saleor/components/ButtonWithSelect";

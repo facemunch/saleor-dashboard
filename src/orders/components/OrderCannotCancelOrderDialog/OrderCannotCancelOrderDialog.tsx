@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle
-} from "@material-ui/core";
+} from "@mui/material";
 import { buttonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
 import { DialogProps } from "@saleor/types";

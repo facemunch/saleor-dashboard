@@ -1,5 +1,5 @@
-import { Card, CardContent, IconButton, Typography } from "@material-ui/core";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import { Card, CardContent, IconButton, Typography } from "@mui/material";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { AttributeReference } from "@saleor/attributes/utils/data";
 import CardTitle from "@saleor/components/CardTitle";
 import Hr from "@saleor/components/Hr";

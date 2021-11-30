@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles"
 import TrashIcon from "@saleor/icons/Trash";
 import React from "react";
 
@@ -6,7 +6,7 @@ const useStyles = makeStyles(
   theme => ({
     container: {
       cursor: "pointer",
-      padding: theme.spacing(3),
+      padding: "24px", // theme.spacing(3), TODO RA MIGRATION
       display: "flex",
       justifyContent: "center",
       alignItems: "center"

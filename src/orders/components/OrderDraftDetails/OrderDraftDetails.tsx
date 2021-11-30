@@ -1,4 +1,4 @@
-import { Button, Card, CardContent } from "@material-ui/core";
+import { Button, Card, CardContent } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import {
   OrderDiscountContext,

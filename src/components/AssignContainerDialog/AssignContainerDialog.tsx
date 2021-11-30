@@ -9,7 +9,7 @@ import {
   TableCell,
   TableRow,
   TextField
-} from "@material-ui/core";
+} from "@mui/material";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import useSearchQuery from "@saleor/hooks/useSearchQuery";
 import { buttonMessages } from "@saleor/intl";

@@ -1,5 +1,5 @@
 import notFoundImage from "@assets/images/what.svg";
-import { Button, Typography } from "@material-ui/core";
+import { Button, Typography } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import SVG from "react-inlinesvg";

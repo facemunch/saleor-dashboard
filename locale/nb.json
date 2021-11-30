@@ -2154,7 +2154,7 @@
     "string": "Produktinnstillinger"
   },
   "src_dot_configuration_dot_887806978": {
-    "string": "Multichannel"
+    "string": "Multi-project"
   },
   "src_dot_confirm": {
     "context": "button",
@@ -2884,7 +2884,7 @@
     "string": "Fjern produkter fra Tilbud"
   },
   "src_dot_discounts_dot_views_dot_SaleDetails_dot_3823295269": {
-    "string": "Manage Channel Availability"
+    "string": "Manage Munch Link Availability"
   },
   "src_dot_discounts_dot_views_dot_SaleDetails_dot_506030254": {
     "context": "dialog header",
@@ -2936,7 +2936,7 @@
     "string": "Er du sikker på at du ønsker å slette {voucherCode}?"
   },
   "src_dot_discounts_dot_views_dot_VoucherDetails_dot_3823295269": {
-    "string": "Manage Channel Availability"
+    "string": "Manage Munch Link Availability"
   },
   "src_dot_discounts_dot_views_dot_VoucherDetails_dot_767268203": {
     "context": "dialog content",
@@ -5620,14 +5620,14 @@
     "string": "{counter,plural,one {Are you sure you want to delete this shipping zone?} other {Are you sure you want to delete {displayQuantity} shipping zones?}}"
   },
   "src_dot_shipping_dot_views_dot_PriceRatesCreate_dot_3823295269": {
-    "string": "Manage Channel Availability"
+    "string": "Manage Munch Link Availability"
   },
   "src_dot_shipping_dot_views_dot_PriceRatesUpdate_dot_2710215007": {
     "context": "zip code range add error text",
     "string": "Cannot add specified zip codes range."
   },
   "src_dot_shipping_dot_views_dot_PriceRatesUpdate_dot_3823295269": {
-    "string": "Manage Channel Availability"
+    "string": "Manage Munch Link Availability"
   },
   "src_dot_shipping_dot_views_dot_PriceRatesUpdate_dot_870815507": {
     "context": "unassign products from shipping method, button",

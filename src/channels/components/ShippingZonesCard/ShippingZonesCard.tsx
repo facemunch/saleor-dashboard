@@ -2,9 +2,9 @@ import {
   Card,
   CardContent,
   Divider,
-  ExpansionPanel,
+  Accordion,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
@@ -67,7 +67,7 @@ const ShippingZonesCard: React.FC<ShippingZonesCardProps> = props => {
       <CardContent>
         <Typography>{intl.formatMessage(messages.subtitle)}</Typography>
       </CardContent>
-      <ExpansionPanel classes={expanderClasses}>
+      <Accordion classes={expanderClasses}>
         <ShippingZonesListHeader shippingZones={shippingZones} />
         <Divider />
         {shippingZones.map(zone => (
@@ -76,7 +76,7 @@ const ShippingZonesCard: React.FC<ShippingZonesCardProps> = props => {
         {hasMoreZonesToBeSelected ? (
           <ShippingZonesCardListFooter {...props} />
         ) : null}
-      </ExpansionPanel>
+      </Accordion>
     </Card>
   );
 };

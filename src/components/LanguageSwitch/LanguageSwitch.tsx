@@ -7,8 +7,8 @@ import {
   Paper,
   Popper,
   Typography
-} from "@material-ui/core";
-import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
+} from "@mui/material";
+import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";

@@ -1,4 +1,4 @@
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 

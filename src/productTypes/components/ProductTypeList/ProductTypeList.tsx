@@ -4,7 +4,7 @@ import {
   TableFooter,
   TableRow,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import Checkbox from "@saleor/components/Checkbox";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
@@ -159,6 +159,7 @@ const ProductTypeList: React.FC<ProductTypeListProps> = props => {
                   {productType ? (
                     <>
                       <span data-test="name">{productType.name}</span>
+                      <br/>
                       <Typography variant="caption">
                         {maybe(() => productType.hasVariants)
                           ? intl.formatMessage({

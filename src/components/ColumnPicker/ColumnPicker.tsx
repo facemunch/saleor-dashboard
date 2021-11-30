@@ -1,5 +1,4 @@
-import { ClickAwayListener, Grow, Popper } from "@material-ui/core";
-import { fade } from "@material-ui/core/styles/colorManipulator";
+import { ClickAwayListener, Grow, Popper, alpha } from "@mui/material";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
 import { makeStyles } from "@saleor/macaw-ui";
 import { toggle } from "@saleor/utils/lists";
@@ -25,7 +24,7 @@ export interface ColumnPickerProps
 const useStyles = makeStyles(
   theme => ({
     popper: {
-      boxShadow: `0px 5px 10px 0 ${fade(theme.palette.common.black, 0.05)}`,
+      boxShadow: `0px 5px 10px 0 ${alpha(theme.palette.common.black, 0.05)}`,
       marginTop: theme.spacing(1),
       zIndex: 2
     }
@@ -50,9 +49,8 @@ const ColumnPicker: React.FC<ColumnPickerProps> = props => {
   const classes = useStyles(props);
   const anchor = React.useRef<HTMLDivElement>();
   const [isExpanded, setExpansionState] = React.useState(false);
-  const [selectedColumns, setSelectedColumns] = useStateFromProps(
-    initialColumns
-  );
+  const [selectedColumns, setSelectedColumns] =
+    useStateFromProps(initialColumns);
 
   React.useEffect(() => {
     setTimeout(() => setExpansionState(initialOpen), 100);
@@ -96,17 +94,19 @@ const ColumnPicker: React.FC<ColumnPickerProps> = props => {
                   placement === "bottom" ? "right bottom" : "right top"
               }}
             >
-              <ColumnPickerContent
-                columns={columns}
-                hasMore={hasMore}
-                selectedColumns={selectedColumns}
-                total={total}
-                onCancel={handleCancel}
-                onColumnToggle={handleColumnToggle}
-                onFetchMore={onFetchMore}
-                onReset={handleReset}
-                onSave={handleSave}
-              />
+              <div>
+                <ColumnPickerContent
+                  columns={columns}
+                  hasMore={hasMore}
+                  selectedColumns={selectedColumns}
+                  total={total}
+                  onCancel={handleCancel}
+                  onColumnToggle={handleColumnToggle}
+                  onFetchMore={onFetchMore}
+                  onReset={handleReset}
+                  onSave={handleSave}
+                />
+              </div>
             </Grow>
           )}
         </Popper>

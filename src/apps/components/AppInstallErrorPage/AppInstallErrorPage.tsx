@@ -1,5 +1,5 @@
 import errorImg from "@assets/images/app-install-error.svg";
-import { Button, Grid, Typography } from "@material-ui/core";
+import { Button, Grid, Typography } from "@mui/material";
 import Container from "@saleor/components/Container";
 import React from "react";
 import { FormattedMessage } from "react-intl";

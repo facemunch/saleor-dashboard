@@ -1,4 +1,4 @@
-import { TableBody, TableCell, TableFooter, TableRow } from "@material-ui/core";
+import { TableBody, TableCell, TableFooter, TableRow } from "@mui/material";
 import Checkbox from "@saleor/components/Checkbox";
 import { DateTime } from "@saleor/components/Date";
 import Money from "@saleor/components/Money";

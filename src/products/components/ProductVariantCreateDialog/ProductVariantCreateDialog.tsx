@@ -4,7 +4,7 @@ import {
   DialogContent,
   DialogTitle,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import ConfirmButton from "@saleor/components/ConfirmButton";
 import Form from "@saleor/components/Form";
 import FormSpacer from "@saleor/components/FormSpacer";

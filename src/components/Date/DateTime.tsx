@@ -1,4 +1,4 @@
-import { Tooltip } from "@material-ui/core";
+import { Tooltip } from "@mui/material";
 import moment from "moment-timezone";
 import React from "react";
 import ReactMoment from "react-moment";
@@ -31,9 +31,11 @@ export const DateTime: React.FC<DateTimeProps> = ({ date, plain }) => {
                   getTitle(date, locale, tz)
                 ) : (
                   <Tooltip title={getTitle(date, locale, tz)}>
-                    <ReactMoment from={currentDate} locale={locale} tz={tz}>
-                      {date}
-                    </ReactMoment>
+                    <div>
+                      <ReactMoment from={currentDate} locale={locale} tz={tz}>
+                        {date}
+                      </ReactMoment>
+                    </div>
                   </Tooltip>
                 )
               }

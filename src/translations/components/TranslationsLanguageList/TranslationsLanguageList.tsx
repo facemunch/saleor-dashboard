@@ -4,7 +4,7 @@ import {
   TableCell,
   TableHead,
   TableRow
-} from "@material-ui/core";
+} from "@mui/material";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import { ShopInfo_shop_languages } from "@saleor/components/Shop/types/ShopInfo";
 import Skeleton from "@saleor/components/Skeleton";

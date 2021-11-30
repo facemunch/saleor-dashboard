@@ -1,6 +1,11 @@
 import navigatorIcon from "@assets/images/navigator.svg";
-import { Grow, IconButton, Paper, Popper } from "@material-ui/core";
-import { IconButtonProps } from "@material-ui/core/IconButton";
+import {
+  Grow,
+  IconButton,
+  Paper,
+  Popper,
+  IconButtonProps
+} from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
@@ -19,7 +24,7 @@ const useStyles = makeStyles(
 
     return {
       keyTile: {
-        "&:first-child": {
+        "&:first-of-type": {
           marginLeft: theme.spacing()
         },
         alignItems: "center",
@@ -59,20 +64,21 @@ const useStyles = makeStyles(
 
       root: {
         "& path": {
-          color: theme.palette.primary.main
+          color: "white"
         },
         "&:not(:hover)": {
-          backgroundColor: theme.palette.background.paper
+          backgroundColor: "#000"
         },
-        [theme.breakpoints.down("sm")]: {
-          border: "none",
-          borderRadius: 16
-        },
-        border: `1px solid ${theme.palette.divider}`,
-        height: 40,
-        marginRight: theme.spacing(2),
-        padding: 6,
-        width: 40
+        color: "#ffffff",
+        width: "38px",
+        border: "solid 1px #a9a9a973",
+        height: "38px",
+        padding: "0px",
+        background: "#000",
+        marginTop: "5px",
+        transition: "150ms",
+        borderRadius: "50%",
+        right: "0px"
       }
     };
   },

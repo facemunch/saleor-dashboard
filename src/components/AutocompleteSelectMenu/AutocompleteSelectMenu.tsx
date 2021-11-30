@@ -3,8 +3,8 @@ import {
   MenuItem,
   Paper,
   TextField
-} from "@material-ui/core";
-import ArrowBack from "@material-ui/icons/ArrowBack";
+} from "@mui/material";
+import ArrowBack from "@mui/icons-material/ArrowBack";
 import { buttonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
 import Downshift from "downshift";

@@ -54,7 +54,7 @@ const Metadata: React.FC<MetadataProps> = ({ data, onChange }) => {
 
   return (
     <>
-      <MetadataCard
+      {/* <MetadataCard
         data={data?.metadata}
         isPrivate={false}
         onChange={event => change(event, false)}
@@ -64,7 +64,7 @@ const Metadata: React.FC<MetadataProps> = ({ data, onChange }) => {
         data={data?.privateMetadata}
         isPrivate={true}
         onChange={event => change(event, true)}
-      />
+      /> */}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { Card, CardContent, TextField } from "@material-ui/core";
+import { Card, CardContent, TextField } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import { ControlledCheckbox } from "@saleor/components/ControlledCheckbox";
 import React from "react";

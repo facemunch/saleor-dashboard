@@ -29,7 +29,7 @@ export interface PluginDetailsChannelsCardProps {
   plugin: Plugin_plugin;
 }
 
-import { CardContent, Typography } from "@material-ui/core";
+import { CardContent, Typography } from "@mui/material";
 
 import { pluginDetailsChannelsCardMessages as messages } from "./messages";
 

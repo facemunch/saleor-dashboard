@@ -7,7 +7,7 @@ import {
   ListItemIcon,
   ListItemText,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import Skeleton from "@saleor/components/Skeleton";
 import useUser from "@saleor/hooks/useUser";

@@ -1,4 +1,4 @@
-import { TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
+import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import { AVATAR_MARGIN } from "@saleor/components/TableCellAvatar/Avatar";
 import { makeStyles } from "@saleor/macaw-ui";

@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from "@material-ui/core";
+import { Card, CardContent, Typography } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
@@ -10,7 +10,7 @@ interface ErrorNoticeBarProps {
 const useStyles = makeStyles(
   theme => ({
     root: {
-      background: theme.palette.alert.paper.error
+      // background: theme.palette.alert.paper.error
     }
   }),
   {

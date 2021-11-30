@@ -1,4 +1,4 @@
-import { Card } from "@material-ui/core";
+import { Card } from "@mui/material";
 import Container from "@saleor/components/Container";
 import PageHeader from "@saleor/components/PageHeader";
 import { ShopInfo_shop_languages } from "@saleor/components/Shop/types/ShopInfo";

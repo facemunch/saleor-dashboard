@@ -1,4 +1,4 @@
-import { Menu, MenuItem, Typography } from "@material-ui/core";
+import { Menu, MenuItem, Typography } from "@mui/material";
 import { CollectionList_collections_edges_node_channelListings } from "@saleor/collections/types/CollectionList";
 import Hr from "@saleor/components/Hr";
 import StatusLabel from "@saleor/components/StatusLabel";
@@ -69,7 +69,6 @@ export const ChannelsAvailabilityDropdown: React.FC<ChannelsAvailabilityDropdown
         elevation={3}
         open={Boolean(anchorEl)}
         onClose={handleClose}
-        getContentAnchorEl={null}
         anchorOrigin={{
           horizontal: "center",
           vertical: "bottom"

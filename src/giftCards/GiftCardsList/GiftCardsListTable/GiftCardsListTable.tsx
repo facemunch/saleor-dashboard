@@ -4,7 +4,7 @@ import {
   TableCell,
   TableRow,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import HorizontalSpacer from "@saleor/apps/components/HorizontalSpacer";
 import Checkbox from "@saleor/components/Checkbox";
 import DeleteIconButton from "@saleor/components/DeleteIconButton";

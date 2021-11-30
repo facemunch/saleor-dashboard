@@ -8,7 +8,7 @@ import {
   TableHead,
   TableRow,
   TextField
-} from "@material-ui/core";
+} from "@mui/material";
 import Money from "@saleor/components/Money";
 import Skeleton from "@saleor/components/Skeleton";
 import TableCellAvatar from "@saleor/components/TableCellAvatar";
@@ -20,7 +20,7 @@ import {
   OrderDetails_order,
   OrderDetails_order_lines
 } from "@saleor/orders/types/OrderDetails";
-import React, { CSSProperties } from "react";
+import React from "react";
 import { defineMessages, FormattedMessage, useIntl } from "react-intl";
 
 import { FormsetQuantityData, FormsetReplacementData } from "../form";
@@ -31,7 +31,7 @@ import ProductErrorCell from "./ProductErrorCell";
 
 const useStyles = makeStyles(
   theme => {
-    const inputPadding: CSSProperties = {
+    const inputPadding = {
       paddingBottom: theme.spacing(2),
       paddingTop: theme.spacing(2)
     };

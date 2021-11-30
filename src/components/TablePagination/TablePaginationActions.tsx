@@ -1,7 +1,6 @@
-import { IconButton } from "@material-ui/core";
-import { fade } from "@material-ui/core/styles/colorManipulator";
-import ArrowLeft from "@material-ui/icons/ArrowLeft";
-import ArrowRight from "@material-ui/icons/ArrowRight";
+import { IconButton, alpha } from "@mui/material";
+import ArrowLeft from "@mui/icons-material/ArrowLeft";
+import ArrowRight from "@mui/icons-material/ArrowRight";
 import { makeStyles, useTheme } from "@saleor/macaw-ui";
 import { isDarkTheme } from "@saleor/misc";
 import classNames from "classnames";
@@ -15,12 +14,12 @@ const useStyles = makeStyles(
       },
       "&$disabled": {
         "& svg": {
-          color: fade(theme.palette.primary.main, 0.2)
+          color: alpha(theme.palette.primary.main, 0.2)
         }
       },
       "&:focus, &:hover": {
         "& > span:first-of-type": {
-          backgroundColor: fade(theme.palette.primary.main, 0.2)
+          backgroundColor: alpha(theme.palette.primary.main, 0.2)
         }
       }
     },
@@ -37,7 +36,7 @@ const useStyles = makeStyles(
       },
       "&:focus, &:hover": {
         "& > span:first-of-type": {
-          backgroundColor: fade(theme.palette.primary.main, 0.2)
+          backgroundColor: alpha(theme.palette.primary.main, 0.2)
         },
         backgroundColor: "transparent"
       },

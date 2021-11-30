@@ -3,7 +3,7 @@ import {
   CardContent,
   InputAdornment,
   TextField
-} from "@material-ui/core";
+} from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import Grid from "@saleor/components/Grid";
 import { ProductErrorFragment } from "@saleor/fragments/types/ProductErrorFragment";

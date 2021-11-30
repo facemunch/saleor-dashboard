@@ -4,7 +4,7 @@ import {
   FormControlLabel,
   TextField,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import Accordion, { AccordionProps } from "@saleor/components/Accordion";
 import { useChannelsSearch } from "@saleor/components/ChannelsAvailabilityDialog/utils";
 import ChannelsAvailabilityDialogChannelsList from "@saleor/components/ChannelsAvailabilityDialogChannelsList";

@@ -1,14 +1,16 @@
-import { LinearProgress, useMediaQuery } from "@material-ui/core";
+import { LinearProgress, useMediaQuery } from "@mui/material";
 import useAppState from "@saleor/hooks/useAppState";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useUser from "@saleor/hooks/useUser";
+import Portal from "@mui/material/Portal";
+
 import {
   makeStyles,
   SaleorTheme,
   Sidebar,
   SidebarDrawer,
   useBacklink,
-  useSavebar,
+  useActionBar,
   useTheme
 } from "@saleor/macaw-ui";
 import { isDarkTheme } from "@saleor/misc";
@@ -16,15 +18,15 @@ import { staffMemberDetailsUrl } from "@saleor/staff/urls";
 import classNames from "classnames";
 import React from "react";
 import { useIntl } from "react-intl";
-import useRouter from "use-react-router";
+import { useLocation } from "react-router-dom";
 
 import Container from "../Container";
 import ErrorPage from "../ErrorPage";
 import Navigator from "../Navigator";
 import NavigatorButton from "../NavigatorButton/NavigatorButton";
-import UserChip from "../UserChip";
+// import UserChip from "../UserChip";
 import useAppChannel from "./AppChannelContext";
-import AppChannelSelect from "./AppChannelSelect";
+// import AppChannelSelect from "./AppChannelSelect";
 import { appLoaderHeight } from "./consts";
 import createMenuStructure from "./menuStructure";
 import { isMenuActive } from "./utils";
@@ -38,11 +40,13 @@ const useStyles = makeStyles(
       },
       bottom: 0,
       gridColumn: 2,
-      position: "sticky",
-      zIndex: 10
+      position: "fixed",
+      zIndex: 100000
     },
     appActionDocked: {
-      position: "static"
+      bottom: "env(safe-area-inset-bottom, 10px)",
+      zIndex: 10000,
+      position: "fixed"
     },
     appLoader: {
       height: appLoaderHeight,
@@ -84,10 +88,10 @@ const useStyles = makeStyles(
       }
     },
     root: {
-      [theme.breakpoints.up("md")]: {
-        display: "flex"
-      },
-      width: `100%`
+      // [theme.breakpoints.up("md")]: {
+      // display: "flex"
+      // }
+      // width: `100%`
     },
     spacer: {
       flex: 1
@@ -98,16 +102,21 @@ const useStyles = makeStyles(
     },
 
     view: {
+      padding: 16,
+      // padding: 2,
       flex: 1,
       flexGrow: 1,
       marginLeft: 0,
-      paddingBottom: theme.spacing(),
+      // paddingBottom: theme.spacing(),
+      paddingBottom: "6em",
       [theme.breakpoints.up("sm")]: {
         paddingBottom: theme.spacing(3)
       }
     },
     viewContainer: {
-      minHeight: `calc(100vh + ${appLoaderHeight + 70}px - ${theme.spacing(2)})`
+      marginBottom: "4em"
+      // minHeight: `calc(var(--vh) * 100)`,
+      // marginTop: "-30px"
     }
   }),
   {
@@ -122,23 +131,19 @@ interface AppLayoutProps {
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const classes = useStyles({});
   const { themeType, setTheme } = useTheme();
-  const { anchor: appActionAnchor, docked } = useSavebar();
+  const { anchor: appActionAnchor, docked } = useActionBar();
   const appHeaderAnchor = useBacklink();
   const { logout, user } = useUser();
   const navigate = useNavigator();
   const intl = useIntl();
   const [appState, dispatchAppState] = useAppState();
-  const { location } = useRouter();
+  const location = useLocation();
   const [isNavigatorVisible, setNavigatorVisibility] = React.useState(false);
   const isMdUp = useMediaQuery((theme: SaleorTheme) =>
     theme.breakpoints.up("md")
   );
-  const {
-    availableChannels,
-    channel,
-    isPickerActive,
-    setChannel
-  } = useAppChannel(false);
+  const { availableChannels, channel, isPickerActive, setChannel } =
+    useAppChannel(true);
 
   const menuStructure = createMenuStructure(intl, user);
   const activeMenu = menuStructure.find(menuItem =>
@@ -181,7 +186,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             <div>
               <Container>
                 <div className={classes.header}>
-                  <div className={classes.headerAnchor} ref={appHeaderAnchor} />
+                  {/* //hidden for mobile views, might be good for desktop */}
+                  {/* <div className={classes.headerAnchor} ref={appHeaderAnchor} /> */}
                   <div className={classes.headerToolbar}>
                     {!isMdUp && (
                       <SidebarDrawer
@@ -195,44 +201,27 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                         isMac={navigator.platform.toLowerCase().includes("mac")}
                         onClick={() => setNavigatorVisibility(true)}
                       />
-                      {isPickerActive && (
-                        <AppChannelSelect
-                          channels={availableChannels}
-                          selectedChannelId={channel?.id}
-                          onChannelSelect={setChannel}
-                        />
-                      )}
-                      <UserChip
-                        isDarkThemeEnabled={isDarkTheme(themeType)}
-                        user={user}
-                        onLogout={logout}
-                        onProfileClick={() =>
-                          navigate(staffMemberDetailsUrl(user?.id))
-                        }
-                        onThemeToggle={toggleTheme}
-                      />
                     </div>
                   </div>
                 </div>
               </Container>
             </div>
-            <main className={classes.view}>
-              {appState.error
-                ? appState.error.type === "unhandled" && (
-                    <ErrorPage
-                      id={appState.error.id}
-                      onBack={handleErrorBack}
-                    />
-                  )
-                : children}
-            </main>
+            {/* <main className={classes.view}> */}
+            {appState.error
+              ? appState.error.type === "unhandled" && (
+                  <ErrorPage id={appState.error.id} onBack={handleErrorBack} />
+                )
+              : children}
+            {/* </main> */}
           </div>
-          <div
-            className={classNames(classes.appAction, {
-              [classes.appActionDocked]: docked
-            })}
-            ref={appActionAnchor}
-          />
+          <Portal>
+            <div
+              className={classNames(classes.appAction, {
+                [classes.appActionDocked]: docked
+              })}
+              ref={appActionAnchor}
+            />
+          </Portal>
         </div>
       </div>
     </>

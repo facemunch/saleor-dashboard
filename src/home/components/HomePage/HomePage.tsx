@@ -18,7 +18,6 @@ import {
 } from "../../types/Home";
 import HomeActivityCard from "../HomeActivityCard";
 import HomeAnalyticsCard from "../HomeAnalyticsCard";
-import HomeHeader from "../HomeHeader";
 import HomeNotificationTable from "../HomeNotificationTable/HomeNotificationTable";
 import HomeProductListCard from "../HomeProductListCard";
 
@@ -84,7 +83,6 @@ const HomePage: React.FC<HomePageProps> = props => {
 
   return (
     <Container>
-      <HomeHeader userName={userName} />
       <CardSpacer />
       <Grid>
         <div>

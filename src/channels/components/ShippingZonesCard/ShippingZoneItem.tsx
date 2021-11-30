@@ -1,5 +1,5 @@
-import { Divider, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Divider, Typography } from "@mui/material";
+import { makeStyles } from "@saleor/macaw-ui";
 import { ChannelShippingZone } from "@saleor/channels/pages/ChannelDetailsPage/types";
 import DeletableItem from "@saleor/components/DeletableItem";
 import React from "react";

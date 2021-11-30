@@ -1,6 +1,7 @@
 import React from "react";
 
 const Arrow: React.FC<React.SVGProps<SVGSVGElement>> = props => (
+  // @ts-ignore
   <svg
     width="18"
     height="21"

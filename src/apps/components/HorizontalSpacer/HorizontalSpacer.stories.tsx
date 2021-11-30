@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import Decorator from "@saleor/storybook/Decorator";
 import { storiesOf } from "@storybook/react";
 import React from "react";

@@ -1,4 +1,4 @@
-import { Tabs } from "@material-ui/core";
+import { Tabs } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 
@@ -7,6 +7,12 @@ const useStyles = makeStyles(
     tabsRoot: {
       borderBottom: `1px solid ${theme.palette.divider}`,
       paddingLeft: theme.spacing(3)
+    },
+    " .MuiTabs-indicator": {
+      left: "0px",
+      width: "15px",
+      height: "7px",
+      borderRadius: "5px 5px 0 0"
     }
   }),
   { name: "FilterTabs" }

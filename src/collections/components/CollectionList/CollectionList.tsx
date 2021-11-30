@@ -1,4 +1,4 @@
-import { TableBody, TableCell, TableFooter, TableRow } from "@material-ui/core";
+import { TableBody, TableCell, TableFooter, TableRow } from "@mui/material";
 import { CollectionListUrlSortField } from "@saleor/collections/urls";
 import { canBeSorted } from "@saleor/collections/views/CollectionList/sort";
 import AvailabilityStatusLabel from "@saleor/components/AvailabilityStatusLabel";

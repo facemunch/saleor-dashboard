@@ -1,4 +1,4 @@
-import { Button, Card } from "@material-ui/core";
+import { Button, Card } from "@mui/material";
 import Container from "@saleor/components/Container";
 import PageHeader from "@saleor/components/PageHeader";
 import SearchBar from "@saleor/components/SearchBar";

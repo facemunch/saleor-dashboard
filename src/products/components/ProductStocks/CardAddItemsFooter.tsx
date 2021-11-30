@@ -1,5 +1,5 @@
-import { IconButton } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
+import { IconButton } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import Link from "@saleor/components/Link";
 import { makeStyles } from "@saleor/macaw-ui";
 import React, { MutableRefObject } from "react";

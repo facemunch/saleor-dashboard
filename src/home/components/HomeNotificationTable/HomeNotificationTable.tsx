@@ -4,8 +4,8 @@ import {
   TableCell,
   TableRow,
   Typography
-} from "@material-ui/core";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
+} from "@mui/material";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import RequirePermissions from "@saleor/components/RequirePermissions";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";

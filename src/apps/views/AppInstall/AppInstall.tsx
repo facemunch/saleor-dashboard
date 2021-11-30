@@ -5,7 +5,6 @@ import useNotifier from "@saleor/hooks/useNotifier";
 import getAppErrorMessage from "@saleor/utils/errors/app";
 import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
-import { RouteComponentProps } from "react-router-dom";
 
 import AppInstallErrorPage from "../../components/AppInstallErrorPage";
 import AppInstallPage from "../../components/AppInstallPage";
@@ -19,7 +18,7 @@ import {
   MANIFEST_ATTR
 } from "../../urls";
 
-interface InstallAppCreateProps extends RouteComponentProps {
+interface InstallAppCreateProps {
   params: AppInstallUrlQueryParams;
 }
 export const InstallAppCreate: React.FC<InstallAppCreateProps> = ({

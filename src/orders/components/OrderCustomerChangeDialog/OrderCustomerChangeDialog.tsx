@@ -7,7 +7,7 @@ import {
   Radio,
   RadioGroup,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import ConfirmButton from "@saleor/components/ConfirmButton";
 import FormSpacer from "@saleor/components/FormSpacer";
 import { buttonMessages } from "@saleor/intl";

@@ -1,4 +1,5 @@
-import useRouter from "use-react-router";
+import { useNavigate } from "react-router-dom";
+import urlJoin from "url-join";
 
 export type UseNavigatorResult = (
   url: string,
@@ -6,20 +7,19 @@ export type UseNavigatorResult = (
   preserveQs?: boolean
 ) => void;
 function useNavigator(): UseNavigatorResult {
-  const {
-    location: { search },
-    history
-  } = useRouter();
+  const navigator = useNavigate();
 
   return (url: string, replace = false, preserveQs = false) => {
-    const targetUrl = preserveQs ? url + search : url;
-    if (replace) {
-      history.replace(targetUrl);
-    } else {
-      history.push(targetUrl);
-    }
+    const targetUrl = preserveQs ? url + window.location.search : url;
+    console.log("location from useNavigator", location);
+    const clientIntegration = location.pathname.includes("ecommerce");
+    const path = `${urlJoin(
+      clientIntegration ? "/ecommerce" : "/",
+      targetUrl
+    )}`;
+    navigator(path, { replace: replace });
 
-    window.scrollTo({ behavior: "smooth", top: 0 });
+    // window.scrollTo({ behavior: "smooth", top: 0 });
   };
 }
 

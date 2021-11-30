@@ -9,7 +9,7 @@ import {
   TableRow,
   TextField,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import Money from "@saleor/components/Money";
 import Skeleton from "@saleor/components/Skeleton";
@@ -38,7 +38,7 @@ const useStyles = makeStyles(
       },
       colQuantity: {
         textAlign: "right",
-        width: 210
+        // width: 210
       },
       notice: {
         marginBottom: theme.spacing(1),

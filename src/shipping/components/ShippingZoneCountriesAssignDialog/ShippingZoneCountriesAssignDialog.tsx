@@ -9,7 +9,7 @@ import {
   TableRow,
   TextField,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import Checkbox from "@saleor/components/Checkbox";
 import ConfirmButton, {
   ConfirmButtonTransitionState

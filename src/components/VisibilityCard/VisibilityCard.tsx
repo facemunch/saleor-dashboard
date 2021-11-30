@@ -1,4 +1,4 @@
-import { Card, CardContent, TextField, Typography } from "@material-ui/core";
+import { Card, CardContent, TextField, Typography } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import ControlledCheckbox from "@saleor/components/ControlledCheckbox";
 import Hr from "@saleor/components/Hr";
@@ -45,7 +45,7 @@ const useStyles = makeStyles(
       marginTop: 9
     },
     secondLabel: {
-      color: theme.palette.text.hint,
+      color: theme.palette.text.secondary,
       fontSize: 12,
       marginBottom: theme.spacing(2)
     },

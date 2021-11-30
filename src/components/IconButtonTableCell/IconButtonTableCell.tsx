@@ -1,4 +1,4 @@
-import { IconButton, TableCell } from "@material-ui/core";
+import { IconButton, TableCell } from "@mui/material";
 import { ICONBUTTON_SIZE, makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";

@@ -369,9 +369,7 @@ export function splitDateTime(dateTime: string) {
     };
   }
   // Default html input format YYYY-MM-DD HH:mm
-  const splitDateTime = moment(dateTime)
-    .format("YYYY-MM-DD HH:mm")
-    .split(" ");
+  const splitDateTime = moment(dateTime).format("YYYY-MM-DD HH:mm").split(" ");
   return {
     date: splitDateTime[0],
     time: splitDateTime[1]
@@ -406,7 +404,7 @@ export function findValueInEnum<TEnum extends {}>(
     throw new Error(`Value ${needle} not found in enum`);
   }
 
-  return (needle as unknown) as TEnum[keyof TEnum];
+  return needle as unknown as TEnum[keyof TEnum];
 }
 
 export function parseBoolean(a: string, defaultValue: boolean): boolean {
@@ -451,7 +449,8 @@ export const getDatePeriod = (days: number): DateRangeInput => {
   };
 };
 
-export const isDarkTheme = (themeType: ThemeType) => themeType === "dark";
+export const isDarkTheme = (themeType: ThemeType) => true;
+// export const isDarkTheme = (themeType: ThemeType) => themeType === "dark";
 
 export const transformAddressToAddressInput = (data?: AddressType) => ({
   city: data?.city || "",

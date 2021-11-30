@@ -1,5 +1,4 @@
-import { Card, CardContent, Typography } from "@material-ui/core";
-import { IconProps } from "@material-ui/core/Icon";
+import { Card, CardContent, Typography, IconProps } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage } from "react-intl";
@@ -35,7 +34,7 @@ const useStyles = makeStyles(
       margin: ".5rem .3rem"
     },
     iconBackground: {
-      backgroundColor: theme.palette.background.default,
+      backgroundColor: "#22262C",
       borderRadius: "8px",
       color: "white",
       fontSize: "54px",

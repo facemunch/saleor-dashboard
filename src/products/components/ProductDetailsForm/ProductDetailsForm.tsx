@@ -1,5 +1,5 @@
 import { OutputData } from "@editorjs/editorjs";
-import { Card, CardContent, TextField } from "@material-ui/core";
+import { Card, CardContent, TextField } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import FormSpacer from "@saleor/components/FormSpacer";
 import Grid from "@saleor/components/Grid";

@@ -1,5 +1,5 @@
-import { DialogContentText, IconButton } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { DialogContentText, IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import ActionDialog from "@saleor/components/ActionDialog";
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
 import DeleteFilterTabDialog from "@saleor/components/DeleteFilterTabDialog";

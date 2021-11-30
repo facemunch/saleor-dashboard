@@ -1,5 +1,5 @@
-import EditorJS, { LogLevels, OutputData } from "@editorjs/editorjs";
-import { FormControl, FormHelperText, InputLabel } from "@material-ui/core";
+import EditorJS, { API, LogLevels, OutputData } from "@editorjs/editorjs";
+import { FormControl, FormHelperText, InputLabel } from "@mui/material";
 import classNames from "classnames";
 import React from "react";
 
@@ -31,20 +31,23 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   const [isFocused, setFocus] = React.useState(false);
   const editor = React.useRef<EditorJS>();
   const editorContainer = React.useRef<HTMLDivElement>();
-  const prevTogglePromise = React.useRef<Promise<boolean>>(); // used to await subsequent toggle invocations
-  const initialMount = React.useRef(true);
+
+  const save = async (api: API) => {
+    if(!editor.current.readOnly.isEnabled) {
+      onChange(await api.saver.save());
+    }
+  }
 
   React.useEffect(
     () => {
+      console.log("data", { data, disabled });
+
       if (data !== undefined) {
         editor.current = new EditorJS({
           data,
           holder: editorContainer.current,
           logLevel: "ERROR" as LogLevels,
-          onChange: async api => {
-            const savedData = await api.saver.save();
-            onChange(savedData);
-          },
+          onChange: api => save(api),
           onReady: () => {
             // FIXME: This throws an error and is not working
             // const undo = new Undo({ editor });
@@ -54,6 +57,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
               onReady();
             }
           },
+          // TODO: [SB-50] Need to investigate why this editor is not working
           readOnly: disabled,
           tools
         });
@@ -64,37 +68,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     // Rerender editor only if changed from undefined to defined state
     [data === undefined]
   );
-
-  React.useEffect(() => {
-    const toggle = async () => {
-      if (!editor.current) {
-        return;
-      }
-
-      await editor.current.isReady;
-      if (editor.current?.readOnly) {
-        // readOnly.toggle() by itself does not enqueue the events and will result in a broken output if invocations overlap
-        // Remove this logic when this is fixed in EditorJS
-        if (prevTogglePromise.current instanceof Promise) {
-          await prevTogglePromise.current;
-        }
-        prevTogglePromise.current = editor.current.readOnly.toggle(disabled);
-
-        // Switching to readOnly with empty blocks present causes the editor to freeze
-        // Remove this logic when this is fixed in EditorJS
-        if (!disabled && !data?.blocks?.length) {
-          await prevTogglePromise.current;
-          editor.current.clear();
-        }
-      }
-    };
-
-    if (!initialMount.current) {
-      toggle();
-    } else {
-      initialMount.current = false;
-    }
-  }, [disabled]);
 
   return (
     <FormControl

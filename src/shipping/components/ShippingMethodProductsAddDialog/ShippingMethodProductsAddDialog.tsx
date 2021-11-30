@@ -9,7 +9,7 @@ import {
   TableCell,
   TableRow,
   TextField
-} from "@material-ui/core";
+} from "@mui/material";
 import Checkbox from "@saleor/components/Checkbox";
 import ConfirmButton, {
   ConfirmButtonTransitionState
@@ -52,7 +52,7 @@ const useStyles = makeStyles(
       overflowY: "visible"
     },
     productCheckboxCell: {
-      "&:first-child": {
+      "&:first-of-type": {
         paddingLeft: 0,
         paddingRight: 0
       }

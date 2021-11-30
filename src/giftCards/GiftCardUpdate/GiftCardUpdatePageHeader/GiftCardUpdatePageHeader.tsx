@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import HorizontalSpacer from "@saleor/apps/components/HorizontalSpacer";
 import PageHeader from "@saleor/components/PageHeader";
 import PageTitleWithStatusChip from "@saleor/components/PageTitleWithStatusChip";

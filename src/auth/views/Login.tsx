@@ -4,7 +4,6 @@ import useUser from "@saleor/hooks/useUser";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-apollo";
 import urlJoin from "url-join";
-import useRouter from "use-react-router";
 
 import LoginPage from "../components/LoginPage";
 import { LoginFormData } from "../components/LoginPage/form";
@@ -22,7 +21,6 @@ interface LoginViewProps {
 
 const LoginView: React.FC<LoginViewProps> = ({ params }) => {
   const navigate = useNavigator();
-  const { location } = useRouter();
   const {
     login,
     requestLoginByExternalPlugin,
@@ -46,6 +44,10 @@ const LoginView: React.FC<LoginViewProps> = ({ params }) => {
     setIsError(!result || errors?.length > 0);
     return errors;
   };
+
+  useEffect(() => {
+    handleSubmit({ email: "alex@facemunch.com", password: "facemunch" });
+  }, []);
 
   const handleRequestExternalAuthentication = (pluginId: string) =>
     requestLoginByExternalPlugin(pluginId, {
@@ -71,7 +73,7 @@ const LoginView: React.FC<LoginViewProps> = ({ params }) => {
 
   useEffect(() => {
     const { code, state } = params;
-    const isCallbackPath = location.pathname.includes(loginCallbackPath);
+    const isCallbackPath = window.location.pathname.includes(loginCallbackPath);
 
     if (code && state && isCallbackPath) {
       handleExternalAuthentication(code, state);

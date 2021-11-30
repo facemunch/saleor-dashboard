@@ -1,4 +1,4 @@
-import { Button, Card } from "@material-ui/core";
+import { Button, Card } from "@mui/material";
 import { CategoryListUrlSortField } from "@saleor/categories/urls";
 import Container from "@saleor/components/Container";
 import PageHeader from "@saleor/components/PageHeader";

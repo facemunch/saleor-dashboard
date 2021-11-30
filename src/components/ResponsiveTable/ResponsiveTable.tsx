@@ -1,4 +1,4 @@
-import { Table } from "@material-ui/core";
+import { Table } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 
@@ -11,10 +11,11 @@ const useStyles = makeStyles(
         }
       },
       "& table": {
-        tableLayout: "auto"
+        tableLayout: "auto",
+        width: "96vw"
       },
       overflowX: "auto",
-      width: "100%"
+      width: "96vw"
     }
   }),
   {

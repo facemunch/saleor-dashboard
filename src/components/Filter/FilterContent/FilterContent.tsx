@@ -1,10 +1,5 @@
-import {
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  makeStyles,
-  Paper,
-  Typography
-} from "@material-ui/core";
+import { Accordion, AccordionSummary, Paper, Typography } from "@mui/material";
+import { makeStyles } from "@saleor/macaw-ui";
 import CollectionWithDividers from "@saleor/components/CollectionWithDividers";
 import Hr from "@saleor/components/Hr";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
@@ -128,12 +123,10 @@ const FilterContent: React.FC<FilterContentProps> = ({
     {}
   );
 
-  const [
-    autocompleteDisplayValues,
-    setAutocompleteDisplayValues
-  ] = useStateFromProps<FilterAutocompleteDisplayValues>(
-    initialAutocompleteDisplayValues
-  );
+  const [autocompleteDisplayValues, setAutocompleteDisplayValues] =
+    useStateFromProps<FilterAutocompleteDisplayValues>(
+      initialAutocompleteDisplayValues
+    );
 
   const commonFilterBodyProps: Omit<
     FilterContentBodyProps,
@@ -160,7 +153,7 @@ const FilterContent: React.FC<FilterContentProps> = ({
     }
   };
 
-  const handleFilterPropertyGroupChange = function<T extends string>(
+  const handleFilterPropertyGroupChange = function <T extends string>(
     action: FilterReducerAction<T>,
     filter: IFilterElement<string>
   ) {
@@ -176,7 +169,7 @@ const FilterContent: React.FC<FilterContentProps> = ({
     onFilterPropertyChange(action);
   };
 
-  const handleMultipleFieldPropertyChange = function<T extends string>(
+  const handleMultipleFieldPropertyChange = function <T extends string>(
     action: FilterReducerAction<T>
   ) {
     const { update } = action.payload;
@@ -186,14 +179,18 @@ const FilterContent: React.FC<FilterContentProps> = ({
     });
   };
 
-  const getFilterFromCurrentData = function<T extends string>(
+  const getFilterFromCurrentData = function <T extends string>(
     filter: IFilterElement<T>
   ) {
     return filters.find(({ name }) => filter.name === name);
   };
 
   return (
-    <Paper>
+    <Paper
+      sx={{
+        boxShadow: "10px 10px 110px 10px black"
+      }}
+    >
       <form
         onSubmit={event => {
           event.preventDefault();
@@ -208,14 +205,14 @@ const FilterContent: React.FC<FilterContentProps> = ({
             const currentFilter = getFilterFromCurrentData(filter);
 
             return (
-              <ExpansionPanel
+              <Accordion
                 key={filter.name}
                 classes={expanderClasses}
                 data-test="channel-availability-item"
                 data-test-id={filter.name}
                 expanded={filter.name === openedFilter?.name}
               >
-                <ExpansionPanelSummary
+                <AccordionSummary
                   expandIcon={<IconChevronDown />}
                   classes={summaryClasses}
                   onClick={() => handleFilterOpen(filter)}
@@ -226,7 +223,7 @@ const FilterContent: React.FC<FilterContentProps> = ({
                       handleFilterPropertyGroupChange(action, filter)
                     }
                   />
-                </ExpansionPanelSummary>
+                </AccordionSummary>
                 {currentFilter?.active && (
                   <FilterErrorsList
                     errors={errors?.[filter.name]}
@@ -259,7 +256,7 @@ const FilterContent: React.FC<FilterContentProps> = ({
                     filter={currentFilter}
                   />
                 )}
-              </ExpansionPanel>
+              </Accordion>
             );
           })}
       </form>

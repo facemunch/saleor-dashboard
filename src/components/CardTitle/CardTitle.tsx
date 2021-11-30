@@ -1,11 +1,18 @@
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
 
 const useStyles = makeStyles(
   theme => ({
-    children: theme.mixins.gutters({}),
+    children: {
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+      [theme.breakpoints.up('sm')]: {
+        paddingLeft: theme.spacing(3),
+        paddingRight: theme.spacing(3),
+      },
+    },
     constantHeight: {
       height: 56
     },
@@ -17,11 +24,17 @@ const useStyles = makeStyles(
       marginTop: 0,
       width: "100%"
     },
-    root: theme.mixins.gutters({
+    root: {
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
       alignItems: "center",
       display: "flex",
-      minHeight: 56
-    }),
+      minHeight: 56,
+      [theme.breakpoints.up('sm')]: {
+        paddingLeft: theme.spacing(3),
+        paddingRight: theme.spacing(3),
+      },
+    },
     title: {
       flex: 1,
       fontWeight: 500,

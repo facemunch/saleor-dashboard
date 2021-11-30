@@ -1,4 +1,4 @@
-import { DialogContentText, TextField } from "@material-ui/core";
+import { DialogContentText, TextField } from "@mui/material";
 import ActionDialog from "@saleor/components/ActionDialog";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import FormSpacer from "@saleor/components/FormSpacer";

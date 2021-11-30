@@ -1,4 +1,4 @@
-import { TextField } from "@material-ui/core";
+import { TextField } from "@mui/material";
 import SingleSelectField from "@saleor/components/SingleSelectField";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";

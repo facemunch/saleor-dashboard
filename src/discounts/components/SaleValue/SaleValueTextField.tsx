@@ -1,4 +1,4 @@
-import { TextField } from "@material-ui/core";
+import { TextField } from "@mui/material";
 import { ChannelSaleData } from "@saleor/channels/utils";
 import { SaleType } from "@saleor/types/globalTypes";
 import React from "react";

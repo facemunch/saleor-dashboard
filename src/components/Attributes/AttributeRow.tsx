@@ -1,4 +1,4 @@
-import { InputAdornment, TextField } from "@material-ui/core";
+import { InputAdornment, TextField } from "@mui/material";
 import { getMeasurementUnitMessage } from "@saleor/attributes/components/AttributeDetails/utils";
 import BasicAttributeRow from "@saleor/components/Attributes/BasicAttributeRow";
 import ExtendedAttributeRow from "@saleor/components/Attributes/ExtendedAttributeRow";

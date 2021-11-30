@@ -4,7 +4,7 @@ import {
   TableCell,
   TableFooter,
   TableRow
-} from "@material-ui/core";
+} from "@mui/material";
 import Checkbox from "@saleor/components/Checkbox";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";

@@ -1,4 +1,4 @@
-import { MenuItem, Typography } from "@material-ui/core";
+import { MenuItem, Typography } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import { GetItemPropsOptions } from "downshift";
 import React from "react";

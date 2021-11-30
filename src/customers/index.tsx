@@ -3,14 +3,12 @@ import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
-  customerAddPath,
   customerAddressesPath,
   CustomerAddressesUrlQueryParams,
-  customerListPath,
   CustomerListUrlQueryParams,
   CustomerListUrlSortField,
   customerPath,
@@ -21,7 +19,7 @@ import CustomerCreateView from "./views/CustomerCreate";
 import CustomerDetailsViewComponent from "./views/CustomerDetails";
 import CustomerListViewComponent from "./views/CustomerList";
 
-const CustomerListView: React.FC<RouteComponentProps<{}>> = ({ location }) => {
+const CustomerListView: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: CustomerListUrlQueryParams = asSortParams(
     qs,
@@ -31,35 +29,27 @@ const CustomerListView: React.FC<RouteComponentProps<{}>> = ({ location }) => {
   return <CustomerListViewComponent params={params} />;
 };
 
-interface CustomerDetailsRouteParams {
-  id: string;
-}
-const CustomerDetailsView: React.FC<RouteComponentProps<
-  CustomerDetailsRouteParams
->> = ({ location, match }) => {
+const CustomerDetailsView: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: CustomerUrlQueryParams = qs;
+  const match = useParams();
 
   return (
     <CustomerDetailsViewComponent
-      id={decodeURIComponent(match.params.id)}
+      id={decodeURIComponent(match.id)}
       params={params}
     />
   );
 };
 
-interface CustomerAddressesRouteParams {
-  id: string;
-}
-const CustomerAddressesView: React.FC<RouteComponentProps<
-  CustomerAddressesRouteParams
->> = ({ match }) => {
+const CustomerAddressesView: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: CustomerAddressesUrlQueryParams = qs;
+  const match = useParams();
 
   return (
     <CustomerAddressesViewComponent
-      id={decodeURIComponent(match.params.id)}
+      id={decodeURIComponent(match.id)}
       params={params}
     />
   );
@@ -71,15 +61,15 @@ export const CustomerSection: React.FC<{}> = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.customers)} />
-      <Switch>
-        <Route exact path={customerListPath} component={CustomerListView} />
-        <Route exact path={customerAddPath} component={CustomerCreateView} />
+      <Routes>
+        <Route path="" element={<CustomerListView />} />
+        <Route path="add" element={<CustomerCreateView />} />
         <Route
-          path={customerAddressesPath(":id")}
-          component={CustomerAddressesView}
+          path={customerAddressesPath(":id", "")}
+          element={<CustomerAddressesView />}
         />
-        <Route path={customerPath(":id")} component={CustomerDetailsView} />
-      </Switch>
+        <Route path={customerPath(":id", "")} element={<CustomerDetailsView />} />
+      </Routes>
     </>
   );
 };

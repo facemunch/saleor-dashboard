@@ -1,4 +1,4 @@
-import { TextField } from "@material-ui/core";
+import { TextField } from "@mui/material";
 import HorizontalSpacer from "@saleor/apps/components/HorizontalSpacer";
 import { UseFormResult } from "@saleor/hooks/useForm";
 import { makeStyles } from "@saleor/macaw-ui";

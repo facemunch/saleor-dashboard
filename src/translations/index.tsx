@@ -2,14 +2,13 @@ import { sectionNames } from "@saleor/intl";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import { LanguageCodeEnum } from "../types/globalTypes";
 import {
   languageEntitiesPath,
   languageEntityPath,
-  languageListPath,
   TranslatableEntities
 } from "./urls";
 import TranslationsAttributesComponent, {
@@ -42,172 +41,142 @@ import TranslationsVouchersComponent, {
   TranslationsVouchersQueryParams
 } from "./views/TranslationsVouchers";
 
-type TranslationsEntitiesRouteProps = RouteComponentProps<{
-  languageCode: string;
-}>;
-const TranslationsEntities: React.FC<TranslationsEntitiesRouteProps> = ({
-  location,
-  match
-}) => {
+const TranslationsEntities: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
+  const match = useParams();
 
   return (
     <TranslationsEntitiesComponent
-      language={match.params.languageCode}
+      language={match.languageCode}
       params={qs}
     />
   );
 };
-type TranslationsEntityRouteProps = RouteComponentProps<{
-  id: string;
-  languageCode: string;
-}>;
-const TranslationsCategories: React.FC<TranslationsEntityRouteProps> = ({
-  location,
-  match
-}) => {
+
+const TranslationsCategories: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsCategoriesQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
+  const match = useParams();
   return (
     <TranslationsCategoriesComponent
-      id={decodeURIComponent(match.params.id)}
-      languageCode={LanguageCodeEnum[match.params.languageCode]}
+      id={decodeURIComponent(match.id)}
+      languageCode={LanguageCodeEnum[match.languageCode]}
       params={params}
     />
   );
 };
-const TranslationsCollections: React.FC<TranslationsEntityRouteProps> = ({
-  location,
-  match
-}) => {
+const TranslationsCollections: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsCollectionsQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
+  const match = useParams();
   return (
     <TranslationsCollectionsComponent
-      id={decodeURIComponent(match.params.id)}
-      languageCode={LanguageCodeEnum[match.params.languageCode]}
+      id={decodeURIComponent(match.id)}
+      languageCode={LanguageCodeEnum[match.languageCode]}
       params={params}
     />
   );
 };
-const TranslationsProducts: React.FC<TranslationsEntityRouteProps> = ({
-  location,
-  match
-}) => {
+const TranslationsProducts: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsProductsQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
+  const match = useParams();
   return (
     <TranslationsProductsComponent
-      id={decodeURIComponent(match.params.id)}
-      languageCode={LanguageCodeEnum[match.params.languageCode]}
+      id={decodeURIComponent(match.id)}
+      languageCode={LanguageCodeEnum[match.languageCode]}
       params={params}
     />
   );
 };
-type TranslationsProductVariantProps = RouteComponentProps<{
-  productId: string;
-  id: string;
-  languageCode: string;
-}>;
-const TranslationsProductVariants: React.FC<TranslationsProductVariantProps> = ({
-  location,
-  match
-}) => {
+
+const TranslationsProductVariants: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsProductVariantsQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
+  const match = useParams();
   return (
     <TranslationsProductVariantsComponent
-      id={decodeURIComponent(match.params.id)}
-      productId={decodeURIComponent(match.params.productId)}
-      languageCode={LanguageCodeEnum[match.params.languageCode]}
+      id={decodeURIComponent(match.id)}
+      productId={decodeURIComponent(match.productId)}
+      languageCode={LanguageCodeEnum[match.languageCode]}
       params={params}
     />
   );
 };
-const TranslationsSales: React.FC<TranslationsEntityRouteProps> = ({
-  location,
-  match
-}) => {
+const TranslationsSales: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsSalesQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
+  const match = useParams();
   return (
     <TranslationsSaleComponent
-      id={decodeURIComponent(match.params.id)}
-      languageCode={LanguageCodeEnum[match.params.languageCode]}
+      id={decodeURIComponent(match.id)}
+      languageCode={LanguageCodeEnum[match.languageCode]}
       params={params}
     />
   );
 };
-const TranslationsVouchers: React.FC<TranslationsEntityRouteProps> = ({
-  location,
-  match
-}) => {
+const TranslationsVouchers: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsVouchersQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
+  const match = useParams();
   return (
     <TranslationsVouchersComponent
-      id={decodeURIComponent(match.params.id)}
-      languageCode={LanguageCodeEnum[match.params.languageCode]}
+      id={decodeURIComponent(match.id)}
+      languageCode={LanguageCodeEnum[match.languageCode]}
       params={params}
     />
   );
 };
-const TranslationsPages: React.FC<TranslationsEntityRouteProps> = ({
-  location,
-  match
-}) => {
+const TranslationsPages: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsPagesQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
+  const match = useParams();
   return (
     <TranslationsPagesComponent
-      id={decodeURIComponent(match.params.id)}
-      languageCode={LanguageCodeEnum[match.params.languageCode]}
+      id={decodeURIComponent(match.id)}
+      languageCode={LanguageCodeEnum[match.languageCode]}
       params={params}
     />
   );
 };
-const TranslationsAttributes: React.FC<TranslationsEntityRouteProps> = ({
-  location,
-  match
-}) => {
+const TranslationsAttributes: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsAttributesQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
+  const match = useParams();
   return (
     <TranslationsAttributesComponent
-      id={decodeURIComponent(match.params.id)}
-      languageCode={LanguageCodeEnum[match.params.languageCode]}
+      id={decodeURIComponent(match.id)}
+      languageCode={LanguageCodeEnum[match.languageCode]}
       params={params}
     />
   );
 };
-const TranslationsShippingMethod: React.FC<TranslationsEntityRouteProps> = ({
-  location,
-  match
-}) => {
+const TranslationsShippingMethod: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: TranslationsShippingMethodQueryParams = {
-    activeField: qs.activeField
+    activeField: String(qs.activeField)
   };
+  const match = useParams();
   return (
     <TranslationsShippingMethodComponent
-      id={decodeURIComponent(match.params.id)}
-      languageCode={LanguageCodeEnum[match.params.languageCode]}
+      id={decodeURIComponent(match.id)}
+      languageCode={LanguageCodeEnum[match.languageCode]}
       params={params}
     />
   );
@@ -219,101 +188,99 @@ const TranslationsRouter: React.FC = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.translations)} />
-      <Switch>
+      <Routes>
         <Route
-          exact
-          path={languageListPath}
-          component={TranslationsLanguageList}
+          path=""
+          element={<TranslationsLanguageList />}
         />
         <Route
-          exact
-          path={languageEntitiesPath(":languageCode")}
-          component={TranslationsEntities}
+          path={languageEntitiesPath(":languageCode", "")}
+          element={<TranslationsEntities />}
         />
         <Route
-          exact
           path={languageEntityPath(
+            "",
             ":languageCode",
             TranslatableEntities.products,
             ":id"
           )}
-          component={TranslationsProducts}
+          element={<TranslationsProducts />}
         />
         <Route
-          exact
           path={languageEntityPath(
+            "",
             ":languageCode",
             TranslatableEntities.products,
             ":productId",
             TranslatableEntities.productVariants,
             ":id"
           )}
-          component={TranslationsProductVariants}
+          element={<TranslationsProductVariants />}
         />
         <Route
-          exact
           path={languageEntityPath(
+            "",
             ":languageCode",
             TranslatableEntities.categories,
             ":id"
           )}
-          component={TranslationsCategories}
+          element={<TranslationsCategories />}
         />
         <Route
-          exact
           path={languageEntityPath(
+            "",
             ":languageCode",
             TranslatableEntities.collections,
             ":id"
           )}
-          component={TranslationsCollections}
+          element={<TranslationsCollections />}
         />
         <Route
-          exact
           path={languageEntityPath(
+            "",
             ":languageCode",
             TranslatableEntities.sales,
             ":id"
           )}
-          component={TranslationsSales}
+          element={<TranslationsSales />}
         />
         <Route
-          exact
           path={languageEntityPath(
+            "",
             ":languageCode",
             TranslatableEntities.vouchers,
             ":id"
           )}
-          component={TranslationsVouchers}
+          element={<TranslationsVouchers />}
         />
         <Route
-          exact
           path={languageEntityPath(
+            "",
             ":languageCode",
             TranslatableEntities.pages,
             ":id"
           )}
-          component={TranslationsPages}
+          element={<TranslationsPages />}
         />
         <Route
-          exact
           path={languageEntityPath(
+            "",
             ":languageCode",
             TranslatableEntities.attributes,
             ":id"
           )}
-          component={TranslationsAttributes}
+          element={<TranslationsAttributes />}
         />
         <Route
-          exact
           path={languageEntityPath(
+            "",
             ":languageCode",
             TranslatableEntities.shippingMethods,
             ":id"
           )}
-          component={TranslationsShippingMethod}
+          element={<TranslationsShippingMethod />}
         />
-      </Switch>
+      </Routes>
     </>
   );
 };

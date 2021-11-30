@@ -1,4 +1,4 @@
-import { Button, Typography } from "@material-ui/core";
+import { Button, Typography } from "@mui/material";
 import Grid from "@saleor/components/Grid";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";

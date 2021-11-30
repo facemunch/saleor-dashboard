@@ -5,8 +5,8 @@ import {
   IconButton,
   Paper,
   Typography
-} from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import Link from "@saleor/components/Link";
 import useClipboard from "@saleor/hooks/useClipboard";
 import React from "react";

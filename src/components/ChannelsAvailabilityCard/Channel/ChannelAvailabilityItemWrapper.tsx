@@ -1,8 +1,8 @@
 import {
-  ExpansionPanel,
-  ExpansionPanelSummary,
+  Accordion,
+  AccordionSummary,
   Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import { ChannelData } from "@saleor/channels/utils";
 import IconChevronDown from "@saleor/icons/ChevronDown";
 import { makeStyles } from "@saleor/macaw-ui";
@@ -14,7 +14,7 @@ const useExpanderStyles = makeStyles(
   theme => ({
     expanded: {},
     root: {
-      boxShadow: "none",
+      boxShadow: "none !important",
       margin: 0,
       padding: 0,
       paddingBottom: theme.spacing(2),
@@ -76,19 +76,19 @@ const ChannelContentWrapper: React.FC<ChannelContentWrapperProps> = ({
   const { name } = data;
 
   return (
-    <ExpansionPanel
+    <Accordion
       classes={expanderClasses}
       data-test="channel-availability-item"
     >
-      <ExpansionPanelSummary
+      <AccordionSummary
         expandIcon={<IconChevronDown />}
         classes={summaryClasses}
       >
         <Typography>{name}</Typography>
         <Typography variant="caption">{messages.availableDateText}</Typography>
-      </ExpansionPanelSummary>
+      </AccordionSummary>
       {children}
-    </ExpansionPanel>
+    </Accordion>
   );
 };
 

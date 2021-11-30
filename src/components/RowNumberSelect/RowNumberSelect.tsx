@@ -1,4 +1,4 @@
-import { MenuItem, Select } from "@material-ui/core";
+import { MenuItem, Select } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage } from "react-intl";
@@ -6,6 +6,7 @@ import { FormattedMessage } from "react-intl";
 const useStyles = makeStyles(
   theme => ({
     label: {
+      marginLeft: '22px',
       fontSize: 14
     },
     select: {
@@ -53,6 +54,7 @@ const RowNumberSelect: React.FC<RowNumberSelectProps> = ({
         data-test-id="rowNumberSelect"
         className={classes.select}
         value={rowNumber}
+        sx={{ ml: 1, " .MuiSelect-select": { p: 0 } }}
         onChange={event => onChange(event.target.value as number)}
       >
         {choices.length > 0 &&

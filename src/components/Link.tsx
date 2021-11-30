@@ -1,5 +1,4 @@
-import { Typography } from "@material-ui/core";
-import { TypographyProps } from "@material-ui/core/Typography";
+import { Typography, TypographyProps } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
@@ -7,7 +6,7 @@ import React from "react";
 const useStyles = makeStyles(
   theme => ({
     primary: {
-      color: theme.palette.textHighlighted.active
+      color: theme.palette?.textHighlighted?.active // TODO RA MIGRATION
     },
     root: {
       cursor: "pointer",
@@ -21,7 +20,7 @@ const useStyles = makeStyles(
     },
     disabled: {
       cursor: "default",
-      color: theme.palette.textHighlighted.inactive
+      color: theme.palette?.textHighlighted?.inactive // TODO RA MIGRATION
     }
   }),
   { name: "Link" }

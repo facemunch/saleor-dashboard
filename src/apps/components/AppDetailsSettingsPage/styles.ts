@@ -21,7 +21,7 @@ export const useStyles = makeStyles(
           right: theme.spacing(-2),
           top: 0
         },
-        "&:not(:first-child):hover": {
+        "&:not(:first-of-type):hover": {
           cursor: "pointer",
           textDecoration: "underline"
         }

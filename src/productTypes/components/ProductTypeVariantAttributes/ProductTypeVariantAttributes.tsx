@@ -5,9 +5,9 @@ import {
   TableCell,
   TableRow,
   Tooltip
-} from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
-import HelpOutline from "@material-ui/icons/HelpOutline";
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import HelpOutline from "@mui/icons-material/HelpOutline";
 import CardTitle from "@saleor/components/CardTitle";
 import Checkbox from "@saleor/components/Checkbox";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";

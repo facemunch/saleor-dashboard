@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
@@ -19,7 +20,7 @@ const useStyles = makeStyles(
     },
     skeleton: {
       animation: "skeleton-animation .75s linear infinite forwards alternate",
-      background: theme.palette.background.default,
+      background: "#3c434eb8 !important",
       borderRadius: 4,
       display: "block",
       height: "0.8em",

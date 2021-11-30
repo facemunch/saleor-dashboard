@@ -1,4 +1,4 @@
-import { Button, Typography } from "@material-ui/core";
+import { Button, Typography } from "@mui/material";
 import Container from "@saleor/components/Container";
 import PageHeader from "@saleor/components/PageHeader";
 import { Backlink } from "@saleor/macaw-ui";
@@ -59,7 +59,7 @@ const useStyles = makeStyles(
     empty: {
       margin: `${theme.spacing(13)}px auto 0`,
       textAlign: "center",
-      width: 600
+      // width: 600
     },
     root: {
       display: "grid",

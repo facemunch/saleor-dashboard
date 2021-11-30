@@ -1,4 +1,4 @@
-import { Button, Card } from "@material-ui/core";
+import { Button, Card } from "@mui/material";
 import HorizontalSpacer from "@saleor/apps/components/HorizontalSpacer";
 import CardTitle from "@saleor/components/CardTitle";
 import { InternalLink } from "@saleor/components/InternalLink";

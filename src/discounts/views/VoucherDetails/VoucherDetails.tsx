@@ -1,4 +1,4 @@
-import { Button, DialogContentText } from "@material-ui/core";
+import { Button, DialogContentText } from "@mui/material";
 import {
   ChannelVoucherData,
   createChannelsDataWithDiscountPrice,
@@ -209,7 +209,7 @@ export const VoucherDetails: React.FC<VoucherDetailsProps> = ({
           onClose={handleChannelsModalClose}
           open={isChannelsModalOpen}
           title={intl.formatMessage({
-            defaultMessage: "Manage Channel Availability"
+            defaultMessage: "Manage Munch Link Availability"
           })}
           selected={channelListElements.length}
           confirmButtonState="default"

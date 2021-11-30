@@ -3,12 +3,10 @@ import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, RouteComponentProps, Switch } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
-  pageTypeAddPath,
-  pageTypeListPath,
   PageTypeListUrlQueryParams,
   PageTypeListUrlSortField,
   pageTypePath,
@@ -18,7 +16,7 @@ import PageTypeCreate from "./views/PageTypeCreate";
 import PageTypeDetailsComponent from "./views/PageTypeDetails";
 import PageTypeListComponent from "./views/PageTypeList";
 
-const PageTypeList: React.FC<RouteComponentProps<{}>> = ({ location }) => {
+const PageTypeList: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: PageTypeListUrlQueryParams = asSortParams(
     qs,
@@ -27,18 +25,14 @@ const PageTypeList: React.FC<RouteComponentProps<{}>> = ({ location }) => {
   return <PageTypeListComponent params={params} />;
 };
 
-interface PageTypeDetailsRouteParams {
-  id: string;
-}
-const PageTypeDetails: React.FC<RouteComponentProps<
-  PageTypeDetailsRouteParams
->> = ({ match }) => {
+const PageTypeDetails: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: PageTypeUrlQueryParams = qs;
+  const match = useParams();
 
   return (
     <PageTypeDetailsComponent
-      id={decodeURIComponent(match.params.id)}
+      id={decodeURIComponent(match.id)}
       params={params}
     />
   );
@@ -50,11 +44,11 @@ export const PageTypeRouter: React.FC = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.pageTypes)} />
-      <Switch>
-        <Route exact path={pageTypeListPath} component={PageTypeList} />
-        <Route exact path={pageTypeAddPath} component={PageTypeCreate} />
-        <Route path={pageTypePath(":id")} component={PageTypeDetails} />
-      </Switch>
+      <Routes>
+        <Route path="" element={<PageTypeList />} />
+        <Route path="add" element={<PageTypeCreate />} />
+        <Route path={pageTypePath(":id", "")} element={<PageTypeDetails />} />
+      </Routes>
     </>
   );
 };

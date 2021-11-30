@@ -1,4 +1,4 @@
-import { Button, Card, CardActions, CardContent } from "@material-ui/core";
+import { Button, Card, CardActions, CardContent } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import Form from "@saleor/components/Form";
 import Hr from "@saleor/components/Hr";

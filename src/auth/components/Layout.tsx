@@ -80,13 +80,7 @@ const Layout: React.FC = props => {
         <SVG className={classes.sidebarArt} src={backgroundArt} />
       </div>
       <div className={classes.mainPanel}>
-        <div className={classes.mainPanelContent}>
-          <SVG
-            className={classes.logo}
-            src={themeType === "dark" ? saleorDarkLogo : saleorLightLogo}
-          />
-          {children}
-        </div>
+        <div className={classes.mainPanelContent}>{children}</div>
       </div>
     </div>
   );

@@ -36,7 +36,7 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
       iconSrc: homeIcon,
       label: intl.formatMessage(sectionNames.home),
       id: "home",
-      url: "/"
+      url: "/home"
     },
     {
       ariaLabel: "catalogue",
@@ -127,22 +127,22 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
       permissions: [PermissionEnum.MANAGE_DISCOUNTS],
       id: "discounts"
     },
-    {
-      ariaLabel: "apps",
-      iconSrc: appsIcon,
-      label: intl.formatMessage(sectionNames.apps),
-      permissions: [PermissionEnum.MANAGE_APPS],
-      id: "apps",
-      url: appsListPath
-    },
-    {
-      ariaLabel: "translations",
-      iconSrc: translationIcon,
-      label: intl.formatMessage(sectionNames.translations),
-      permissions: [PermissionEnum.MANAGE_TRANSLATIONS],
-      id: "translations",
-      url: languageListUrl
-    },
+    // {
+    //   ariaLabel: "apps",
+    //   iconSrc: appsIcon,
+    //   label: intl.formatMessage(sectionNames.apps),
+    //   permissions: [PermissionEnum.MANAGE_APPS],
+    //   id: "apps",
+    //   url: appsListPath
+    // },
+    // {
+    //   ariaLabel: "translations",
+    //   iconSrc: translationIcon,
+    //   label: intl.formatMessage(sectionNames.translations),
+    //   permissions: [PermissionEnum.MANAGE_TRANSLATIONS],
+    //   id: "translations",
+    //   url: languageListUrl
+    // },
     {
       ariaLabel: "configure",
       iconSrc: configurationIcon,

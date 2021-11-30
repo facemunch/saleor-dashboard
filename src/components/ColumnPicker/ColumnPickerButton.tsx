@@ -1,6 +1,5 @@
-import { Button } from "@material-ui/core";
-import { fade } from "@material-ui/core/styles/colorManipulator";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import { Button, alpha } from "@mui/material";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
@@ -25,7 +24,7 @@ const useStyles = makeStyles(
       paddingRight: theme.spacing(1)
     },
     rootActive: {
-      background: fade(theme.palette.primary.main, 0.1)
+      background: alpha(theme.palette.primary.main, 0.1)
     },
     rotate: {
       transform: "rotate(180deg)"

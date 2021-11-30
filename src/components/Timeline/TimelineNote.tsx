@@ -1,6 +1,6 @@
-import { Avatar, Card, CardContent, Typography } from "@material-ui/core";
-import * as colors from "@material-ui/core/colors";
-import PersonIcon from "@material-ui/icons/Person";
+import { Avatar, Card, CardContent, Typography } from "@mui/material";
+import * as colors from "@mui/material/colors";
+import PersonIcon from "@mui/icons-material/Person";
 import { makeStyles } from "@saleor/macaw-ui";
 import CRC from "crc-32";
 import React from "react";
