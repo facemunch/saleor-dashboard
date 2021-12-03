@@ -82,7 +82,7 @@ const HomePage: React.FC<HomePageProps> = props => {
   const classes = useStyles(props);
 
   return (
-    <Container>
+    <div>
       <CardSpacer />
       <Grid>
         <div>
@@ -174,7 +174,7 @@ const HomePage: React.FC<HomePageProps> = props => {
           </div>
         )}
       </Grid>
-    </Container>
+    </div>
   );
 };
 HomePage.displayName = "HomePage";
