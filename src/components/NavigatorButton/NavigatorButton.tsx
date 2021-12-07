@@ -121,6 +121,12 @@ const NavigatorButton: React.FC<NavigatorButtonProps> = ({
         onMouseEnter={setHelper}
         onMouseLeave={clearHelper}
         {...props}
+        style={{
+          background: "#b8a7fd",
+          width: '36px',
+          height: '36px',
+          marginTop:"-1px"
+        }}
         ref={anchor}
       >
         <ReactSVG src={navigatorIcon} />

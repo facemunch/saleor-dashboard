@@ -114,7 +114,7 @@ const useStyles = makeStyles(
       }
     },
     viewContainer: {
-      marginBottom: "4em"
+      marginBottom: "13vh"
       // minHeight: `calc(var(--vh) * 100)`,
       // marginTop: "-30px"
     }

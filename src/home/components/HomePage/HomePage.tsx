@@ -25,6 +25,7 @@ const useStyles = makeStyles(
   theme => ({
     cardContainer: {
       display: "grid",
+      width: "94vw",
       gridColumnGap: theme.spacing(3),
       gridTemplateColumns: "1fr 1fr",
       [theme.breakpoints.down("sm")]: {
@@ -82,7 +83,13 @@ const HomePage: React.FC<HomePageProps> = props => {
   const classes = useStyles(props);
 
   return (
-    <div>
+    <div
+      style={{
+        width: "94vw",
+        margin: "3vw",
+        overflow: "hidden"
+      }}
+    >
       <CardSpacer />
       <Grid>
         <div>

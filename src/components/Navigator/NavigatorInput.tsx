@@ -7,7 +7,7 @@ import { QuickSearchMode } from "./types";
 const useStyles = makeStyles(
   theme => {
     const typography = {
-      color: theme.palette.text.primary,
+      color: 'white',
       fontSize: 14,
       lineHeight: 1.33
     };
@@ -27,9 +27,10 @@ const useStyles = makeStyles(
         width: "100%"
       },
       root: {
-        background: theme.palette.background.default,
+        // background: theme.palette.background.default,
         display: "flex",
-        padding: theme.spacing(2, 3)
+        padding: theme.spacing(2, 3),
+        borderRadius: '24px'
       }
     };
   },

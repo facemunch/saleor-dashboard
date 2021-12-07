@@ -7,8 +7,9 @@ const useStyles = makeStyles(
   theme => ({
     cardContent: {
       "&:last-child": {
-        padding: theme.spacing(2, 3)
+        // padding: theme.spacing(2, 3)
       },
+      width: '43vw',
       display: "grid",
       gridColumnGap: theme.spacing(3),
       gridTemplateColumns: "1fr 64px"
