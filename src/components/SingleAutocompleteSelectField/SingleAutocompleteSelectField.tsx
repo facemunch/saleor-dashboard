@@ -196,11 +196,11 @@ const SingleAutocompleteSelectFieldComponent: React.FC<SingleAutocompleteSelectF
 
             const nakedInputProps = nakedInput
               ? {
-                  "aria-label": "naked",
-                  ...commonInputProps,
-                  autoFocus: true,
-                  className: classes.nakedInput
-                }
+                "aria-label": "naked",
+                ...commonInputProps,
+                autoFocus: true,
+                className: classes.nakedInput
+              }
               : {};
 
             return (
@@ -216,6 +216,7 @@ const SingleAutocompleteSelectFieldComponent: React.FC<SingleAutocompleteSelectF
                   helperText={helperText}
                   FormHelperTextProps={FormHelperTextProps}
                   label={label}
+
                   fullWidth={true}
                   onBlur={onBlur}
                 />

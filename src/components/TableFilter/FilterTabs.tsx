@@ -5,8 +5,8 @@ import React from "react";
 const useStyles = makeStyles(
   theme => ({
     tabsRoot: {
-      borderBottom: `1px solid ${theme.palette.divider}`,
-      paddingLeft: theme.spacing(3)
+      borderBottom: `1px solid rgba(255, 255, 255, 0.06)`,
+      paddingLeft: theme.spacing(1)
     },
     " .MuiTabs-indicator": {
       left: "0px",

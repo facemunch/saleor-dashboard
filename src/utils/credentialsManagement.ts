@@ -4,7 +4,6 @@ import { User } from "@saleor/fragments/types/User";
 export const isSupported = !!(
   navigator?.credentials?.preventSilentAccess && window.PasswordCredential
 );
-// export const isSupported = false;
 
 export async function login<T>(
   loginFn: (id: string, password: string) => T

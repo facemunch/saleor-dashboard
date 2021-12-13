@@ -12,10 +12,10 @@ const useStyles = makeStyles(
       },
       "& table": {
         tableLayout: "auto",
-        width: "96vw"
+        width: "92vw"
       },
       overflowX: "auto",
-      width: "96vw"
+      width: "92vw"
     }
   }),
   {

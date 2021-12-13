@@ -15,8 +15,8 @@ const useStyles = makeStyles(
       width: "100%"
     },
     formLabel: {
-      marginLeft: "-5px",
-      paddingBottom: "10px"
+      // marginLeft: "-5px",
+      // paddingBottom: "10px"
     },
     radioLabel: {
       "& > span": {

@@ -26,7 +26,7 @@ const useStyles = makeStyles(
       overflow: "hidden",
       padding: theme.spacing(2),
       position: "relative",
-      // width: 148
+      width: 148
     },
     mediaOverlay: {
       background: "rgba(0, 0, 0, 0.6)",

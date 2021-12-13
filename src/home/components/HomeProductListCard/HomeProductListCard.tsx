@@ -21,13 +21,14 @@ import { Home_productTopToday_edges_node } from "../../types/Home";
 const useStyles = makeStyles(
   theme => ({
     avatarProps: {
-      height: 64,
-      width: 64
+      height: "80 !important",
+      width: "80 !important"
     },
     colAvatar: {
-      paddingBottom: theme.spacing(2),
-      paddingRight: theme.spacing(),
-      paddingTop: theme.spacing(2),
+      // paddingBottom: theme.spacing(2),
+      // paddingRight: theme.spacing(),
+      // paddingTop: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
       width: 112
     },
     colName: {

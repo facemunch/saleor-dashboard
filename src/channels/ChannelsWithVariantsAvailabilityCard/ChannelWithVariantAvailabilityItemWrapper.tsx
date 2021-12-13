@@ -23,7 +23,8 @@ const useExpanderStyles = makeStyles(
       boxShadow: "none",
       margin: 0,
       padding: 0,
-      paddingBottom: theme.spacing(2),
+      paddingBottom: theme.spacing(1),
+      marginTop: theme.spacing(2),
 
       "&:before": {
         content: "none"

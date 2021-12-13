@@ -9,10 +9,10 @@ const useStyles = makeStyles(
       "&:last-child": {
         // padding: theme.spacing(2, 3)
       },
-      width: '43vw',
+      width: '42vw',
       display: "grid",
       gridColumnGap: theme.spacing(3),
-      gridTemplateColumns: "1fr 64px"
+      gridTemplateColumns: "1fr 48px"
     },
     cardSpacing: {
       [theme.breakpoints.down("sm")]: {
@@ -23,7 +23,8 @@ const useStyles = makeStyles(
     cardSubtitle: {
       fontSize: 12,
       height: "20px",
-      lineHeight: 0.9
+      lineHeight: 0.9,
+      opacity: 0.7
     },
     cardTitle: {
       fontSize: 20,
@@ -87,7 +88,7 @@ const HomeAnalyticsCard: React.FC<HomeAnalyticsCardProps> = props => {
             {children}
           </Typography>
         </div>
-        <div className={classes.iconBackground}>{icon}</div>
+        {/* <div className={classes.iconBackground}>{icon}</div> */}
       </CardContent>
     </Card>
   );

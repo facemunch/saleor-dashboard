@@ -13,7 +13,7 @@ const useStyles = makeStyles(
       [theme.breakpoints.up("sm")]: {
         padding: theme.spacing(0, 3)
       },
-      padding: theme.spacing(0, 1)
+      padding: theme.spacing(0, 2)
     }
   }),
   {

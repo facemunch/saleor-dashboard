@@ -20,15 +20,16 @@ export interface FilterBarProps<TKeys extends string = string>
 const useStyles = makeStyles(
   theme => ({
     root: {
-      borderBottom: `1px solid ${theme.palette.divider}`,
+      borderBottom: `1px solid rgba(255, 255, 255, 0.06)`,
       display: "flex",
       flexWrap: "wrap",
-      padding: theme.spacing(1, 3)
+      padding: theme.spacing(2),
     },
     tabActionButton: {
       marginLeft: theme.spacing(2),
-      paddingLeft: theme.spacing(3),
-      paddingRight: theme.spacing(3)
+      paddingLeft: theme.spacing(4),
+      paddingRight: theme.spacing(2),
+      width: "auto",
     }
   }),
   {

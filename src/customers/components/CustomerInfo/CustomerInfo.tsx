@@ -16,10 +16,10 @@ const useStyles = makeStyles(
       paddingTop: theme.spacing(2)
     },
     hr: {
-      margin: theme.spacing(3, 0)
+      margin: theme.spacing(2, 0)
     },
     sectionHeader: {
-      marginBottom: theme.spacing()
+      marginBottom: theme.spacing(2)
     }
   }),
   { name: "CustomerInfo" }
@@ -55,7 +55,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = props => {
         }
       />
       <CardContent className={classes.content}>
-        <Typography className={classes.sectionHeader}>
+        <Typography sx={{ marginBottom: '16px' }} className={classes.sectionHeader}>
           <FormattedMessage {...commonMessages.generalInformations} />
         </Typography>
         <Grid variant="uniform">
@@ -83,7 +83,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = props => {
           />
         </Grid>
         <Hr className={classes.hr} />
-        <Typography className={classes.sectionHeader}>
+        <Typography sx={{ marginBottom: '16px' }} className={classes.sectionHeader}>
           <FormattedMessage
             defaultMessage="Contact Informations"
             description="customer contact section, header"

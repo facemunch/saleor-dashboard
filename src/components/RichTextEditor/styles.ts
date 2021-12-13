@@ -99,7 +99,7 @@ const useStyles = makeStyles(
         transition: theme.transitions.duration.short + "ms"
       },
       rootActive: {
-        boxShadow: `inset 0px 0px 0 2px ${theme.palette.primary.main}`
+        boxShadow: `inset 0px 0px 0 2px #b8a7fd`
       },
       rootDisabled: {
         ...theme.components?.MuiOutlinedInput?.styleOverrides?.root?.["&$disabled"]["& fieldset"]

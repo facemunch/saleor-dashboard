@@ -114,10 +114,7 @@ const useStyles = makeStyles(
       }
     },
     viewContainer: {
-      marginBottom: "13vh",
-      width: "100%",
-      overflowX: "hidden",
-
+      marginBottom: "13vh"
       // minHeight: `calc(var(--vh) * 100)`,
       // marginTop: "-30px"
     }
@@ -135,8 +132,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const classes = useStyles({});
   const { themeType, setTheme } = useTheme();
   const { anchor: appActionAnchor, docked } = useActionBar();
-  // const appHeaderAnchor = useBacklink();
-  const { user } = useUser();
+  const appHeaderAnchor = useBacklink();
+  const { logout, user } = useUser();
   const navigate = useNavigator();
   const intl = useIntl();
   const [appState, dispatchAppState] = useAppState();
@@ -145,8 +142,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const isMdUp = useMediaQuery((theme: SaleorTheme) =>
     theme.breakpoints.up("md")
   );
-  // const { availableChannels, channel, isPickerActive, setChannel } =
-  //   useAppChannel(true);
+  const { availableChannels, channel, isPickerActive, setChannel } =
+    useAppChannel(true);
 
   const menuStructure = createMenuStructure(intl, user);
   const activeMenu = menuStructure.find(menuItem =>
@@ -209,11 +206,13 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                 </div>
               </Container>
             </div>
+            {/* <main className={classes.view}> */}
             {appState.error
               ? appState.error.type === "unhandled" && (
                   <ErrorPage id={appState.error.id} onBack={handleErrorBack} />
                 )
               : children}
+            {/* </main> */}
           </div>
           <Portal>
             <div
