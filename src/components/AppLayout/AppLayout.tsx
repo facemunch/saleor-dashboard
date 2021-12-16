@@ -14,7 +14,6 @@ import {
   useTheme
 } from "@saleor/macaw-ui";
 import { isDarkTheme } from "@saleor/misc";
-import { staffMemberDetailsUrl } from "@saleor/staff/urls";
 import classNames from "classnames";
 import React from "react";
 import { useIntl } from "react-intl";
@@ -82,6 +81,7 @@ const useStyles = makeStyles(
     headerToolbar: {
       display: "flex",
       gridArea: "headerToolbar",
+      marginLeft: "-8px",
       height: 40,
       [theme.breakpoints.down("sm")]: {
         height: "auto"
@@ -132,7 +132,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const classes = useStyles({});
   const { themeType, setTheme } = useTheme();
   const { anchor: appActionAnchor, docked } = useActionBar();
-  const appHeaderAnchor = useBacklink();
   const { logout, user } = useUser();
   const navigate = useNavigator();
   const intl = useIntl();
@@ -142,8 +141,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const isMdUp = useMediaQuery((theme: SaleorTheme) =>
     theme.breakpoints.up("md")
   );
-  const { availableChannels, channel, isPickerActive, setChannel } =
-    useAppChannel(true);
 
   const menuStructure = createMenuStructure(intl, user);
   const activeMenu = menuStructure.find(menuItem =>
