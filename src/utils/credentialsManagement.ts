@@ -1,25 +1,27 @@
 // @ts-nocheck
 import { User } from "@saleor/fragments/types/User";
 
-export const isSupported = !!(
-  navigator?.credentials?.preventSilentAccess && window.PasswordCredential
-);
+// export const isSupported = !!(
+//   navigator?.credentials?.preventSilentAccess && window.PasswordCredential
+// );
 
+export const isSupported = false;
 export async function login<T>(
   loginFn: (id: string, password: string) => T
 ): Promise<T | null> {
-  let result: T;
+  // let result: T;
+  // if (window.PasswordCredential) {
+    // try {
+    //   const credential = await navigator.credentials.get({ password: true });
+    //   if (credential instanceof PasswordCredential) {
+    //     result = loginFn(credential.id, credential.password);
+    //   }
+    // } catch {
+    //   result = null;
+    // }
 
-  try {
-    const credential = await navigator.credentials.get({ password: true });
-    if (credential instanceof PasswordCredential) {
-      result = loginFn(credential.id, credential.password);
-    }
-  } catch {
-    result = null;
-  }
-
-  return result;
+    return null;
+  // }
 }
 
 export function saveCredentials(

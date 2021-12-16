@@ -123,9 +123,9 @@ const NavigatorButton: React.FC<NavigatorButtonProps> = ({
         {...props}
         style={{
           background: "#b8a7fd",
-          width: '36px',
-          height: '36px',
-          marginTop:"-1px"
+          width: "36px",
+          marginTop: "-2px",
+          marginRight: "-7px"
         }}
         ref={anchor}
       >
