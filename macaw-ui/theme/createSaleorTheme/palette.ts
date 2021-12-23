@@ -17,7 +17,7 @@ export const createPalette = (
     primary: {
       contrastText: "#ffffff",
       dark: colors.font.textDisabled,
-      main: colors.primary
+      main: "#b8a7fd"
     },
     secondary: {
       contrastText: "#ffffff",

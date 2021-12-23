@@ -20,16 +20,7 @@ export const ShopProvider: React.FC = ({ children }) => {
     <TypedShopInfoQuery skip={!isAuthenticated}>
       {({ data }) => (
         <>
-          <Helmet>
-            <link
-              rel="apple-touch-icon"
-              sizes="180x180"
-              href={appleTouchIcon}
-            />
-            <link rel="icon" type="image/png" sizes="32x32" href={favicon32} />
-            <link rel="icon" type="image/png" sizes="16x16" href={favicon16} />
-            <link rel="mask-icon" href={safariPinnedTab} />
-          </Helmet>
+          <Helmet></Helmet>
           <ShopContext.Provider value={data ? data.shop : undefined}>
             {children}
           </ShopContext.Provider>

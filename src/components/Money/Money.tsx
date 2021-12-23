@@ -16,7 +16,8 @@ const useStyles = makeStyles(
   () => ({
     container: {
       display: "flex",
-      alignItems: "baseline"
+      alignItems: "baseline",
+      justifyContent: "end"
     }
   }),
   { name: "Money" }

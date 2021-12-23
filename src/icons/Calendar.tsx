@@ -18,7 +18,7 @@ export const Calendar = createSvgIcon(
         y2="25.7327"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stopColor="#06847B" />
+        <stop stopColor="#b8a7fd" />
         <stop offset="1" stopColor="#3EE7CD" />
       </linearGradient>
     </defs>

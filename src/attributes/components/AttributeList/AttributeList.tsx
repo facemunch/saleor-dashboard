@@ -144,7 +144,7 @@ const AttributeList: React.FC<AttributeListProps> = ({
           onClick={() => onSort(AttributeListUrlSortField.searchable)}
         >
           <FormattedMessage
-            defaultMessage="Searchable"
+            defaultMessage="Searchable in admin"
             description="attribute can be searched in dashboard"
           />
         </TableCellHeader>
@@ -159,7 +159,7 @@ const AttributeList: React.FC<AttributeListProps> = ({
           onClick={() => onSort(AttributeListUrlSortField.useInFacetedSearch)}
         >
           <FormattedMessage
-            defaultMessage="Use in faceted search"
+            defaultMessage="Searchable in shop"
             description="attribute can be searched in storefront"
           />
         </TableCellHeader>

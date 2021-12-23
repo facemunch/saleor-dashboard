@@ -1,4 +1,10 @@
-import { Card, CardContent, Typography, IconProps, useMediaQuery} from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Typography,
+  IconProps,
+  useMediaQuery
+} from "@mui/material";
 import { useTheme } from "@mui/styles";
 import { User } from "@saleor/fragments/types/User";
 import { sectionNames } from "@saleor/intl";
@@ -76,7 +82,7 @@ const useStyles = makeStyles(
     },
     icon: {
       "& path": {
-        fill: theme.palette.primary.main
+        // fill: theme.palette.primary.main
       },
       fontSize: 48
     },
@@ -96,16 +102,10 @@ export interface ConfigurationPageProps {
 }
 
 export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
-  const {
-    menu: menus,
-    user,
-    onSectionClick,
-  } = props;
+  const { menu: menus, user, onSectionClick } = props;
   const classes = useStyles(props);
   const theme = useTheme();
-  const isSmUp = true; // TODO RA MIGRATION useMediaQuery(theme.breakpoints.up("sm")); 
-
-
+  const isSmUp = true; // TODO RA MIGRATION useMediaQuery(theme.breakpoints.up("sm"));
 
   const intl = useIntl();
 
@@ -114,8 +114,7 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
       <PageHeader
         className={classes.header}
         title={intl.formatMessage(sectionNames.configuration)}
-      >
-      </PageHeader>
+      ></PageHeader>
       {menus
         .filter(menu =>
           menu.menuItems.some(menuItem =>

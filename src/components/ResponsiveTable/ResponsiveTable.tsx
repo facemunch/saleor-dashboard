@@ -1,21 +1,31 @@
-import { Table } from "@mui/material";
+import { Table, Box } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 
 const useStyles = makeStyles(
   theme => ({
     root: {
+      position: "relative",
+      overflowY: "hidden",
+
+      // width: "100%",
       [theme.breakpoints.up("md")]: {
         "&& table": {
           tableLayout: "fixed"
         }
       },
       "& table": {
-        tableLayout: "auto",
-        width: "92vw"
+        tableLayout: "auto"
+        // width: "82%"
       },
-      overflowX: "auto",
-      width: "92vw"
+      "& p": {
+        fontSize: "12px"
+      },
+      "& a": {
+        fontSize: "12px"
+      }
+      // overflowX: "auto"
+      // width: "82%"
     }
   }),
   {
@@ -26,6 +36,7 @@ const useStyles = makeStyles(
 interface ResponsiveTableProps {
   children: React.ReactNode | React.ReactNodeArray;
   className?: string;
+  style?: any;
   key?: string;
 }
 
@@ -35,9 +46,70 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = props => {
   const classes = useStyles(props);
 
   return (
-    <div className={classes.root}>
-      <Table className={className}>{children}</Table>
-    </div>
+    <Box
+      sx={{
+        width: "91vw",
+        overflow: "hidden",
+        height: "100%",
+        position: "relative"
+      }}
+    >
+      <div
+        className="scrim"
+        style={{
+          background:
+            "linear-gradient(-90deg, rgb(34 38 43 / 0%) 0%, rgb(34 38 43 / 23%) 31.25%, rgb(34 38 43) 72.92%, #22262b 100%)",
+          position: "absolute",
+          height: "100%",
+          width: "10px",
+          zIndex: 1
+        }}
+      ></div>
+      <div
+        className="scrim"
+        style={{
+          background:
+            "linear-gradient(90deg, rgb(34 38 43 / 0%) 0%, rgb(34 38 43 / 23%) 31.25%, rgb(34 38 43) 72.92%, #22262b 100%)",
+          position: "absolute",
+          height: "100%",
+          width: "10px",
+          right: "0",
+          zIndex: 1
+        }}
+      ></div>
+      <div className={classes.root}>
+        <Table className={className}>{children}</Table>
+        {/* <div
+        className="scrim"
+        style={{
+          background:
+            "linear-gradient(-90deg, rgb(34 38 43 / 0%) 0%, rgb(34 38 43 / 23%) 31.25%, rgb(34 38 43) 72.92%, #22262b 100%)",
+          position: "fixed",
+          height: "100%",
+          width: "10px",
+          bottom: "17vh",
+          // marginTop: "-100vh",
+          pointerEvents: "none"
+        }}
+      ></div>
+      <div
+        className="scrim"
+        style={{
+          background:
+            "linear-gradient(90deg, rgb(34 38 43 / 0%) 0%, rgb(34 38 43 / 23%) 31.25%, rgb(34 38 43) 72.92%, #22262b 100%)",
+
+          position: "fixed",
+          height: "100vh",
+          width: "10px",
+          // zIndex: 1,
+          bottom: "0",
+          right: "0",
+          marginTop: "-100vh",
+          pointerEvents: "none"
+        }}
+      ></div> */}
+      </div>
+    </Box>
   );
 };
 

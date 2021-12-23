@@ -31,7 +31,8 @@ const useStyles = makeStyles(
         color: theme.palette.text.primary
       },
       display: "flex",
-      height: 24
+      height: 24,
+      minWidth: "80px"
     },
     labelContainerActive: {
       color: theme.palette.text.primary
@@ -56,6 +57,7 @@ export interface TableCellHeaderProps extends TableCellProps {
   direction?: TableCellHeaderArrowDirection;
   textAlign?: "left" | "center" | "right";
   disabled?: boolean;
+  key?: any;
 }
 
 const TableCellHeader: React.FC<TableCellHeaderProps> = props => {
@@ -66,6 +68,7 @@ const TableCellHeader: React.FC<TableCellHeaderProps> = props => {
     className,
     direction,
     textAlign,
+    key,
     disabled = false,
     onClick,
     ...rest

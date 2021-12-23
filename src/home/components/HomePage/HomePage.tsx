@@ -87,6 +87,7 @@ const HomePage: React.FC<HomePageProps> = props => {
       style={{
         width: "92vw",
         margin: "4vw",
+        // marginTop: "10vw",
         overflow: "hidden"
       }}
     >

@@ -80,7 +80,7 @@ const GiftCardsListTableHeader: React.FC = () => {
           </>
         }
       >
-        {headerItems.map(({ title, options }) => (
+        {headerItems.map(({ title, options }, index) => (
           <TableCellHeader {...options}>
             <Label text={intl.formatMessage(title)} size={LabelSizes.md} />
           </TableCellHeader>

@@ -9,10 +9,10 @@ import { BatchHttpLink } from "apollo-link-batch-http";
 import { createUploadLink } from "apollo-upload-client";
 import React, { useEffect } from "react";
 import { ApolloProvider } from "react-apollo";
-import ErrorBoundary from "react-error-boundary";
+// import ErrorBoundary from "react-error-boundary";
 import TagManager from "react-gtm-module";
 import { useIntl } from "react-intl";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import introspectionQueryResultData from "../../fragmentTypes.json";
 import AppsSection from "../apps";
 import { ExternalAppProvider } from "../apps/components/ExternalAppContext";
@@ -108,36 +108,36 @@ interface IProps {
   onRouteUpdate: (route: string) => void;
 }
 
-const App: React.FC<IProps> = ({onRouteUpdate}) => (
+const App: React.FC<IProps> = ({ onRouteUpdate }) => (
   <ApolloProvider client={apolloClient}>
     {/* <BrowserRouter basename={"/ecommerce"}> */}
-      <ThemeProvider>
-        <DateProvider>
-          <LocaleProvider>
-            <MessageManagerProvider>
-              <ServiceWorker />
-              <BackgroundTasksProvider>
-                <AppStateProvider>
-                  <AuthProvider>
-                    <ShopProvider>
-                      <AppChannelProvider>
-                        <ExternalAppProvider>
-                          <RoutesApp onRouteUpdate={onRouteUpdate} />
-                        </ExternalAppProvider>
-                      </AppChannelProvider>
-                    </ShopProvider>
-                  </AuthProvider>
-                </AppStateProvider>
-              </BackgroundTasksProvider>
-            </MessageManagerProvider>
-          </LocaleProvider>
-        </DateProvider>
-      </ThemeProvider>
+    <ThemeProvider>
+      <DateProvider>
+        <LocaleProvider>
+          <MessageManagerProvider>
+            <ServiceWorker />
+            <BackgroundTasksProvider>
+              <AppStateProvider>
+                <AuthProvider>
+                  <ShopProvider>
+                    <AppChannelProvider>
+                      <ExternalAppProvider>
+                        <RoutesApp onRouteUpdate={onRouteUpdate} />
+                      </ExternalAppProvider>
+                    </AppChannelProvider>
+                  </ShopProvider>
+                </AuthProvider>
+              </AppStateProvider>
+            </BackgroundTasksProvider>
+          </MessageManagerProvider>
+        </LocaleProvider>
+      </DateProvider>
+    </ThemeProvider>
     {/* </BrowserRouter> */}
   </ApolloProvider>
 );
 
-const RoutesApp: React.FC<IProps> = ({onRouteUpdate}) => {
+const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
   const intl = useIntl();
   const [, dispatchAppState] = useAppState();
   // const { hasToken, isAuthenticated, tokenAuthLoading, tokenVerifyLoading } =
@@ -164,7 +164,7 @@ const RoutesApp: React.FC<IProps> = ({onRouteUpdate}) => {
   return (
     <AuthSandbox channelLoaded={channelLoaded}>
       <AppLayout>
-        <ErrorBoundary
+        {/* <ErrorBoundary
           onError={e => {
             const errorId = errorTracker.captureException(e);
 
@@ -176,453 +176,449 @@ const RoutesApp: React.FC<IProps> = ({onRouteUpdate}) => {
               type: "displayError"
             });
           }}
-        >
-          <Routes>
-            <Route
-              path="/ecommerce"
-              element={
-                <SectionRoute>
-                  <HomePage />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/m/*"
-              element={
-                <SectionRoute>
-                  <HomePage />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/settings/*"
-              element={
-                <SectionRoute>
-                  <HomePage />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/"
-              element={
-                <SectionRoute>
-                  <HomePage />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/home"
-              element={
-                <SectionRoute>
-                  <HomePage />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/categories"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
-                  <CategorySection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/categories/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
-                  <CategorySection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/collections"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
-                  <CollectionSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/collections/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
-                  <CollectionSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/customers"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_USERS]}>
-                  <CustomerSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/customers/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_USERS]}>
-                  <CustomerSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/gift-cards"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_GIFT_CARD]}>
-                  <GiftCardSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/gift-cards/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_GIFT_CARD]}>
-                  <GiftCardSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/discounts"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_DISCOUNTS]}>
-                  <DiscountSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/discounts/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_DISCOUNTS]}>
-                  <DiscountSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/pages"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_PAGES]}>
-                  <PageSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/pages/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_PAGES]}>
-                  <PageSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/page-types"
-              element={
-                <SectionRoute
-                  permissions={[
-                    PermissionEnum.MANAGE_PAGES,
-                    PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
-                  ]}
-                >
-                  <PageTypesSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/page-types/*"
-              element={
-                <SectionRoute
-                  permissions={[
-                    PermissionEnum.MANAGE_PAGES,
-                    PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
-                  ]}
-                >
-                  <PageTypesSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/plugins"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_PLUGINS]}>
-                  <PluginsSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/plugins/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_PLUGINS]}>
-                  <PluginsSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/orders"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_ORDERS]}>
-                  <OrdersSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/orders/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_ORDERS]}>
-                  <OrdersSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/products"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
-                  <ProductSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/products/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
-                  <ProductSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/product-types"
-              element={
-                <SectionRoute
-                  permissions={[
-                    PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES
-                  ]}
-                >
-                  <ProductTypesSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/product-types/*"
-              element={
-                <SectionRoute
-                  permissions={[
-                    PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES
-                  ]}
-                >
-                  <ProductTypesSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/staff"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_STAFF]}>
-                  <StaffSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/staff/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_STAFF]}>
-                  <StaffSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/permission-groups"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_STAFF]}>
-                  <PermissionGroupSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/permission-groups/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_STAFF]}>
-                  <PermissionGroupSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/site-settings"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_SETTINGS]}>
-                  <SiteSettingsSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/site-settings/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_SETTINGS]}>
-                  <SiteSettingsSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/taxes"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_SETTINGS]}>
-                  <TaxesSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/taxes/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_SETTINGS]}>
-                  <TaxesSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/shipping"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_SHIPPING]}>
-                  <ShippingSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/shipping/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_SHIPPING]}>
-                  <ShippingSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/translations"
-              element={
-                <SectionRoute
-                  permissions={[PermissionEnum.MANAGE_TRANSLATIONS]}
-                >
-                  <TranslationsSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/translations/*"
-              element={
-                <SectionRoute
-                  permissions={[PermissionEnum.MANAGE_TRANSLATIONS]}
-                >
-                  <TranslationsSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/navigation"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_MENUS]}>
-                  <NavigationSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/navigation/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_MENUS]}>
-                  <NavigationSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/attributes"
-              element={
-                <SectionRoute
-                  permissions={[
-                    PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES,
-                    PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
-                  ]}
-                >
-                  <AttributeSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/attributes/*"
-              element={
-                <SectionRoute
-                  permissions={[
-                    PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES,
-                    PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
-                  ]}
-                >
-                  <AttributeSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/apps"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_APPS]}>
-                  <AppsSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/apps/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_APPS]}>
-                  <AppsSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/warehouses"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
-                  <WarehouseSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/warehouses/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
-                  <WarehouseSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/channels"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_CHANNELS]}>
-                  <ChannelsSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/channels/*"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_CHANNELS]}>
-                  <ChannelsSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              path="/ecommerce/configuration"
-              element={
-                <SectionRoute
-                  matchPermission="any"
-                  permissions={getConfigMenuItemsPermissions(intl)}
-                >
-                  <ConfigurationSection />
-                </SectionRoute>
-              }
-            />
-            <Route
-              element={
-                <SectionRoute>
-                  <HomePage />
-                </SectionRoute>
-              }
-            />
-            {/* </Route> */}
-          </Routes>
-        </ErrorBoundary>
+        > */}
+        <Routes>
+          <Route
+            path="/ecommerce"
+            element={
+              <SectionRoute>
+                <HomePage />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/m/*"
+            element={
+              <SectionRoute>
+                <HomePage />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/settings/*"
+            element={
+              <SectionRoute>
+                <HomePage />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <SectionRoute>
+                <HomePage />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/home"
+            element={
+              <SectionRoute>
+                <HomePage />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/categories"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
+                <CategorySection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/categories/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
+                <CategorySection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/collections"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
+                <CollectionSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/collections/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
+                <CollectionSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/customers"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_USERS]}>
+                <CustomerSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/customers/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_USERS]}>
+                <CustomerSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/gift-cards"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_GIFT_CARD]}>
+                <GiftCardSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/gift-cards/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_GIFT_CARD]}>
+                <GiftCardSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/discounts"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_DISCOUNTS]}>
+                <DiscountSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/discounts/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_DISCOUNTS]}>
+                <DiscountSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/pages"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_PAGES]}>
+                <PageSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/pages/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_PAGES]}>
+                <PageSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/page-types"
+            element={
+              <SectionRoute
+                permissions={[
+                  PermissionEnum.MANAGE_PAGES,
+                  PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
+                ]}
+              >
+                <PageTypesSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/page-types/*"
+            element={
+              <SectionRoute
+                permissions={[
+                  PermissionEnum.MANAGE_PAGES,
+                  PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
+                ]}
+              >
+                <PageTypesSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/plugins"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_PLUGINS]}>
+                <PluginsSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/plugins/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_PLUGINS]}>
+                <PluginsSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/orders"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_ORDERS]}>
+                <OrdersSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/orders/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_ORDERS]}>
+                <OrdersSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/products"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
+                <ProductSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/products/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
+                <ProductSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/product-types"
+            element={
+              <SectionRoute
+                permissions={[
+                  PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES
+                ]}
+              >
+                <ProductTypesSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/product-types/*"
+            element={
+              <SectionRoute
+                permissions={[
+                  PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES
+                ]}
+              >
+                <ProductTypesSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/staff"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_STAFF]}>
+                <StaffSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/staff/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_STAFF]}>
+                <StaffSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/permission-groups"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_STAFF]}>
+                <PermissionGroupSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/permission-groups/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_STAFF]}>
+                <PermissionGroupSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/site-settings"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_SETTINGS]}>
+                <SiteSettingsSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/site-settings/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_SETTINGS]}>
+                <SiteSettingsSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/taxes"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_SETTINGS]}>
+                <TaxesSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/taxes/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_SETTINGS]}>
+                <TaxesSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/shipping"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_SHIPPING]}>
+                <ShippingSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/shipping/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_SHIPPING]}>
+                <ShippingSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/translations"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_TRANSLATIONS]}>
+                <TranslationsSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/translations/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_TRANSLATIONS]}>
+                <TranslationsSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/navigation"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_MENUS]}>
+                <NavigationSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/navigation/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_MENUS]}>
+                <NavigationSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/attributes"
+            element={
+              <SectionRoute
+                permissions={[
+                  PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES,
+                  PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
+                ]}
+              >
+                <AttributeSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/attributes/*"
+            element={
+              <SectionRoute
+                permissions={[
+                  PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES,
+                  PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
+                ]}
+              >
+                <AttributeSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/apps"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_APPS]}>
+                <AppsSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/apps/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_APPS]}>
+                <AppsSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/warehouses"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
+                <WarehouseSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/warehouses/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
+                <WarehouseSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/channels"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_CHANNELS]}>
+                <ChannelsSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/channels/*"
+            element={
+              <SectionRoute permissions={[PermissionEnum.MANAGE_CHANNELS]}>
+                <ChannelsSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            path="/ecommerce/configuration"
+            element={
+              <SectionRoute
+                matchPermission="any"
+                permissions={getConfigMenuItemsPermissions(intl)}
+              >
+                <ConfigurationSection />
+              </SectionRoute>
+            }
+          />
+          <Route
+            element={
+              <SectionRoute>
+                <HomePage />
+              </SectionRoute>
+            }
+          />
+          {/* </Route> */}
+        </Routes>
+        {/* </ErrorBoundary> */}
       </AppLayout>
     </AuthSandbox>
   );

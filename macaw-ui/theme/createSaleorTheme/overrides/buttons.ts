@@ -62,7 +62,7 @@ export const buttonOverrides = (
     styleOverrides: {
       colorPrimary: {
         "&$checked": {
-          color: colors.background.paper
+          color: "#b8a7fd"
         }
       },
       root: {

@@ -1,4 +1,4 @@
-import { LinearProgress, useMediaQuery } from "@mui/material";
+import { LinearProgress, useMediaQuery, Box } from "@mui/material";
 import useAppState from "@saleor/hooks/useAppState";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useUser from "@saleor/hooks/useUser";
@@ -9,11 +9,11 @@ import {
   SaleorTheme,
   Sidebar,
   SidebarDrawer,
-  useBacklink,
-  useActionBar,
-  useTheme
+  // useBacklink,
+  useActionBar
+  // useTheme
 } from "@saleor/macaw-ui";
-import { isDarkTheme } from "@saleor/misc";
+// import { isDarkTheme } from "@saleor/misc";
 import classNames from "classnames";
 import React from "react";
 import { useIntl } from "react-intl";
@@ -24,7 +24,7 @@ import ErrorPage from "../ErrorPage";
 import Navigator from "../Navigator";
 import NavigatorButton from "../NavigatorButton/NavigatorButton";
 // import UserChip from "../UserChip";
-import useAppChannel from "./AppChannelContext";
+// import useAppChannel from "./AppChannelContext";
 // import AppChannelSelect from "./AppChannelSelect";
 import { appLoaderHeight } from "./consts";
 import createMenuStructure from "./menuStructure";
@@ -48,13 +48,13 @@ const useStyles = makeStyles(
       position: "fixed"
     },
     appLoader: {
-      height: appLoaderHeight,
-      marginBottom: theme.spacing(4),
-      zIndex: 1201
+      // height: appLoaderHeight,
+      // marginBottom: theme.spacing(4),
+      // zIndex: 1201
     },
     appLoaderPlaceholder: {
-      height: appLoaderHeight,
-      marginBottom: theme.spacing(4)
+      // height: appLoaderHeight,
+      // marginBottom: theme.spacing(4)
     },
 
     content: {
@@ -67,22 +67,38 @@ const useStyles = makeStyles(
       marginRight: theme.spacing(2)
     },
     header: {
+      // position: "absolute",
+      zIndex: "5",
+      // height: "53px",
+      // width: "100%",
+      // left: "0",
+
       display: "grid",
       gridTemplateAreas: `"headerAnchor headerToolbar"`,
       [theme.breakpoints.down("sm")]: {
         gridTemplateAreas: `"headerToolbar" 
         "headerAnchor"`
-      },
-      marginBottom: theme.spacing(3)
+      }
+      // marginBottom: theme.spacing(3)
     },
     headerAnchor: {
       gridArea: "headerAnchor"
     },
     headerToolbar: {
+      zIndex: 2,
+      background:
+        "linear-gradient( 0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 31.25%, rgba(0, 0, 0, 0.9) 72.92%, #000000 100%) !important",
       display: "flex",
       gridArea: "headerToolbar",
-      marginLeft: "-8px",
+      marginLeft: "0px",
       height: 40,
+      position: "fixed",
+      width: "100vw",
+      top: "0px",
+      paddingTop: "8px",
+      paddingLeft: "1vw",
+      paddingRight: "4vw",
+      left: 0,
       [theme.breakpoints.down("sm")]: {
         height: "auto"
       }
@@ -114,7 +130,12 @@ const useStyles = makeStyles(
       }
     },
     viewContainer: {
-      marginBottom: "13vh"
+      paddingTop: "60px",
+      WebkitOverflowScrolling: "touch",
+      marginBottom: "13vh",
+      overflowY: "hidden",
+      overflowX: "hidden"
+      // WebkitOverflowScrolling: "touch"
       // minHeight: `calc(var(--vh) * 100)`,
       // marginTop: "-30px"
     }
@@ -130,7 +151,7 @@ interface AppLayoutProps {
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const classes = useStyles({});
-  const { themeType, setTheme } = useTheme();
+  // const { themeType, setTheme } = useTheme();
   const { anchor: appActionAnchor, docked } = useActionBar();
   const { logout, user } = useUser();
   const navigate = useNavigator();
@@ -157,7 +178,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     });
   };
 
-  const toggleTheme = () => setTheme(isDarkTheme(themeType) ? "light" : "dark");
+  // const toggleTheme = () => setTheme(isDarkTheme(themeType) ? "light" : "dark");
 
   return (
     <>
@@ -175,7 +196,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         )}
         <div className={classes.content}>
           {appState.loading ? (
-            <LinearProgress className={classes.appLoader} color="primary" />
+            <Box sx={{ position: "fixed", top: 0 }}>
+              <LinearProgress className={classes.appLoader} color="primary" />
+            </Box>
           ) : (
             <div className={classes.appLoaderPlaceholder} />
           )}

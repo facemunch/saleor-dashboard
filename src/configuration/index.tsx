@@ -155,7 +155,7 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
       menuItems: [
         {
           description: intl.formatMessage({
-            defaultMessage: "Manage your sales via different munch homes",
+            defaultMessage: "Manage your sales via different channels",
             id: "configurationMenuChannels"
           }),
           icon: <Channels fontSize="inherit" viewBox="0 0 44 44" />,

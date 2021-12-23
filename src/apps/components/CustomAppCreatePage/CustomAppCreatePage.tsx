@@ -86,7 +86,7 @@ const CustomAppCreatePage: React.FC<CustomAppCreatePageProps> = props => {
               })}
               description={intl.formatMessage({
                 defaultMessage:
-                  "Expand or restrict app permissions to access certain part of Saleor system.",
+                  "Expand or restrict app permissions to access certain part of FaceMunch's system.",
                 description: "card description"
               })}
             />

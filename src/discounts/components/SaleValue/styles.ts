@@ -31,8 +31,8 @@ export const useStyles = makeStyles(
       tableLayout: "fixed"
     },
     tableContainer: {
-      margin: theme.spacing(0, -3),
-      width: `calc(100% + ${theme.spacing(6)}px)`
+      margin: theme.spacing(0, -2),
+      // width: `calc(100% + ${theme.spacing(6)})`
     }
   }),
   {

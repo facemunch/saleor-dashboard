@@ -78,9 +78,8 @@ const AttributeProperties: React.FC<AttributePropertiesProps> = ({
 
   const formErrors = getFormErrors(["storefrontSearchPosition"], errors);
 
-  const dashboardProperties = ATTRIBUTE_TYPES_WITH_CONFIGURABLE_FACED_NAVIGATION.includes(
-    data.inputType
-  );
+  const dashboardProperties =
+    ATTRIBUTE_TYPES_WITH_CONFIGURABLE_FACED_NAVIGATION.includes(data.inputType);
 
   const storefrontFacetedNavigationProperties =
     ATTRIBUTE_TYPES_WITH_CONFIGURABLE_FACED_NAVIGATION.includes(
@@ -163,6 +162,7 @@ const AttributeProperties: React.FC<AttributePropertiesProps> = ({
           label={
             <>
               <FormattedMessage {...messages.visibleInStorefront} />
+              <br />
               <Typography variant="caption">
                 <FormattedMessage {...messages.visibleInStorefrontCaption} />
               </Typography>

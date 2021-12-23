@@ -17,10 +17,10 @@ export const tableOverrides = (
   MuiTableCell: {
     styleOverrides: {
       body: {
-        fontSize: "1rem"
+        fontSize: "1em"
       },
       head: {
-        fontSize: "1rem",
+        fontSize: "1em",
         fontWeight: 400,
         color: colors.font.textDisabled
       },
@@ -37,12 +37,12 @@ export const tableOverrides = (
       root: {
         "&:first-of-type": {
           "&:not($paddingCheckbox)": {
-            paddingLeft: 24 + "px",
+            paddingLeft: 12 + "px",
             textAlign: "left" as "left"
           }
         },
         borderBottomColor: colors.paperBorder,
-        padding: "16px 24px"
+        // padding: "0px !important",
       }
     }
   },
@@ -50,7 +50,7 @@ export const tableOverrides = (
     styleOverrides: {
       input: {
         color: colors.primary,
-        fontSize: "1rem"
+        fontSize: "1em"
       }
     }
   },

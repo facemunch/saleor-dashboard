@@ -242,7 +242,7 @@ export const sectionNames = defineMessages({
     description: "categories section name"
   },
   channels: {
-    defaultMessage: "Multi Home",
+    defaultMessage: "Channels",
     description: "channels section name"
   },
   collections: {

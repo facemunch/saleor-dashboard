@@ -18,7 +18,7 @@ const props: Omit<ProductTypeCreatePageProps, "classes"> = {
   errors: [],
   onBack: () => undefined,
   onSubmit: () => undefined,
-  pageTitle: "Create product type",
+  pageTitle: "+ Product Type",
   saveButtonBarState: "default",
   taxTypes: [],
   kind: ProductTypeKindEnum.NORMAL,

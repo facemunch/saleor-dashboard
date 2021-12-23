@@ -5,7 +5,8 @@ import {
   TableBody,
   TableCell,
   TableFooter,
-  TableRow
+  TableRow,
+  Box
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CardTitle from "@saleor/components/CardTitle";
@@ -119,116 +120,148 @@ const CollectionProducts: React.FC<CollectionProductsProps> = props => {
           </Button>
         }
       />
-      <ResponsiveTable className={classes.table}>
-        <TableHead
-          colSpan={numberOfColumns}
-          selected={selected}
-          disabled={disabled}
-          items={mapEdgesToItems(collection?.products)}
-          toggleAll={toggleAll}
-          toolbar={toolbar}
-        >
-          <TableCell className={classes.colName}>
-            <span className={classes.colNameLabel}>
+      <Box
+        sx={{
+          width: "92vw",
+          overflow: "hidden",
+          height: "100%",
+          position: "relative"
+        }}
+      >
+        <div
+          className="scrim"
+          style={{
+            background:
+              "linear-gradient(-90deg, rgb(34 38 43 / 0%) 0%, rgb(34 38 43 / 23%) 31.25%, rgb(34 38 43) 72.92%, #22262b 100%)",
+            position: "absolute",
+            height: "100%",
+            width: "10px",
+            zIndex: 1
+          }}
+        ></div>
+        <div
+          className="scrim"
+          style={{
+            background:
+              "linear-gradient(90deg, rgb(34 38 43 / 0%) 0%, rgb(34 38 43 / 23%) 31.25%, rgb(34 38 43) 72.92%, #22262b 100%)",
+            position: "absolute",
+            height: "100%",
+            width: "10px",
+            right: "0",
+            zIndex: 1
+          }}
+        ></div>
+        <ResponsiveTable className={classes.table}>
+          <TableHead
+            colSpan={numberOfColumns}
+            selected={selected}
+            disabled={disabled}
+            items={mapEdgesToItems(collection?.products)}
+            toggleAll={toggleAll}
+            toolbar={toolbar}
+          >
+            <TableCell className={classes.colName}>
+              <span className={classes.colNameLabel}>
+                <FormattedMessage
+                  defaultMessage="Name"
+                  description="product name"
+                />
+              </span>
+            </TableCell>
+            <TableCell className={classes.colType}>
               <FormattedMessage
-                defaultMessage="Name"
-                description="product name"
+                defaultMessage="Type"
+                description="product type"
               />
-            </span>
-          </TableCell>
-          <TableCell className={classes.colType}>
-            <FormattedMessage
-              defaultMessage="Type"
-              description="product type"
-            />
-          </TableCell>
-          <TableCell className={classes.colPublished}>
-            <FormattedMessage
-              defaultMessage="Availability"
-              description="product availability"
-            />
-          </TableCell>
-          <TableCell className={classes.colActions} />
-        </TableHead>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              colSpan={numberOfColumns}
-              hasNextPage={pageInfo?.hasNextPage}
-              onNextPage={onNextPage}
-              hasPreviousPage={pageInfo?.hasPreviousPage}
-              onPreviousPage={onPreviousPage}
-            />
-          </TableRow>
-        </TableFooter>
-        <TableBody>
-          {renderCollection(
-            mapEdgesToItems(collection?.products),
-            product => {
-              const isSelected = product ? isChecked(product.id) : false;
+            </TableCell>
+            <TableCell className={classes.colPublished}>
+              <FormattedMessage
+                defaultMessage="Availability"
+                description="product availability"
+              />
+            </TableCell>
+            <TableCell className={classes.colActions} />
+          </TableHead>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                colSpan={numberOfColumns}
+                hasNextPage={pageInfo?.hasNextPage}
+                onNextPage={onNextPage}
+                hasPreviousPage={pageInfo?.hasPreviousPage}
+                onPreviousPage={onPreviousPage}
+              />
+            </TableRow>
+          </TableFooter>
+          <TableBody>
+            {renderCollection(
+              mapEdgesToItems(collection?.products),
+              product => {
+                const isSelected = product ? isChecked(product.id) : false;
 
-              return (
-                <TableRow
-                  className={classes.tableRow}
-                  hover={!!product}
-                  onClick={!!product ? onRowClick(product.id) : undefined}
-                  key={product ? product.id : "skeleton"}
-                  selected={isSelected}
-                >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={isSelected}
-                      disabled={disabled}
-                      disableClickPropagation
-                      onChange={() => toggle(product.id)}
-                    />
-                  </TableCell>
-                  <TableCellAvatar
-                    className={classes.colName}
-                    thumbnail={maybe(() => product.thumbnail.url)}
+                return (
+                  <TableRow
+                    className={classes.tableRow}
+                    hover={!!product}
+                    onClick={!!product ? onRowClick(product.id) : undefined}
+                    key={product ? product.id : "skeleton"}
+                    selected={isSelected}
                   >
-                    {maybe<React.ReactNode>(() => product.name, <Skeleton />)}
-                  </TableCellAvatar>
-                  <TableCell className={classes.colType}>
-                    {maybe<React.ReactNode>(
-                      () => product.productType.name,
-                      <Skeleton />
-                    )}
-                  </TableCell>
-                  <TableCell className={classes.colType}>
-                    {product && !product?.channelListings?.length ? (
-                      "-"
-                    ) : product?.channelListings !== undefined ? (
-                      <ChannelsAvailabilityDropdown
-                        allChannelsCount={channelsCount}
-                        channels={product?.channelListings}
+                    <TableCell padding="checkbox">
+                      <Checkbox
+                        checked={isSelected}
+                        disabled={disabled}
+                        disableClickPropagation
+                        onChange={() => toggle(product.id)}
                       />
-                    ) : (
-                      <Skeleton />
-                    )}
-                  </TableCell>
-                  <TableCell className={classes.colActions}>
-                    <IconButton
-                      disabled={!product}
-                      onClick={event => onProductUnassign(product.id, event)}
+                    </TableCell>
+                    <TableCellAvatar
+                      className={classes.colName}
+                      thumbnail={maybe(() => product.thumbnail.url)}
                     >
-                      <DeleteIcon color="primary" />
-                    </IconButton>
+                      {maybe<React.ReactNode>(() => product.name, <Skeleton />)}
+                    </TableCellAvatar>
+                    <TableCell className={classes.colType}>
+                      {maybe<React.ReactNode>(
+                        () => product.productType.name,
+                        <Skeleton />
+                      )}
+                    </TableCell>
+                    <TableCell className={classes.colType}>
+                      {product && !product?.channelListings?.length ? (
+                        "-"
+                      ) : product?.channelListings !== undefined ? (
+                        <ChannelsAvailabilityDropdown
+                          allChannelsCount={channelsCount}
+                          channels={product?.channelListings}
+                        />
+                      ) : (
+                        <Skeleton />
+                      )}
+                    </TableCell>
+                    <TableCell className={classes.colActions}>
+                      <IconButton
+                        disabled={!product}
+                        onClick={event => onProductUnassign(product.id, event)}
+                      >
+                        <DeleteIcon color="primary" />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                );
+              },
+              () => (
+                <TableRow>
+                  <TableCell />
+                  <TableCell colSpan={numberOfColumns}>
+                    <FormattedMessage defaultMessage="No products found" />
                   </TableCell>
                 </TableRow>
-              );
-            },
-            () => (
-              <TableRow>
-                <TableCell />
-                <TableCell colSpan={numberOfColumns}>
-                  <FormattedMessage defaultMessage="No products found" />
-                </TableCell>
-              </TableRow>
-            )
-          )}
-        </TableBody>
-      </ResponsiveTable>
+              )
+            )}
+          </TableBody>
+        </ResponsiveTable>
+      </Box>
     </Card>
   );
 };

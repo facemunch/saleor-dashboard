@@ -143,7 +143,10 @@ const GiftCardsListTable: React.FC = () => {
                   )}
                 </TableCell>
                 <TableCell align="right" className={classes.colBalance}>
-                  <div className={classes.moneyContainer}>
+                  <div
+                    style={{ justifyContent: "end" }}
+                    className={classes.moneyContainer}
+                  >
                     <Typography variant="caption">
                       {currentBalance.currency}
                     </Typography>

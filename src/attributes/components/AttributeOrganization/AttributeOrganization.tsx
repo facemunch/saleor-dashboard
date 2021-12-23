@@ -73,8 +73,9 @@ const AttributeOrganization: React.FC<AttributeOrganizationProps> = props => {
             label={
               <>
                 <FormattedMessage defaultMessage="Attribute Class" />
+                <br />
                 <Typography variant="caption">
-                  <FormattedMessage defaultMessage="Define where this attribute should be used in Saleor system" />
+                  <FormattedMessage defaultMessage="Define where this attribute should be used in FaceMunch's ecom system" />
                 </Typography>
               </>
             }

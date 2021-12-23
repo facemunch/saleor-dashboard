@@ -101,7 +101,7 @@ export const plugin: Plugin_plugin = {
         },
         {
           __typename: "ConfigurationItem",
-          helpText: "Determines if Saleor should use Avatax sandbox API.",
+          helpText: "Determines if FaceMunch's should use Avatax sandbox API.",
           label: "Use sandbox",
           name: "Use sandbox",
           type: ConfigurationTypeFieldEnum.BOOLEAN,

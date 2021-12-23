@@ -5,7 +5,8 @@ export const useTableStyles = makeStyles(
     moneyContainer: {
       display: "flex",
       alignItems: "baseline",
-      justifyContent: "flex-end"
+      // justifyContent: "flex-end",
+      justifyContent: "end"
     },
     cardCodeContainer: {
       display: "flex",
@@ -27,7 +28,7 @@ export const useTableStyles = makeStyles(
       cursor: "pointer",
       height: 80,
       "& td": {
-        padding: "0px 20px",
+        // padding: "0px 20px",
         height: "auto"
       }
     }

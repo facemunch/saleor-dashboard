@@ -13,8 +13,9 @@ import { useIntl } from "react-intl";
 const useStyles = makeStyles(
   theme => ({
     title: {
-      width: "100%",
-      display: "flex"
+      width: "50%",
+      display: "flex",
+      flexWrap: "wrap"
     },
     orderNumber: {
       display: "inline",

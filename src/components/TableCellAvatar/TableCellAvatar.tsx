@@ -10,7 +10,7 @@ const useStyles = makeStyles(
   theme => ({
     root: {
       "&:not(first-child)": {
-        paddingLeft: 0
+        padding: 0
       },
       paddingRight: theme.spacing(3),
       width: "1%"

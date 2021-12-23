@@ -88,7 +88,7 @@ export const ProductTypeCreate: React.FC<ProductTypeCreateProps> = ({
               <>
                 <WindowTitle
                   title={intl.formatMessage({
-                    defaultMessage: "Create Product Type",
+                    defaultMessage: "+ Product Type",
                     description: "window title",
                     id: "productTypeCreateHeader"
                   })}
@@ -100,7 +100,7 @@ export const ProductTypeCreate: React.FC<ProductTypeCreateProps> = ({
                     createProductTypeOpts.data?.productTypeCreate.errors || []
                   }
                   pageTitle={intl.formatMessage({
-                    defaultMessage: "Create Product Type",
+                    defaultMessage: "+ Product Type",
                     description: "header",
                     id: "productTypeCreatePageHeader"
                   })}

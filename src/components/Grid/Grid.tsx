@@ -15,16 +15,19 @@ const useStyles = makeStyles(
       gridTemplateColumns: "9fr 4fr"
     },
     inverted: {
-      gridTemplateColumns: "4fr 9fr"
+      gridTemplateColumns: "1rf"
     },
     root: {
+      // "& > div ": {
+      //   width: "97%"
+      // },
       display: "grid",
       gridColumnGap: theme.spacing(3),
       gridRowGap: theme.spacing(3),
       [theme.breakpoints.down("sm")]: {
         gridRowGap: theme.spacing(1),
         gridTemplateColumns: "1fr"
-      },
+      }
     },
     uniform: {
       gridTemplateColumns: "1fr 1fr"

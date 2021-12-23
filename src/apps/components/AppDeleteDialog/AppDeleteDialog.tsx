@@ -44,7 +44,7 @@ const AppDeleteDialog: React.FC<AppDeleteDialogProps> = ({
           />
         ) : type === "EXTERNAL" ? (
           <FormattedMessage
-            defaultMessage="Deleting {name}, you will remove installation of the app. If you are paying for app subscription, remember to unsubscribe from the app in Saleor Marketplace. Are you sure you want to delete the app?"
+            defaultMessage="Deleting {name}, you will remove installation of the app. If you are paying for app subscription, remember to unsubscribe from the app in FaceMunch's Marketplace. Are you sure you want to delete the app?"
             description="delete app"
             values={{
               name: <strong>{getStringOrPlaceholder(name)}</strong>

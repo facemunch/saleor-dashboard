@@ -18,7 +18,7 @@ const Marketplace: React.FC<MarketplaceProps> = ({ link }) => {
       <Card>
         <CardTitle
           title={intl.formatMessage({
-            defaultMessage: "Saleor Marketplace",
+            defaultMessage: "FaceMunch's Marketplace",
             description: "section header"
           })}
         />
@@ -27,7 +27,7 @@ const Marketplace: React.FC<MarketplaceProps> = ({ link }) => {
             <>
               <Typography variant="body2">
                 <FormattedMessage
-                  defaultMessage="Discover great free and paid apps in our Saleor Marketplace."
+                  defaultMessage="Discover great free and paid apps in our FaceMunch's Marketplace."
                   description="marketplace content"
                 />
               </Typography>

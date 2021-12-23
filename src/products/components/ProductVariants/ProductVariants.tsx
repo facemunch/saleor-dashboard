@@ -5,7 +5,8 @@ import {
   Hidden,
   TableCell,
   Typography,
-  alpha
+  alpha,
+  Box
 } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import Checkbox from "@saleor/components/Checkbox";
@@ -318,138 +319,172 @@ export const ProductVariants: React.FC<ProductVariantsProps> = props => {
         </CardContent>
       )}
       {hasVariants && (
-        <ResponsiveTable>
-          <colgroup>
-            <col className={classes.colGrab} />
-            <col />
-            <col className={classes.colName} />
-            <col className={classes.colSku} />
-            <col className={classes.colPrice} />
-            <col className={classes.colInventory} />
-            <col className={classes.colActions} />
-          </colgroup>
-          <TableHead
-            colSpan={numberOfColumns}
-            selected={selected}
-            disabled={disabled}
-            items={variants}
-            toggleAll={toggleAll}
-            toolbar={toolbar}
-            dragRows
-          >
-            <TableCell className={classes.colName}>
-              <FormattedMessage
-                defaultMessage="Variant"
-                description="product variant name"
-              />
-            </TableCell>
-            <TableCell className={classes.colSku}>
-              <FormattedMessage defaultMessage="SKU" />
-            </TableCell>
-            <Hidden smDown>
-              <TableCell className={classes.colPrice}>
+        <Box
+          sx={{
+            width: "92vw",
+            overflow: "hidden",
+            height: "100%",
+            position: "relative"
+          }}
+        >
+          <div
+            className="scrim"
+            style={{
+              background:
+                "linear-gradient(-90deg, rgb(34 38 43 / 0%) 0%, rgb(34 38 43 / 23%) 31.25%, rgb(34 38 43) 72.92%, #22262b 100%)",
+              position: "absolute",
+              height: "100%",
+              width: "10px",
+              zIndex: 1
+            }}
+          ></div>
+          <div
+            className="scrim"
+            style={{
+              background:
+                "linear-gradient(90deg, rgb(34 38 43 / 0%) 0%, rgb(34 38 43 / 23%) 31.25%, rgb(34 38 43) 72.92%, #22262b 100%)",
+              position: "absolute",
+              height: "100%",
+              width: "10px",
+              right: "0",
+              zIndex: 1
+            }}
+          ></div>
+          <ResponsiveTable>
+            <colgroup>
+              <col className={classes.colGrab} />
+              {/* <col /> */}
+              <col className={classes.colName} />
+              <col className={classes.colSku} />
+              <col className={classes.colPrice} />
+              <col className={classes.colInventory} />
+              <col className={classes.colActions} />
+            </colgroup>
+            <TableHead
+              colSpan={numberOfColumns}
+              selected={selected}
+              disabled={disabled}
+              items={variants}
+              toggleAll={toggleAll}
+              toolbar={toolbar}
+              dragRows
+            >
+              <TableCell className={classes.colName}>
                 <FormattedMessage
-                  defaultMessage="Price"
-                  description="product variant price"
+                  defaultMessage="Variant"
+                  description="product variant name"
                 />
               </TableCell>
-            </Hidden>
-            <TableCell className={classes.colInventory}>
-              <FormattedMessage
-                defaultMessage="Inventory"
-                description="product variant inventory status"
-              />
-            </TableCell>
-            <TableCell className={classes.colActions}></TableCell>
-          </TableHead>
-          <SortableTableBody onSortEnd={onVariantReorder}>
-            {renderCollection(variants, (variant, variantIndex) => {
-              const isSelected = variant ? isChecked(variant.id) : false;
-              const isDefault =
-                variant && product?.defaultVariant?.id === variant?.id;
-              const numAvailable =
-                variant && variant.stocks
-                  ? variant.stocks.reduce(
-                      (acc, s) => acc + s.quantity - s.quantityAllocated,
-                      0
-                    )
-                  : null;
-              const channel = variant.channelListings.find(
-                listing => listing.channel.id === selectedChannelId
-              );
+              <TableCell className={classes.colSku}>
+                <FormattedMessage defaultMessage="SKU" />
+              </TableCell>
+              <Hidden smDown>
+                <TableCell className={classes.colPrice}>
+                  <FormattedMessage
+                    defaultMessage="Price"
+                    description="product variant price"
+                  />
+                </TableCell>
+              </Hidden>
+              <TableCell className={classes.colInventory}>
+                <FormattedMessage
+                  defaultMessage="Inventory"
+                  description="product variant inventory status"
+                />
+              </TableCell>
+              <TableCell className={classes.colActions}></TableCell>
+            </TableHead>
+            <SortableTableBody onSortEnd={onVariantReorder}>
+              {renderCollection(variants, (variant, variantIndex) => {
+                const isSelected = variant ? isChecked(variant.id) : false;
+                const isDefault =
+                  variant && product?.defaultVariant?.id === variant?.id;
+                const numAvailable =
+                  variant && variant.stocks
+                    ? variant.stocks.reduce(
+                        (acc, s) => acc + s.quantity - s.quantityAllocated,
+                        0
+                      )
+                    : null;
+                const channel = variant.channelListings.find(
+                  listing => listing.channel.id === selectedChannelId
+                );
 
-              return (
-                <SortableTableRow
-                  data-test-id="product-variant-row"
-                  selected={isSelected}
-                  hover={!!variant}
-                  onClick={onRowClick(variant.id)}
-                  key={variant ? variant.id : "skeleton"}
-                  index={variantIndex || 0}
-                  className={classes.link}
-                >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={isSelected}
-                      disabled={disabled}
-                      disableClickPropagation
-                      onChange={() => toggle(variant.id)}
-                    />
-                  </TableCell>
-                  <TableCell className={classes.colName} data-test="name">
-                    {variant ? variant.name || variant.sku : <Skeleton />}
-                    {isDefault && (
-                      <span className={classes.defaultVariant}>
-                        {intl.formatMessage({
-                          defaultMessage: "Default",
-                          description: "default product variant indicator"
-                        })}
-                      </span>
-                    )}
-                  </TableCell>
-                  <TableCell className={classes.colSku} data-test="sku">
-                    {variant ? variant.sku : <Skeleton />}
-                  </TableCell>
-                  <Hidden smDown>
-                    <TableCell className={classes.colPrice} data-test="price">
-                      {variant ? (
-                        <Money money={channel?.price} />
-                      ) : (
-                        <Skeleton />
+                return (
+                  <SortableTableRow
+                    data-test-id="product-variant-row"
+                    selected={isSelected}
+                    hover={!!variant}
+                    onClick={onRowClick(variant.id)}
+                    key={variant ? variant.id : "skeleton"}
+                    index={variantIndex || 0}
+                    className={classes.link}
+                  >
+                    <TableCell padding="checkbox">
+                      <Checkbox
+                        checked={isSelected}
+                        disabled={disabled}
+                        disableClickPropagation
+                        onChange={() => toggle(variant.id)}
+                      />
+                    </TableCell>
+                    <TableCell className={classes.colName} data-test="name">
+                      {variant ? variant.name || variant.sku : <Skeleton />}
+                      {isDefault && (
+                        <span className={classes.defaultVariant}>
+                          {intl.formatMessage({
+                            defaultMessage: "Default",
+                            description: "default product variant indicator"
+                          })}
+                        </span>
                       )}
                     </TableCell>
-                  </Hidden>
-                  <TableCell
-                    className={classes.colInventory}
-                    data-test="inventory"
-                  >
-                    {numAvailable === null ? (
-                      <Skeleton />
-                    ) : (
-                      getAvailabilityLabel(
-                        intl,
-                        warehouse,
-                        variant,
-                        numAvailable
-                      )
-                    )}
-                  </TableCell>
-                  <TableCell
-                    className={classes.colActions}
-                    data-test="actions"
-                    onClick={e => e.stopPropagation()}
-                  >
-                    {variant?.id !== product?.defaultVariant?.id && (
-                      <ProductVariantSetDefault
-                        onSetDefaultVariant={() => onSetDefaultVariant(variant)}
-                      />
-                    )}
-                  </TableCell>
-                </SortableTableRow>
-              );
-            })}
-          </SortableTableBody>
-        </ResponsiveTable>
+                    <TableCell className={classes.colSku} data-test="sku">
+                      {variant ? variant.sku : <Skeleton />}
+                    </TableCell>
+                    <Hidden smDown>
+                      <TableCell className={classes.colPrice} data-test="price">
+                        {variant ? (
+                          <Money money={channel?.price} />
+                        ) : (
+                          <Skeleton />
+                        )}
+                      </TableCell>
+                    </Hidden>
+                    <TableCell
+                      className={classes.colInventory}
+                      data-test="inventory"
+                    >
+                      {numAvailable === null ? (
+                        <Skeleton />
+                      ) : (
+                        getAvailabilityLabel(
+                          intl,
+                          warehouse,
+                          variant,
+                          numAvailable
+                        )
+                      )}
+                    </TableCell>
+                    <TableCell
+                      className={classes.colActions}
+                      data-test="actions"
+                      onClick={e => e.stopPropagation()}
+                    >
+                      {variant?.id !== product?.defaultVariant?.id && (
+                        <ProductVariantSetDefault
+                          onSetDefaultVariant={() =>
+                            onSetDefaultVariant(variant)
+                          }
+                        />
+                      )}
+                    </TableCell>
+                  </SortableTableRow>
+                );
+              })}
+            </SortableTableBody>
+          </ResponsiveTable>
+        </Box>
       )}
     </Card>
   );

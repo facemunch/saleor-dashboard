@@ -65,7 +65,7 @@ const ProductTypeListPage: React.FC<ProductTypeListPageProps> = ({
           data-test-id="addProductType"
         >
           <FormattedMessage
-            defaultMessage="create product type"
+            defaultMessage="+ Product Type"
             description="button"
           />
         </Button>

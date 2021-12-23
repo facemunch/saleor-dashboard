@@ -3,7 +3,8 @@ import {
   Card,
   CardActions,
   TableBody,
-  Typography
+  Typography,
+  Box
 } from "@mui/material";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
@@ -34,54 +35,60 @@ interface OrderUnfulfilledProductsCardProps {
   onFulfill: () => void;
 }
 
-const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> = props => {
-  const {
-    showFulfillmentAction,
-    notAllowedToFulfillUnpaid,
-    lines,
-    onFulfill
-  } = props;
-  const classes = useStyles({});
+const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> =
+  props => {
+    const {
+      showFulfillmentAction,
+      notAllowedToFulfillUnpaid,
+      lines,
+      onFulfill
+    } = props;
+    const classes = useStyles({});
 
-  if (!lines.length) {
-    return null;
-  }
+    if (!lines.length) {
+      return null;
+    }
 
-  return (
-    <>
-      <Card>
-        <CardTitle withStatus status="unfulfilled" />
-        <ResponsiveTable className={classes.table}>
-          <TableHeader />
-          <TableBody>
-            {renderCollection(lines, line => (
-              <TableLine isOrderLine line={line} />
-            ))}
-          </TableBody>
-        </ResponsiveTable>
-        {showFulfillmentAction && (
-          <CardActions>
-            <Button
-              variant="text"
-              color="primary"
-              onClick={onFulfill}
-              disabled={notAllowedToFulfillUnpaid}
-            >
-              <FormattedMessage defaultMessage="Fulfill" description="button" />
-            </Button>
-            {notAllowedToFulfillUnpaid && (
-              <Typography color="error" variant="caption">
+    return (
+      <>
+        <Card>
+          <CardTitle withStatus status="unfulfilled" />
+
+          <ResponsiveTable className={classes.table}>
+            <TableHeader />
+            <TableBody>
+              {renderCollection(lines, line => (
+                <TableLine isOrderLine line={line} />
+              ))}
+            </TableBody>
+          </ResponsiveTable>
+
+          {showFulfillmentAction && (
+            <CardActions>
+              <Button
+                variant="text"
+                color="primary"
+                onClick={onFulfill}
+                disabled={notAllowedToFulfillUnpaid}
+              >
                 <FormattedMessage
-                  {...commonMessages.cannotFullfillUnpaidOrder}
+                  defaultMessage="Fulfill"
+                  description="button"
                 />
-              </Typography>
-            )}
-          </CardActions>
-        )}
-      </Card>
-      <CardSpacer />
-    </>
-  );
-};
+              </Button>
+              {notAllowedToFulfillUnpaid && (
+                <Typography color="error" variant="caption">
+                  <FormattedMessage
+                    {...commonMessages.cannotFullfillUnpaidOrder}
+                  />
+                </Typography>
+              )}
+            </CardActions>
+          )}
+        </Card>
+        <CardSpacer />
+      </>
+    );
+  };
 
 export default OrderUnfulfilledProductsCard;

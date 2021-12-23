@@ -272,11 +272,11 @@
   },
   "productTypeCreateHeader": {
     "context": "window title",
-    "string": "Create Product Type"
+    "string": "+ Product Type"
   },
   "productTypeCreatePageHeader": {
     "context": "header",
-    "string": "Create Product Type"
+    "string": "+ Product Type"
   },
   "productTypeTaxesHeader": {
     "context": "section header",
@@ -4495,7 +4495,7 @@
   },
   "src_dot_productTypes_dot_components_dot_ProductTypeListPage_dot_3479705616": {
     "context": "button",
-    "string": "create product type"
+    "string": "+ Product Type"
   },
   "src_dot_productTypes_dot_components_dot_ProductTypeListPage_dot_configurable": {
     "context": "product type",

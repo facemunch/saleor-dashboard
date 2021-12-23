@@ -93,6 +93,8 @@ const ProductTypeDetails: React.FC<ProductTypeDetailsProps> = props => {
                 <Typography color="textSecondary" variant="caption">
                   <FormattedMessage {...option.subtitle} />
                 </Typography>
+                <br />
+                <br />
               </div>
             ),
             value: option.type

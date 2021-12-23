@@ -177,9 +177,10 @@ const AssignAttributeDialog: React.FC<AssignAttributeDialogProps> = ({
                       </TableCell>
                       <TableCell className={classes.wideCell}>
                         {attribute.name}
+                        {/* <br />
                         <Typography variant="caption">
                           {attribute.slug}
-                        </Typography>
+                        </Typography> */}
                       </TableCell>
                     </TableRow>
                   );
