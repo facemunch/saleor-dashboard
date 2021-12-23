@@ -41,7 +41,7 @@ export const tableOverrides = (
             textAlign: "left" as "left"
           }
         },
-        borderBottomColor: colors.paperBorder,
+        borderBottomColor: colors.paperBorder
         // padding: "0px !important",
       }
     }
