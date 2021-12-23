@@ -48,7 +48,7 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = props => {
   return (
     <Box
       sx={{
-        width: "91vw",
+        width: "100%",
         overflow: "hidden",
         height: "100%",
         position: "relative"
