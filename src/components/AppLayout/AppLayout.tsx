@@ -186,7 +186,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         visible={isNavigatorVisible}
         setVisibility={setNavigatorVisibility}
       />
-      <div className={classes.root}>
+      <div className={classes.root} data-test="ecomm-app-layout">
         {isMdUp && (
           <Sidebar
             active={activeMenu}
