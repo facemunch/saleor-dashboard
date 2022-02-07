@@ -1,5 +1,6 @@
-import { Portal, Typography, Skeleton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Skeleton, Typography } from "@mui/material";
+import Portal from '@mui/material/Portal';
 import React from "react";
 
 import { useBacklink } from "./context";

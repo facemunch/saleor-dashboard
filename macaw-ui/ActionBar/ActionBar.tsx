@@ -1,4 +1,5 @@
-import { Card, CardContent, Container, Portal } from "@mui/material";
+import { Card, CardContent, Container } from "@mui/material";
+import Portal from '@mui/material/Portal';
 import React from "react";
 
 import { ConfirmButtonTransitionState } from "../ConfirmButton";

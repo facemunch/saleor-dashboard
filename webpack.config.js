@@ -115,7 +115,7 @@ module.exports = speedMeasureWrapper((env, argv) => {
     },
     devtool: devMode ? "cheap-module-source-map" : "source-map",
     entry: {
-      dashboard: "./src/index.tsx"
+      dashboard: "./src/facemunch/App.tsx"
     },
     module: {
       rules: [

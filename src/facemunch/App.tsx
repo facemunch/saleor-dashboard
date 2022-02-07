@@ -59,6 +59,7 @@ import TaxesSection from "../taxes";
 import TranslationsSection from "../translations";
 import { PermissionEnum } from "../types/globalTypes";
 import WarehouseSection from "../warehouses";
+import { BrowserRouter } from "react-router-dom";
 
 if (process.env.GTM_ID) {
   TagManager.initialize({ gtmId: GTM_ID });
@@ -110,30 +111,30 @@ interface IProps {
 
 const App: React.FC<IProps> = ({ onRouteUpdate }) => (
   <ApolloProvider client={apolloClient}>
-    {/* <BrowserRouter basename={"/ecommerce"}> */}
-    <ThemeProvider>
-      <DateProvider>
-        <LocaleProvider>
-          <MessageManagerProvider>
-            <ServiceWorker />
-            <BackgroundTasksProvider>
-              <AppStateProvider>
-                <AuthProvider>
-                  <ShopProvider>
-                    <AppChannelProvider>
-                      <ExternalAppProvider>
-                        <RoutesApp onRouteUpdate={onRouteUpdate} />
-                      </ExternalAppProvider>
-                    </AppChannelProvider>
-                  </ShopProvider>
-                </AuthProvider>
-              </AppStateProvider>
-            </BackgroundTasksProvider>
-          </MessageManagerProvider>
-        </LocaleProvider>
-      </DateProvider>
-    </ThemeProvider>
-    {/* </BrowserRouter> */}
+    <BrowserRouter basename={"/ecommerce"}>
+      <ThemeProvider>
+        <DateProvider>
+          <LocaleProvider>
+            <MessageManagerProvider>
+              <ServiceWorker />
+              <BackgroundTasksProvider>
+                <AppStateProvider>
+                  <AuthProvider>
+                    <ShopProvider>
+                      <AppChannelProvider>
+                        <ExternalAppProvider>
+                          <RoutesApp onRouteUpdate={onRouteUpdate} />
+                        </ExternalAppProvider>
+                      </AppChannelProvider>
+                    </ShopProvider>
+                  </AuthProvider>
+                </AppStateProvider>
+              </BackgroundTasksProvider>
+            </MessageManagerProvider>
+          </LocaleProvider>
+        </DateProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   </ApolloProvider>
 );
 
