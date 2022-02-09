@@ -180,7 +180,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
         > */}
         <Routes>
           <Route
-            path="/ecommerce"
+            path="/"
             element={
               <SectionRoute>
                 <HomePage />
@@ -212,7 +212,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/home"
+            path="/home"
             element={
               <SectionRoute>
                 <HomePage />
@@ -220,7 +220,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/categories"
+            path="/categories"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                 <CategorySection />
@@ -228,7 +228,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/categories/*"
+            path="/categories/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                 <CategorySection />
@@ -236,7 +236,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/collections"
+            path="/collections"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                 <CollectionSection />
@@ -244,7 +244,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/collections/*"
+            path="/collections/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                 <CollectionSection />
@@ -252,7 +252,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/customers"
+            path="/customers"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_USERS]}>
                 <CustomerSection />
@@ -260,7 +260,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/customers/*"
+            path="/customers/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_USERS]}>
                 <CustomerSection />
@@ -268,7 +268,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/gift-cards"
+            path="/gift-cards"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_GIFT_CARD]}>
                 <GiftCardSection />
@@ -276,7 +276,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/gift-cards/*"
+            path="/gift-cards/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_GIFT_CARD]}>
                 <GiftCardSection />
@@ -284,7 +284,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/discounts"
+            path="/discounts"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_DISCOUNTS]}>
                 <DiscountSection />
@@ -292,7 +292,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/discounts/*"
+            path="/discounts/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_DISCOUNTS]}>
                 <DiscountSection />
@@ -300,7 +300,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/pages"
+            path="/pages"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_PAGES]}>
                 <PageSection />
@@ -308,7 +308,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/pages/*"
+            path="/pages/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_PAGES]}>
                 <PageSection />
@@ -316,7 +316,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/page-types"
+            path="/page-types"
             element={
               <SectionRoute
                 permissions={[
@@ -329,7 +329,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/page-types/*"
+            path="/page-types/*"
             element={
               <SectionRoute
                 permissions={[
@@ -342,7 +342,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/plugins"
+            path="/plugins"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_PLUGINS]}>
                 <PluginsSection />
@@ -350,7 +350,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/plugins/*"
+            path="/plugins/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_PLUGINS]}>
                 <PluginsSection />
@@ -358,7 +358,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/orders"
+            path="/orders"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_ORDERS]}>
                 <OrdersSection />
@@ -366,7 +366,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/orders/*"
+            path="/orders/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_ORDERS]}>
                 <OrdersSection />
@@ -374,7 +374,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/products"
+            path="/products"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                 <ProductSection />
@@ -382,7 +382,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/products/*"
+            path="/products/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                 <ProductSection />
@@ -390,7 +390,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/product-types"
+            path="/product-types"
             element={
               <SectionRoute
                 permissions={[
@@ -402,7 +402,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/product-types/*"
+            path="/product-types/*"
             element={
               <SectionRoute
                 permissions={[
@@ -414,7 +414,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/staff"
+            path="/staff"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_STAFF]}>
                 <StaffSection />
@@ -422,7 +422,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/staff/*"
+            path="/staff/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_STAFF]}>
                 <StaffSection />
@@ -430,7 +430,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/permission-groups"
+            path="/permission-groups"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_STAFF]}>
                 <PermissionGroupSection />
@@ -438,7 +438,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/permission-groups/*"
+            path="/permission-groups/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_STAFF]}>
                 <PermissionGroupSection />
@@ -446,7 +446,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/site-settings"
+            path="/site-settings"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_SETTINGS]}>
                 <SiteSettingsSection />
@@ -454,7 +454,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/site-settings/*"
+            path="/site-settings/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_SETTINGS]}>
                 <SiteSettingsSection />
@@ -462,7 +462,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/taxes"
+            path="/taxes"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_SETTINGS]}>
                 <TaxesSection />
@@ -470,7 +470,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/taxes/*"
+            path="/taxes/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_SETTINGS]}>
                 <TaxesSection />
@@ -478,7 +478,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/shipping"
+            path="/shipping"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_SHIPPING]}>
                 <ShippingSection />
@@ -486,7 +486,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/shipping/*"
+            path="/shipping/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_SHIPPING]}>
                 <ShippingSection />
@@ -494,7 +494,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/translations"
+            path="/translations"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_TRANSLATIONS]}>
                 <TranslationsSection />
@@ -502,7 +502,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/translations/*"
+            path="/translations/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_TRANSLATIONS]}>
                 <TranslationsSection />
@@ -510,7 +510,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/navigation"
+            path="/navigation"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_MENUS]}>
                 <NavigationSection />
@@ -518,7 +518,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/navigation/*"
+            path="/navigation/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_MENUS]}>
                 <NavigationSection />
@@ -526,7 +526,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/attributes"
+            path="/attributes"
             element={
               <SectionRoute
                 permissions={[
@@ -539,7 +539,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/attributes/*"
+            path="/attributes/*"
             element={
               <SectionRoute
                 permissions={[
@@ -552,7 +552,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/apps"
+            path="/apps"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_APPS]}>
                 <AppsSection />
@@ -560,7 +560,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/apps/*"
+            path="/apps/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_APPS]}>
                 <AppsSection />
@@ -568,7 +568,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/warehouses"
+            path="/warehouses"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                 <WarehouseSection />
@@ -576,7 +576,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/warehouses/*"
+            path="/warehouses/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                 <WarehouseSection />
@@ -584,7 +584,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/channels"
+            path="/channels"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_CHANNELS]}>
                 <ChannelsSection />
@@ -592,7 +592,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/channels/*"
+            path="/channels/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_CHANNELS]}>
                 <ChannelsSection />
@@ -600,7 +600,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           />
           <Route
-            path="/ecommerce/configuration"
+            path="/configuration"
             element={
               <SectionRoute
                 matchPermission="any"
