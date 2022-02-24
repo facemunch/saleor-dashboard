@@ -33,9 +33,7 @@ export const ExpandButton: React.FC<ExpandButtonProps> = ({
   return (
     <SquareButton {...rest}>
       <ArrowIcon
-        className={clsx(classes.arrow, {
-          [classes.shrunk]: isShrunk,
-        })}
+        className={classes.arrow}
       />
     </SquareButton>
   );

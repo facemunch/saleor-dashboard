@@ -69,10 +69,10 @@ export interface ProductStocksProps {
   disabled: boolean;
   errors: ProductErrorFragment[];
   formErrors:
-    | FormErrors<ProductVariantCreateData>
-    | FormErrors<ProductVariantUpdateData>
-    | FormErrors<ProductUpdateSubmitData>
-    | FormErrors<ProductCreateData>;
+  | FormErrors<ProductVariantCreateData>
+  | FormErrors<ProductVariantUpdateData>
+  | FormErrors<ProductUpdateSubmitData>
+  | FormErrors<ProductCreateData>;
   hasVariants: boolean;
   stocks: ProductStockInput[];
   warehouses: WarehouseFragment[];
@@ -268,7 +268,7 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
                     defaultMessage="Track Inventory"
                     description="product inventory, checkbox"
                   />
-                  <Typography variant="caption">
+                  <Typography component={"div"} variant="caption">
                     <FormattedMessage defaultMessage="Active inventory tracking will automatically calculate changes of stock" />
                   </Typography>
                 </>
@@ -280,7 +280,7 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
       <Hr />
       {!data.isPreorder && (
         <CardContent className={classes.quantityContainer}>
-          <Typography>
+          <Typography component={"div"}>
             <div className={classes.quantityHeader}>
               <span>
                 <FormattedMessage
@@ -294,6 +294,7 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
           {!warehouses?.length && (
             <Typography
               color="textSecondary"
+              component={"div"}
               className={classes.noWarehouseInfo}
             >
               {hasVariants ? (
@@ -538,17 +539,17 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
               >
                 {data.globalThreshold
                   ? intl.formatMessage(
-                      {
-                        defaultMessage: "{unitsLeft} units left",
-                        description: "app has been installed"
-                      },
-                      { unitsLeft }
-                    )
+                    {
+                      defaultMessage: "{unitsLeft} units left",
+                      description: "app has been installed"
+                    },
+                    { unitsLeft }
+                  )
                   : intl.formatMessage({
-                      defaultMessage: "Unlimited",
-                      id: "unlimitedUnitsLeft",
-                      description: "section header"
-                    })}
+                    defaultMessage: "Unlimited",
+                    id: "unlimitedUnitsLeft",
+                    description: "section header"
+                  })}
               </Typography>
             )}
           </div>

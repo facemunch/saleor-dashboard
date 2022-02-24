@@ -1,7 +1,7 @@
 import { ClickAwayListener, Paper, Popper, Typography, alpha} from "@mui/material";
 import clsx from "clsx";
 import React from "react";
-import SVG from "react-inlinesvg";
+// import SVG from "react-inlinesvg";
 
 import { makeStyles } from "../theme";
 import { SidebarMenuItem } from "./types";
@@ -156,7 +156,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({
         data-test-id={menuItem.id}
       >
         {menuItem.iconSrc && (
-          <SVG className={classes.icon} src={menuItem.iconSrc} />
+          // <SVG className={classes.icon} src={menuItem.iconSrc} />
+          menuItem.iconSrc
         )}
         <Typography
           aria-label={menuItem.ariaLabel}

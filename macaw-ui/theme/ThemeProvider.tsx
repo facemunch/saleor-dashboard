@@ -1,7 +1,9 @@
 import type { Theme } from "@mui/material";
 import {
   ThemeProvider as MuiThemeProvider,
-  useTheme
+  StyledEngineProvider,
+  useTheme,
+  // adaptV4Theme,
 } from "@mui/material/styles";
 import { merge } from "lodash";
 import React, { useEffect } from "react";
@@ -19,6 +21,21 @@ import { ThemeContext } from "./context";
 import { createTheme, Themes, ThemeType } from "./createSaleorTheme";
 import { dark, light } from "./themes";
 import { changeColorMeta } from "./utils";
+
+
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme { }
+}
+
+
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme { }
+}
+
 
 export interface ThemeProviderProps {
   defaultTheme?: ThemeType;
@@ -49,11 +66,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     dark,
     ...palettes
   };
-  console.log("defaultTheme",defaultTheme)
+  console.log("defaultTheme", { defaultTheme, themes })
   const theme = merge(createTheme(themes[defaultTheme]), useTheme(), overrides);
   // const theme = useTheme();
 
-  const sendThemeToExtension = () => {};
+  const sendThemeToExtension = () => { };
   sendMessageToExtension<ThemeChangeMessage>(
     {
       theme: themeType,
@@ -75,14 +92,16 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
         setTheme: setThemeType
       }}
     >
-      <MuiThemeProvider theme={theme}>
-        <ActionBarProvider>
-          <BacklinkProvider>
-            {/* <Baseline /> */}
-            {children}
-          </BacklinkProvider>
-        </ActionBarProvider>
-      </MuiThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <MuiThemeProvider theme={theme}>
+          <ActionBarProvider>
+            <BacklinkProvider>
+              {/* <Baseline /> */}
+              {children}
+            </BacklinkProvider>
+          </ActionBarProvider>
+        </MuiThemeProvider>
+      </StyledEngineProvider>
     </ThemeContext.Provider>
   );
 };

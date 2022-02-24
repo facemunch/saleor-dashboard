@@ -10,7 +10,7 @@ import { createUploadLink } from "apollo-upload-client";
 import React, { useEffect } from "react";
 import { ApolloProvider } from "react-apollo";
 // import ErrorBoundary from "react-error-boundary";
-import TagManager from "react-gtm-module";
+// import TagManager from "react-gtm-module";
 import { useIntl } from "react-intl";
 import { Routes, Route, useLocation } from "react-router-dom";
 import introspectionQueryResultData from "../../fragmentTypes.json";
@@ -51,7 +51,7 @@ import PermissionGroupSection from "../permissionGroups";
 import PluginsSection from "../plugins";
 import ProductSection from "../products";
 import ProductTypesSection from "../productTypes";
-import errorTracker from "../services/errorTracking";
+// import errorTracker from "../services/errorTracking";
 import ShippingSection from "../shipping";
 import SiteSettingsSection from "../siteSettings";
 import StaffSection from "../staff";
@@ -61,11 +61,11 @@ import { PermissionEnum } from "../types/globalTypes";
 import WarehouseSection from "../warehouses";
 import { BrowserRouter } from "react-router-dom";
 
-if (process.env.GTM_ID) {
-  TagManager.initialize({ gtmId: GTM_ID });
-}
+// if (process.env.GTM_ID) {
+//   TagManager.initialize({ gtmId: GTM_ID });
+// }
 
-errorTracker.init();
+// errorTracker.init();
 
 // DON'T TOUCH THIS
 // These are separate clients and do not share configs between themselves
@@ -373,6 +373,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
               </SectionRoute>
             }
           />
+
           <Route
             path="/products"
             element={
@@ -380,15 +381,17 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                 <ProductSection />
               </SectionRoute>
             }
-          />
-          <Route
-            path="/products/*"
-            element={
-              <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
-                <ProductSection />
-              </SectionRoute>
-            }
-          />
+          >
+
+            <Route
+              path="/products/*"
+              element={
+                <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
+                  <ProductSection />
+                </SectionRoute>
+              }
+            />
+          </Route>
           <Route
             path="/product-types"
             element={

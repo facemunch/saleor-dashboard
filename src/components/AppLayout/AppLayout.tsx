@@ -163,11 +163,17 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     theme.breakpoints.up("md")
   );
 
-  const menuStructure = createMenuStructure(intl, user);
-  const activeMenu = menuStructure.find(menuItem =>
-    isMenuActive(location.pathname, menuItem)
-  )?.id;
-
+  const menuStructure = createMenuStructure(intl, user).map(e => {
+    if (e.children) {
+      return e.children
+    } else {
+      return e
+    }
+  }).flat();
+  // const activeMenu = menuStructure.find(menuItem =>
+  //   isMenuActive(location.pathname, menuItem)
+  // )?.id;
+  console.log("menuStructure", menuStructure)
   const handleErrorBack = () => {
     navigate("/");
     dispatchAppState({
@@ -187,13 +193,13 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         setVisibility={setNavigatorVisibility}
       />
       <div className={classes.root} data-test="ecomm-app-layout">
-        {isMdUp && (
+        {/* {isMdUp && (
           <Sidebar
             active={activeMenu}
             menuItems={menuStructure}
             onMenuItemClick={navigate}
           />
-        )}
+        )} */}
         <div className={classes.content}>
           {appState.loading ? (
             <Box sx={{ position: "fixed", top: 0 }}>
@@ -229,8 +235,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             {/* <main className={classes.view}> */}
             {appState.error
               ? appState.error.type === "unhandled" && (
-                  <ErrorPage id={appState.error.id} onBack={handleErrorBack} />
-                )
+                <ErrorPage id={appState.error.id} onBack={handleErrorBack} />
+              )
               : children}
             {/* </main> */}
           </div>

@@ -3,9 +3,9 @@ import {
   CardContent,
   Typography,
   IconProps,
-  useMediaQuery
+  // useMediaQuery
 } from "@mui/material";
-import { useTheme } from "@mui/styles";
+// import { useTheme } from "@mui/styles";
 import { User } from "@saleor/fragments/types/User";
 import { sectionNames } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
@@ -104,8 +104,8 @@ export interface ConfigurationPageProps {
 export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
   const { menu: menus, user, onSectionClick } = props;
   const classes = useStyles(props);
-  const theme = useTheme();
-  const isSmUp = true; // TODO RA MIGRATION useMediaQuery(theme.breakpoints.up("sm"));
+  // const theme = useTheme();
+  // const isSmUp = true; // TODO RA MIGRATION useMediaQuery(theme.breakpoints.up("sm"));
 
   const intl = useIntl();
 

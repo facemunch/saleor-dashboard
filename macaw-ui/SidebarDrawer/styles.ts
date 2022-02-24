@@ -6,7 +6,7 @@ const useStyles = makeStyles(
       display: "flex"
     },
     container: {
-      overflowX: "hidden",
+      // overflowX: "hidden",
       width: "100%"
     },
     containerSubMenu: {
@@ -15,11 +15,21 @@ const useStyles = makeStyles(
       }
     },
     content: {
-      width: "50%"
+      width: "50%",
+      marginTop: "12px",
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "space-between",
+      alignContent: "flex-start"
     },
     icon: {
-      marginRight: theme.spacing(2),
-      color: "white"
+      // marginRight: theme.spacing(2);
+      // color: "white";
+      color: "#b8a7fd",
+      marginRight: "16px",
+      position: "absolute",
+      marginTop: "-27px",
+      marginBottom: "27px"
     },
     innerContainer: {
       display: "flex",
@@ -29,21 +39,29 @@ const useStyles = makeStyles(
       width: "200%"
     },
     label: {
-      fontWeight: "bold"
+      fontWeight: "bold",
+      "> p": {
+        fontWeight: "bold"
+      }
     },
     logo: {
       display: "block",
       marginBottom: theme.spacing(4)
     },
     menuItemBtn: {
-      alignItems: "center",
-      background: "none",
       border: "none",
       color: theme.palette.text.secondary,
       display: "flex",
-      marginBottom: theme.spacing(3),
-      padding: 0,
-      textDecoration: "none"
+      marginBottom: "12px",
+      textDecoration: "none",
+      width: "46%",
+      height: "calc(100vh/8)",
+      // marginLeft: "12px",
+      borderRadius: "8px",
+      padding: "12px",
+      alignItems: "flex-end",
+      background: "#1f2327",
+      fontWeight: "bold"
     },
     root: {
       background: "#000000",

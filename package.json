@@ -12,10 +12,6 @@
     "url": "https://github.com/mirumee/saleor-dashboard/issues"
   },
   "homepage": "https://saleor.io/",
-  "engines": {
-    "node": ">=14 <15",
-    "npm": ">=6.11.0 <7"
-  },
   "dependencies": {
     "@apollo/client": "^3.5.8",
     "@editorjs/editorjs": "^2.19.3",
@@ -28,7 +24,7 @@
     "@mui/icons-material": "^5.0.0",
     "@mui/lab": "5.0.0-alpha.54",
     "@mui/material": "^5.0.0",
-    "@mui/styles": "^5.0.0",
+    "@mui/styles": "^5.0.2",
     "@mui/system": "^5.0.0",
     "@mui/utils": "^5.0.0",
     "@saleor/macaw-ui": "^0.2.3",
@@ -69,7 +65,7 @@
     "qs": "^6.10.0",
     "react": "17.0.2",
     "react-apollo": "^3.1.4",
-    "react-dom": "^16.9.0",
+    "react-dom": "17.0.2",
     "react-dropzone": "^11.2.4",
     "react-error-boundary": "^1.2.5",
     "react-gtm-module": "^2.0.11",
@@ -112,8 +108,6 @@
     "@release-it/bumper": "^2.0.0",
     "@saleor/app-bridge": "^0.1.5",
     "@sentry/webpack-plugin": "^1.14.0",
-    "@storybook/addon-storyshots": "^5.2.8",
-    "@storybook/react": "^5.1.9",
     "@testing-library/react-hooks": "^1.1.0",
     "@types/classnames": "^2.2.9",
     "@types/color-convert": "^2.0.0",

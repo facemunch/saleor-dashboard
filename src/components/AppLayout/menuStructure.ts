@@ -13,6 +13,21 @@ import { giftCardListUrl } from "@saleor/giftCards/urls";
 import { commonMessages, sectionNames } from "@saleor/intl";
 import { SidebarMenuItem } from "@saleor/macaw-ui";
 import { IntlShape } from "react-intl";
+// import {
+//   DocPerson,
+//   DocAppend,
+//   Person2,
+//   Creditcard,
+//   Giftcard,
+//   GiftAlt,
+//   ListBulletIndent,
+//   ListBullet,
+//   Gift,
+//   Tag,
+//   GearAlt,
+//   House
+// } from "framework7-icons/react";
+import { ellipse, square, triangle, basketOutline,shapesOutline, settingsOutline } from 'ionicons/icons'
 
 import { appsListPath } from "../../apps/urls";
 import { categoryListUrl } from "../../categories/urls";
@@ -33,7 +48,7 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
   const menuItems: FilterableMenuItem[] = [
     {
       ariaLabel: "home",
-      iconSrc: homeIcon,
+      iconSvg: ellipse,
       label: intl.formatMessage(sectionNames.home),
       id: "home",
       url: "/home"
@@ -43,6 +58,7 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
       children: [
         {
           ariaLabel: "products",
+          iconSvg: ellipse,
           label: intl.formatMessage(sectionNames.products),
           id: "products",
           url: productListUrl(),
@@ -50,20 +66,23 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
         },
         {
           ariaLabel: "categories",
+          iconSvg: ellipse,
           label: intl.formatMessage(sectionNames.categories),
           id: "categories",
           url: categoryListUrl(),
           permissions: [PermissionEnum.MANAGE_PRODUCTS]
         },
-        {
-          ariaLabel: "collections",
-          label: intl.formatMessage(sectionNames.collections),
-          id: "collections",
-          url: collectionListUrl(),
-          permissions: [PermissionEnum.MANAGE_PRODUCTS]
-        },
+        // {
+        //   ariaLabel: "collections",
+        //   iconSvg: ellipse,
+        //   label: intl.formatMessage(sectionNames.collections),
+        //   id: "collections",
+        //   url: collectionListUrl(),
+        //   permissions: [PermissionEnum.MANAGE_PRODUCTS]
+        // },
         {
           ariaLabel: "giftCards",
+          iconSvg: ellipse,
           label: intl.formatMessage(sectionNames.giftCards),
           id: "giftCards",
           url: giftCardListUrl(),
@@ -82,6 +101,7 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
           label: intl.formatMessage(sectionNames.orders),
           permissions: [PermissionEnum.MANAGE_ORDERS],
           id: "orders",
+          iconSvg: ellipse,
           url: orderListUrl()
         },
         {
@@ -89,6 +109,8 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
           label: intl.formatMessage(commonMessages.drafts),
           permissions: [PermissionEnum.MANAGE_ORDERS],
           id: "order drafts",
+          // iconSrc: ordersIcon,
+          iconSvg: ellipse,
           url: orderDraftListUrl()
         }
       ],
@@ -99,7 +121,7 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
     },
     {
       ariaLabel: "customers",
-      iconSrc: customerIcon,
+      iconSvg: ellipse,
       label: intl.formatMessage(sectionNames.customers),
       permissions: [PermissionEnum.MANAGE_USERS],
       id: "customers",
@@ -113,16 +135,17 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
           ariaLabel: "sales",
           label: intl.formatMessage(sectionNames.sales),
           id: "sales",
+          iconSvg: ellipse,
           url: saleListUrl()
         },
         {
           ariaLabel: "vouchers",
           label: intl.formatMessage(sectionNames.vouchers),
           id: "vouchers",
+          iconSvg: ellipse,
           url: voucherListUrl()
         }
       ],
-      iconSrc: discountsIcon,
       label: intl.formatMessage(commonMessages.discounts),
       permissions: [PermissionEnum.MANAGE_DISCOUNTS],
       id: "discounts"
@@ -145,7 +168,7 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
     // },
     {
       ariaLabel: "configure",
-      iconSrc: configurationIcon,
+      iconSvg: ellipse,
       label: intl.formatMessage(sectionNames.configuration),
       permissions: getConfigMenuItemsPermissions(intl),
       id: "configure",

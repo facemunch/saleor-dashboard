@@ -1,29 +1,64 @@
 import { Drawer, Typography } from "@mui/material";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
-import MenuIcon from "@mui/icons-material/Menu";
+// import MenuIcon from "@mui/icons-material/Menu";
+import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
+
 import clsx from "clsx";
-import React from "react";
+import React, { useEffect } from "react";
 import SVG from "react-inlinesvg";
 import { BaseSidebarProps, SidebarMenuItem } from "../Sidebar/types";
 import { SquareButton } from "../SquareButton";
 import { useTheme } from "../theme";
 import { MenuItemBtn } from "./MenuItemBtn";
 import useStyles from "./styles";
+import { withRouter } from 'react-router';
+
+import { useLocation } from 'react-router-dom';
 
 export type SideBarDrawerProps = BaseSidebarProps;
-
-export const SidebarDrawer: React.FC<SideBarDrawerProps> = ({
-  menuItems,
-  onMenuItemClick
-}) => {
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+export const SidebarDrawer: React.FC<SideBarDrawerProps> = withRouter((props) => {
+  const {
+    menuItems,
+    onMenuItemClick,
+    location
+  } = props
+  console.log("props", props)
   const theme = useTheme();
-  const [isOpened, setOpened] = React.useState(false);
+  const [isOpened, setOpened] = React.useState(
+    location.pathname === "/ecommerce"
+  );
+  console.log("window.location.pathname", window.location.pathname)
   const classes = useStyles({});
   const [activeMenu, setActiveMenu] = React.useState<SidebarMenuItem | null>(
     null
   );
   const [showSubmenu, setShowSubmenu] = React.useState(false);
   const container = React.useRef<HTMLDivElement>(null);
+
+
+  useEffect(() => {
+    console.log("props.location.pathname", props.location.pathname)
+    // const handleOnUrlChange = (e) => console.log("e handleOnUrlChange", e)
+    // window.addEventListener('popstate', handleOnUrlChange, false)
+    // sleep(1000).then(() => {
+    if (location.pathname === '/ecommerce') {
+      setOpened(true)
+    } else {
+      setOpened(false)
+    }
+    // })
+
+    // return history.listen((location) => {
+    //   console.log(`You changed the page to: ${location.pathname}`)
+    // })
+    // return window.removeEventListener('popstate', handleOnUrlChange, false)
+
+  }, [location.pathname])
 
   const handleMenuItemClick = (url: string) => {
     setOpened(false);
@@ -42,12 +77,13 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = ({
   return (
     <>
       <SquareButton onClick={() => setOpened(true)}>
-        <MenuIcon />
+        <ArrowBackIosNewRoundedIcon />
       </SquareButton>
       <Drawer
         classes={{
           paper: classes.root
         }}
+        container={document.getElementsByTagName("ion-tabs")[0]}
         sx={{
           " .MuiBackdrop-root ": {
             background: "#0000009e"
@@ -80,7 +116,7 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = ({
                 />
               ))}
             </div>
-            {activeMenu && (
+            {/* {activeMenu && (
               <div className={classes.content}>
                 <div className={classes.subMenuTopBar}>
                   <div className={classes.activeMenuLabel}>
@@ -103,12 +139,12 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = ({
                   />
                 ))}
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </Drawer>
     </>
   );
-};
+});
 
 SidebarDrawer.displayName = "SideBarDrawer";
