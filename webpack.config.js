@@ -52,7 +52,8 @@ const dashboardBuildPath = "build/dashboard/";
 module.exports = speedMeasureWrapper((env, argv) => {
   const devMode = argv.mode !== "production";
 
-  let fileLoaderPath;
+  const fileLoaderPath = 'file-loader';
+  let fileLoaderOptions
   let output;
 
   // if (!process.env.API_URI) {
@@ -67,7 +68,9 @@ module.exports = speedMeasureWrapper((env, argv) => {
       path: resolve(dashboardBuildPath),
       publicPath
     };
-    fileLoaderPath = "file-loader?name=[name].[hash].[ext]";
+    fileLoaderOptions = {
+      name: '[name].[hash].[ext]'
+    }
   } else {
     output = {
       chunkFilename: "[name].js",
@@ -75,7 +78,9 @@ module.exports = speedMeasureWrapper((env, argv) => {
       path: resolve(dashboardBuildPath),
       publicPath
     };
-    fileLoaderPath = "file-loader?name=[name].[ext]";
+    fileLoaderOptions = {
+      name: '[name].[ext]'
+    }
   }
 
   // Create release if sentry config is set
@@ -115,7 +120,7 @@ module.exports = speedMeasureWrapper((env, argv) => {
     },
     devtool: devMode ? "cheap-module-source-map" : "source-map",
     entry: {
-      dashboard: "./src/facemunch/App.tsx"
+      dashboard: "./src/index.tsx"
     },
     module: {
       rules: [
@@ -135,6 +140,7 @@ module.exports = speedMeasureWrapper((env, argv) => {
             resolve("assets/favicons")
           ],
           loader: fileLoaderPath,
+          options: fileLoaderOptions,
           test: /\.(eot|otf|png|svg|jpg|ttf|woff|woff2)(\?v=[0-9.]+)?$/
         }
       ]
@@ -154,6 +160,9 @@ module.exports = speedMeasureWrapper((env, argv) => {
       bundleAnalyzerPlugin
     ].filter(Boolean),
     resolve: {
+      fallback: {
+        'path': require.resolve('path-browserify')
+      },
       // Resolve macaw ui's peer dependencies to our own node_modules
       // to make it work with npm link
       alias: {
