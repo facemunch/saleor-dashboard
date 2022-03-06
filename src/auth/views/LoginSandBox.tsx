@@ -29,6 +29,7 @@ const LoginView: React.FC<LoginViewProps> = ({
   const navigate = useNavigator();
   const {
     login,
+    loginByToken,
     requestLoginByExternalPlugin,
     loginByExternalPlugin,
     tokenAuthLoading
@@ -52,7 +53,19 @@ const LoginView: React.FC<LoginViewProps> = ({
   };
 
   useEffect(() => {
-    handleSubmit({ email: "alex@facemunch.com", password: "facemunch" });
+    const token = localStorage.getItem("auth")
+    console.log("token",token)
+    loginByToken(token, "", {
+      __typename: "User",
+      id: "",
+      email: "",
+      firstName: "",
+      lastName: "",
+      isStaff: true,
+      userPermissions: [],
+      avatar: undefined
+    })
+    // handleSubmit({ email: "alex@facemunch.com", password: "facemunch" });
   }, []);
 
   return !isError && !isExternalError && channelLoaded ? (
