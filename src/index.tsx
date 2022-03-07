@@ -73,7 +73,7 @@ errorTracker.init();
 // so we need to explicitly set them
 const linkOptions = {
   credentials: "include",
-  uri: API_URI || localStorage.getItem('ecomAPI')
+  uri: localStorage.getItem('ecomAPI')
 };
 const uploadLink = createUploadLink(linkOptions);
 const batchLink = new BatchHttpLink({
