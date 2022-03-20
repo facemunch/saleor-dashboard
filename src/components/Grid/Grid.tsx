@@ -12,15 +12,18 @@ export interface GridProps {
 const useStyles = makeStyles(
   theme => ({
     default: {
-      gridTemplateColumns: "9fr 4fr"
+      gridTemplateColumns: "9fr 4fr",
+      [theme.breakpoints.up("sm")]: {
+       paddingBottom: '10vh'
+      }
     },
     inverted: {
       gridTemplateColumns: "1rf"
     },
     root: {
-      // "& > div ": {
-      //   width: "97%"
-      // },
+      "& > div ": {
+        width: "97%"
+      },
       display: "grid",
       gridColumnGap: theme.spacing(3),
       gridRowGap: theme.spacing(3),

@@ -33,19 +33,20 @@ import { isMenuActive } from "./utils";
 const useStyles = makeStyles(
   theme => ({
     appAction: {
-      [theme.breakpoints.down("sm")]: {
+      [theme.breakpoints.up("sm")]: {
         left: 0,
         width: "100%"
       },
       bottom: 0,
       gridColumn: 2,
       position: "fixed",
-      zIndex: 100000
+      zIndex: 100000,
     },
     appActionDocked: {
       bottom: "env(safe-area-inset-bottom, 10px)",
       zIndex: 10000,
-      position: "fixed"
+      position: "fixed",
+      width: "100vw"
     },
     appLoader: {
       // height: appLoaderHeight,
@@ -74,11 +75,11 @@ const useStyles = makeStyles(
       // left: "0",
 
       display: "grid",
-      gridTemplateAreas: `"headerAnchor headerToolbar"`,
-      [theme.breakpoints.down("sm")]: {
-        gridTemplateAreas: `"headerToolbar" 
-        "headerAnchor"`
-      }
+      gridTemplateAreas: `"headerAnchor headerToolbar"`
+      // [theme.breakpoints.down("sm")]: {
+      // gridTemplateAreas: `"headerToolbar"
+      // "headerAnchor"`
+      // }
       // marginBottom: theme.spacing(3)
     },
     headerAnchor: {
@@ -104,9 +105,9 @@ const useStyles = makeStyles(
       }
     },
     root: {
-      // [theme.breakpoints.up("md")]: {
-      // display: "flex"
-      // }
+      [theme.breakpoints.up("sm")]: {
+        paddingBottom: "10vh"
+      }
       // width: `100%`
     },
     spacer: {
@@ -134,7 +135,12 @@ const useStyles = makeStyles(
       WebkitOverflowScrolling: "touch",
       marginBottom: "13vh",
       overflowY: "hidden",
-      overflowX: "hidden"
+      overflowX: "hidden",
+      [theme.breakpoints.up("md")]: {
+        maxWidth: "90vw",
+        margin: "auto",
+        marginLeft: 125
+      }
       // WebkitOverflowScrolling: "touch"
       // minHeight: `calc(var(--vh) * 100)`,
       // marginTop: "-30px"
@@ -163,17 +169,19 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     theme.breakpoints.up("md")
   );
 
-  const menuStructure = createMenuStructure(intl, user).map(e => {
-    if (e.children) {
-      return e.children
-    } else {
-      return e
-    }
-  }).flat();
+  const menuStructure = createMenuStructure(intl, user)
+    .map(e => {
+      if (e.children) {
+        return e.children;
+      } else {
+        return e;
+      }
+    })
+    .flat();
   // const activeMenu = menuStructure.find(menuItem =>
   //   isMenuActive(location.pathname, menuItem)
   // )?.id;
-  console.log("menuStructure", menuStructure)
+  console.log("menuStructure", menuStructure);
   const handleErrorBack = () => {
     navigate("/");
     dispatchAppState({
@@ -215,12 +223,12 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                   {/* //hidden for mobile views, might be good for desktop */}
                   {/* <div className={classes.headerAnchor} ref={appHeaderAnchor} /> */}
                   <div className={classes.headerToolbar}>
-                    {!isMdUp && (
-                      <SidebarDrawer
-                        menuItems={menuStructure}
-                        onMenuItemClick={navigate}
-                      />
-                    )}
+                    {/* {!isMdUp && ( */}
+                    <SidebarDrawer
+                      menuItems={menuStructure}
+                      onMenuItemClick={navigate}
+                    />
+                    {/* )} */}
                     <div className={classes.spacer} />
                     <div className={classes.userBar}>
                       <NavigatorButton
@@ -235,8 +243,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             {/* <main className={classes.view}> */}
             {appState.error
               ? appState.error.type === "unhandled" && (
-                <ErrorPage id={appState.error.id} onBack={handleErrorBack} />
-              )
+                  <ErrorPage id={appState.error.id} onBack={handleErrorBack} />
+                )
               : children}
             {/* </main> */}
           </div>

@@ -554,10 +554,10 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
               path="/attributes"
               element={
                 <SectionRoute
-                  permissions={[
-                    PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES,
-                    PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
-                  ]}
+                  // permissions={[
+                  //   PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES,
+                  //   PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
+                  // ]}
                 >
                   <AttributeSection />
                 </SectionRoute>
@@ -567,10 +567,10 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
               path="/attributes/*"
               element={
                 <SectionRoute
-                  permissions={[
-                    PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES,
-                    PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
-                  ]}
+                  // permissions={[
+                  //   PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES,
+                  //   PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
+                  // ]}
                 >
                   <AttributeSection />
                 </SectionRoute>

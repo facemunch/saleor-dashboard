@@ -321,7 +321,7 @@ export const ProductVariants: React.FC<ProductVariantsProps> = props => {
       {hasVariants && (
         <Box
           sx={{
-            width: "92vw",
+            // width: "92vw",
             overflow: "hidden",
             height: "100%",
             position: "relative"

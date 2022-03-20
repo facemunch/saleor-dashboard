@@ -20,7 +20,11 @@ const useStyles = makeStyles(
       display: "flex",
       flexWrap: "wrap",
       justifyContent: "space-between",
-      alignContent: "flex-start"
+      alignContent: "flex-start",
+      [theme.breakpoints.up("md")]: {
+        maxWidth: 600,
+        margin: '0 calc((100vw - 600px)/2)'
+      },
     },
     icon: {
       // marginRight: theme.spacing(2);

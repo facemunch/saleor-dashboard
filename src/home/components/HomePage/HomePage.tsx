@@ -25,7 +25,7 @@ const useStyles = makeStyles(
   theme => ({
     cardContainer: {
       display: "grid",
-      width: "92vw",
+      // width: "92vw",
       gridColumnGap: theme.spacing(4),
       gridTemplateColumns: "1fr 1fr",
       [theme.breakpoints.down("sm")]: {
@@ -83,14 +83,15 @@ const HomePage: React.FC<HomePageProps> = props => {
   const classes = useStyles(props);
 
   return (
-    <div
+    <Container>
+      {/* <div
       style={{
         width: "92vw",
         margin: "4vw",
         // marginTop: "10vw",
         overflow: "hidden"
       }}
-    >
+    > */}
       <CardSpacer />
       <Grid>
         <div>
@@ -168,7 +169,7 @@ const HomePage: React.FC<HomePageProps> = props => {
             </RequirePermissions>
           )}
         </div>
-        {activities && (
+        {/* {activities && (
           <div>
             <RequirePermissions
               userPermissions={userPermissions}
@@ -180,9 +181,10 @@ const HomePage: React.FC<HomePageProps> = props => {
               />
             </RequirePermissions>
           </div>
-        )}
+        )} */}
       </Grid>
-    </div>
+      {/* </div> */}
+    </Container>
   );
 };
 HomePage.displayName = "HomePage";
