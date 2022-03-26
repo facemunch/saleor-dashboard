@@ -181,7 +181,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   // const activeMenu = menuStructure.find(menuItem =>
   //   isMenuActive(location.pathname, menuItem)
   // )?.id;
-  console.log("menuStructure", menuStructure);
+  // console.log("menuStructure", menuStructure);
   const handleErrorBack = () => {
     navigate("/");
     dispatchAppState({

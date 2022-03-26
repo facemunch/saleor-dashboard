@@ -15,7 +15,7 @@ const useStyles = makeStyles(
         // width: "96vw"
       },
       overflowX: "auto",
-      width: "96vw"
+      // width: "96vw"
     }
   }),
   {

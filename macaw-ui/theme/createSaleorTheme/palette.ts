@@ -1,15 +1,16 @@
+import { TypeBackground } from "@mui/material/styles/createPalette";
 import { SaleorPaletteOptions, SaleorThemeColors } from "./types";
 
 export const createPalette = (
   colors: SaleorThemeColors
 ): SaleorPaletteOptions => {
-  console.log("colors", colors);
+  // console.log("colors", colors);
   return {
     action: {
       active: colors.checkbox.default
     },
     alert: colors.alert,
-    background: "#22262C",
+    background: "#22262C" as Partial<TypeBackground>,
     divider: colors.divider,
     error: {
       main: colors.error

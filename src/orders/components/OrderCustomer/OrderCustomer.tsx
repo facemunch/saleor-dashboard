@@ -216,7 +216,9 @@ const OrderCustomer: React.FC<OrderCustomerProps> = props => {
               <div>
                 <Link
                   underline={false}
-                  href={createHref(customerUrl(user.id))}
+                  href={createHref(
+                    customerUrl(user?.id === undefined ? "" : user.id)
+                  )}
                   onClick={onProfileView}
                 >
                   <FormattedMessage

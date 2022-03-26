@@ -27,12 +27,11 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = withRouter((props) =>
     onMenuItemClick,
     location
   } = props
-  console.log("props", props)
+  // console.log("props", props)
   const theme = useTheme();
   const [isOpened, setOpened] = React.useState(
     location.pathname === "/ecommerce"
   );
-  console.log("window.location.pathname", window.location.pathname)
   const classes = useStyles({});
   const [activeMenu, setActiveMenu] = React.useState<SidebarMenuItem | null>(
     null
@@ -42,7 +41,7 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = withRouter((props) =>
 
 
   useEffect(() => {
-    console.log("props.location.pathname", props.location.pathname)
+    // console.log("props.location.pathname", props.location.pathname)
     // const handleOnUrlChange = (e) => console.log("e handleOnUrlChange", e)
     // window.addEventListener('popstate', handleOnUrlChange, false)
     // sleep(1000).then(() => {

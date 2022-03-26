@@ -14,7 +14,7 @@ const useStyles = makeStyles(
     default: {
       gridTemplateColumns: "9fr 4fr",
       [theme.breakpoints.up("sm")]: {
-       paddingBottom: '10vh'
+        paddingBottom: "10vh"
       }
     },
     inverted: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles(
     },
     root: {
       "& > div ": {
-        width: "97%"
+        width: "93vw"
       },
       display: "grid",
       gridColumnGap: theme.spacing(3),

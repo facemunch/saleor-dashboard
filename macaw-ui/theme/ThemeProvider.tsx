@@ -66,7 +66,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     dark,
     ...palettes
   };
-  console.log("defaultTheme", { defaultTheme, themes })
   const theme = merge(createTheme(themes[defaultTheme]), useTheme(), overrides);
   // const theme = useTheme();
 

@@ -48,10 +48,18 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = props => {
   return (
     <Box
       sx={{
-        width: "100%",
+        // width: "1",
         overflow: "hidden",
         height: "100%",
-        position: "relative"
+        position: "relative",
+
+        width: {
+          xs: "initial", // theme.breakpoints.up('xs')
+          sm: "initial", // theme.breakpoints.up('sm')
+          md: "100%", // theme.breakpoints.up('md')
+          lg: "100%", // theme.breakpoints.up('lg')
+          xl: "100%" // theme.breakpoints.up('xl')
+        }
       }}
     >
       <div
