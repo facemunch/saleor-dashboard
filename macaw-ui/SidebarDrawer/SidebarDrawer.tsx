@@ -18,7 +18,6 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = props => {
   const [isOpened, setOpened] = React.useState(
     location.pathname === "/ecommerce"
   );
-  console.log("location", location);
   const classes = useStyles({});
 
   const [showSubmenu, setShowSubmenu] = React.useState(false);

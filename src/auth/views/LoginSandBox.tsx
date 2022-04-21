@@ -54,7 +54,6 @@ const LoginView: React.FC<LoginViewProps> = ({
 
   useEffect(() => {
     const token = localStorage.getItem("auth")
-    console.log("token",token)
     loginByToken(token, "", {
       __typename: "User",
       id: "",
