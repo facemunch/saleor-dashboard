@@ -361,13 +361,14 @@ const OrderHistory: React.FC<OrderHistoryProps> = props => {
                 return (
                   <ExtendedTimelineEvent
                     event={event}
+                    key={id}
                     orderCurrency={orderCurrency}
                   />
                 );
               }
 
               if (isTimelineEventOfType("linked", type)) {
-                return <LinkedTimelineEvent event={event} key={id} />;
+                return <LinkedTimelineEvent key={id} event={event} key={id} />;
               }
 
               return (

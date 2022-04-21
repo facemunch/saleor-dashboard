@@ -7,7 +7,7 @@ import Portal from "@mui/material/Portal";
 import {
   makeStyles,
   SaleorTheme,
-  Sidebar,
+  // Sidebar,
   SidebarDrawer,
   // useBacklink,
   useActionBar
@@ -17,7 +17,7 @@ import {
 import classNames from "classnames";
 import React from "react";
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 import Container from "../Container";
 import ErrorPage from "../ErrorPage";
@@ -163,7 +163,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const navigate = useNavigator();
   const intl = useIntl();
   const [appState, dispatchAppState] = useAppState();
-  const location = useLocation();
+  // const location = useLocation();
   const [isNavigatorVisible, setNavigatorVisibility] = React.useState(false);
   const isMdUp = useMediaQuery((theme: SaleorTheme) =>
     theme.breakpoints.up("md")

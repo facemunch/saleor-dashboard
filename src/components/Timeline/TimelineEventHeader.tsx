@@ -66,6 +66,7 @@ export const TimelineEventHeader: React.FC<TimelineEventHeaderProps> = props => 
                 <Link
                   className={classes.titleElement}
                   onClick={() => navigate(link)}
+                  key={link}
                 >
                   {text}
                 </Link>
@@ -73,7 +74,7 @@ export const TimelineEventHeader: React.FC<TimelineEventHeaderProps> = props => 
             }
 
             return (
-              <Typography className={classes.titleElement}>{text}</Typography>
+              <Typography key={text} className={classes.titleElement}>{text}</Typography>
             );
           })}
         </div>
