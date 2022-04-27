@@ -165,6 +165,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
   const location = useLocation();
 
   useEffect(() => {
+    console.log("RoutesApp location", location);
     setTimeout(() => onRouteUpdate(window.location.pathname), 0);
   }, [location]);
 
@@ -238,7 +239,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                 </SectionRoute>
               }
             />
-           
+
             <Route
               path="/categories/*"
               element={
@@ -247,7 +248,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                 </SectionRoute>
               }
             />
-             {/* <Route
+            {/* <Route
               path="/categories"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
@@ -393,7 +394,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                 </SectionRoute>
               }
             />
-{/* 
+            {/* 
             <Route
               path="/products/"
               element={

@@ -6,13 +6,22 @@ import { BaseSidebarProps, SidebarMenuItem } from "../Sidebar/types";
 import { SquareButton } from "../SquareButton";
 import { MenuItemBtn } from "./MenuItemBtn";
 import useStyles from "./styles";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export type SideBarDrawerProps = BaseSidebarProps;
+
+function getCurrentLocation() {
+  return {
+    pathname: window.location.pathname,
+    search: window.location.search
+  };
+}
+const listeners = [];
 
 export const SidebarDrawer: React.FC<SideBarDrawerProps> = props => {
   const { menuItems, onMenuItemClick } = props;
   const location = window.location;
+  let locationFn = useLocation();
 
   const nav = useNavigate();
   const [isOpened, setOpened] = React.useState(
@@ -24,6 +33,21 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = props => {
   const container = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    window.addEventListener("popstate", handleChange);
+    return () => window.removeEventListener("popstate", handleChange);
+  }, []);
+
+  useEffect(() => {
+    listeners.push(handleChange);
+    return () => listeners.splice(listeners.indexOf(handleChange), 1);
+  }, []);
+
+  function handleChange() {
+    console.log("getCurrentLocation", getCurrentLocation());
+  }
+
+  useEffect(() => {
+    console.log("location", { location, locationFn: locationFn });
     if (location.pathname === "/ecommerce") {
       setOpened(true);
     } else {
@@ -35,7 +59,7 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = props => {
     setOpened(false);
     setShowSubmenu(false);
     nav(url);
-    onMenuItemClick(url)
+    onMenuItemClick(url);
   };
 
   const handleMenuItemWithChildrenClick = (menuItem: SidebarMenuItem) => {
@@ -54,7 +78,7 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = props => {
         classes={{
           paper: classes.root
         }}
-        container={document.getElementsByTagName("ion-tabs")[0]}
+        container={document.getElementById("ecommerce")}
         sx={{
           " .MuiBackdrop-root ": {
             background: "#0000009e"
