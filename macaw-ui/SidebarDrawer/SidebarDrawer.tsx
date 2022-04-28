@@ -1,7 +1,7 @@
 import { Drawer } from "@mui/material";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import clsx from "clsx";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { BaseSidebarProps, SidebarMenuItem } from "../Sidebar/types";
 import { SquareButton } from "../SquareButton";
 import { MenuItemBtn } from "./MenuItemBtn";
@@ -10,18 +10,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 export type SideBarDrawerProps = BaseSidebarProps;
 
-function getCurrentLocation() {
-  return {
-    pathname: window.location.pathname,
-    search: window.location.search
-  };
-}
-const listeners = [];
-
 export const SidebarDrawer: React.FC<SideBarDrawerProps> = props => {
   const { menuItems, onMenuItemClick } = props;
-  const location = window.location;
-  let locationFn = useLocation();
+  let location = useLocation();
 
   const nav = useNavigate();
   const [isOpened, setOpened] = React.useState(
@@ -33,21 +24,6 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = props => {
   const container = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    window.addEventListener("popstate", handleChange);
-    return () => window.removeEventListener("popstate", handleChange);
-  }, []);
-
-  useEffect(() => {
-    listeners.push(handleChange);
-    return () => listeners.splice(listeners.indexOf(handleChange), 1);
-  }, []);
-
-  function handleChange() {
-    console.log("getCurrentLocation", getCurrentLocation());
-  }
-
-  useEffect(() => {
-    console.log("location", { location, locationFn: locationFn });
     if (location.pathname === "/ecommerce") {
       setOpened(true);
     } else {
@@ -69,11 +45,17 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = props => {
     });
   };
 
+  const showMainMenuTrigger = useMemo(() => {
+    return location.pathname.split("/").length <= 2;
+  }, [location.pathname]);
+
   return (
     <>
-      <SquareButton onClick={() => setOpened(true)}>
-        <ArrowBackIosNewRoundedIcon />
-      </SquareButton>
+      {showMainMenuTrigger && (
+        <SquareButton onClick={() => setOpened(true)}>
+          <ArrowBackIosNewRoundedIcon />
+        </SquareButton>
+      )}
       <Drawer
         classes={{
           paper: classes.root

@@ -22,7 +22,7 @@ const useStyles = makeStyles(
     },
     root: {
       "& > div ": {
-        width: "93vw"
+        // width: "93vw"
       },
       display: "grid",
       gridColumnGap: theme.spacing(3),

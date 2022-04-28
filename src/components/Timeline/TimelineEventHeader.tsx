@@ -79,9 +79,9 @@ export const TimelineEventHeader: React.FC<TimelineEventHeaderProps> = props => 
           })}
         </div>
       )}
-      <Typography className={classes.date}>
+      <div className={classes.date}>
         <DateTime date={date} />
-      </Typography>
+      </div>
       {secondaryTitle && (
         <Typography className={classes.secondaryTitle}>
           {secondaryTitle}

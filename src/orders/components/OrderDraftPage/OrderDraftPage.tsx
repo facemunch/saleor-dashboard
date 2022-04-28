@@ -115,9 +115,9 @@ const OrderDraftPage: React.FC<OrderDraftPageProps> = props => {
       </PageHeader>
       <div className={classes.date}>
         {order && order.created ? (
-          <Typography variant="body2">
+          <>
             <DateTime date={order.created} />
-          </Typography>
+          </>
         ) : (
           <Skeleton style={{ width: "10em" }} />
         )}

@@ -19,6 +19,7 @@ const useStyles = makeStyles(
     },
     root: {
       height: 70,
+      width: '100vw'
     },
   }),
   { name: "Savebar" }
