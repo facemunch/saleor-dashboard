@@ -73,7 +73,6 @@ const ProductVariant: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ProductVariantEditUrlQueryParams = qs;
   const match = useParams();
-
   return (
     <ProductVariantComponent
       variantId={decodeURIComponent(match.variantId)}

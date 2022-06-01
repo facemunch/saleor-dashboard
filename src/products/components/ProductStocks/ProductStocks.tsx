@@ -45,7 +45,9 @@ import { ProductCreateData } from "../ProductCreatePage";
 import { ProductUpdateSubmitData } from "../ProductUpdatePage/form";
 import { ProductVariantCreateData } from "../ProductVariantCreatePage/form";
 import { ProductVariantUpdateData } from "../ProductVariantPage/form";
-
+import {
+  IonCard
+} from "@ionic/react";
 export interface ProductStockFormsetData {
   quantityAllocated: number;
 }
@@ -214,7 +216,7 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
   );
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Inventory",
@@ -632,7 +634,7 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
           </TableBody>
         </Table>
       )}
-    </Card>
+    </IonCard>
   );
 };
 

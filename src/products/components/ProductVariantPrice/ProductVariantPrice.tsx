@@ -26,7 +26,7 @@ import {
 import getProductErrorMessage from "@saleor/utils/errors/product";
 import React from "react";
 import { FormattedMessage, MessageDescriptor, useIntl } from "react-intl";
-
+import { IonCard } from "@ionic/react";
 const useStyles = makeStyles(
   theme => ({
     caption: {
@@ -117,7 +117,7 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
   }
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Pricing",
@@ -244,7 +244,7 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
           </TableBody>
         </ResponsiveTable>
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 ProductVariantPrice.displayName = "ProductVariantPrice";

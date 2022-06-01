@@ -17,6 +17,7 @@ import { FetchMoreProps } from "@saleor/types";
 import { getFormErrors, getProductErrorMessage } from "@saleor/utils/errors";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { IonCard } from '@ionic/react'
 
 interface ProductType {
   hasVariants: boolean;
@@ -100,7 +101,7 @@ const ProductOrganization: React.FC<ProductOrganizationProps> = props => {
   );
 
   return (
-    <Card className={classes.card}>
+    <IonCard className={classes.card}>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Organize Product",
@@ -198,7 +199,7 @@ const ProductOrganization: React.FC<ProductOrganizationProps> = props => {
           {...fetchMoreCollections}
         />
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 ProductOrganization.displayName = "ProductOrganization";

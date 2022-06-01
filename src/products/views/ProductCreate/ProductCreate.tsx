@@ -12,7 +12,7 @@ import useChannels from "@saleor/hooks/useChannels";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
 import useShop from "@saleor/hooks/useShop";
-import ProductCreatePage from "@saleor/products/components/ProductCreatePage";
+import ProductCreatePage from "@saleor/products/components/ProductCreatePageIonic";
 import {
   useProductChannelListingUpdate,
   useProductDeleteMutation,

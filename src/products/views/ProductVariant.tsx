@@ -43,7 +43,7 @@ import { useIntl } from "react-intl";
 
 import { weight } from "../../misc";
 import ProductVariantDeleteDialog from "../components/ProductVariantDeleteDialog";
-import ProductVariantPage from "../components/ProductVariantPage";
+import ProductVariantPage from "../components/ProductVariantPageIonic";
 import { ProductVariantUpdateSubmitData } from "../components/ProductVariantPage/form";
 import {
   useProductVariantReorderMutation,
