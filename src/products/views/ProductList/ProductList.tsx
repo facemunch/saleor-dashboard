@@ -63,7 +63,7 @@ import { useWarehouseList } from "@saleor/warehouses/queries";
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import ProductListPage from "../../components/ProductListPage";
+import ProductListPage from "../../components/ProductListPageIonic";
 import {
   useProductBulkDeleteMutation,
   useProductExport
@@ -179,7 +179,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
   });
 
   const selectedChannel = availableChannels.find(
-    channel => channel.slug === params.channel
+    channel => channel.slug === "usd"
   );
 
   const [openModal, closeModal] = createDialogActionHandlers<

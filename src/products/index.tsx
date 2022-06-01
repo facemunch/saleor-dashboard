@@ -112,7 +112,7 @@ const ProductVariantCreate: React.FC = () => {
 
 const ProductVariantCreator: React.FC = () => {
   const match = useParams();
-  return <ProductVariantCreatorComponent id={decodeURIComponent(match.id)} />
+  return <ProductVariantCreatorComponent id={decodeURIComponent(match.id)} />;
 };
 
 const Component = () => {
@@ -139,7 +139,7 @@ const Component = () => {
         <Route
           path={productImagePath(":productId", ":imageId", "")}
           element={<ProductImage />}
-        /> 
+        />
         <Route path={productPath(":id", "")} element={<ProductUpdate />} />
       </Routes>
     </>

@@ -18,7 +18,15 @@ import classNames from "classnames";
 import React from "react";
 import { useIntl } from "react-intl";
 // import { useLocation } from "react-router-dom";
-
+import {
+  IonFab,
+  IonPage,
+  IonContent,
+  IonToolbar,
+  IonHeader,
+  IonIcon,
+  IonFabButton
+} from "@ionic/react";
 import Container from "../Container";
 import ErrorPage from "../ErrorPage";
 import Navigator from "../Navigator";
@@ -40,7 +48,7 @@ const useStyles = makeStyles(
       bottom: 0,
       gridColumn: 2,
       position: "fixed",
-      zIndex: 100000,
+      zIndex: 100000
     },
     appActionDocked: {
       bottom: "env(safe-area-inset-bottom, 10px)",
@@ -200,64 +208,68 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         visible={isNavigatorVisible}
         setVisibility={setNavigatorVisibility}
       />
-      <div className={classes.root} data-test="ecomm-app-layout">
-        {/* {isMdUp && (
+      {/* <div className={classes.root} data-test="ecomm-app-layout"> */}
+      {/* {isMdUp && (
           <Sidebar
             active={activeMenu}
             menuItems={menuStructure}
             onMenuItemClick={navigate}
           />
         )} */}
-        <div className={classes.content}>
-          {appState.loading ? (
-            <Box sx={{ position: "fixed", top: 0 }}>
-              <LinearProgress className={classes.appLoader} color="primary" />
-            </Box>
-          ) : (
-            <div className={classes.appLoaderPlaceholder} />
-          )}
-          <div className={classes.viewContainer}>
-            <div>
-              <Container>
-                <div className={classes.header}>
-                  {/* //hidden for mobile views, might be good for desktop */}
-                  {/* <div className={classes.headerAnchor} ref={appHeaderAnchor} /> */}
-                  <div className={classes.headerToolbar}>
-                    {/* {!isMdUp && ( */}
-                    <SidebarDrawer
-                      menuItems={menuStructure}
-                      onMenuItemClick={navigate}
-                    />
-                    {/* )} */}
-                    <div className={classes.spacer} />
-                    <div className={classes.userBar}>
-                      <NavigatorButton
-                        isMac={navigator.platform.toLowerCase().includes("mac")}
-                        onClick={() => setNavigatorVisibility(true)}
-                      />
-                    </div>
-                  </div>
+
+      {/* {appState.loading ? (
+        <Box sx={{ position: "fixed", top: 0 }}>
+          <LinearProgress className={classes.appLoader} color="primary" />
+        </Box>
+      ) : (
+        <div className={classes.appLoaderPlaceholder} />
+      )} */}
+      <IonPage>
+        {/* <div> */}
+        <IonHeader collapse="condense">
+          <IonToolbar>
+            <div className={classes.header}>
+              {/* //hidden for mobile views, might be good for desktop */}
+              {/* <div className={classes.headerAnchor} ref={appHeaderAnchor} /> */}
+              <div className={classes.headerToolbar}>
+                {/* {!isMdUp && ( */}
+                <SidebarDrawer
+                  menuItems={menuStructure}
+                  onMenuItemClick={navigate}
+                />
+                {/* )} */}
+                <div className={classes.spacer} />
+                <div className={classes.userBar}>
+                  <NavigatorButton
+                    isMac={navigator.platform.toLowerCase().includes("mac")}
+                    onClick={() => setNavigatorVisibility(true)}
+                  />
                 </div>
-              </Container>
+              </div>
             </div>
-            {/* <main className={classes.view}> */}
-            {appState.error
-              ? appState.error.type === "unhandled" && (
-                  <ErrorPage id={appState.error.id} onBack={handleErrorBack} />
-                )
-              : children}
-            {/* </main> */}
-          </div>
-          <Portal>
-            <div
-              className={classNames(classes.appAction, {
-                [classes.appActionDocked]: docked
-              })}
-              ref={appActionAnchor}
-            />
-          </Portal>
-        </div>
-      </div>
+          </IonToolbar>
+        </IonHeader>
+
+        {/* </Container> */}
+        {/* </div> */}
+        {/* <main className={classes.view}> */}
+        {appState.error
+          ? appState.error.type === "unhandled" && (
+              <ErrorPage id={appState.error.id} onBack={handleErrorBack} />
+            )
+          : children}
+        {/* </main> */}
+      </IonPage>
+      <Portal>
+        <div
+          className={classNames(classes.appAction, {
+            [classes.appActionDocked]: docked
+          })}
+          ref={appActionAnchor}
+        />
+      </Portal>
+
+      {/* </div> */}
     </>
   );
 };

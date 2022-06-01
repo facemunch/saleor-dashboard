@@ -7,7 +7,7 @@ import ColumnPicker, {
   ColumnPickerChoice
 } from "@saleor/components/ColumnPicker";
 import Container from "@saleor/components/Container";
-import FilterBar from "@saleor/components/FilterBar";
+import FilterBar from "@saleor/components/FilterBarIonic";
 import LimitReachedAlert from "@saleor/components/LimitReachedAlert";
 import PageHeader from "@saleor/components/PageHeader";
 import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
@@ -40,6 +40,28 @@ import {
   ProductFilterKeys,
   ProductListFilterOpts
 } from "./filters";
+
+import {
+  IonFab,
+  IonPage,
+  IonContent,
+  IonIcon,
+  IonFabButton
+} from "@ionic/react";
+import {
+  add,
+  settings,
+  share,
+  person,
+  arrowForwardCircle,
+  arrowBackCircle,
+  arrowUpCircle,
+  logoVimeo,
+  logoFacebook,
+  logoInstagram,
+  logoTwitter
+} from "ionicons/icons";
+
 export interface ProductListPageProps
   extends PageListProps<ProductListColumns>,
     ListActions,
@@ -149,24 +171,25 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
   const extensionCreateButtonItems = mapToMenuItems(create);
 
   return (
-    <Container className={classes.container}>
-      <PageHeader
-        title={intl.formatMessage(sectionNames.products)}
-        limitText={
-          hasLimits(limits, "productVariants") &&
-          intl.formatMessage(
-            {
-              defaultMessage: "{count}/{max} SKUs used",
-              description: "created products counter"
-            },
-            {
-              count: limits.currentUsage.productVariants,
-              max: limits.allowedUsage.productVariants
-            }
-          )
-        }
-      >
-        <CardMenu
+    <>
+      <IonContent>
+        {/* <PageHeader
+          title={intl.formatMessage(sectionNames.products)}
+          limitText={
+            hasLimits(limits, "productVariants") &&
+            intl.formatMessage(
+              {
+                defaultMessage: "{count}/{max} SKUs used",
+                description: "created products counter"
+              },
+              {
+                count: limits.currentUsage.productVariants,
+                max: limits.allowedUsage.productVariants
+              }
+            )
+          }
+        > */}
+        {/* <CardMenu
           className={classes.settings}
           menuItems={[
             {
@@ -180,8 +203,8 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
             ...extensionMenuItems
           ]}
           data-test="menu"
-        />
-        <ColumnPicker
+        /> */}
+        {/* <ColumnPicker
           className={classes.columnPicker}
           columns={columns}
           defaultColumns={defaultSettings.columns}
@@ -194,30 +217,42 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
           }
           onFetchMore={onFetchMore}
           onSave={handleSave}
-        />
-        <ButtonWithSelect
-          options={extensionCreateButtonItems}
+        /> */}
+        <IonFab
+          vertical="bottom"
+          horizontal="end"
+          slot="fixed"
+          style={{
+            marginBottom: "50px"
+          }}
+          // options={extensionCreateButtonItems}
           data-test="add-product"
-          disabled={limitReached}
-          onClick={onAdd}
+          // disabled={limitReached}
         >
-          <FormattedMessage
+          <IonFabButton onClick={onAdd}>
+            {/* <ButtonWithSelect
+          
+          > */}
+            {/* <FormattedMessage
             defaultMessage="Create Product"
             description="button"
-          />
-        </ButtonWithSelect>
-      </PageHeader>
-      {limitReached && (
-        <LimitReachedAlert
-          title={intl.formatMessage({
-            defaultMessage: "SKU limit reached",
-            description: "alert"
-          })}
-        >
-          <FormattedMessage defaultMessage="You have reached your SKU limit, you will be no longer able to add SKUs to your store. If you would like to up your limit, contact your administration staff about raising your limits." />
-        </LimitReachedAlert>
-      )}
-      <Card>
+          /> */}
+            <IonIcon icon={add} />
+            {/* </ButtonWithSelect> */}
+          </IonFabButton>
+        </IonFab>
+        {/* </PageHeader> */}
+        {limitReached && (
+          <LimitReachedAlert
+            title={intl.formatMessage({
+              defaultMessage: "SKU limit reached",
+              description: "alert"
+            })}
+          >
+            <FormattedMessage defaultMessage="You have reached your SKU limit, you will be no longer able to add SKUs to your store. If you would like to up your limit, contact your administration staff about raising your limits." />
+          </LimitReachedAlert>
+        )}
+        {/* <Card> */}
         <FilterBar
           currencySymbol={currencySymbol}
           currentTab={currentTab}
@@ -248,8 +283,9 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
           selectedChannelId={selectedChannelId}
           onUpdateListSettings={onUpdateListSettings}
         />
-      </Card>
-    </Container>
+        {/* </Card> */}
+      </IonContent>
+    </>
   );
 };
 ProductListPage.displayName = "ProductListPage";

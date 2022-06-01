@@ -37,7 +37,21 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 
 import { messages } from "./messages";
-
+import {
+  IonList,
+  IonItem,
+  IonCard,
+  IonPage,
+  IonLabel,
+  IonInput,
+  IonToggle,
+  IonRadio,
+  IonCheckbox,
+  IonItemSliding,
+  IonItemOption,
+  IonItemOptions,
+  IonContent
+} from "@ionic/react";
 const useStyles = makeStyles(
   theme => ({
     [theme.breakpoints.up("md")]: {
@@ -143,9 +157,9 @@ export const ProductList: React.FC<ProductListProps> = props => {
   const numberOfColumns = 2 + settings.columns.length;
 
   return (
-    <div className={classes.tableContainer}>
-      <ResponsiveTable className={classes.table}>
-        <colgroup>
+    <IonCard className={classes.tableContainer}>
+      {/* <ResponsiveTable className={classes.table}> */}
+          <colgroup style={{width: '100vw'}}>
           <col />
           <col className={classes.colName} />
           <DisplayColumn column="productType" displayColumns={settings.columns}>
@@ -440,8 +454,8 @@ export const ProductList: React.FC<ProductListProps> = props => {
             )
           )}
         </TableBody>
-      </ResponsiveTable>
-    </div>
+      {/* </ResponsiveTable> */}
+    </IonCard>
   );
 };
 ProductList.displayName = "ProductList";

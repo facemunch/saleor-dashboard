@@ -11,7 +11,7 @@ export interface MoneyRangeProps {
 
 export const MoneyRange: React.FC<MoneyRangeProps> = ({ from, to }) => {
   const intl = useIntl();
-
+  console.log("MoneyRange", { from, to });
   return (
     <LocaleConsumer>
       {({ locale }) =>
