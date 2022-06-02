@@ -41,7 +41,8 @@ const useStyles = makeStyles(
         },
         colDate: {},
         colFulfillment: {
-          width: 230
+          width: 230,
+          marginLeft: "12px"
         },
         colNumber: {
           width: 120
@@ -53,7 +54,7 @@ const useStyles = makeStyles(
       },
       colCustomer: overflowing,
       colDate: {},
-      colFulfillment: overflowing,
+      colFulfillment: { ...overflowing, marginLeft: "12px" },
       colNumber: {},
       colPayment: overflowing,
       colTotal: {
@@ -101,7 +102,7 @@ export const OrderList: React.FC<OrderListProps> = props => {
     <ResponsiveTable>
       <TableHead>
         <TableRow>
-          <TableCellHeader
+          {/* <TableCellHeader
             direction={
               sort.sort === OrderListUrlSortField.number
                 ? getArrowDirection(sort.asc)
@@ -112,8 +113,8 @@ export const OrderList: React.FC<OrderListProps> = props => {
             className={classes.colNumber}
           >
             <FormattedMessage defaultMessage="No. of Order" />
-          </TableCellHeader>
-          <TableCellHeader
+          </TableCellHeader> */}
+          {/* <TableCellHeader
             direction={
               sort.sort === OrderListUrlSortField.date
                 ? getArrowDirection(sort.asc)
@@ -126,7 +127,7 @@ export const OrderList: React.FC<OrderListProps> = props => {
               defaultMessage="Date"
               description="date when order was placed"
             />
-          </TableCellHeader>
+          </TableCellHeader> */}
           <TableCellHeader
             direction={
               sort.sort === OrderListUrlSortField.customer
@@ -134,14 +135,14 @@ export const OrderList: React.FC<OrderListProps> = props => {
                 : undefined
             }
             onClick={() => onSort(OrderListUrlSortField.customer)}
-            className={classes.colCustomer}
+            className={classes.colCustomer + ' ml-1'}
           >
             <FormattedMessage
               defaultMessage="Customer"
               description="e-mail or full name"
             />
           </TableCellHeader>
-          <TableCellHeader
+          {/* <TableCellHeader
             direction={
               sort.sort === OrderListUrlSortField.payment
                 ? getArrowDirection(sort.asc)
@@ -154,8 +155,8 @@ export const OrderList: React.FC<OrderListProps> = props => {
               defaultMessage="Payment"
               description="payment status"
             />
-          </TableCellHeader>
-          <TableCellHeader
+          </TableCellHeader> */}
+          {/* <TableCellHeader
             direction={
               sort.sort === OrderListUrlSortField.fulfillment
                 ? getArrowDirection(sort.asc)
@@ -165,7 +166,7 @@ export const OrderList: React.FC<OrderListProps> = props => {
             className={classes.colFulfillment}
           >
             <FormattedMessage defaultMessage="Fulfillment status" />
-          </TableCellHeader>
+          </TableCellHeader> */}
           <TableCellHeader textAlign="right" className={classes.colTotal}>
             <FormattedMessage
               defaultMessage="Total"
@@ -200,57 +201,71 @@ export const OrderList: React.FC<OrderListProps> = props => {
               onClick={order ? onRowClick(order.id) : undefined}
               key={order ? order.id : "skeleton"}
             >
-              <TableCell className={classes.colNumber}>
-                {maybe(() => order.number) ? "#" + order.number : <Skeleton />}
+              <TableCell>
+                <div className="flex">
+                  <div className={classes.colNumber}>
+                    {maybe(() => order.number) ? (
+                      "#" + order.number
+                    ) : (
+                      <Skeleton />
+                    )}
+                  </div>
+                  •
+                  <div className={classes.colDate}>
+                    {maybe(() => order.created) ? (
+                      <DateTime date={order.created} />
+                    ) : (
+                      <Skeleton />
+                    )}
+                  </div>
+                </div>
+
+                <div className={classes.colCustomer}>
+                  {maybe(() => order.billingAddress) ? (
+                    <>
+                      {order.billingAddress.firstName}
+                      &nbsp;
+                      {order.billingAddress.lastName}
+                    </>
+                  ) : maybe(() => order.userEmail) !== undefined ? (
+                    order.userEmail
+                  ) : (
+                    <Skeleton />
+                  )}
+                </div>
+                <div className="flex">
+                  <div className={classes.colPayment}>
+                    {maybe(() => order.paymentStatus.status) !== undefined ? (
+                      order.paymentStatus.status === null ? null : (
+                        <StatusLabel
+                          status={order.paymentStatus.status}
+                          label={order.paymentStatus.localized}
+                        />
+                      )
+                    ) : (
+                      <Skeleton />
+                    )}
+                  </div>
+                  <div className={classes.colFulfillment}>
+                    {maybe(() => order.status) ? (
+                      <StatusLabel
+                        status={order.status.status}
+                        label={order.status.localized}
+                      />
+                    ) : (
+                      <Skeleton />
+                    )}
+                  </div>
+                </div>
               </TableCell>
-              <TableCell className={classes.colDate}>
-                {maybe(() => order.created) ? (
-                  <DateTime date={order.created} />
-                ) : (
-                  <Skeleton />
-                )}
-              </TableCell>
-              <TableCell className={classes.colCustomer}>
-                {maybe(() => order.billingAddress) ? (
-                  <>
-                    {order.billingAddress.firstName}
-                    &nbsp;
-                    {order.billingAddress.lastName}
-                  </>
-                ) : maybe(() => order.userEmail) !== undefined ? (
-                  order.userEmail
-                ) : (
-                  <Skeleton />
-                )}
-              </TableCell>
-              <TableCell className={classes.colPayment}>
-                {maybe(() => order.paymentStatus.status) !== undefined ? (
-                  order.paymentStatus.status === null ? null : (
-                    <StatusLabel
-                      status={order.paymentStatus.status}
-                      label={order.paymentStatus.localized}
-                    />
-                  )
-                ) : (
-                  <Skeleton />
-                )}
-              </TableCell>
-              <TableCell className={classes.colFulfillment}>
-                {maybe(() => order.status) ? (
-                  <StatusLabel
-                    status={order.status.status}
-                    label={order.status.localized}
-                  />
-                ) : (
-                  <Skeleton />
-                )}
-              </TableCell>
-              <TableCell className={classes.colTotal}>
-                {maybe(() => order.total.gross) ? (
-                  <Money money={order.total.gross} />
-                ) : (
-                  <Skeleton />
-                )}
+              <TableCell>
+                <div className={classes.colTotal}>
+                  {maybe(() => order.total.gross) ? (
+                    <Money money={order.total.gross} />
+                  ) : (
+                    <Skeleton />
+                  )}
+                </div>
               </TableCell>
             </TableRow>
           ),

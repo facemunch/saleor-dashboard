@@ -82,7 +82,7 @@ const useStyles = makeStyles(
     },
     colNameFixed: {},
     colNameHeader: {
-      marginLeft: AVATAR_MARGIN + 45
+      marginLeft: "-5px"
     },
     colNameWrapper: {
       display: "block"
