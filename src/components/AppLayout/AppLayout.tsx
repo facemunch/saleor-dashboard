@@ -226,27 +226,27 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       )} */}
       <IonPage>
         {/* <div> */}
-        <IonHeader collapse="condense">
+        <IonHeader translucent collapse="condense">
           <IonToolbar>
-            <div className={classes.header}>
-              {/* //hidden for mobile views, might be good for desktop */}
-              {/* <div className={classes.headerAnchor} ref={appHeaderAnchor} /> */}
-              <div className={classes.headerToolbar}>
-                {/* {!isMdUp && ( */}
-                <SidebarDrawer
-                  menuItems={menuStructure}
-                  onMenuItemClick={navigate}
+            {/* <div className={classes.header}> */}
+            {/* //hidden for mobile views, might be good for desktop */}
+            {/* <div className={classes.headerAnchor} ref={appHeaderAnchor} /> */}
+            {/* <div className={classes.headerToolbar}> */}
+            {/* {!isMdUp && ( */}
+            <SidebarDrawer
+              menuItems={menuStructure}
+              onMenuItemClick={navigate}
+            />
+            {/* )} */}
+            {/* <div className={classes.spacer} /> */}
+            {/* <div className={classes.userBar}>
+                <NavigatorButton
+                  isMac={navigator.platform.toLowerCase().includes("mac")}
+                  onClick={() => setNavigatorVisibility(true)}
                 />
-                {/* )} */}
-                <div className={classes.spacer} />
-                <div className={classes.userBar}>
-                  <NavigatorButton
-                    isMac={navigator.platform.toLowerCase().includes("mac")}
-                    onClick={() => setNavigatorVisibility(true)}
-                  />
-                </div>
-              </div>
-            </div>
+              </div> */}
+            {/* </div> */}
+            {/* </div> */}
           </IonToolbar>
         </IonHeader>
 

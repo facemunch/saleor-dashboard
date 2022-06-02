@@ -20,7 +20,7 @@ import HomeActivityCard from "../HomeActivityCard";
 import HomeAnalyticsCard from "../HomeAnalyticsCard";
 import HomeNotificationTable from "../HomeNotificationTable/HomeNotificationTable";
 import HomeProductListCard from "../HomeProductListCard";
-
+import { IonContent } from "@ionic/react";
 const useStyles = makeStyles(
   theme => ({
     cardContainer: {
@@ -83,7 +83,7 @@ const HomePage: React.FC<HomePageProps> = props => {
   const classes = useStyles(props);
 
   return (
-    <Container>
+    <IonContent>
       {/* <div
       style={{
         width: "92vw",
@@ -184,7 +184,7 @@ const HomePage: React.FC<HomePageProps> = props => {
         )} */}
       </Grid>
       {/* </div> */}
-    </Container>
+    </IonContent>
   );
 };
 HomePage.displayName = "HomePage";

@@ -4,6 +4,8 @@ import { ControlledCheckbox } from "@saleor/components/ControlledCheckbox";
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { IonCard } from "@ionic/react";
+
 interface ProductTypeShippingProps {
   data: {
     isShippingRequired: boolean;
@@ -23,7 +25,7 @@ const ProductTypeShipping: React.FC<ProductTypeShippingProps> = ({
   const intl = useIntl();
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Shipping",
@@ -59,7 +61,7 @@ const ProductTypeShipping: React.FC<ProductTypeShippingProps> = ({
           />
         )}
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 

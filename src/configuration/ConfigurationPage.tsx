@@ -2,7 +2,7 @@ import {
   Card,
   CardContent,
   Typography,
-  IconProps,
+  IconProps
   // useMediaQuery
 } from "@mui/material";
 // import { useTheme } from "@mui/styles";
@@ -11,6 +11,8 @@ import { sectionNames } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { useIntl } from "react-intl";
+
+import { IonContent, IonCard } from "@ionic/react";
 
 import { hasAnyPermissions } from "../auth/misc";
 import Container from "../components/Container";
@@ -110,7 +112,7 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
   const intl = useIntl();
 
   return (
-    <Container>
+    <IonContent>
       <PageHeader
         className={classes.header}
         title={intl.formatMessage(sectionNames.configuration)}
@@ -122,7 +124,7 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
           )
         )
         .map((menu, menuIndex) => (
-          <div className={classes.configurationCategory} key={menuIndex}>
+          <IonCard className={classes.configurationCategory} key={menuIndex}>
             <div className={classes.configurationLabel}>
               <Typography>{menu.label}</Typography>
             </div>
@@ -157,9 +159,9 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
                   </Card>
                 ))}
             </div>
-          </div>
+          </IonCard>
         ))}
-    </Container>
+    </IonContent>
   );
 };
 ConfigurationPage.displayName = "ConfigurationPage";

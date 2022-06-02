@@ -9,6 +9,7 @@ import { ListActions, PageListProps, UserPermissionProps } from "@saleor/types";
 import { PermissionEnum, WeightUnitsEnum } from "@saleor/types/globalTypes";
 import React from "react";
 import { useIntl } from "react-intl";
+import { IonContent } from "@ionic/react";
 
 import ShippingWeightUnitForm from "../ShippingWeightUnitForm";
 import ShippingZonesList from "../ShippingZonesList";
@@ -35,7 +36,7 @@ const ShippingZonesListPage: React.FC<ShippingZonesListPageProps> = ({
   const intl = useIntl();
 
   return (
-    <Container>
+    <IonContent>
       <Backlink onClick={onBack}>
         {intl.formatMessage(sectionNames.configuration)}
       </Backlink>
@@ -62,7 +63,7 @@ const ShippingZonesListPage: React.FC<ShippingZonesListPageProps> = ({
           </RequirePermissions>
         </div>
       </Grid>
-    </Container>
+    </IonContent>
   );
 };
 ShippingZonesListPage.displayName = "ShippingZonesListPage";

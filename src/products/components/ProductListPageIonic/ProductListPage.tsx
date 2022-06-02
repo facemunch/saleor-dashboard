@@ -225,20 +225,11 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
           style={{
             marginBottom: "50px"
           }}
-          // options={extensionCreateButtonItems}
           data-test="add-product"
           // disabled={limitReached}
         >
           <IonFabButton onClick={onAdd}>
-            {/* <ButtonWithSelect
-          
-          > */}
-            {/* <FormattedMessage
-            defaultMessage="Create Product"
-            description="button"
-          /> */}
             <IonIcon icon={add} />
-            {/* </ButtonWithSelect> */}
           </IonFabButton>
         </IonFab>
         {/* </PageHeader> */}

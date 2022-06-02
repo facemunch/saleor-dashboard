@@ -1,10 +1,4 @@
-import {
-  Card,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow
-} from "@mui/material";
+import { Card, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { Container } from "@saleor/components/Container";
 import Grid from "@saleor/components/Grid";
 import PageHeader from "@saleor/components/PageHeader";
@@ -15,7 +9,7 @@ import { Backlink } from "@saleor/macaw-ui";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-
+import { IonContent } from "@ionic/react";
 import { maybe, renderCollection } from "../../../misc";
 import { CountryList_shop_countries_vat_reducedRates } from "../../types/CountryList";
 
@@ -41,7 +35,7 @@ const CountryTaxesPage: React.FC<CountryTaxesPageProps> = props => {
   const intl = useIntl();
 
   return (
-    <Container>
+    <IonContent>
       <Backlink onClick={onBack}>
         {intl.formatMessage(sectionNames.taxes)}
       </Backlink>
@@ -105,7 +99,7 @@ const CountryTaxesPage: React.FC<CountryTaxesPageProps> = props => {
           </Card>
         </div>
       </Grid>
-    </Container>
+    </IonContent>
   );
 };
 CountryTaxesPage.displayName = "CountryTaxesPage";

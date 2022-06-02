@@ -16,6 +16,7 @@ import { SearchCustomers_search_edges_node } from "@saleor/searches/types/Search
 import { FetchMoreProps, UserPermissionProps } from "@saleor/types";
 import React from "react";
 import { useIntl } from "react-intl";
+import { IonContent } from "@ionic/react";
 
 import { OrderDetails_order } from "../../types/OrderDetails";
 import OrderCustomer, { CustomerEditData } from "../OrderCustomer";
@@ -92,7 +93,7 @@ const OrderDraftPage: React.FC<OrderDraftPageProps> = props => {
   const intl = useIntl();
 
   return (
-    <Container>
+    <IonContent>
       <Backlink onClick={onBack}>
         {intl.formatMessage(sectionNames.draftOrders)}
       </Backlink>
@@ -169,7 +170,7 @@ const OrderDraftPage: React.FC<OrderDraftPageProps> = props => {
           })
         }}
       />
-    </Container>
+    </IonContent>
   );
 };
 OrderDraftPage.displayName = "OrderDraftPage";

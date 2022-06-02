@@ -12,6 +12,8 @@ import { hasLimits, isLimitReached } from "@saleor/utils/limits";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { IonContent, IonCard } from "@ionic/react";
+
 import { OrderList_orders_edges_node } from "../../types/OrderList";
 import OrderLimitReached from "../OrderLimitReached";
 import OrderList from "../OrderList";
@@ -61,7 +63,7 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
   const limitsReached = isLimitReached(limits, "orders");
 
   return (
-    <Container>
+    <IonContent>
       <PageHeader
         title={intl.formatMessage(sectionNames.orders)}
         limitText={
@@ -106,7 +108,7 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
         </Button>
       </PageHeader>
       {limitsReached && <OrderLimitReached />}
-      <Card>
+      <IonCard>
         <FilterBar
           currentTab={currentTab}
           initialSearch={initialSearch}
@@ -127,8 +129,8 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
           })}
         />
         <OrderList {...listProps} />
-      </Card>
-    </Container>
+      </IonCard>
+    </IonContent>
   );
 };
 OrderListPage.displayName = "OrderListPage";

@@ -13,6 +13,7 @@ import {
 } from "@saleor/types";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { IonContent, IonCard } from "@ionic/react";
 
 import { ListCustomers_customers_edges_node } from "../../types/ListCustomers";
 import CustomerList from "../CustomerList/CustomerList";
@@ -50,7 +51,7 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
   const structure = createFilterStructure(intl, filterOpts);
 
   return (
-    <Container>
+    <IonContent>
       <PageHeader title={intl.formatMessage(sectionNames.customers)}>
         <Button
           color="primary"
@@ -64,7 +65,7 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
           />
         </Button>
       </PageHeader>
-      <Card>
+      <IonCard>
         <FilterBar
           allTabLabel={intl.formatMessage({
             defaultMessage: "All Customers",
@@ -85,8 +86,8 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
           onTabSave={onTabSave}
         />
         <CustomerList {...customerListProps} />
-      </Card>
-    </Container>
+      </IonCard>
+    </IonContent>
   );
 };
 CustomerListPage.displayName = "CustomerListPage";

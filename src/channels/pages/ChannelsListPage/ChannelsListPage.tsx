@@ -25,6 +25,8 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { Channels_channels } from "../../types/Channels";
 import { useStyles } from "./styles";
 
+import { IonContent } from "@ionic/react";
+
 export interface ChannelsListPageProps {
   channelsList: Channels_channels[] | undefined;
   limits: RefreshLimits_shop_limits;
@@ -50,7 +52,7 @@ export const ChannelsListPage: React.FC<ChannelsListPageProps> = ({
   const limitReached = isLimitReached(limits, "channels");
 
   return (
-    <Container>
+    <IonContent>
       <Backlink onClick={onBack}>
         {intl.formatMessage(sectionNames.configuration)}
       </Backlink>
@@ -153,7 +155,7 @@ export const ChannelsListPage: React.FC<ChannelsListPageProps> = ({
           </TableBody>
         </ResponsiveTable>
       </Card>
-    </Container>
+    </IonContent>
   );
 };
 

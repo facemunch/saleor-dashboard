@@ -12,6 +12,8 @@ import {
   SortPage,
   TabPageProps
 } from "@saleor/types";
+import { IonContent, IonCard } from "@ionic/react";
+
 import { hasLimits, isLimitReached } from "@saleor/utils/limits";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -56,7 +58,7 @@ const OrderDraftListPage: React.FC<OrderDraftListPageProps> = ({
   const limitsReached = isLimitReached(limits, "orders");
 
   return (
-    <Container>
+    <IonContent>
       <PageHeader
         title={intl.formatMessage(sectionNames.draftOrders)}
         limitText={
@@ -86,7 +88,7 @@ const OrderDraftListPage: React.FC<OrderDraftListPageProps> = ({
         </Button>
       </PageHeader>
       {limitsReached && <OrderLimitReached />}
-      <Card>
+      <IonCard>
         <FilterBar
           allTabLabel={intl.formatMessage({
             defaultMessage: "All Drafts",
@@ -107,8 +109,8 @@ const OrderDraftListPage: React.FC<OrderDraftListPageProps> = ({
           onTabSave={onTabSave}
         />
         <OrderDraftList disabled={disabled} {...listProps} />
-      </Card>
-    </Container>
+      </IonCard>
+    </IonContent>
   );
 };
 OrderDraftListPage.displayName = "OrderDraftListPage";

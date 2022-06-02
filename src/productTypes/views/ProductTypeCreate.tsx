@@ -13,7 +13,7 @@ import { useIntl } from "react-intl";
 import { maybe } from "../../misc";
 import ProductTypeCreatePage, {
   ProductTypeForm
-} from "../components/ProductTypeCreatePage";
+} from "../components/ProductTypeCreatePageIonic";
 import { TypedProductTypeCreateMutation } from "../mutations";
 import { TypedProductTypeCreateDataQuery } from "../queries";
 import { ProductTypeCreate as ProductTypeCreateMutation } from "../types/ProductTypeCreate";
