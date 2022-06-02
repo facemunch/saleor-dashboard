@@ -20,7 +20,7 @@ import HomeActivityCard from "../HomeActivityCard";
 import HomeAnalyticsCard from "../HomeAnalyticsCard";
 import HomeNotificationTable from "../HomeNotificationTable/HomeNotificationTable";
 import HomeProductListCard from "../HomeProductListCard";
-import { IonContent } from "@ionic/react";
+import { IonContent, IonPage, IonCard } from "@ionic/react";
 const useStyles = makeStyles(
   theme => ({
     cardContainer: {
@@ -94,7 +94,7 @@ const HomePage: React.FC<HomePageProps> = props => {
     > */}
       <CardSpacer />
       <Grid>
-        <div>
+        <IonCard>
           <RequirePermissions
             userPermissions={userPermissions}
             requiredPermissions={[PermissionEnum.MANAGE_ORDERS]}
@@ -168,7 +168,7 @@ const HomePage: React.FC<HomePageProps> = props => {
               <CardSpacer />
             </RequirePermissions>
           )}
-        </div>
+        </IonCard>
         {/* {activities && (
           <div>
             <RequirePermissions

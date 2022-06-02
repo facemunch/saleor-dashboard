@@ -4,6 +4,7 @@ import SVG from "react-inlinesvg";
 import { IonButton } from "@ionic/react";
 import { SidebarMenuItem } from "../Sidebar/types";
 import useStyles from "./styles";
+import { IonSegmentButton, IonLabel } from "@ionic/react";
 
 export interface MenuItemBtnProps {
   menuItem: SidebarMenuItem;
@@ -20,9 +21,10 @@ export const MenuItemBtn: React.FC<MenuItemBtnProps> = ({
   const Component = menuItem.external ? "a" : "button";
 
   return (
-    <Component
+    <IonSegmentButton
       // expand="block"
       // fill="clear"
+      value={menuItem.label.toLowerCase()}
       className={classes.menuItemBtn}
       data-test="menu-item-label"
       data-test-id={menuItem.id}
@@ -32,10 +34,10 @@ export const MenuItemBtn: React.FC<MenuItemBtnProps> = ({
       {menuItem.iconSrc && (
         <SVG className={classes.icon} src={menuItem.iconSrc} />
       )}
-      <Typography aria-label={menuItem.ariaLabel} className={classes.label}>
-        {menuItem.label}
-      </Typography>
-    </Component>
+      <IonLabel aria-label={menuItem.ariaLabel} className={classes.label}>
+        {menuItem.label === "Configuration" ? "Settings" : menuItem.label}
+      </IonLabel>
+    </IonSegmentButton>
   );
 };
 

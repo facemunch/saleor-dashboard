@@ -166,14 +166,14 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
     //   id: "translations",
     //   url: languageListUrl
     // },
-    {
-      ariaLabel: "configure",
-      iconSvg: ellipse,
-      label: intl.formatMessage(sectionNames.configuration),
-      permissions: getConfigMenuItemsPermissions(intl),
-      id: "configure",
-      url: configurationMenuUrl
-    }
+    // {
+    //   ariaLabel: "configure",
+    //   iconSvg: ellipse,
+    //   label: intl.formatMessage(sectionNames.configuration),
+    //   permissions: getConfigMenuItemsPermissions(intl),
+    //   id: "configure",
+    //   url: configurationMenuUrl
+    // }
   ];
 
   const isMenuItemPermitted = (menuItem: FilterableMenuItem) =>

@@ -8,28 +8,28 @@ import { MenuItemBtn } from "./MenuItemBtn";
 import useStyles from "./styles";
 import { useNavigate, useLocation } from "react-router-dom";
 
+import { IonSegment } from "@ionic/react";
+
 export type SideBarDrawerProps = BaseSidebarProps;
 
 export const SidebarDrawer: React.FC<SideBarDrawerProps> = props => {
   const { menuItems, onMenuItemClick } = props;
-  let location = useLocation();
-
+  let { pathname } = useLocation();
+  console.log("location", location);
   const nav = useNavigate();
-  const [isOpened, setOpened] = React.useState(
-    location.pathname === "/ecommerce"
-  );
+  const [isOpened, setOpened] = React.useState(pathname === "/ecommerce");
   const classes = useStyles({});
 
   const [showSubmenu, setShowSubmenu] = React.useState(false);
   const container = React.useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (location.pathname === "/ecommerce") {
-      setOpened(true);
-    } else {
-      setOpened(false);
-    }
-  }, [location.pathname]);
+  // useEffect(() => {
+  //   if (pathnamepathname === "/ecommerce") {
+  //     setOpened(true);
+  //   } else {
+  //     setOpened(false);
+  //   }
+  // }, [pathname]);
 
   const handleMenuItemClick = (url: string) => {
     setOpened(false);
@@ -45,18 +45,18 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = props => {
     });
   };
 
-  const showMainMenuTrigger = useMemo(() => {
-    return location.pathname.split("/").length <= 2;
-  }, [location.pathname]);
-
+  // const showMainMenuTrigger = useMemo(() => {
+  //   return pathname.split("/").length <= 2;
+  // }, [pathname]);
+  // console.log('pathname.replace("/", "")', pathname.replace("/", ""));
   return (
     <>
-      {showMainMenuTrigger && (
+      {/* {showMainMenuTrigger && (
         <SquareButton onClick={() => setOpened(true)}>
           <ArrowBackIosNewRoundedIcon />
         </SquareButton>
-      )}
-      <Drawer
+      )} */}
+      {/* <Drawer
         classes={{
           paper: classes.root
         }}
@@ -68,34 +68,39 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = props => {
         }}
         open={isOpened}
         onClose={() => setOpened(false)}
+      > */}
+      <div
+        className={clsx(classes.container, {
+          [classes.containerSubMenu]: showSubmenu
+        })}
+        ref={container}
       >
-        <div
-          className={clsx(classes.container, {
-            [classes.containerSubMenu]: showSubmenu
-          })}
-          ref={container}
-        >
-          <div
+        {/* <div
             className={clsx(classes.innerContainer, {
               [classes.secondaryContentActive]: showSubmenu
             })}
-          >
-            <div className={classes.content}>
-              {menuItems.map(menuItem => (
-                <MenuItemBtn
-                  menuItem={menuItem}
-                  onClick={
-                    menuItem.children
-                      ? () => handleMenuItemWithChildrenClick(menuItem)
-                      : handleMenuItemClick
-                  }
-                  key={menuItem.ariaLabel}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </Drawer>
+          > */}
+        {/* <div className={classes.content}> */}
+        <IonSegment
+          scrollable
+          value={pathname.split("/")[1] ? pathname.split("/")[1] : "home"}
+        >
+          {menuItems.map(menuItem => (
+            <MenuItemBtn
+              menuItem={menuItem}
+              onClick={
+                menuItem.children
+                  ? () => handleMenuItemWithChildrenClick(menuItem)
+                  : handleMenuItemClick
+              }
+              key={menuItem.ariaLabel}
+            />
+          ))}
+        </IonSegment>
+        {/* </div> */}
+        {/* </div> */}
+      </div>
+      {/* </Drawer> */}
     </>
   );
 };

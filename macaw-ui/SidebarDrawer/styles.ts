@@ -14,13 +14,13 @@ const useStyles = makeStyles(
       }
     },
     content: {
-      textAlign: "left",
-      display: "flex",
-      flexDirection: "column",
-      flexDirection: "column",
-      height: "61vh",
-      justifyContent: "space-between",
-      padding: "28px"
+      // textAlign: "left",
+      // display: "flex",
+      // flexDirection: "column",
+      // flexDirection: "column",
+      // height: "61vh",
+      // justifyContent: "space-between",
+      // padding: "28px"
     },
     icon: {
       color: "#b8a7fd",
@@ -37,11 +37,11 @@ const useStyles = makeStyles(
       width: "200%"
     },
     label: {
-      fontSize: "2rem !important",
-      fontWeight: "800!important",
+      // fontSize: "2rem !important",
+      // fontWeight: "800!important",
       "> p": {
-        fontSize: "2rem !important",
-        fontWeight: "bold"
+        // fontSize: "2rem !important",
+        // fontWeight: "bold"
       }
     },
     logo: {
@@ -52,9 +52,9 @@ const useStyles = makeStyles(
       textAlign: "left"
     },
     root: {
-      fontWeight: "bold",
-      fontSize: "2rem",
-      margin: "12px !important"
+      // fontWeight: "bold",
+      // fontSize: "2rem",
+      // margin: "12px !important"
     },
     secondaryContentActive: {
       right: "100%"

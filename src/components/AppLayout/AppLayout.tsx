@@ -3,7 +3,7 @@ import useAppState from "@saleor/hooks/useAppState";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useUser from "@saleor/hooks/useUser";
 import Portal from "@mui/material/Portal";
-
+import { settingsOutline, chevronBackOutline } from "ionicons/icons";
 import {
   makeStyles,
   SaleorTheme,
@@ -17,7 +17,7 @@ import {
 import classNames from "classnames";
 import React from "react";
 import { useIntl } from "react-intl";
-// import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   IonFab,
   IonPage,
@@ -25,6 +25,8 @@ import {
   IonToolbar,
   IonHeader,
   IonIcon,
+  IonButton,
+  IonButtons,
   IonFabButton
 } from "@ionic/react";
 import Container from "../Container";
@@ -171,7 +173,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const navigate = useNavigator();
   const intl = useIntl();
   const [appState, dispatchAppState] = useAppState();
-  // const location = useLocation();
+  const location = useLocation();
   const [isNavigatorVisible, setNavigatorVisibility] = React.useState(false);
   const isMdUp = useMediaQuery((theme: SaleorTheme) =>
     theme.breakpoints.up("md")
@@ -233,22 +235,47 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             {/* <div className={classes.headerAnchor} ref={appHeaderAnchor} /> */}
             {/* <div className={classes.headerToolbar}> */}
             {/* {!isMdUp && ( */}
-            <SidebarDrawer
-              menuItems={menuStructure}
-              onMenuItemClick={navigate}
-            />
+
             {/* )} */}
             {/* <div className={classes.spacer} /> */}
-            {/* <div className={classes.userBar}>
-                <NavigatorButton
-                  isMac={navigator.platform.toLowerCase().includes("mac")}
-                  onClick={() => setNavigatorVisibility(true)}
-                />
-              </div> */}
+            {/* <div className={classes.userBar}> */}
+            {location.pathname.includes("configuration") && (
+              <IonButtons slot="secondary">
+                <IonButton
+                  onClick={() => {
+                    navigate("/home/");
+                  }}
+                  fill="clear"
+                >
+                  <IonIcon slot="icon-only" icon={chevronBackOutline} />
+                </IonButton>
+              </IonButtons>
+            )}
+
+            <IonButtons slot="primary">
+              <IonButton
+               color="dark"
+                onClick={() => {
+                  navigate("/configuration/");
+                }}
+                fill="clear"
+              >
+                <IonIcon slot="icon-only" icon={settingsOutline} />
+              </IonButton>
+
+              <NavigatorButton
+                isMac={navigator.platform.toLowerCase().includes("mac")}
+                onClick={() => setNavigatorVisibility(true)}
+              />
+            </IonButtons>
+            {/* </div> */}
             {/* </div> */}
             {/* </div> */}
           </IonToolbar>
         </IonHeader>
+        {!location.pathname.includes("configuration") && (
+          <SidebarDrawer menuItems={menuStructure} onMenuItemClick={navigate} />
+        )}
 
         {/* </Container> */}
         {/* </div> */}
