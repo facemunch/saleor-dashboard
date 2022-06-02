@@ -82,7 +82,7 @@ const useStyles = makeStyles(
     },
     colNameFixed: {},
     colNameHeader: {
-      marginLeft: AVATAR_MARGIN
+      marginLeft: AVATAR_MARGIN + 45
     },
     colNameWrapper: {
       display: "block"
@@ -155,72 +155,73 @@ export const ProductList: React.FC<ProductListProps> = props => {
     isAttributeColumnValue
   );
   const numberOfColumns = 2 + settings.columns.length;
-
+  console.log("productproduct", products);
   return (
     <IonCard className={classes.tableContainer}>
       {/* <ResponsiveTable className={classes.table}> */}
-          <colgroup style={{width: '100vw'}}>
-          <col />
-          <col className={classes.colName} />
-          <DisplayColumn column="productType" displayColumns={settings.columns}>
-            <col className={classes.colType} />
-          </DisplayColumn>
-          {/* <DisplayColumn
+      <colgroup style={{ width: "100vw" }}>
+        {/* <col /> */}
+        <col className={classes.colName} />
+        <DisplayColumn column="productType" displayColumns={settings.columns}>
+          <col className={classes.colType} />
+        </DisplayColumn>
+        {/* <DisplayColumn
             column="availability"
             displayColumns={settings.columns}
           >
             <col className={classes.colPublished} />
           </DisplayColumn> */}
-          {gridAttributesFromSettings.map(gridAttribute => (
-            <col className={classes.colAttribute} key={gridAttribute} />
-          ))}
-          <DisplayColumn column="price" displayColumns={settings.columns}>
-            <col className={classes.colPrice} />
-          </DisplayColumn>
-        </colgroup>
-        <TableHead
-          colSpan={numberOfColumns}
-          selected={selected}
-          disabled={disabled}
-          items={products}
-          toggleAll={toggleAll}
-          toolbar={toolbar}
+        {gridAttributesFromSettings.map(gridAttribute => (
+          <col className={classes.colAttribute} key={gridAttribute} />
+        ))}
+        <DisplayColumn column="price" displayColumns={settings.columns}>
+          <col className={classes.colPrice} />
+        </DisplayColumn>
+      </colgroup>
+      <TableHead
+        colSpan={numberOfColumns}
+        selected={selected}
+        disabled={disabled}
+        items={products}
+        toggleAll={toggleAll}
+        toolbar={toolbar}
+      >
+        <TableCellHeader
+          data-test-id="colNameHeader"
+          arrowPosition="right"
+          className={classNames(classes.colName, {
+            [classes.colNameFixed]: settings.columns.length > 4
+          })}
+          direction={
+            sort.sort === ProductListUrlSortField.name
+              ? getArrowDirection(sort.asc)
+              : undefined
+          }
+          onClick={() => onSort(ProductListUrlSortField.name)}
         >
+          <span className={classes.colNameHeader}>
+            <FormattedMessage defaultMessage="Name" description="product" />
+          </span>
+        </TableCellHeader>
+        <DisplayColumn column="productType" displayColumns={settings.columns}>
           <TableCellHeader
-            data-test-id="colNameHeader"
+            data-test-id="colTypeHeader"
             arrowPosition="right"
-            className={classNames(classes.colName, {
-              [classes.colNameFixed]: settings.columns.length > 4
-            })}
+            className={classes.colType}
             direction={
-              sort.sort === ProductListUrlSortField.name
+              sort.sort === ProductListUrlSortField.productType
                 ? getArrowDirection(sort.asc)
                 : undefined
             }
-            onClick={() => onSort(ProductListUrlSortField.name)}
+            onClick={() => onSort(ProductListUrlSortField.productType)}
           >
-            <span className={classes.colNameHeader}>
-              <FormattedMessage defaultMessage="Name" description="product" />
-            </span>
+            <FormattedMessage
+              defaultMessage="Type"
+              description="product type"
+            />
           </TableCellHeader>
-          <DisplayColumn column="productType" displayColumns={settings.columns}>
-            <TableCellHeader
-              data-test-id="colTypeHeader"
-              className={classes.colType}
-              direction={
-                sort.sort === ProductListUrlSortField.productType
-                  ? getArrowDirection(sort.asc)
-                  : undefined
-              }
-              onClick={() => onSort(ProductListUrlSortField.productType)}
-            >
-              <FormattedMessage
-                defaultMessage="Type"
-                description="product type"
-              />
-            </TableCellHeader>
-          </DisplayColumn>
-          {/* <DisplayColumn
+        </DisplayColumn>
+        {/* <DisplayColumn
             column="availability"
             displayColumns={settings.columns}
           >
@@ -246,164 +247,138 @@ export const ProductList: React.FC<ProductListProps> = props => {
               />
             </TableCellHeader>
           </DisplayColumn> */}
-          {gridAttributesFromSettings.map(gridAttributeFromSettings => {
-            const attributeId = getAttributeIdFromColumnValue(
-              gridAttributeFromSettings
-            );
+        {gridAttributesFromSettings.map(gridAttributeFromSettings => {
+          const attributeId = getAttributeIdFromColumnValue(
+            gridAttributeFromSettings
+          );
 
-            return (
-              <TableCellHeader
-                className={classes.colAttribute}
-                direction={
-                  sort.sort === ProductListUrlSortField.attribute &&
-                  attributeId === activeAttributeSortId
-                    ? getArrowDirection(sort.asc)
-                    : undefined
-                }
-                onClick={() =>
-                  onSort(ProductListUrlSortField.attribute, attributeId)
-                }
-                key={gridAttributeFromSettings}
-              >
-                {maybe<React.ReactNode>(
-                  () =>
-                    gridAttributes.find(
-                      gridAttribute => attributeId === gridAttribute.id
-                    ).name,
-                  <Skeleton />
-                )}
-              </TableCellHeader>
-            );
-          })}
-          <DisplayColumn column="price" displayColumns={settings.columns}>
+          return (
             <TableCellHeader
-              data-test-id="colPriceHeader"
-              className={classes.colPrice}
+              className={classes.colAttribute}
               direction={
-                sort.sort === ProductListUrlSortField.price
+                sort.sort === ProductListUrlSortField.attribute &&
+                attributeId === activeAttributeSortId
                   ? getArrowDirection(sort.asc)
                   : undefined
               }
-              textAlign="right"
-              onClick={() => onSort(ProductListUrlSortField.price)}
-              disabled={
-                !canBeSorted(ProductListUrlSortField.price, !!selectedChannelId)
+              onClick={() =>
+                onSort(ProductListUrlSortField.attribute, attributeId)
               }
+              key={gridAttributeFromSettings}
             >
-              <FormattedMessage
-                defaultMessage="Price"
-                description="product price"
-              />
+              {maybe<React.ReactNode>(
+                () =>
+                  gridAttributes.find(
+                    gridAttribute => attributeId === gridAttribute.id
+                  ).name,
+                <Skeleton />
+              )}
             </TableCellHeader>
-          </DisplayColumn>
-        </TableHead>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              colSpan={numberOfColumns}
-              settings={settings}
-              hasNextPage={pageInfo && !disabled ? pageInfo.hasNextPage : false}
-              onNextPage={onNextPage}
-              onUpdateListSettings={onUpdateListSettings}
-              hasPreviousPage={
-                pageInfo && !disabled ? pageInfo.hasPreviousPage : false
-              }
-              onPreviousPage={onPreviousPage}
+          );
+        })}
+        <DisplayColumn column="price" displayColumns={settings.columns}>
+          <TableCellHeader
+            data-test-id="colPriceHeader"
+            className={classes.colPrice}
+            direction={
+              sort.sort === ProductListUrlSortField.price
+                ? getArrowDirection(sort.asc)
+                : undefined
+            }
+            textAlign="right"
+            onClick={() => onSort(ProductListUrlSortField.price)}
+            disabled={
+              !canBeSorted(ProductListUrlSortField.price, !!selectedChannelId)
+            }
+          >
+            <FormattedMessage
+              defaultMessage="Price"
+              description="product price"
             />
-          </TableRow>
-        </TableFooter>
-        <TableBody>
-          {renderCollection(
-            products,
-            product => {
-              const isSelected = product ? isChecked(product.id) : false;
-              const channel = product?.channelListings.find(
-                listing => listing.channel.id === selectedChannelId
-              );
+          </TableCellHeader>
+        </DisplayColumn>
+      </TableHead>
+      <TableFooter>
+        <TableRow>
+          <TablePagination
+            colSpan={numberOfColumns}
+            settings={settings}
+            hasNextPage={pageInfo && !disabled ? pageInfo.hasNextPage : false}
+            onNextPage={onNextPage}
+            onUpdateListSettings={onUpdateListSettings}
+            hasPreviousPage={
+              pageInfo && !disabled ? pageInfo.hasPreviousPage : false
+            }
+            onPreviousPage={onPreviousPage}
+          />
+        </TableRow>
+      </TableFooter>
+      <TableBody>
+        {renderCollection(
+          products,
+          product => {
+            const isSelected = product ? isChecked(product.id) : false;
+            const channel = product?.channelListings.find(
+              listing => listing.channel.id === selectedChannelId
+            );
 
-              return (
-                <TableRow
-                  selected={isSelected}
-                  hover={!!product}
-                  key={product ? product.id : "skeleton"}
-                  onClick={product && onRowClick(product.id)}
-                  className={classes.link}
-                  data-test="id"
-                  data-test-id={product ? product?.id : "skeleton"}
+            return (
+              <TableRow
+                selected={isSelected}
+                hover={!!product}
+                key={product ? product.id : "skeleton"}
+                onClick={
+                  // console.log("productproduct",product )
+                  product &&
+                  onRowClick(
+                    product.id,
+                    product.productType.name === "Digital"
+                      ? "?isDigitalProduct=true"
+                      : ""
+                  )
+                }
+                className={classes.link}
+                data-test="id"
+                data-test-id={product ? product?.id : "skeleton"}
+              >
+                {/* <TableCell padding="checkbox">
+                  <Checkbox
+                    checked={isSelected}
+                    disabled={disabled}
+                    disableClickPropagation
+                    onChange={() => toggle(product.id)}
+                  />
+                </TableCell> */}
+                <TableCellAvatar thumbnail={maybe(() => product.thumbnail.url)}>
+                  {product?.productType ? (
+                    <div className={classes.colNameWrapper}>
+                      <span data-test="name">{product.name}</span>
+
+                      {product?.productType && (
+                        <Typography variant="caption">
+                          {product?.productType?.name || <Skeleton />}{" "}
+                        </Typography>
+                      )}
+                    </div>
+                  ) : (
+                    <Skeleton />
+                  )}
+                </TableCellAvatar>
+                <DisplayColumn
+                  column="productType"
+                  displayColumns={settings.columns}
                 >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={isSelected}
-                      disabled={disabled}
-                      disableClickPropagation
-                      onChange={() => toggle(product.id)}
-                    />
+                  <TableCell
+                    className={classes.colType}
+                    data-test="product-type"
+                  >
+                    {/* {product?.productType?.name || <Skeleton />} */}
                   </TableCell>
-                  <TableCellAvatar
-                    thumbnail={maybe(() => product.thumbnail.url)}
-                  >
-                    {product?.productType ? (
-                      <div className={classes.colNameWrapper}>
-                        <span data-test="name">{product.name}</span>
-                        {product?.productType && (
-                          <Typography variant="caption">
-                            {product.productType.hasVariants ? (
-                              <FormattedMessage
-                                defaultMessage="Configurable"
-                                description="product type"
-                              />
-                            ) : (
-                              <FormattedMessage
-                                defaultMessage="Simple"
-                                description="product type"
-                              />
-                            )}
-                          </Typography>
-                        )}
-                      </div>
-                    ) : (
-                      <Skeleton />
-                    )}
-                  </TableCellAvatar>
-                  <DisplayColumn
-                    column="productType"
-                    displayColumns={settings.columns}
-                  >
-                    <TableCell
-                      className={classes.colType}
-                      data-test="product-type"
-                    >
-                      {product?.productType?.name || <Skeleton />}
-                    </TableCell>
-                  </DisplayColumn>
-                  {/* <DisplayColumn
-                    column="availability"
-                    displayColumns={settings.columns}
-                  >
-                    <TableCell
-                      className={classes.colPublished}
-                      data-test="availability"
-                      data-test-availability={
-                        !!product?.channelListings?.length
-                      }
-                    >
-                      {(!product && <Skeleton />) ||
-                        (!product?.channelListings?.length && "-") ||
-                        (product?.channelListings !== undefined && channel ? (
-                          <AvailabilityStatusLabel
-                            channel={channel}
-                            messages={messages}
-                          />
-                        ) : (
-                          <ChannelsAvailabilityDropdown
-                            allChannelsCount={channelsCount}
-                            channels={product?.channelListings}
-                            showStatus
-                          />
-                        ))}
-                    </TableCell>
-                  </DisplayColumn> */}
-                  {gridAttributesFromSettings.map(gridAttribute => (
+                </DisplayColumn>
+
+                {/* {gridAttributesFromSettings.map(gridAttribute => {
+                  console.log("gridAttribute", gridAttribute);
+                  return (
                     <TableCell
                       className={classes.colAttribute}
                       key={gridAttribute}
@@ -426,34 +401,35 @@ export const ProductList: React.FC<ProductListProps> = props => {
                         return "-";
                       }, <Skeleton />)}
                     </TableCell>
-                  ))}
-                  <DisplayColumn
-                    column="price"
-                    displayColumns={settings.columns}
-                  >
-                    <TableCell className={classes.colPrice} data-test="price">
-                      {product?.channelListings ? (
-                        <MoneyRange
-                          from={channel?.pricing?.priceRange?.start?.net}
-                          to={channel?.pricing?.priceRange?.stop?.net}
-                        />
-                      ) : (
-                        <Skeleton />
-                      )}
-                    </TableCell>
-                  </DisplayColumn>
-                </TableRow>
-              );
-            },
-            () => (
-              <TableRow>
-                <TableCell colSpan={numberOfColumns}>
-                  <FormattedMessage defaultMessage="No products found" />
-                </TableCell>
+                  );
+                })} */}
+                <DisplayColumn column="price" displayColumns={settings.columns}>
+                  <TableCell className={classes.colPrice} data-test="price">
+                    {product?.channelListings ? (
+                      <>
+                        $ {channel?.pricing?.priceRange?.stop?.net?.amount}
+                        {/* <MoneyRange
+                        from={channel?.pricing?.priceRange?.start?.net}
+                        to={channel?.pricing?.priceRange?.stop?.net}
+                      /> */}
+                      </>
+                    ) : (
+                      <Skeleton />
+                    )}
+                  </TableCell>
+                </DisplayColumn>
               </TableRow>
-            )
-          )}
-        </TableBody>
+            );
+          },
+          () => (
+            <TableRow>
+              <TableCell colSpan={numberOfColumns}>
+                <FormattedMessage defaultMessage="No products found" />
+              </TableCell>
+            </TableRow>
+          )
+        )}
+      </TableBody>
       {/* </ResponsiveTable> */}
     </IonCard>
   );

@@ -38,16 +38,14 @@ import { ICONBUTTON_SIZE } from "@saleor/macaw-ui";
 import { renderCollection } from "@saleor/misc";
 import { getFormErrors, getProductErrorMessage } from "@saleor/utils/errors";
 import createNonNegativeValueChangeHandler from "@saleor/utils/handlers/nonNegativeValueChangeHandler";
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { ProductCreateData } from "../ProductCreatePage";
 import { ProductUpdateSubmitData } from "../ProductUpdatePage/form";
 import { ProductVariantCreateData } from "../ProductVariantCreatePage/form";
 import { ProductVariantUpdateData } from "../ProductVariantPage/form";
-import {
-  IonCard
-} from "@ionic/react";
+import { IonCard } from "@ionic/react";
 export interface ProductStockFormsetData {
   quantityAllocated: number;
 }
@@ -69,13 +67,16 @@ export interface ProductStocksProps {
   productVariantChannelListings?: ChannelData[];
   data: ProductStockFormData;
   disabled: boolean;
+  isDigitalProduct?: boolean;
+  defaultSKU?: string;
   errors: ProductErrorFragment[];
   formErrors:
-  | FormErrors<ProductVariantCreateData>
-  | FormErrors<ProductVariantUpdateData>
-  | FormErrors<ProductUpdateSubmitData>
-  | FormErrors<ProductCreateData>;
+    | FormErrors<ProductVariantCreateData>
+    | FormErrors<ProductVariantUpdateData>
+    | FormErrors<ProductUpdateSubmitData>
+    | FormErrors<ProductCreateData>;
   hasVariants: boolean;
+  defaultInvetoryCount?: number;
   stocks: ProductStockInput[];
   warehouses: WarehouseFragment[];
   onVariantChannelListingChange?: (
@@ -90,7 +91,6 @@ export interface ProductStocksProps {
   onWarehouseStockDelete: (warehouseId: string) => void;
   onWarehouseConfigure: () => void;
 }
-
 const useStyles = makeStyles(
   theme => ({
     colAction: {
@@ -189,6 +189,7 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
   formErrors: localFormErrors,
   onChangePreorderEndDate,
   stocks,
+  isDigitalProduct,
   warehouses,
   productVariantChannelListings = [],
   onChange,
@@ -197,7 +198,9 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
   onVariantChannelListingChange,
   onWarehouseStockAdd,
   onWarehouseStockDelete,
-  onWarehouseConfigure
+  onWarehouseConfigure,
+  defaultInvetoryCount = 100000,
+  defaultSKU
 }) => {
   const classes = useStyles({});
   const intl = useIntl();
@@ -214,6 +217,21 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
   const onThresholdChange = createNonNegativeValueChangeHandler(
     onFormDataChange
   );
+
+  useEffect(() => {
+    console.log("defaultSKU", defaultSKU);
+    onFormDataChange({ target: { name: "sku", value: defaultSKU } });
+  }, [defaultSKU]);
+
+  useEffect(() => {
+    if (warehouses.length === 0) return;
+    if (stocks.length === 1) {
+      return;
+    }
+    const defaultWareHouse = warehouses.find(x => x.name === "Default");
+    onWarehouseStockAdd(defaultWareHouse.id);
+    onChange(defaultWareHouse.id, defaultInvetoryCount);
+  }, [warehouses, stocks]);
 
   return (
     <IonCard>
@@ -235,32 +253,37 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
               defaultMessage: "SKU (Stock Keeping Unit)"
             })}
             name="sku"
-            onChange={onFormDataChange}
+            onChange={e => {
+              onFormDataChange(e);
+            }}
             value={data.sku}
           />
         </div>
-        <ControlledCheckbox
-          checked={data.isPreorder}
-          name="isPreorder"
-          onChange={
-            onEndPreorderTrigger && data.isPreorder
-              ? onEndPreorderTrigger
-              : onFormDataChange
-          }
-          disabled={disabled}
-          label={
-            <FormattedMessage
-              defaultMessage="Variant currently in preorder"
-              description="product inventory, checkbox"
-            />
-          }
-        />
+        {!isDigitalProduct && (
+          <ControlledCheckbox
+            checked={data.isPreorder}
+            name="isPreorder"
+            onChange={
+              onEndPreorderTrigger && data.isPreorder
+                ? onEndPreorderTrigger
+                : onFormDataChange
+            }
+            disabled={disabled}
+            label={
+              <FormattedMessage
+                defaultMessage="Variant currently in preorder"
+                description="product inventory, checkbox"
+              />
+            }
+          />
+        )}
 
-        {!data.isPreorder && (
+        {!isDigitalProduct && !data.isPreorder && (
           <>
             <FormSpacer />
             <ControlledCheckbox
-              checked={data.trackInventory}
+              checked={true}
+              // checked={data.trackInventory}
               name="trackInventory"
               onChange={onFormDataChange}
               disabled={disabled}
@@ -280,7 +303,7 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
         )}
       </CardContent>
       <Hr />
-      {!data.isPreorder && (
+      {!isDigitalProduct && !data.isPreorder && (
         <CardContent className={classes.quantityContainer}>
           <Typography component={"div"}>
             <div className={classes.quantityHeader}>
@@ -307,7 +330,14 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
                     id="productVariantWarehouseSectionDescription"
                     values={{
                       a: chunks => (
-                        <Link onClick={onWarehouseConfigure}>{chunks}</Link>
+                        <Link
+                          onClick={e => {
+                            console.log("onWarehouseConfigure", e);
+                            onWarehouseConfigure(e);
+                          }}
+                        >
+                          {chunks}
+                        </Link>
                       )
                     }}
                   />
@@ -320,7 +350,14 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
                     id="productWarehouseSectionDescription"
                     values={{
                       a: chunks => (
-                        <Link onClick={onWarehouseConfigure}>{chunks}</Link>
+                        <Link
+                          onClick={e => {
+                            console.log("onWarehouseConfigure", e);
+                            onWarehouseConfigure(e);
+                          }}
+                        >
+                          {chunks}
+                        </Link>
                       )
                     }}
                   />
@@ -330,7 +367,7 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
           )}
         </CardContent>
       )}
-      {warehouses?.length > 0 && !data.isPreorder && (
+      { !isDigitalProduct && warehouses?.length > 0 && !data.isPreorder && (
         <Table>
           <colgroup>
             <col className={classes.colName} />
@@ -385,7 +422,10 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
                         min: 0,
                         type: "number"
                       }}
-                      onChange={handleQuantityChange}
+                      onChange={e => {
+                        console.log("handleQuantityChange", e);
+                        handleQuantityChange(e);
+                      }}
                       value={stock.value}
                     />
                   </TableCell>
@@ -440,9 +480,12 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
                               {warehousesToAssign.map(warehouse => (
                                 <MenuItem
                                   className={classes.menuItem}
-                                  onClick={() =>
-                                    onWarehouseStockAdd(warehouse.id)
-                                  }
+                                  onClick={() => {
+                                    // console.log("onWarehouseStockAdd", {
+                                    //   warehouse
+                                    // });
+                                    onWarehouseStockAdd(warehouse.id);
+                                  }}
                                 >
                                   {warehouse.name}
                                 </MenuItem>
@@ -541,17 +584,17 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
               >
                 {data.globalThreshold
                   ? intl.formatMessage(
-                    {
-                      defaultMessage: "{unitsLeft} units left",
-                      description: "app has been installed"
-                    },
-                    { unitsLeft }
-                  )
+                      {
+                        defaultMessage: "{unitsLeft} units left",
+                        description: "app has been installed"
+                      },
+                      { unitsLeft }
+                    )
                   : intl.formatMessage({
-                    defaultMessage: "Unlimited",
-                    id: "unlimitedUnitsLeft",
-                    description: "section header"
-                  })}
+                      defaultMessage: "Unlimited",
+                      id: "unlimitedUnitsLeft",
+                      description: "section header"
+                    })}
               </Typography>
             )}
           </div>

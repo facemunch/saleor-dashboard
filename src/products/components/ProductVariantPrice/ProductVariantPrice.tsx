@@ -70,6 +70,7 @@ interface ProductVariantPriceProps {
   errors?: ProductChannelListingErrorFragment[];
   loading?: boolean;
   disabled?: boolean;
+  isDigitalProduct?: boolean;
   onChange?: (
     id: string,
     data: ChannelPriceArgs | ChannelPriceAndPreorderArgs
@@ -86,6 +87,7 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
     ProductVariantChannelListings = [],
     loading,
     onChange,
+    isDigitalProduct = false,
     disabledMessage
   } = props;
   const classes = useStyles(props);
@@ -135,24 +137,24 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
         <ResponsiveTable className={classes.table}>
           <TableHead>
             <TableRow>
-              <TableCell>
+              {/* <TableCell>
                 <FormattedMessage
                   defaultMessage="Channel Name"
                   description="tabel column header"
                 />
-              </TableCell>
+              </TableCell> */}
               <TableCell className={classes.colType}>
                 <FormattedMessage
                   defaultMessage="Selling Price"
                   description="tabel column header"
                 />
               </TableCell>
-              <TableCell className={classes.colType}>
+              {/* <TableCell className={classes.colType}>
                 <FormattedMessage
                   defaultMessage="Cost Price"
                   description="tabel column header"
                 />
-              </TableCell>
+              </TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -170,7 +172,7 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
 
                 return (
                   <TableRow key={listing?.id || `skeleton-${index}`}>
-                    <TableCell>{listing?.name || <Skeleton />}</TableCell>
+                    {/* <TableCell>{listing?.name || <Skeleton />}</TableCell> */}
                     <TableCell className={classes.colPrice}>
                       {listing ? (
                         <PriceField
@@ -200,7 +202,7 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
                         <Skeleton />
                       )}
                     </TableCell>
-                    <TableCell className={classes.colPrice}>
+                    {/* <TableCell className={classes.colPrice}>
                       {listing ? (
                         <PriceField
                           className={classes.input}
@@ -229,7 +231,7 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
                       ) : (
                         <Skeleton />
                       )}
-                    </TableCell>
+                    </TableCell> */}
                   </TableRow>
                 );
               },

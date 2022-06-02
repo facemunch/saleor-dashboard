@@ -67,10 +67,10 @@ export const ProductDetailsForm: React.FC<ProductDetailsFormProps> = ({
           name="description"
           onChange={onDescriptionChange}
         />
-        <FormSpacer />
-        <Hr />
-        <FormSpacer />
-        <Grid variant="uniform">
+        {/* <FormSpacer /> */}
+        {/* <Hr /> */}
+        {/* <FormSpacer /> */}
+        {/* <Grid variant="uniform">
           <TextField
             type="number"
             error={!!formErrors.rating}
@@ -84,7 +84,7 @@ export const ProductDetailsForm: React.FC<ProductDetailsFormProps> = ({
             value={data.rating || ""}
             onChange={onChange}
           />
-        </Grid>
+        </Grid> */}
       </CardContent>
     </IonCard>
   );

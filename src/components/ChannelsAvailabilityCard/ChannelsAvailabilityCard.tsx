@@ -7,6 +7,8 @@ import { PermissionEnum } from "@saleor/types/globalTypes";
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { IonCard, IonCardContent } from "@ionic/react";
+
 import ChannelAvailabilityItemContent from "./Channel/ChannelAvailabilityItemContent";
 import ChannelAvailabilityItemWrapper from "./Channel/ChannelAvailabilityItemWrapper";
 import ChannelsAvailabilityCardWrapper, {
@@ -22,6 +24,7 @@ export interface ChannelsAvailability
   channelsList: ChannelList[];
   errors?: ChannelsAvailabilityError[];
   disabled?: boolean;
+  isDigitalProduct?: boolean;
   messages?: Messages;
   managePermissions: PermissionEnum[];
   onChange?: (id: string, data: ChannelOpts) => void;
@@ -42,7 +45,8 @@ export const ChannelsAvailability: React.FC<ChannelsAvailabilityCardProps> = pro
     messages,
     managePermissions,
     onChange,
-    openModal
+    openModal,
+    isDigitalProduct = false
   } = props;
   const intl = useIntl();
   const localizeDate = useDateLocalize();
@@ -54,43 +58,50 @@ export const ChannelsAvailability: React.FC<ChannelsAvailabilityCardProps> = pro
     intl,
     localizeDate
   });
-
+  console.log("channels", channels);
   return (
-    <ChannelsAvailabilityCardWrapper
+    <IonCard>
+      <IonCardContent>
+        {/* <ChannelsAvailabilityCardWrapper
       selectedChannelsCount={selectedChannelsCount}
       allChannelsCount={allChannelsCount}
       managePermissions={managePermissions}
       openModal={openModal}
-    >
-      {channels
-        ? channels.map(data => {
-            const channelErrors =
-              errors?.filter(error => error.channels.includes(data.id)) || [];
+    > */}
 
-            return (
-              <ChannelAvailabilityItemWrapper messages={messages} data={data}>
-                <ChannelAvailabilityItemContent
-                  data={data}
-                  onChange={onChange}
-                  messages={channelsMessages[data.id]}
-                  errors={channelErrors}
-                />
-              </ChannelAvailabilityItemWrapper>
-            );
-          })
-        : channelsList
-        ? channelsList.map(data => (
-            <React.Fragment key={data.id}>
-              <div className={classes.channelItem}>
-                <div className={classes.channelName}>
-                  <Typography>{data.name}</Typography>
+        {channels
+          ? channels.map(data => {
+              const channelErrors =
+                errors?.filter(error => error.channels.includes(data.id)) || [];
+
+              return (
+                <div>
+                  {/* <ChannelAvailabilityItemWrapper messages={messages} data={data}> */}
+                  <ChannelAvailabilityItemContent
+                    data={data}
+                    onChange={onChange}
+                    messages={channelsMessages[data.id]}
+                    errors={channelErrors}
+                  />
+                  {/* </ChannelAvailabilityItemWrapper> */}
                 </div>
-              </div>
-              <Hr className={classes.hr} />
-            </React.Fragment>
-          ))
-        : null}
-    </ChannelsAvailabilityCardWrapper>
+              );
+            })
+          : channelsList
+          ? channelsList.map(data => (
+              <React.Fragment key={data.id}>
+                <div className={classes.channelItem}>
+                  <div className={classes.channelName}>
+                    <Typography>{data.name}</Typography>
+                  </div>
+                </div>
+                <Hr className={classes.hr} />
+              </React.Fragment>
+            ))
+          : null}
+        {/* </ChannelsAvailabilityCardWrapper> */}
+      </IonCardContent>
+    </IonCard>
   );
 };
 

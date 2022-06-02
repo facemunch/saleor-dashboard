@@ -13,7 +13,7 @@ const useStyles = makeStyles(
         padding: 0
       },
       paddingRight: theme.spacing(3),
-      width: "1%"
+      width: "1%",
     }
   }),
   { name: "TableCellAvatar" }

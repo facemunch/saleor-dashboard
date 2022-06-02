@@ -64,14 +64,14 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
           url: productListUrl(),
           permissions: [PermissionEnum.MANAGE_PRODUCTS]
         },
-        {
-          ariaLabel: "categories",
-          iconSvg: ellipse,
-          label: intl.formatMessage(sectionNames.categories),
-          id: "categories",
-          url: categoryListUrl(),
-          permissions: [PermissionEnum.MANAGE_PRODUCTS]
-        },
+        // {
+        //   ariaLabel: "categories",
+        //   iconSvg: ellipse,
+        //   label: intl.formatMessage(sectionNames.categories),
+        //   id: "categories",
+        //   url: categoryListUrl(),
+        //   permissions: [PermissionEnum.MANAGE_PRODUCTS]
+        // },
         // {
         //   ariaLabel: "collections",
         //   iconSvg: ellipse,

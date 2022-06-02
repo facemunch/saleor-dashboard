@@ -40,7 +40,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
   React.useEffect(
     () => {
-      console.log("data", { data, disabled });
 
       if (data !== undefined) {
         editor.current = new EditorJS({

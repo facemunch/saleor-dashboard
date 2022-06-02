@@ -46,7 +46,8 @@ import {
   IonPage,
   IonContent,
   IonIcon,
-  IonFabButton
+  IonFabButton,
+  IonFabList
 } from "@ionic/react";
 import {
   add,
@@ -169,7 +170,6 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
 
   const extensionMenuItems = mapToMenuItems(moreActions);
   const extensionCreateButtonItems = mapToMenuItems(create);
-
   return (
     <>
       <IonContent>
@@ -228,9 +228,48 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
           data-test="add-product"
           // disabled={limitReached}
         >
-          <IonFabButton onClick={onAdd}>
+          <IonFabButton>
             <IonIcon icon={add} />
           </IonFabButton>
+
+          <IonFabList side="top">
+            <IonFabButton
+              style={{
+                width: "50px",
+                height: "50px"
+              }}
+              onClick={e => {
+                onAdd({ isDigitalProduct: true });
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "8px",
+                  fontWeight: "bold"
+                }}
+              >
+                Digital
+              </span>
+            </IonFabButton>
+            <IonFabButton
+              style={{
+                width: "50px",
+                height: "50px"
+              }}
+              onClick={e => {
+                onAdd();
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "9px",
+                  fontWeight: "bold"
+                }}
+              >
+                Physical
+              </span>
+            </IonFabButton>
+          </IonFabList>
         </IonFab>
         {/* </PageHeader> */}
         {limitReached && (

@@ -12,7 +12,7 @@ import useChannels from "@saleor/hooks/useChannels";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
 import useShop from "@saleor/hooks/useShop";
-import ProductCreatePage from "@saleor/products/components/ProductCreatePageIonic";
+import ProductCreatePage from "@saleor/products/components/ProductCreatePageIonicSimple";
 import {
   useProductChannelListingUpdate,
   useProductDeleteMutation,
@@ -54,7 +54,12 @@ interface ProductCreateProps {
   params: ProductCreateUrlQueryParams;
 }
 
-export const ProductCreateView: React.FC<ProductCreateProps> = ({ params }) => {
+export const ProductCreateView: React.FC<ProductCreateProps> = ({
+  params,
+  // defaultProductTypeId = "UHJvZHVjdFR5cGU6NA==",
+  defaultProductTypeId = ""
+
+}) => {
   const navigate = useNavigator();
   const notify = useNotifier();
   const shop = useShop();
@@ -64,7 +69,7 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({ params }) => {
   );
   const [selectedProductTypeId, setSelectedProductTypeId] = React.useState<
     string
-  >();
+  >(defaultProductTypeId);
 
   const [openModal, closeModal] = createDialogActionHandlers<
     ProductCreateUrlDialog,

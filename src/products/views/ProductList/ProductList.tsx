@@ -63,7 +63,7 @@ import { useWarehouseList } from "@saleor/warehouses/queries";
 import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import ProductListPage from "../../components/ProductListPageIonic";
+import ProductListPage from "../../components/ProductListPageIonic_";
 import {
   useProductBulkDeleteMutation,
   useProductExport
@@ -391,7 +391,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
             availableInGridAttributes.data.availableInGrid.pageInfo.hasNextPage,
           false
         )}
-        onAdd={() => navigate(productAddUrl())}
+        onAdd={params => navigate(productAddUrl(params))}
         disabled={loading}
         limits={limitOpts.data?.shop.limits}
         products={mapEdgesToItems(data?.products)}
@@ -427,7 +427,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
         onPreviousPage={loadPreviousPage}
         onUpdateListSettings={updateListSettings}
         pageInfo={pageInfo}
-        onRowClick={id => () => navigate(productUrl(id))}
+        onRowClick={(id, type = "") => () => navigate(productUrl(id) + type)}
         onAll={resetFilters}
         toolbar={
           <IconButton

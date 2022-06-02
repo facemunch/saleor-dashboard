@@ -68,6 +68,7 @@ import ProductUpdateForm, {
   ProductUpdateData,
   ProductUpdateHandlers
 } from "./form";
+// import { useLocation } from "react-router-dom";
 
 export interface ProductUpdatePageProps extends ListActions, ChannelProps {
   channelsWithVariantsData: ChannelsWithVariantsData;
@@ -207,7 +208,8 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   onAttributeSelectBlur
 }) => {
   const intl = useIntl();
-
+  // const { search } = useLocation();
+  const isDigitalProduct = product?.productType?.name === "Digital";
   const [selectedCategory, setSelectedCategory] = useStateFromProps(
     product?.category?.name || ""
   );
@@ -374,38 +376,43 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                   />
                 ) : (
                   <>
-                    <ProductShipping
-                      data={data}
-                      disabled={disabled}
-                      errors={errors}
-                      weightUnit={product?.weight?.unit || defaultWeightUnit}
-                      onChange={change}
-                    />
+                    {!isDigitalProduct && (
+                      <ProductShipping
+                        data={data}
+                        disabled={disabled}
+                        errors={errors}
+                        weightUnit={product?.weight?.unit || defaultWeightUnit}
+                        onChange={change}
+                      />
+                    )}
+
                     <CardSpacer />
-                    <ProductStocks
-                      onVariantChannelListingChange={
-                        handlers.changeChannelPreorder
-                      }
-                      productVariantChannelListings={data.channelListings}
-                      onEndPreorderTrigger={
-                        !!variants?.[0]?.preorder
-                          ? () => onVariantEndPreorderDialogOpen()
-                          : null
-                      }
-                      data={data}
-                      disabled={disabled}
-                      hasVariants={false}
-                      errors={errors}
-                      formErrors={formErrors}
-                      stocks={data.stocks}
-                      warehouses={warehouses}
-                      onChange={handlers.changeStock}
-                      onFormDataChange={change}
-                      onChangePreorderEndDate={handlers.changePreorderEndDate}
-                      onWarehouseStockAdd={handlers.addStock}
-                      onWarehouseStockDelete={handlers.deleteStock}
-                      onWarehouseConfigure={onWarehouseConfigure}
-                    />
+                    {!isDigitalProduct && (
+                      <ProductStocks
+                        onVariantChannelListingChange={
+                          handlers.changeChannelPreorder
+                        }
+                        productVariantChannelListings={data.channelListings}
+                        onEndPreorderTrigger={
+                          !!variants?.[0]?.preorder
+                            ? () => onVariantEndPreorderDialogOpen()
+                            : null
+                        }
+                        data={data}
+                        disabled={disabled}
+                        hasVariants={false}
+                        errors={errors}
+                        formErrors={formErrors}
+                        stocks={data.stocks}
+                        warehouses={warehouses}
+                        onChange={handlers.changeStock}
+                        onFormDataChange={change}
+                        onChangePreorderEndDate={handlers.changePreorderEndDate}
+                        onWarehouseStockAdd={handlers.addStock}
+                        onWarehouseStockDelete={handlers.deleteStock}
+                        onWarehouseConfigure={onWarehouseConfigure}
+                      />
+                    )}
                   </>
                 )}
                 <CardSpacer />
@@ -429,46 +436,51 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                 <Metadata data={data} onChange={handlers.changeMetadata} />
               </div>
               <div>
-                <ProductOrganization
-                  canChangeType={false}
-                  categories={categories}
-                  categoryInputDisplayValue={selectedCategory}
-                  collections={collections}
-                  collectionsInputDisplayValue={selectedCollections}
-                  data={data}
-                  disabled={disabled}
-                  errors={errors}
-                  fetchCategories={fetchCategories}
-                  fetchCollections={fetchCollections}
-                  fetchMoreCategories={fetchMoreCategories}
-                  fetchMoreCollections={fetchMoreCollections}
-                  productType={product?.productType}
-                  onCategoryChange={handlers.selectCategory}
-                  onCollectionChange={handlers.selectCollection}
-                />
-                <CardSpacer />
-                {isSimpleProduct ? (
-                  <ChannelsAvailabilityCard
-                    managePermissions={[PermissionEnum.MANAGE_PRODUCTS]}
-                    messages={{
-                      hiddenLabel: intl.formatMessage({
-                        defaultMessage: "Not published",
-                        description: "product label"
-                      }),
-
-                      visibleLabel: intl.formatMessage({
-                        defaultMessage: "Published",
-                        description: "product label"
-                      })
-                    }}
-                    errors={channelsErrors}
-                    selectedChannelsCount={data.channelListings.length}
-                    allChannelsCount={allChannelsCount}
-                    channels={data.channelListings}
+                {!isDigitalProduct && (
+                  <ProductOrganization
+                    canChangeType={false}
+                    categories={categories}
+                    categoryInputDisplayValue={selectedCategory}
+                    collections={collections}
+                    collectionsInputDisplayValue={selectedCollections}
+                    data={data}
                     disabled={disabled}
-                    onChange={handlers.changeChannels}
-                    openModal={openChannelsModal}
+                    errors={errors}
+                    fetchCategories={fetchCategories}
+                    fetchCollections={fetchCollections}
+                    fetchMoreCategories={fetchMoreCategories}
+                    fetchMoreCollections={fetchMoreCollections}
+                    productType={product?.productType}
+                    onCategoryChange={handlers.selectCategory}
+                    onCollectionChange={handlers.selectCollection}
                   />
+                )}
+
+                {isSimpleProduct ? (
+                  <>
+                    <CardSpacer />
+                    <ChannelsAvailabilityCard
+                      managePermissions={[PermissionEnum.MANAGE_PRODUCTS]}
+                      messages={{
+                        hiddenLabel: intl.formatMessage({
+                          defaultMessage: "Not published",
+                          description: "product label"
+                        }),
+
+                        visibleLabel: intl.formatMessage({
+                          defaultMessage: "Published",
+                          description: "product label"
+                        })
+                      }}
+                      errors={channelsErrors}
+                      selectedChannelsCount={data.channelListings.length}
+                      allChannelsCount={allChannelsCount}
+                      channels={data.channelListings}
+                      disabled={disabled}
+                      onChange={handlers.changeChannels}
+                      openModal={openChannelsModal}
+                    />
+                  </>
                 ) : (
                   <ChannelsWithVariantsAvailabilityCard
                     messages={{
