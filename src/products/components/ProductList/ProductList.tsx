@@ -157,7 +157,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
   const numberOfColumns = 2 + settings.columns.length;
   console.log("productproduct", products);
   return (
-    <IonCard className={classes.tableContainer}>
+    <div className={classes.tableContainer}>
       {/* <ResponsiveTable className={classes.table}> */}
       <colgroup style={{ width: "100vw" }}>
         {/* <col /> */}
@@ -431,7 +431,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
         )}
       </TableBody>
       {/* </ResponsiveTable> */}
-    </IonCard>
+    </div>
   );
 };
 ProductList.displayName = "ProductList";

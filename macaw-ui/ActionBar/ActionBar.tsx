@@ -1,5 +1,5 @@
 import { Card, CardContent, Container } from "@mui/material";
-import Portal from '@mui/material/Portal';
+import Portal from "@mui/material/Portal";
 import React from "react";
 
 import { ConfirmButtonTransitionState } from "../ConfirmButton";
@@ -46,7 +46,12 @@ export const ActionBar: React.FC<ActionBarProps> = ({
           // className={classes.paper}
           elevation={!(docked || scrolledToBottom) ? 16 : 0}
         >
-          <CardContent className={classes.content}>{children}</CardContent>
+          <CardContent
+            style={{ background: "#424242" }}
+            className={classes.content}
+          >
+            {children}
+          </CardContent>
         </Card>
         {/* </Container> */}
       </div>

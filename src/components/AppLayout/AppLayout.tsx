@@ -228,51 +228,54 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       )} */}
       <IonPage>
         {/* <div> */}
-        <IonHeader translucent collapse="condense">
-          <IonToolbar>
-            {/* <div className={classes.header}> */}
-            {/* //hidden for mobile views, might be good for desktop */}
-            {/* <div className={classes.headerAnchor} ref={appHeaderAnchor} /> */}
-            {/* <div className={classes.headerToolbar}> */}
-            {/* {!isMdUp && ( */}
+        {(location.pathname.split("/").length - 1 < 2 ||
+          location.pathname.includes("configuration")) && (
+          <IonHeader translucent collapse="condense">
+            <IonToolbar>
+              {/* <div className={classes.header}> */}
+              {/* //hidden for mobile views, might be good for desktop */}
+              {/* <div className={classes.headerAnchor} ref={appHeaderAnchor} /> */}
+              {/* <div className={classes.headerToolbar}> */}
+              {/* {!isMdUp && ( */}
 
-            {/* )} */}
-            {/* <div className={classes.spacer} /> */}
-            {/* <div className={classes.userBar}> */}
-            {location.pathname.includes("configuration") && (
-              <IonButtons slot="secondary">
+              {/* )} */}
+              {/* <div className={classes.spacer} /> */}
+              {/* <div className={classes.userBar}> */}
+              {location.pathname.includes("configuration") && (
+                <IonButtons slot="secondary">
+                  <IonButton
+                    onClick={() => {
+                      navigate("/home");
+                    }}
+                    fill="clear"
+                  >
+                    <IonIcon slot="icon-only" icon={chevronBackOutline} />
+                  </IonButton>
+                </IonButtons>
+              )}
+
+              <IonButtons slot="primary">
                 <IonButton
+                  color="dark"
                   onClick={() => {
-                    navigate("/home/");
+                    navigate("/configuration/");
                   }}
                   fill="clear"
                 >
-                  <IonIcon slot="icon-only" icon={chevronBackOutline} />
+                  <IonIcon slot="icon-only" icon={settingsOutline} />
                 </IonButton>
+
+                <NavigatorButton
+                  isMac={navigator.platform.toLowerCase().includes("mac")}
+                  onClick={() => setNavigatorVisibility(true)}
+                />
               </IonButtons>
-            )}
-
-            <IonButtons slot="primary">
-              <IonButton
-               color="dark"
-                onClick={() => {
-                  navigate("/configuration/");
-                }}
-                fill="clear"
-              >
-                <IonIcon slot="icon-only" icon={settingsOutline} />
-              </IonButton>
-
-              <NavigatorButton
-                isMac={navigator.platform.toLowerCase().includes("mac")}
-                onClick={() => setNavigatorVisibility(true)}
-              />
-            </IonButtons>
-            {/* </div> */}
-            {/* </div> */}
-            {/* </div> */}
-          </IonToolbar>
-        </IonHeader>
+              {/* </div> */}
+              {/* </div> */}
+              {/* </div> */}
+            </IonToolbar>
+          </IonHeader>
+        )}
         {!location.pathname.includes("configuration") && (
           <SidebarDrawer menuItems={menuStructure} onMenuItemClick={navigate} />
         )}

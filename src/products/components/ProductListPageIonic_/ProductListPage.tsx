@@ -47,7 +47,8 @@ import {
   IonContent,
   IonIcon,
   IonFabButton,
-  IonFabList
+  IonFabList,
+  IonCard
 } from "@ionic/react";
 import {
   add,
@@ -282,7 +283,7 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
             <FormattedMessage defaultMessage="You have reached your SKU limit, you will be no longer able to add SKUs to your store. If you would like to up your limit, contact your administration staff about raising your limits." />
           </LimitReachedAlert>
         )}
-        {/* <Card> */}
+        <IonCard>
         <FilterBar
           currencySymbol={currencySymbol}
           currentTab={currentTab}
@@ -313,7 +314,7 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
           selectedChannelId={selectedChannelId}
           onUpdateListSettings={onUpdateListSettings}
         />
-        {/* </Card> */}
+        </IonCard>
       </IonContent>
     </>
   );

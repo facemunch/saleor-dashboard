@@ -6,7 +6,9 @@ const useStyles = makeStyles(
       display: "flex"
     },
     container: {
-      width: "100%"
+      width: '90%',
+      margin: 'auto',
+      marginTop: '10px',
     },
     containerSubMenu: {
       "&$container": {
