@@ -13,8 +13,14 @@ import {
 } from "@saleor/types";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { IonContent, IonCard } from "@ionic/react";
-
+import {
+  IonContent,
+  IonCard,
+  IonFab,
+  IonFabButton,
+  IonIcon
+} from "@ionic/react";
+import { add } from "ionicons/icons";
 import { ListCustomers_customers_edges_node } from "../../types/ListCustomers";
 import CustomerList from "../CustomerList/CustomerList";
 import {
@@ -52,19 +58,20 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
 
   return (
     <IonContent>
-      <PageHeader title={intl.formatMessage(sectionNames.customers)}>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={onAdd}
-          data-test-id="createCustomer"
-        >
-          <FormattedMessage
-            defaultMessage="Create customer"
-            description="button"
-          />
-        </Button>
-      </PageHeader>
+      <IonFab
+        vertical="bottom"
+        horizontal="end"
+        slot="fixed"
+        style={{
+          marginBottom: "50px"
+        }}
+        data-test="createCustomer"
+        // disabled={limitReached}
+      >
+        <IonFabButton onClick={onAdd}>
+          <IonIcon icon={add} />
+        </IonFabButton>
+      </IonFab>
       <IonCard>
         <FilterBar
           allTabLabel={intl.formatMessage({

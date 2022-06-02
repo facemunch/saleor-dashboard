@@ -28,6 +28,9 @@ import React from "react";
 import { FormattedMessage, IntlShape, useIntl } from "react-intl";
 
 import { maybe, renderCollection } from "../../../misc";
+
+import { IonCard, IonCardContent } from "@ionic/react";
+
 import { ChannelProps, ListActions, ReorderAction } from "../../../types";
 import {
   ProductDetails_product,
@@ -246,224 +249,229 @@ export const ProductVariants: React.FC<ProductVariantsProps> = props => {
   const limitReached = isLimitReached(limits, "productVariants");
 
   return (
-    <Card>
-      <CardTitle
-        title={intl.formatMessage({
-          defaultMessage: "Variants",
-          description: "section header"
-        })}
-        toolbar={
-          hasVariants ? (
-            <Button
-              disabled={limitReached}
-              onClick={onVariantAdd}
-              variant="text"
-              color="primary"
-              data-test="button-add-variant"
-            >
-              <FormattedMessage
-                defaultMessage="Create variant"
-                description="button"
-              />
-            </Button>
-          ) : (
-            <Button
-              disabled={limitReached}
-              onClick={onVariantsAdd}
-              variant="text"
-              color="primary"
-              data-test="button-add-variants"
-            >
-              <FormattedMessage
-                defaultMessage="Create variants"
-                description="button"
-              />
-            </Button>
-          )
-        }
-      />
-
-      {limitReached && (
-        <LimitReachedAlert
-          className={classes.alert}
+    <IonCard>
+      <IonCardContent style={{ width: "92vw" }}>
+        <CardTitle
           title={intl.formatMessage({
-            defaultMessage: "SKU limit reached",
-            description: "alert"
+            defaultMessage: "Variants",
+            description: "section header"
           })}
-        >
-          <FormattedMessage defaultMessage="You have reached your SKU limit, you will be no longer able to add SKUs to your store. If you would like to up your limit, contact your administration staff about raising your limits." />
-        </LimitReachedAlert>
-      )}
-
-      {variants.length > 0 ? (
-        <CardContent className={classes.warehouseSelectContainer}>
-          <Typography className={classes.warehouseLabel}>
-            <FormattedMessage
-              defaultMessage="Available inventory at:"
-              description="variant stock status"
-            />
-          </Typography>
-          <LinkChoice
-            className={classes.select}
-            choices={getWarehouseChoices(variants, intl)}
-            name="warehouse"
-            value={warehouse}
-            onChange={event => setWarehouse(event.target.value)}
-          />
-        </CardContent>
-      ) : (
-        <CardContent>
-          <Typography color={hasVariants ? "textPrimary" : "textSecondary"}>
-            <FormattedMessage defaultMessage="Use variants for products that come in a variety of versions for example different sizes or colors" />
-          </Typography>
-        </CardContent>
-      )}
-      {hasVariants && (
-        <Box
-          sx={{
-            // width: "92vw",
-            overflow: "hidden",
-            height: "100%",
-            position: "relative"
-          }}
-        >
-          <ResponsiveTable>
-            <colgroup>
-              <col className={classes.colGrab} />
-              {/* <col /> */}
-              <col className={classes.colName} />
-              <col className={classes.colSku} />
-              <col className={classes.colPrice} />
-              <col className={classes.colInventory} />
-              <col className={classes.colActions} />
-            </colgroup>
-            <TableHead
-              colSpan={numberOfColumns}
-              selected={selected}
-              disabled={disabled}
-              items={variants}
-              toggleAll={toggleAll}
-              toolbar={toolbar}
-              dragRows
-            >
-              <TableCell className={classes.colName}>
+          toolbar={
+            hasVariants ? (
+              <Button
+                disabled={limitReached}
+                onClick={onVariantAdd}
+                variant="text"
+                color="primary"
+                data-test="button-add-variant"
+              >
                 <FormattedMessage
-                  defaultMessage="Variant"
-                  description="product variant name"
+                  defaultMessage="Create variant"
+                  description="button"
                 />
-              </TableCell>
-              <TableCell className={classes.colSku}>
-                <FormattedMessage defaultMessage="SKU" />
-              </TableCell>
-              <Hidden smDown>
-                <TableCell className={classes.colPrice}>
+              </Button>
+            ) : (
+              <Button
+                disabled={limitReached}
+                onClick={onVariantsAdd}
+                variant="text"
+                color="primary"
+                data-test="button-add-variants"
+              >
+                <FormattedMessage
+                  defaultMessage="Create variants"
+                  description="button"
+                />
+              </Button>
+            )
+          }
+        />
+
+        {limitReached && (
+          <LimitReachedAlert
+            className={classes.alert}
+            title={intl.formatMessage({
+              defaultMessage: "SKU limit reached",
+              description: "alert"
+            })}
+          >
+            <FormattedMessage defaultMessage="You have reached your SKU limit, you will be no longer able to add SKUs to your store. If you would like to up your limit, contact your administration staff about raising your limits." />
+          </LimitReachedAlert>
+        )}
+
+        {variants.length > 0 ? (
+          <CardContent className={classes.warehouseSelectContainer}>
+            <Typography className={classes.warehouseLabel}>
+              <FormattedMessage
+                defaultMessage="Available inventory at:"
+                description="variant stock status"
+              />
+            </Typography>
+            <LinkChoice
+              className={classes.select}
+              choices={getWarehouseChoices(variants, intl)}
+              name="warehouse"
+              value={warehouse}
+              onChange={event => setWarehouse(event.target.value)}
+            />
+          </CardContent>
+        ) : (
+          <CardContent>
+            <Typography color={hasVariants ? "textPrimary" : "textSecondary"}>
+              <FormattedMessage defaultMessage="Use variants for products that come in a variety of versions for example different sizes or colors" />
+            </Typography>
+          </CardContent>
+        )}
+        {hasVariants && (
+          <Box
+            sx={{
+              // width: "92vw",
+              overflow: "hidden",
+              height: "100%",
+              position: "relative"
+            }}
+          >
+            <ResponsiveTable>
+              <colgroup>
+                <col className={classes.colGrab} />
+                <col />
+                <col className={classes.colName} />
+                <col className={classes.colSku} />
+                <col className={classes.colPrice} />
+                <col className={classes.colInventory} />
+                <col className={classes.colActions} />
+              </colgroup>
+              <TableHead
+                colSpan={numberOfColumns}
+                selected={selected}
+                disabled={disabled}
+                items={variants}
+                toggleAll={toggleAll}
+                toolbar={toolbar}
+                dragRows
+              >
+                <TableCell className={classes.colName}>
                   <FormattedMessage
-                    defaultMessage="Price"
-                    description="product variant price"
+                    defaultMessage="Variant"
+                    description="product variant name"
                   />
                 </TableCell>
-              </Hidden>
-              <TableCell className={classes.colInventory}>
-                <FormattedMessage
-                  defaultMessage="Inventory"
-                  description="product variant inventory status"
-                />
-              </TableCell>
-              <TableCell className={classes.colActions}></TableCell>
-            </TableHead>
-            <SortableTableBody onSortEnd={onVariantReorder}>
-              {renderCollection(variants, (variant, variantIndex) => {
-                const isSelected = variant ? isChecked(variant.id) : false;
-                const isDefault =
-                  variant && product?.defaultVariant?.id === variant?.id;
-                const numAvailable =
-                  variant && variant.stocks
-                    ? variant.stocks.reduce(
-                        (acc, s) => acc + s.quantity - s.quantityAllocated,
-                        0
-                      )
-                    : null;
-                const channel = variant.channelListings.find(
-                  listing => listing.channel.id === selectedChannelId
-                );
+                <TableCell className={classes.colSku}>
+                  <FormattedMessage defaultMessage="SKU" />
+                </TableCell>
+                <Hidden smDown>
+                  <TableCell className={classes.colPrice}>
+                    <FormattedMessage
+                      defaultMessage="Price"
+                      description="product variant price"
+                    />
+                  </TableCell>
+                </Hidden>
+                <TableCell className={classes.colInventory}>
+                  <FormattedMessage
+                    defaultMessage="Inventory"
+                    description="product variant inventory status"
+                  />
+                </TableCell>
+                <TableCell className={classes.colActions}></TableCell>
+              </TableHead>
+              <SortableTableBody onSortEnd={onVariantReorder}>
+                {renderCollection(variants, (variant, variantIndex) => {
+                  const isSelected = variant ? isChecked(variant.id) : false;
+                  const isDefault =
+                    variant && product?.defaultVariant?.id === variant?.id;
+                  const numAvailable =
+                    variant && variant.stocks
+                      ? variant.stocks.reduce(
+                          (acc, s) => acc + s.quantity - s.quantityAllocated,
+                          0
+                        )
+                      : null;
+                  const channel = variant.channelListings.find(
+                    listing => listing.channel.id === selectedChannelId
+                  );
 
-                return (
-                  <SortableTableRow
-                    data-test-id="product-variant-row"
-                    selected={isSelected}
-                    hover={!!variant}
-                    onClick={onRowClick(variant.id)}
-                    key={variant ? variant.id : "skeleton"}
-                    index={variantIndex || 0}
-                    className={classes.link}
-                  >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        checked={isSelected}
-                        disabled={disabled}
-                        disableClickPropagation
-                        onChange={() => toggle(variant.id)}
-                      />
-                    </TableCell>
-                    <TableCell className={classes.colName} data-test="name">
-                      {variant ? variant.name || variant.sku : <Skeleton />}
-                      {isDefault && (
-                        <span className={classes.defaultVariant}>
-                          {intl.formatMessage({
-                            defaultMessage: "Default",
-                            description: "default product variant indicator"
-                          })}
-                        </span>
-                      )}
-                    </TableCell>
-                    <TableCell className={classes.colSku} data-test="sku">
-                      {variant ? variant.sku : <Skeleton />}
-                    </TableCell>
-                    <Hidden smDown>
-                      <TableCell className={classes.colPrice} data-test="price">
-                        {variant ? (
-                          <Money money={channel?.price} />
-                        ) : (
-                          <Skeleton />
+                  return (
+                    <SortableTableRow
+                      data-test-id="product-variant-row"
+                      selected={isSelected}
+                      hover={!!variant}
+                      onClick={onRowClick(variant.id)}
+                      key={variant ? variant.id : "skeleton"}
+                      index={variantIndex || 0}
+                      className={classes.link}
+                    >
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          checked={isSelected}
+                          disabled={disabled}
+                          disableClickPropagation
+                          onChange={() => toggle(variant.id)}
+                        />
+                      </TableCell>
+                      <TableCell className={classes.colName} data-test="name">
+                        {variant ? variant.name || variant.sku : <Skeleton />}
+                        {isDefault && (
+                          <span className={classes.defaultVariant}>
+                            {intl.formatMessage({
+                              defaultMessage: "Default",
+                              description: "default product variant indicator"
+                            })}
+                          </span>
                         )}
                       </TableCell>
-                    </Hidden>
-                    <TableCell
-                      className={classes.colInventory}
-                      data-test="inventory"
-                    >
-                      {numAvailable === null ? (
-                        <Skeleton />
-                      ) : (
-                        getAvailabilityLabel(
-                          intl,
-                          warehouse,
-                          variant,
-                          numAvailable
-                        )
-                      )}
-                    </TableCell>
-                    <TableCell
-                      className={classes.colActions}
-                      data-test="actions"
-                      onClick={e => e.stopPropagation()}
-                    >
-                      {variant?.id !== product?.defaultVariant?.id && (
-                        <ProductVariantSetDefault
-                          onSetDefaultVariant={() =>
-                            onSetDefaultVariant(variant)
-                          }
-                        />
-                      )}
-                    </TableCell>
-                  </SortableTableRow>
-                );
-              })}
-            </SortableTableBody>
-          </ResponsiveTable>
-        </Box>
-      )}
-    </Card>
+                      <TableCell className={classes.colSku} data-test="sku">
+                        {variant ? variant.sku : <Skeleton />}
+                      </TableCell>
+                      <Hidden smDown>
+                        <TableCell
+                          className={classes.colPrice}
+                          data-test="price"
+                        >
+                          {variant ? (
+                            <Money money={channel?.price} />
+                          ) : (
+                            <Skeleton />
+                          )}
+                        </TableCell>
+                      </Hidden>
+                      <TableCell
+                        className={classes.colInventory}
+                        data-test="inventory"
+                      >
+                        {numAvailable === null ? (
+                          <Skeleton />
+                        ) : (
+                          getAvailabilityLabel(
+                            intl,
+                            warehouse,
+                            variant,
+                            numAvailable
+                          )
+                        )}
+                      </TableCell>
+                      <TableCell
+                        className={classes.colActions}
+                        data-test="actions"
+                        onClick={e => e.stopPropagation()}
+                      >
+                        {variant?.id !== product?.defaultVariant?.id && (
+                          <ProductVariantSetDefault
+                            onSetDefaultVariant={() =>
+                              onSetDefaultVariant(variant)
+                            }
+                          />
+                        )}
+                      </TableCell>
+                    </SortableTableRow>
+                  );
+                })}
+              </SortableTableBody>
+            </ResponsiveTable>
+          </Box>
+        )}
+      </IonCardContent>
+    </IonCard>
   );
 };
 ProductVariants.displayName = "ProductVariants";

@@ -80,14 +80,14 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
         //   url: collectionListUrl(),
         //   permissions: [PermissionEnum.MANAGE_PRODUCTS]
         // },
-        {
-          ariaLabel: "giftCards",
-          iconSvg: ellipse,
-          label: intl.formatMessage(sectionNames.giftCards),
-          id: "giftCards",
-          url: giftCardListUrl(),
-          permissions: [PermissionEnum.MANAGE_GIFT_CARD]
-        }
+        // {
+        //   ariaLabel: "giftCards",
+        //   iconSvg: ellipse,
+        //   label: intl.formatMessage(sectionNames.giftCards),
+        //   id: "giftCards",
+        //   url: giftCardListUrl(),
+        //   permissions: [PermissionEnum.MANAGE_GIFT_CARD]
+        // }
       ],
       iconSrc: catalogIcon,
       label: intl.formatMessage(commonMessages.catalog),
@@ -104,15 +104,15 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
           iconSvg: ellipse,
           url: orderListUrl()
         },
-        {
-          ariaLabel: "order drafts",
-          label: intl.formatMessage(commonMessages.drafts),
-          permissions: [PermissionEnum.MANAGE_ORDERS],
-          id: "order drafts",
-          // iconSrc: ordersIcon,
-          iconSvg: ellipse,
-          url: orderDraftListUrl()
-        }
+        // {
+        //   ariaLabel: "order drafts",
+        //   label: intl.formatMessage(commonMessages.drafts),
+        //   permissions: [PermissionEnum.MANAGE_ORDERS],
+        //   id: "order drafts",
+        //   // iconSrc: ordersIcon,
+        //   iconSvg: ellipse,
+        //   url: orderDraftListUrl()
+        // }
       ],
       iconSrc: ordersIcon,
       label: intl.formatMessage(sectionNames.orders),
@@ -128,28 +128,28 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
       url: customerListUrl()
     },
 
-    {
-      ariaLabel: "discounts",
-      children: [
-        {
-          ariaLabel: "sales",
-          label: intl.formatMessage(sectionNames.sales),
-          id: "sales",
-          iconSvg: ellipse,
-          url: saleListUrl()
-        },
-        {
-          ariaLabel: "vouchers",
-          label: intl.formatMessage(sectionNames.vouchers),
-          id: "vouchers",
-          iconSvg: ellipse,
-          url: voucherListUrl()
-        }
-      ],
-      label: intl.formatMessage(commonMessages.discounts),
-      permissions: [PermissionEnum.MANAGE_DISCOUNTS],
-      id: "discounts"
-    },
+    // {
+    //   ariaLabel: "discounts",
+    //   children: [
+    //     {
+    //       ariaLabel: "sales",
+    //       label: intl.formatMessage(sectionNames.sales),
+    //       id: "sales",
+    //       iconSvg: ellipse,
+    //       url: saleListUrl()
+    //     },
+    //     {
+    //       ariaLabel: "vouchers",
+    //       label: intl.formatMessage(sectionNames.vouchers),
+    //       id: "vouchers",
+    //       iconSvg: ellipse,
+    //       url: voucherListUrl()
+    //     }
+    //   ],
+    //   label: intl.formatMessage(commonMessages.discounts),
+    //   permissions: [PermissionEnum.MANAGE_DISCOUNTS],
+    //   id: "discounts"
+    // },
     // {
     //   ariaLabel: "apps",
     //   iconSrc: appsIcon,

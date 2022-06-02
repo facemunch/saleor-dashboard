@@ -12,7 +12,14 @@ import { hasLimits, isLimitReached } from "@saleor/utils/limits";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { IonContent, IonCard } from "@ionic/react";
+import {
+  IonContent,
+  IonCard,
+  IonFab,
+  IonFabButton,
+  IonIcon
+} from "@ionic/react";
+import { add } from "ionicons/icons";
 
 import { OrderList_orders_edges_node } from "../../types/OrderList";
 import OrderLimitReached from "../OrderLimitReached";
@@ -64,49 +71,37 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
 
   return (
     <IonContent>
-      <PageHeader
-        title={intl.formatMessage(sectionNames.orders)}
-        limitText={
-          hasLimits(limits, "orders") &&
-          intl.formatMessage(
-            {
-              defaultMessage: "{count}/{max} orders",
-              description: "placed order counter"
-            },
-            {
-              count: limits.currentUsage.orders,
-              max: limits.allowedUsage.orders
-            }
-          )
-        }
+      <IonFab
+        vertical="bottom"
+        horizontal="end"
+        slot="fixed"
+        style={{
+          marginBottom: "50px"
+        }}
+        data-test-id="create-order-button"
+
+        // disabled={limitReached}
       >
-        {!!onSettingsOpen && (
-          <CardMenu
-            className={classes.settings}
-            menuItems={[
-              {
-                label: intl.formatMessage({
-                  defaultMessage: "Order Settings",
-                  description: "button"
-                }),
-                onSelect: onSettingsOpen
-              }
-            ]}
-          />
-        )}
-        <Button
-          disabled={limitsReached}
-          color="primary"
-          variant="contained"
-          onClick={onAdd}
-          data-test-id="create-order-button"
-        >
-          <FormattedMessage
-            defaultMessage="Create order"
-            description="button"
-          />
-        </Button>
-      </PageHeader>
+        <IonFabButton onClick={onAdd}>
+          <IonIcon icon={add} />
+        </IonFabButton>
+      </IonFab>
+
+      {/* {!!onSettingsOpen && (
+        <CardMenu
+          className={classes.settings}
+          menuItems={[
+            {
+              label: intl.formatMessage({
+                defaultMessage: "Order Settings",
+                description: "button"
+              }),
+              onSelect: onSettingsOpen
+            }
+          ]}
+        />
+      )} */}
+
       {limitsReached && <OrderLimitReached />}
       <IonCard>
         <FilterBar

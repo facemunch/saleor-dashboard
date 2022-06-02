@@ -79,19 +79,7 @@ const ProductTypeListPage: React.FC<ProductTypeListPageProps> = ({
             <IonIcon icon={add} />
           </IonFabButton>
         </IonFab>
-        {/* <PageHeader title={intl.formatMessage(sectionNames.productTypes)}> */}
-        {/* <Button
-            color="primary"
-            variant="contained"
-            onClick={onAdd}
-            data-test-id="addProductType"
-          >
-            <FormattedMessage
-              defaultMessage="+ Product Type"
-              description="button"
-            />
-          </Button> */}
-        {/* </PageHeader> */}
+
         <IonCard>
           <FilterBar
             allTabLabel={intl.formatMessage({

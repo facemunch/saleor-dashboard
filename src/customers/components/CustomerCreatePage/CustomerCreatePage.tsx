@@ -21,6 +21,8 @@ import CustomerCreateAddress from "../CustomerCreateAddress/CustomerCreateAddres
 import CustomerCreateDetails from "../CustomerCreateDetails";
 import CustomerCreateNote from "../CustomerCreateNote/CustomerCreateNote";
 
+import { IonContent, IonPage } from "@ionic/react";
+
 export interface CustomerCreatePageFormData {
   customerFirstName: string;
   customerLastName: string;
@@ -139,50 +141,52 @@ const CustomerCreatePage: React.FC<CustomerCreatePageProps> = ({
         );
 
         return (
-          <Container>
-            <Backlink onClick={onBack}>
-              <FormattedMessage {...sectionNames.customers} />
-            </Backlink>
-            <PageHeader
-              title={intl.formatMessage({
-                defaultMessage: "Create Customer",
-                description: "page header"
-              })}
-            />
-            <Grid>
-              <div>
-                <CustomerCreateDetails
-                  data={data}
-                  disabled={disabled}
-                  errors={errors}
-                  onChange={change}
-                />
-                <CardSpacer />
-                <CustomerCreateAddress
-                  countries={countryChoices}
-                  countryDisplayName={countryDisplayName}
-                  data={data}
-                  disabled={disabled}
-                  errors={errors}
-                  onChange={change}
-                  onCountryChange={handleCountrySelect}
-                />
-                <CardSpacer />
-                <CustomerCreateNote
-                  data={data}
-                  disabled={disabled}
-                  errors={errors}
-                  onChange={change}
-                />
-              </div>
-            </Grid>
-            <Savebar
-              disabled={disabled || !hasChanged}
-              state={saveButtonBar}
-              onSubmit={submit}
-              onCancel={onBack}
-            />
-          </Container>
+          <IonPage>
+            <IonContent>
+              <Backlink onClick={onBack}>
+                <FormattedMessage {...sectionNames.customers} />
+              </Backlink>
+              <PageHeader
+                title={intl.formatMessage({
+                  defaultMessage: "Create Customer",
+                  description: "page header"
+                })}
+              />
+              <Grid>
+                <div>
+                  <CustomerCreateDetails
+                    data={data}
+                    disabled={disabled}
+                    errors={errors}
+                    onChange={change}
+                  />
+                  <CardSpacer />
+                  <CustomerCreateAddress
+                    countries={countryChoices}
+                    countryDisplayName={countryDisplayName}
+                    data={data}
+                    disabled={disabled}
+                    errors={errors}
+                    onChange={change}
+                    onCountryChange={handleCountrySelect}
+                  />
+                  <CardSpacer />
+                  <CustomerCreateNote
+                    data={data}
+                    disabled={disabled}
+                    errors={errors}
+                    onChange={change}
+                  />
+                </div>
+              </Grid>
+              <Savebar
+                disabled={disabled || !hasChanged}
+                state={saveButtonBar}
+                onSubmit={submit}
+                onCancel={onBack}
+              />
+            </IonContent>
+          </IonPage>
         );
       }}
     </Form>

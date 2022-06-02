@@ -14,7 +14,14 @@ import {
 } from "@saleor/types";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-
+import {
+  IonContent,
+  IonCard,
+  IonFab,
+  IonFabButton,
+  IonIcon
+} from "@ionic/react";
+import { add } from "ionicons/icons";
 import CategoryList from "../CategoryList";
 
 export interface CategoryTableProps
@@ -54,21 +61,22 @@ export const CategoryListPage: React.FC<CategoryTableProps> = ({
   const intl = useIntl();
 
   return (
-    <Container>
-      <PageHeader title={intl.formatMessage(sectionNames.categories)}>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={onAdd}
-          data-test-id="createCategory"
-        >
-          <FormattedMessage
-            defaultMessage="Create category"
-            description="button"
-          />
-        </Button>
-      </PageHeader>
-      <Card>
+    <IonContent>
+      <IonFab
+        vertical="bottom"
+        horizontal="end"
+        slot="fixed"
+        style={{
+          marginBottom: "50px"
+        }}
+        data-test-id="createCategory"
+      >
+        <IonFabButton onClick={onAdd}>
+          <IonIcon icon={add} />
+        </IonFabButton>
+      </IonFab>
+
+      <IonCard>
         <SearchBar
           allTabLabel={intl.formatMessage({
             defaultMessage: "All Categories",
@@ -104,8 +112,8 @@ export const CategoryListPage: React.FC<CategoryTableProps> = ({
           onUpdateListSettings={onUpdateListSettings}
           {...listProps}
         />
-      </Card>
-    </Container>
+      </IonCard>
+    </IonContent>
   );
 };
 CategoryListPage.displayName = "CategoryListPage";

@@ -113,10 +113,10 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
 
   return (
     <IonContent>
-      <PageHeader
+      {/* <PageHeader
         className={classes.header}
         title={intl.formatMessage(sectionNames.configuration)}
-      ></PageHeader>
+      ></PageHeader> */}
       {menus
         .filter(menu =>
           menu.menuItems.some(menuItem =>

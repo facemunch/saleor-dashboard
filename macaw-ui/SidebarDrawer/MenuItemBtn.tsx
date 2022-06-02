@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import React from "react";
 import SVG from "react-inlinesvg";
-
+import { IonButton } from "@ionic/react";
 import { SidebarMenuItem } from "../Sidebar/types";
 import useStyles from "./styles";
 
@@ -11,7 +11,7 @@ export interface MenuItemBtnProps {
 }
 export const MenuItemBtn: React.FC<MenuItemBtnProps> = ({
   menuItem,
-  onClick,
+  onClick
 }) => {
   const classes = useStyles();
   const linkProps = menuItem.external
@@ -21,6 +21,8 @@ export const MenuItemBtn: React.FC<MenuItemBtnProps> = ({
 
   return (
     <Component
+      // expand="block"
+      // fill="clear"
       className={classes.menuItemBtn}
       data-test="menu-item-label"
       data-test-id={menuItem.id}

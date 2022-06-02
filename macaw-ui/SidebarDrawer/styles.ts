@@ -6,7 +6,6 @@ const useStyles = makeStyles(
       display: "flex"
     },
     container: {
-      // overflowX: "hidden",
       width: "100%"
     },
     containerSubMenu: {
@@ -15,20 +14,15 @@ const useStyles = makeStyles(
       }
     },
     content: {
-      width: "50%",
-      marginTop: "12px",
+      textAlign: "left",
       display: "flex",
-      flexWrap: "wrap",
+      flexDirection: "column",
+      flexDirection: "column",
+      height: "61vh",
       justifyContent: "space-between",
-      alignContent: "flex-start",
-      [theme.breakpoints.up("md")]: {
-        maxWidth: 600,
-        margin: '0 calc((100vw - 600px)/2)'
-      },
+      padding: "28px"
     },
     icon: {
-      // marginRight: theme.spacing(2);
-      // color: "white";
       color: "#b8a7fd",
       marginRight: "16px",
       position: "absolute",
@@ -43,8 +37,10 @@ const useStyles = makeStyles(
       width: "200%"
     },
     label: {
-      fontWeight: "bold",
+      fontSize: "2rem !important",
+      fontWeight: "800!important",
       "> p": {
+        fontSize: "2rem !important",
         fontWeight: "bold"
       }
     },
@@ -53,27 +49,12 @@ const useStyles = makeStyles(
       marginBottom: theme.spacing(4)
     },
     menuItemBtn: {
-      border: "none",
-      color: theme.palette.text.secondary,
-      display: "flex",
-      marginBottom: "12px",
-      textDecoration: "none",
-      width: "46%",
-      height: "calc(100vh/8)",
-      // marginLeft: "12px",
-      borderRadius: "8px",
-      padding: "12px",
-      alignItems: "flex-end",
-      background: "#1f2327",
-      fontWeight: "bold"
+      textAlign: "left"
     },
     root: {
-      background: "#000000",
-      borderBottomRightRadius: 32,
-      height: "auto",
-      borderTopRightRadius: 32,
-      padding: theme.spacing(3),
-      width: 260
+      fontWeight: "bold",
+      fontSize: "2rem",
+      margin: "12px !important"
     },
     secondaryContentActive: {
       right: "100%"
