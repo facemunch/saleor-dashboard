@@ -12,7 +12,7 @@ import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { IonContent, IonCard } from "@ionic/react";
+import { IonContent, IonCard, IonPage } from "@ionic/react";
 
 import { hasAnyPermissions } from "../auth/misc";
 import Container from "../components/Container";
@@ -45,9 +45,9 @@ const useStyles = makeStyles(
     },
     cardContent: {
       // Overrides Material-UI default theme
-      "&:last-child": {
-        paddingBottom: 16
-      },
+      // "&:last-child": {
+      //   paddingBottom: 16
+      // },
       display: "grid",
       gridColumnGap: theme.spacing(4),
       gridTemplateColumns: "48px 1fr"
@@ -91,7 +91,8 @@ const useStyles = makeStyles(
     sectionDescription: {},
     sectionTitle: {
       fontSize: 20,
-      fontWeight: 600 as 600
+      fontWeight: 600 as 600,
+      marginTop: "16px !important"
     }
   }),
   { name: "ConfigurationPage" }
@@ -112,23 +113,25 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
   const intl = useIntl();
 
   return (
-    <IonContent>
-      {/* <PageHeader
+    <IonPage>
+      <IonContent>
+        {/* <PageHeader
         className={classes.header}
         title={intl.formatMessage(sectionNames.configuration)}
       ></PageHeader> */}
-      {menus
-        .filter(menu =>
-          menu.menuItems.some(menuItem =>
-            hasAnyPermissions(menuItem.permissions, user)
+        <div style={{ height: "50px" }} />
+        {menus
+          .filter(menu =>
+            menu.menuItems.some(menuItem =>
+              hasAnyPermissions(menuItem.permissions, user)
+            )
           )
-        )
-        .map((menu, menuIndex) => (
-          <IonCard className={classes.configurationCategory} key={menuIndex}>
-            <div className={classes.configurationLabel}>
-              <Typography>{menu.label}</Typography>
-            </div>
-            <div className={classes.configurationItem}>
+          .map((menu, menuIndex) => (
+            <IonCard className={classes.configurationCategory} key={menuIndex}>
+              {/* <div className={classes.configurationLabel}>
+                <Typography>{menu.label}</Typography>
+              </div> */}
+              {/* <div className={classes.configurationItem}> */}
               {menu.menuItems
                 .filter(menuItem =>
                   hasAnyPermissions(menuItem.permissions, user)
@@ -151,17 +154,22 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
                         >
                           {item.title}
                         </Typography>
-                        <Typography className={classes.sectionDescription}>
+                        <Typography
+                          variant="caption"
+                          className={classes.sectionDescription}
+                        >
                           {item.description}
                         </Typography>
                       </div>
                     </CardContent>
                   </Card>
                 ))}
-            </div>
-          </IonCard>
-        ))}
-    </IonContent>
+              {/* </div> */}
+            </IonCard>
+          ))}
+        <div style={{ height: "100px" }} />
+      </IonContent>
+    </IonPage>
   );
 };
 ConfigurationPage.displayName = "ConfigurationPage";

@@ -27,12 +27,13 @@ import {
   IonIcon,
   IonButton,
   IonButtons,
-  IonFabButton
+  IonFabButton,
+  IonTitle
 } from "@ionic/react";
 import Container from "../Container";
 import ErrorPage from "../ErrorPage";
 import Navigator from "../Navigator";
-import NavigatorButton from "../NavigatorButton/NavigatorButton";
+// import NavigatorButton from "../NavigatorButton/NavigatorButton";
 // import UserChip from "../UserChip";
 // import useAppChannel from "./AppChannelContext";
 // import AppChannelSelect from "./AppChannelSelect";
@@ -229,7 +230,11 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       <IonPage>
         {/* <div> */}
         {(location.pathname.split("/").length - 1 < 2 ||
-          location.pathname.includes("configuration")) && (
+          location.pathname.includes("configuration") ||
+          location.pathname.includes("attributes") ||
+          location.pathname.includes("shipping") ||
+          location.pathname.includes("warehouses") ||
+          location.pathname.includes("product-types")) && (
           <IonHeader translucent collapse="condense">
             <IonToolbar>
               {/* <div className={classes.header}> */}
@@ -241,11 +246,18 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
               {/* )} */}
               {/* <div className={classes.spacer} /> */}
               {/* <div className={classes.userBar}> */}
-              {location.pathname.includes("configuration") && (
+              {(location.pathname.includes("configuration") ||
+                location.pathname.includes("attributes") ||
+                location.pathname.includes("warehouses") ||
+                location.pathname.includes("site-settings") ||
+                location.pathname.includes("shipping") ||
+                location.pathname.includes("product-types")) && (
                 <IonButtons slot="secondary">
                   <IonButton
                     onClick={() => {
-                      navigate("/home");
+                      location.pathname.includes("configuration")
+                        ? navigate("/home")
+                        : navigate("/configuration");
                     }}
                     fill="clear"
                   >
@@ -254,31 +266,65 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                 </IonButtons>
               )}
 
-              <IonButtons slot="primary">
-                <IonButton
-                  color="dark"
-                  onClick={() => {
-                    navigate("/configuration/");
-                  }}
-                  fill="clear"
-                >
-                  <IonIcon slot="icon-only" icon={settingsOutline} />
-                </IonButton>
+              {!location.pathname.includes("configuration") &&
+                !location.pathname.includes("attributes") &&
+                !location.pathname.includes("shipping") &&
+                !location.pathname.includes("warehouses") &&
+                !location.pathname.includes("site-settings") &&
+                !location.pathname.includes("product-types") &&
+                !location.pathname.includes("product-ss") && (
+                  <IonButtons slot="primary">
+                    <IonButton
+                      color="dark"
+                      onClick={() => {
+                        navigate("/configuration");
+                      }}
+                      fill="clear"
+                    >
+                      <IonIcon slot="icon-only" icon={settingsOutline} />
+                    </IonButton>
 
-                <NavigatorButton
+                    {/* <NavigatorButton
                   isMac={navigator.platform.toLowerCase().includes("mac")}
                   onClick={() => setNavigatorVisibility(true)}
-                />
-              </IonButtons>
+                /> */}
+                  </IonButtons>
+                )}
               {/* </div> */}
               {/* </div> */}
               {/* </div> */}
+              {!location.pathname.includes("shipping") &&
+              !location.pathname.includes("configuration") &&
+                !location.pathname.includes("site-settings") && (
+                  <IonTitle
+                    data-test-id="commerce-title"
+                    size="large"
+                    style={{
+                      marginTop: "8px",
+                      fontFamily: '"Inter"',
+                      fontStyle: "normal",
+                      fontWeight: "900",
+                      fontSize: "28px",
+                      // lineHeight: '36px',
+                      letterSpacing: "-0.02em",
+                      color: "#ffffff",
+                      opacity: "0.95"
+                    }}
+                  >
+                    Commerce
+                  </IonTitle>
+                )}
             </IonToolbar>
           </IonHeader>
         )}
         {!location.pathname.includes("configuration") &&
           !location.pathname.includes("/orders/") &&
+          !location.pathname.includes("/attributes") &&
           !location.pathname.includes("/products/") &&
+          !location.pathname.includes("/shipping") &&
+          !location.pathname.includes("/warehouses") &&
+          !location.pathname.includes("/site-settings") &&
+          !location.pathname.includes("product-types") &&
           !location.pathname.includes("/customers/") && (
             <SidebarDrawer
               menuItems={menuStructure}

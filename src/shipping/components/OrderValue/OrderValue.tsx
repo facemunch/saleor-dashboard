@@ -21,6 +21,7 @@ import {
 import getShippingErrorMessage from "@saleor/utils/errors/shipping";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { IonCard } from "@ionic/react";
 
 import { useStyles } from "./styles";
 
@@ -55,7 +56,7 @@ export const OrderValue: React.FC<OrderValueProps> = ({
   );
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Order Value",
@@ -185,7 +186,7 @@ export const OrderValue: React.FC<OrderValueProps> = ({
           </ResponsiveTable>
         )}
       </div>
-    </Card>
+    </IonCard>
   );
 };
 

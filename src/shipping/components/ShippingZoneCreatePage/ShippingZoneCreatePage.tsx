@@ -13,6 +13,8 @@ import { Backlink } from "@saleor/macaw-ui";
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 
+import { IonPage, IonContent } from "@ionic/react";
+
 import ShippingZoneCountriesAssignDialog from "../ShippingZoneCountriesAssignDialog";
 import ShippingZoneInfo from "../ShippingZoneInfo";
 
@@ -73,8 +75,8 @@ const ShippingZoneCreatePage: React.FC<ShippingZoneCreatePageProps> = ({
   return (
     <Form initial={initialForm} onSubmit={onSubmit}>
       {({ change, data, hasChanged, submit }) => (
-        <>
-          <Container>
+        <IonPage>
+          <IonContent>
             <Backlink onClick={onBack}>
               {intl.formatMessage(sectionNames.shipping)}
             </Backlink>
@@ -119,7 +121,8 @@ const ShippingZoneCreatePage: React.FC<ShippingZoneCreatePageProps> = ({
               onSubmit={submit}
               state={saveButtonBarState}
             />
-          </Container>
+          </IonContent>
+
           <ShippingZoneCountriesAssignDialog
             open={isModalOpened}
             onConfirm={formData => {
@@ -137,7 +140,7 @@ const ShippingZoneCreatePage: React.FC<ShippingZoneCreatePageProps> = ({
             isDefault={data.default}
             onClose={toggleModal}
           />
-        </>
+        </IonPage>
       )}
     </Form>
   );

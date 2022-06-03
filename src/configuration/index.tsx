@@ -71,24 +71,24 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
         }
       ]
     },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Product Settings"
-      }),
-      menuItems: [
-        {
-          description: intl.formatMessage({
-            defaultMessage: "Manage how your store charges tax",
-            id: "configurationMenuTaxes"
-          }),
-          icon: <Taxes fontSize="inherit" viewBox="0 0 44 44" />,
-          permissions: [PermissionEnum.MANAGE_SETTINGS],
-          title: intl.formatMessage(sectionNames.taxes),
-          url: taxSection,
-          testId: "configurationMenuTaxes"
-        }
-      ]
-    },
+    // {
+    //   label: intl.formatMessage({
+    //     defaultMessage: "Product Settings"
+    //   }),
+    //   menuItems: [
+    //     {
+    //       description: intl.formatMessage({
+    //         defaultMessage: "Manage how your store charges tax",
+    //         id: "configurationMenuTaxes"
+    //       }),
+    //       icon: <Taxes fontSize="inherit" viewBox="0 0 44 44" />,
+    //       permissions: [PermissionEnum.MANAGE_SETTINGS],
+    //       title: intl.formatMessage(sectionNames.taxes),
+    //       url: taxSection,
+    //       testId: "configurationMenuTaxes"
+    //     }
+    //   ]
+    // },
     {
       label: intl.formatMessage({
         defaultMessage: "Staff Settings"
@@ -134,18 +134,18 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
           title: intl.formatMessage(sectionNames.shipping),
           url: shippingZonesListUrl(),
           testId: "configurationMenuShipping"
-        },
-        {
-          description: intl.formatMessage({
-            defaultMessage: "Manage and update your warehouse information",
-            id: "configurationMenuWarehouses"
-          }),
-          icon: <Warehouses fontSize="inherit" viewBox="0 0 44 44" />,
-          permissions: [PermissionEnum.MANAGE_PRODUCTS],
-          title: intl.formatMessage(sectionNames.warehouses),
-          url: warehouseSection,
-          testId: "configurationMenuWarehouses"
         }
+        // {
+        //   description: intl.formatMessage({
+        //     defaultMessage: "Manage and update your warehouse information",
+        //     id: "configurationMenuWarehouses"
+        //   }),
+        //   icon: <Warehouses fontSize="inherit" viewBox="0 0 44 44" />,
+        //   permissions: [PermissionEnum.MANAGE_PRODUCTS],
+        //   title: intl.formatMessage(sectionNames.warehouses),
+        //   url: warehouseSection,
+        //   testId: "configurationMenuWarehouses"
+        // }
       ]
     },
     {
@@ -166,54 +166,54 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
         }
       ]
     },
-    // {
-    //   label: intl.formatMessage({
-    //     defaultMessage: "Content Management"
-    //   }),
-    //   menuItems: [
-    //     {
-    //       description: intl.formatMessage({
-    //         defaultMessage: "Define types of content pages used in your store",
-    //         id: "configurationMenuPageTypes"
-    //       }),
-    //       icon: <PageTypes fontSize="inherit" viewBox="0 0 44 44" />,
-    //       permissions: [
-    //         PermissionEnum.MANAGE_PAGES,
-    //         PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
-    //       ],
-    //       title: intl.formatMessage(sectionNames.pageTypes),
-    //       url: pageTypeListUrl(),
-    //       testId: "configurationMenuPageTypes"
-    //     },
-    //     {
-    //       description: intl.formatMessage({
-    //         defaultMessage: "Manage and add additional pages",
-    //         id: "configurationMenuPages"
-    //       }),
-    //       icon: <Pages fontSize="inherit" viewBox="0 0 44 44" />,
-    //       permissions: [PermissionEnum.MANAGE_PAGES],
-    //       title: intl.formatMessage(sectionNames.pages),
-    //       url: pageListUrl(),
-    //       testId: "configurationMenuPages"
-    //     }
-    //   ]
-    // },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Content Management"
+      }),
+      menuItems: [
+        {
+          description: intl.formatMessage({
+            defaultMessage: "Define types of content pages used in your store",
+            id: "configurationMenuPageTypes"
+          }),
+          icon: <PageTypes fontSize="inherit" viewBox="0 0 44 44" />,
+          permissions: [
+            PermissionEnum.MANAGE_PAGES,
+            PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES
+          ],
+          title: intl.formatMessage(sectionNames.pageTypes),
+          url: pageTypeListUrl(),
+          testId: "configurationMenuPageTypes"
+        },
+        {
+          description: intl.formatMessage({
+            defaultMessage: "Manage and add additional pages",
+            id: "configurationMenuPages"
+          }),
+          icon: <Pages fontSize="inherit" viewBox="0 0 44 44" />,
+          permissions: [PermissionEnum.MANAGE_PAGES],
+          title: intl.formatMessage(sectionNames.pages),
+          url: pageListUrl(),
+          testId: "configurationMenuPages"
+        }
+      ]
+    },
     {
       label: intl.formatMessage({
         defaultMessage: "Miscellaneous"
       }),
       menuItems: [
-        // {
-        //   description: intl.formatMessage({
-        //     defaultMessage: "Define how users can navigate through your store",
-        //     id: "configurationMenuNavigation"
-        //   }),
-        //   icon: <Navigation fontSize="inherit" viewBox="0 0 44 44" />,
-        //   permissions: [PermissionEnum.MANAGE_MENUS],
-        //   title: intl.formatMessage(sectionNames.navigation),
-        //   url: menuListUrl(),
-        //   testId: "configurationMenuNavigation"
-        // },
+        {
+          description: intl.formatMessage({
+            defaultMessage: "Define how users can navigate through your store",
+            id: "configurationMenuNavigation"
+          }),
+          icon: <Navigation fontSize="inherit" viewBox="0 0 44 44" />,
+          permissions: [PermissionEnum.MANAGE_MENUS],
+          title: intl.formatMessage(sectionNames.navigation),
+          url: menuListUrl(),
+          testId: "configurationMenuNavigation"
+        },
         {
           description: intl.formatMessage({
             defaultMessage: "View and update your site settings",
@@ -268,6 +268,7 @@ export const ConfigurationSection: React.FC = () => {
         user={maybe(() => user.user)}
         onSectionClick={navigate}
       />
+      <div style={{ height: "100px" }} />
     </>
   );
 };

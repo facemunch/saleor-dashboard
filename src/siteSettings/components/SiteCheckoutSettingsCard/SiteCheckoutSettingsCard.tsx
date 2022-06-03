@@ -6,6 +6,8 @@ import { getFormErrors } from "@saleor/utils/errors";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { IonCard, IonCardContent } from "@ionic/react";
+
 import { SiteSettingsPageFormData } from "../SiteSettingsPage";
 import { messages } from "./messages";
 
@@ -33,9 +35,9 @@ const SiteCheckoutSettingsCard: React.FC<SiteCheckoutSettingsCardProps> = ({
   );
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle title={intl.formatMessage(messages.reservedStock)} />
-      <CardContent>
+      <IonCardContent>
         <Typography variant="body2">
           <FormattedMessage {...messages.reservedStockDescription} />
         </Typography>
@@ -83,8 +85,8 @@ const SiteCheckoutSettingsCard: React.FC<SiteCheckoutSettingsCardProps> = ({
             }
           }}
         />
-      </CardContent>
-    </Card>
+      </IonCardContent>
+    </IonCard>
   );
 };
 SiteCheckoutSettingsCard.displayName = "SiteCheckoutSettingsCard";

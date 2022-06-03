@@ -9,7 +9,7 @@ import { ListActions, PageListProps, UserPermissionProps } from "@saleor/types";
 import { PermissionEnum, WeightUnitsEnum } from "@saleor/types/globalTypes";
 import React from "react";
 import { useIntl } from "react-intl";
-import { IonContent } from "@ionic/react";
+import { IonContent, IonPage } from "@ionic/react";
 
 import ShippingWeightUnitForm from "../ShippingWeightUnitForm";
 import ShippingZonesList from "../ShippingZonesList";
@@ -36,34 +36,36 @@ const ShippingZonesListPage: React.FC<ShippingZonesListPageProps> = ({
   const intl = useIntl();
 
   return (
-    <IonContent>
-      <Backlink onClick={onBack}>
-        {intl.formatMessage(sectionNames.configuration)}
-      </Backlink>
-      <PageHeader
-        title={intl.formatMessage({
-          defaultMessage: "Shipping",
-          description: "header"
-        })}
-      />
-      <Grid>
-        <div>
-          <ShippingZonesList disabled={disabled} {...listProps} />
-        </div>
-        <div>
-          <RequirePermissions
-            userPermissions={userPermissions}
-            requiredPermissions={[PermissionEnum.MANAGE_SETTINGS]}
-          >
-            <ShippingWeightUnitForm
-              defaultWeightUnit={defaultWeightUnit}
-              disabled={disabled}
-              onSubmit={onSubmit}
-            />
-          </RequirePermissions>
-        </div>
-      </Grid>
-    </IonContent>
+    <IonPage>
+      <IonContent>
+        <Backlink onClick={onBack}>
+          {intl.formatMessage(sectionNames.configuration)}
+        </Backlink>
+        <PageHeader
+          title={intl.formatMessage({
+            defaultMessage: "Shipping",
+            description: "header"
+          })}
+        />
+        <Grid>
+          <div>
+            <ShippingZonesList disabled={disabled} {...listProps} />
+          </div>
+          <div>
+            <RequirePermissions
+              userPermissions={userPermissions}
+              requiredPermissions={[PermissionEnum.MANAGE_SETTINGS]}
+            >
+              <ShippingWeightUnitForm
+                defaultWeightUnit={defaultWeightUnit}
+                disabled={disabled}
+                onSubmit={onSubmit}
+              />
+            </RequirePermissions>
+          </div>
+        </Grid>
+      </IonContent>
+    </IonPage>
   );
 };
 ShippingZonesListPage.displayName = "ShippingZonesListPage";

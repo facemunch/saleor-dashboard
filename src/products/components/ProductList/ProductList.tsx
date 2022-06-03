@@ -155,7 +155,6 @@ export const ProductList: React.FC<ProductListProps> = props => {
     isAttributeColumnValue
   );
   const numberOfColumns = 2 + settings.columns.length;
-  console.log("productproduct", products);
   return (
     <div className={classes.tableContainer}>
       {/* <ResponsiveTable className={classes.table}> */}
@@ -328,7 +327,6 @@ export const ProductList: React.FC<ProductListProps> = props => {
                 hover={!!product}
                 key={product ? product.id : "skeleton"}
                 onClick={
-                  // console.log("productproduct",product )
                   product &&
                   onRowClick(
                     product.id,

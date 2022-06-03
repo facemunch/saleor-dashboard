@@ -18,6 +18,8 @@ import classNames from "classnames";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 
+import { IonCard } from "@ionic/react";
+
 import { getStringOrPlaceholder, maybe, renderCollection } from "../../misc";
 
 export interface CountryListProps {
@@ -96,7 +98,7 @@ const CountryList: React.FC<CountryListProps> = props => {
   }
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={title}
         toolbar={
@@ -189,7 +191,7 @@ const CountryList: React.FC<CountryListProps> = props => {
           </TableBody>
         </ResponsiveTable>
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 export default CountryList;

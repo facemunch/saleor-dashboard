@@ -207,7 +207,7 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
                   <Metadata data={data} onChange={changeMetadata} />
                 </div>
                 <div>
-                  <ShippingZoneSettingsCard
+                  {/* <ShippingZoneSettingsCard
                     formData={data}
                     warehousesDisplayValues={warehouseDisplayValues}
                     hasMoreWarehouses={hasMore}
@@ -220,8 +220,9 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
                     allChannels={allChannels}
                     channelsDisplayValues={channelsDisplayValues}
                     onChannelChange={handleChannelChange}
-                  />
+                  /> */}
                 </div>
+                <div style={{ height: "100px" }} />
               </Grid>
               <Savebar
                 disabled={disabled || !hasChanged}

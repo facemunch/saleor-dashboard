@@ -68,7 +68,7 @@ const FilterBar: React.FC<FilterBarProps> = props => {
 
   return (
     <>
-      <FilterTabs currentTab={currentTab}>
+      {/* <FilterTabs currentTab={currentTab}>
         <FilterTab label={allTabLabel} onClick={onAll} />
         {tabs.map((tab, tabIndex) => (
           <FilterTab
@@ -85,7 +85,7 @@ const FilterBar: React.FC<FilterBarProps> = props => {
             })}
           />
         )}
-      </FilterTabs>
+      </FilterTabs> */}
       <div className={classes.root}>
         <Filter
           errorMessages={errorMessages}

@@ -22,6 +22,8 @@ import { getFooterColSpanWithBulkActions } from "@saleor/utils/tables";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { IonCard } from "@ionic/react";
+
 export interface ShippingZonesListProps extends ListProps, ListActions {
   shippingZones: ShippingZoneFragment[];
   onAdd: () => void;
@@ -74,7 +76,7 @@ const ShippingZonesList: React.FC<ShippingZonesListProps> = props => {
   const intl = useIntl();
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         height="const"
         title={intl.formatMessage({
@@ -193,7 +195,7 @@ const ShippingZonesList: React.FC<ShippingZonesListProps> = props => {
           )}
         </TableBody>
       </ResponsiveTable>
-    </Card>
+    </IonCard>
   );
 };
 ShippingZonesList.displayName = "ShippingZonesList";

@@ -19,6 +19,8 @@ import { mapCountriesToChoices } from "@saleor/utils/maps";
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { IonPage, IonContent } from "@ionic/react";
+
 import { SiteSettings_shop } from "../../types/SiteSettings";
 import SiteCheckoutSettingsCard from "../SiteCheckoutSettingsCard";
 import SiteSettingsDetailsCard from "../SiteDetailsSettingsCard";
@@ -141,68 +143,71 @@ const SiteSettingsPage: React.FC<SiteSettingsPageProps> = props => {
         );
 
         return (
-          <Container>
-            <Backlink onClick={onBack}>
-              {intl.formatMessage(sectionNames.configuration)}
-            </Backlink>
-            <PageHeader
-              title={intl.formatMessage(commonMessages.generalInformations)}
-              underline={true}
-            />
-            <Grid variant="inverted">
-              <PageSectionHeader
-                title={intl.formatMessage(sectionNames.siteSettings)}
-                description={intl.formatMessage(
-                  messages.sectionDetailsDescription
-                )}
+          <IonPage>
+            <IonContent>
+              <Backlink onClick={onBack}>
+                {intl.formatMessage(sectionNames.configuration)}
+              </Backlink>
+              <PageHeader
+                title={intl.formatMessage(commonMessages.generalInformations)}
+                underline={true}
               />
-              {/* <SiteSettingsDetailsCard
-                data={data}
-                errors={errors}
-                disabled={disabled}
-                onChange={change}
-              /> */}
-              {/* <Hr className={classes.hr} /> */}
-              {/* <PageSectionHeader
-                title={intl.formatMessage(messages.sectionCheckoutTitle)}
-                description={intl.formatMessage(
-                  messages.sectionCheckoutDescription
-                )}
-              /> */}
-              <SiteCheckoutSettingsCard
-                data={data}
-                errors={errors}
-                disabled={disabled}
-                onChange={change}
+              <Grid variant="inverted">
+                {/* <PageSectionHeader
+                  title={intl.formatMessage(sectionNames.siteSettings)}
+                  description={intl.formatMessage(
+                    messages.sectionDetailsDescription
+                  )}
+                /> */}
+                <SiteSettingsDetailsCard
+                  data={data}
+                  errors={errors}
+                  disabled={disabled}
+                  onChange={change}
+                />
+                {/* <Hr className={classes.hr} /> */}
+                {/* <PageSectionHeader
+                  title={intl.formatMessage(messages.sectionCheckoutTitle)}
+                  description={intl.formatMessage(
+                    messages.sectionCheckoutDescription
+                  )}
+                /> */}
+                {/* <SiteCheckoutSettingsCard
+                  data={data}
+                  errors={errors}
+                  disabled={disabled}
+                  onChange={change}
+                /> */}
+                {/* <Hr className={classes.hr} />
+                <PageSectionHeader
+                  title={intl.formatMessage(messages.sectionCompanyTitle)}
+                  description={intl.formatMessage(
+                    messages.sectionCompanyDescription
+                  )}
+                /> */}
+                <CompanyAddressInput
+                  data={data}
+                  displayCountry={displayCountry}
+                  countries={countryChoices}
+                  errors={[...errors, ...validationErrors]}
+                  disabled={disabled}
+                  header={intl.formatMessage({
+                    defaultMessage: "Store Information",
+                    description: "section header"
+                  })}
+                  onChange={change}
+                  onCountryChange={handleCountryChange}
+                />
+                <div style={{ height: "100px" }} />
+              </Grid>
+              <Savebar
+                state={saveButtonBarState}
+                disabled={disabled || !hasChanged}
+                onCancel={onBack}
+                onSubmit={submit}
               />
-              <Hr className={classes.hr} />
-              <PageSectionHeader
-                title={intl.formatMessage(messages.sectionCompanyTitle)}
-                description={intl.formatMessage(
-                  messages.sectionCompanyDescription
-                )}
-              />
-              <CompanyAddressInput
-                data={data}
-                displayCountry={displayCountry}
-                countries={countryChoices}
-                errors={[...errors, ...validationErrors]}
-                disabled={disabled}
-                header={intl.formatMessage({
-                  defaultMessage: "Store Information",
-                  description: "section header"
-                })}
-                onChange={change}
-                onCountryChange={handleCountryChange}
-              />
-            </Grid>
-            <Savebar
-              state={saveButtonBarState}
-              disabled={disabled || !hasChanged}
-              onCancel={onBack}
-              onSubmit={submit}
-            />
-          </Container>
+            </IonContent>
+          </IonPage>
         );
       }}
     </Form>

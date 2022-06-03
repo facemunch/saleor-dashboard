@@ -15,21 +15,12 @@ export type SideBarDrawerProps = BaseSidebarProps;
 export const SidebarDrawer: React.FC<SideBarDrawerProps> = props => {
   const { menuItems, onMenuItemClick } = props;
   let { pathname } = useLocation();
-  console.log("location", location);
   const nav = useNavigate();
   const [isOpened, setOpened] = React.useState(pathname === "/ecommerce");
   const classes = useStyles({});
 
   const [showSubmenu, setShowSubmenu] = React.useState(false);
   const container = React.useRef<HTMLDivElement>(null);
-
-  // useEffect(() => {
-  //   if (pathnamepathname === "/ecommerce") {
-  //     setOpened(true);
-  //   } else {
-  //     setOpened(false);
-  //   }
-  // }, [pathname]);
 
   const handleMenuItemClick = (url: string) => {
     setOpened(false);
@@ -45,42 +36,14 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = props => {
     });
   };
 
-  // const showMainMenuTrigger = useMemo(() => {
-  //   return pathname.split("/").length <= 2;
-  // }, [pathname]);
-  // console.log('pathname.replace("/", "")', pathname.replace("/", ""));
   return (
     <>
-      {/* {showMainMenuTrigger && (
-        <SquareButton onClick={() => setOpened(true)}>
-          <ArrowBackIosNewRoundedIcon />
-        </SquareButton>
-      )} */}
-      {/* <Drawer
-        classes={{
-          paper: classes.root
-        }}
-        container={document.getElementById("ecommerce")}
-        sx={{
-          " .MuiBackdrop-root ": {
-            background: "#0000009e"
-          }
-        }}
-        open={isOpened}
-        onClose={() => setOpened(false)}
-      > */}
       <div
         className={clsx(classes.container, {
           [classes.containerSubMenu]: showSubmenu
         })}
         ref={container}
       >
-        {/* <div
-            className={clsx(classes.innerContainer, {
-              [classes.secondaryContentActive]: showSubmenu
-            })}
-          > */}
-        {/* <div className={classes.content}> */}
         <IonSegment
           scrollable
           value={pathname.split("/")[1] ? pathname.split("/")[1] : "home"}
@@ -97,10 +60,7 @@ export const SidebarDrawer: React.FC<SideBarDrawerProps> = props => {
             />
           ))}
         </IonSegment>
-        {/* </div> */}
-        {/* </div> */}
       </div>
-      {/* </Drawer> */}
     </>
   );
 };
