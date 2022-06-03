@@ -8,6 +8,8 @@ import AssignAttributeValueDialog from "@saleor/components/AssignAttributeValueD
 import Attributes, { AttributeInput } from "@saleor/components/Attributes";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ChannelsAvailabilityCard from "@saleor/components/ChannelsAvailabilityCard";
+import generateHash from "random-hash";
+
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Container from "@saleor/components/Container";
 import Grid from "@saleor/components/Grid";
@@ -33,7 +35,7 @@ import { SearchProducts_search_edges_node } from "@saleor/searches/types/SearchP
 import { SearchProductTypes_search_edges_node } from "@saleor/searches/types/SearchProductTypes";
 import { SearchWarehouses_search_edges_node } from "@saleor/searches/types/SearchWarehouses";
 import { PermissionEnum } from "@saleor/types/globalTypes";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
@@ -204,7 +206,7 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
     // const digitalProduct = productTypes.find(x => x.label === "Digital product");
     // digitalProduct?.value && onSelectProductType(digitalProduct.value);
   }, [productTypes]);
-
+  const randomHash = useMemo(() => generateHash({ length: 4 }), []);
   return (
     <ProductCreateForm
       onSubmit={onSubmit}
@@ -307,24 +309,36 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                       onChange={handlers.changeChannelPrice}
                     />
                     <CardSpacer />
-                    <ProductStocks
-                      data={data}
-                      defaultSKU={data.name.split(" ").join("-")}
-                      disabled={loading}
-                      hasVariants={false}
-                      onFormDataChange={change}
-                      errors={errors}
-                      formErrors={formErrors}
-                      isDigitalProduct={isDigitalProduct}
-                      stocks={data.stocks}
-                      warehouses={warehouses}
-                      onChange={handlers.changeStock}
-                      onChangePreorderEndDate={handlers.changePreorderEndDate}
-                      onWarehouseStockAdd={handlers.addStock}
-                      onWarehouseStockDelete={handlers.deleteStock}
-                      onWarehouseConfigure={onWarehouseConfigure}
-                    />
-                    <CardSpacer />
+                    <div
+                      id="hide-isDigitalProduct"
+                      style={{
+                        // transform: !isDigitalProduct ? "scale(1)" : "scale(0)",
+                        height: "0",
+                        overflow: "hidden"
+                      }}
+                    >
+                      <ProductStocks
+                        data={data}
+                        defaultSKU={
+                          data.name.split(" ").join("-") + "-" + randomHash
+                        }
+                        disabled={loading}
+                        hasVariants={false}
+                        onFormDataChange={change}
+                        errors={errors}
+                        formErrors={formErrors}
+                        isDigitalProduct={isDigitalProduct}
+                        stocks={data.stocks}
+                        warehouses={warehouses}
+                        onChange={handlers.changeStock}
+                        onChangePreorderEndDate={handlers.changePreorderEndDate}
+                        onWarehouseStockAdd={handlers.addStock}
+                        onWarehouseStockDelete={handlers.deleteStock}
+                        onWarehouseConfigure={onWarehouseConfigure}
+                      />
+
+                      <CardSpacer />
+                    </div>
                   </>
                 )}
                 {/* <SeoForm
@@ -350,8 +364,8 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                   id="hide-isDigitalProduct"
                   style={{
                     // transform: !isDigitalProduct ? "scale(1)" : "scale(0)",
-                    height: isDigitalProduct ? "0" : "auto",
-                    overflow: isDigitalProduct ? "hidden" : "auto"
+                    height: "0",
+                    overflow: "hidden"
                   }}
                 >
                   <ProductOrganization
@@ -376,36 +390,40 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                     onProductTypeChange={handlers.selectProductType}
                     collectionsInputDisplayValue={selectedCollections}
                   />
-                </div>
-                <CardSpacer />
-                {isSimpleProduct ? (
-                  <ChannelsAvailabilityCard
-                    isDigitalProduct={isDigitalProduct}
-                    managePermissions={[PermissionEnum.MANAGE_PRODUCTS]}
-                    messages={{
-                      hiddenLabel: intl.formatMessage({
-                        defaultMessage: "Not published",
-                        description: "product label"
-                      }),
 
-                      visibleLabel: intl.formatMessage({
-                        defaultMessage: "Published",
-                        description: "product label"
-                      })
-                    }}
-                    errors={channelsErrors}
-                    selectedChannelsCount={data.channelListings?.length || 0}
-                    allChannelsCount={allChannelsCount}
-                    channels={data.channelListings || []}
-                    disabled={loading}
-                    onChange={handlers.changeChannels}
-                    openModal={openChannelsModal}
-                  />
-                ) : (
-                  <CannotDefineChannelsAvailabilityCard />
-                )}
-                <CardSpacer />
-                <div style={{ height: "100px" }} />
+                  <CardSpacer />
+                  {isSimpleProduct ? (
+                    <ChannelsAvailabilityCard
+                      isDigitalProduct={isDigitalProduct}
+                      isAutoPresentToPublished={true}
+                      managePermissions={[PermissionEnum.MANAGE_PRODUCTS]}
+                      messages={{
+                        hiddenLabel: intl.formatMessage({
+                          defaultMessage: "Not published",
+                          description: "product label"
+                        }),
+
+                        visibleLabel: intl.formatMessage({
+                          defaultMessage: "Published",
+                          description: "product label"
+                        })
+                      }}
+                      errors={channelsErrors}
+                      selectedChannelsCount={data.channelListings?.length || 0}
+                      allChannelsCount={allChannelsCount}
+                      channels={data.channelListings || []}
+                      disabled={loading}
+                      onChange={handlers.changeChannels}
+                      openModal={openChannelsModal}
+                    />
+                  ) : (
+                    <CannotDefineChannelsAvailabilityCard />
+                  )}
+                  <CardSpacer />
+                </div>
+                <div style={{ height: "100px", padding: "24px" }}>
+                  You can add media and specify more details in the next step.
+                </div>
                 {/* <ProductTaxes
                     data={data}
                     disabled={loading}

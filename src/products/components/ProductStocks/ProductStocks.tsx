@@ -199,7 +199,7 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
   onWarehouseStockAdd,
   onWarehouseStockDelete,
   onWarehouseConfigure,
-  defaultInvetoryCount = 100000,
+  defaultInvetoryCount = isDigitalProduct ? 1000000 : 10,
   defaultSKU
 }) => {
   const classes = useStyles({});
@@ -259,7 +259,7 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
             value={data.sku}
           />
         </div>
-        {!isDigitalProduct && (
+        {/* {!isDigitalProduct && (
           <ControlledCheckbox
             checked={data.isPreorder}
             name="isPreorder"
@@ -276,9 +276,9 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
               />
             }
           />
-        )}
+        )} */}
 
-        {!isDigitalProduct && !data.isPreorder && (
+        {/* {!isDigitalProduct && !data.isPreorder && (
           <>
             <FormSpacer />
             <ControlledCheckbox
@@ -300,10 +300,10 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
               }
             />
           </>
-        )}
+        )} */}
       </CardContent>
       <Hr />
-      {!isDigitalProduct && !data.isPreorder && (
+      {/* {!isDigitalProduct && !data.isPreorder && (
         <CardContent className={classes.quantityContainer}>
           <Typography component={"div"}>
             <div className={classes.quantityHeader}>
@@ -366,29 +366,29 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
             </Typography>
           )}
         </CardContent>
-      )}
-      { !isDigitalProduct && warehouses?.length > 0 && !data.isPreorder && (
+      )} */}
+      {!isDigitalProduct && warehouses?.length > 0 && !data.isPreorder && (
         <Table>
-          <colgroup>
+          {/* <colgroup>
             <col className={classes.colName} />
             <col className={classes.colQuantity} />
             <col className={classes.colQuantity} />
-          </colgroup>
+          </colgroup> */}
           <TableHead>
             <TableRow>
-              <TableCell className={classes.colName}>
+              {/* <TableCell className={classes.colName}>
                 <FormattedMessage
                   defaultMessage="Warehouse Name"
                   description="tabel column header"
                 />
-              </TableCell>
-              <TableCell className={classes.colQuantity}>
+              </TableCell> */}
+              {/* <TableCell className={classes.colQuantity}>
                 <FormattedMessage
                   defaultMessage="Allocated"
                   description="table column header, allocated product quantity"
                   id="tableColAllocated"
                 />
-              </TableCell>
+              </TableCell> */}
               <TableCell className={classes.colQuantity}>
                 <FormattedMessage
                   defaultMessage="Quantity"
@@ -407,12 +407,12 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
 
               return (
                 <TableRow key={stock.id}>
-                  <TableCell className={classes.colName}>
+                  {/* <TableCell className={classes.colName}>
                     {stock.label}
-                  </TableCell>
-                  <TableCell className={classes.colQuantity}>
+                  </TableCell> */}
+                  {/* <TableCell className={classes.colQuantity}>
                     {stock.data?.quantityAllocated || 0}
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell className={classes.colQuantity}>
                     <TextField
                       disabled={disabled}

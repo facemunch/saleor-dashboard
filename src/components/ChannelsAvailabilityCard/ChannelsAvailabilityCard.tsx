@@ -4,7 +4,7 @@ import Hr from "@saleor/components/Hr";
 import useDateLocalize from "@saleor/hooks/useDateLocalize";
 import { RequireOnlyOne } from "@saleor/misc";
 import { PermissionEnum } from "@saleor/types/globalTypes";
-import React from "react";
+import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 
 import { IonCard, IonCardContent } from "@ionic/react";
@@ -23,6 +23,7 @@ export interface ChannelsAvailability
   channels: ChannelData[];
   channelsList: ChannelList[];
   errors?: ChannelsAvailabilityError[];
+  isAutoPresentToPublished?: boolean;
   disabled?: boolean;
   isDigitalProduct?: boolean;
   messages?: Messages;
@@ -46,7 +47,8 @@ export const ChannelsAvailability: React.FC<ChannelsAvailabilityCardProps> = pro
     managePermissions,
     onChange,
     openModal,
-    isDigitalProduct = false
+    isDigitalProduct = false,
+    isAutoPresentToPublished = false
   } = props;
   const intl = useIntl();
   const localizeDate = useDateLocalize();
@@ -58,7 +60,17 @@ export const ChannelsAvailability: React.FC<ChannelsAvailabilityCardProps> = pro
     intl,
     localizeDate
   });
-  console.log("channels", channels);
+  useEffect(() => {
+    if (!isAutoPresentToPublished) return;
+    onChange(channels[0].id, {
+      availableForPurchase: null,
+      isAvailableForPurchase: true,
+      isPublished: true,
+      publicationDate: "2022-06-03",
+      visibleInListings: true
+    });
+  }, [channels, isAutoPresentToPublished]);
+
   return (
     <IonCard>
       <IonCardContent>
