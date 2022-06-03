@@ -18,7 +18,8 @@ import {
   IonCard,
   IonFab,
   IonFabButton,
-  IonIcon
+  IonIcon,
+  IonButton
 } from "@ionic/react";
 import { add } from "ionicons/icons";
 import { ListCustomers_customers_edges_node } from "../../types/ListCustomers";
@@ -68,9 +69,15 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
         data-test="createCustomer"
         // disabled={limitReached}
       >
-        <IonFabButton onClick={onAdd}>
-          <IonIcon icon={add} />
-        </IonFabButton>
+        <IonButton
+          onClick={() => {
+            onAdd();
+          }}
+          shape="round"
+        >
+          <IonIcon slot="start" icon={add} />
+          New Customer
+        </IonButton>
       </IonFab>
       <IonCard>
         <FilterBar

@@ -48,6 +48,8 @@ import {
   IonIcon,
   IonFabButton,
   IonFabList,
+  IonButton,
+  useIonActionSheet,
   IonCard
 } from "@ionic/react";
 import {
@@ -168,6 +170,36 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
     AppExtensionViewEnum.PRODUCT,
     AppExtensionTypeEnum.OVERVIEW
   );
+  const [present, dismiss] = useIonActionSheet();
+
+  // const addProductOptions = () => {
+  //   present({
+  //     buttons: [
+  //       {
+  //         text: "Physical Product",
+  //         handler: () => {
+  //           onAdd();
+  //         }
+  //       },
+  //       // {
+  //       //   disabled: true,
+  //       //   text: "Digital Product",
+  //       //   // icon: share,
+  //       //   handler: () => {
+  //       //     onAdd({ isDigitalProduct: true });
+  //       //   }
+  //       // },
+  //       {
+  //         text: "Cancel",
+  //         role: "cancel",
+  //         handler: () => {
+  //           dismiss();
+  //         }
+  //       }
+  //     ]
+  //     // header: 'Action Sheet'
+  //   });
+  // };
 
   const extensionMenuItems = mapToMenuItems(moreActions);
   const extensionCreateButtonItems = mapToMenuItems(create);
@@ -229,48 +261,15 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
           data-test="add-product"
           // disabled={limitReached}
         >
-          <IonFabButton>
-            <IonIcon icon={add} />
-          </IonFabButton>
-
-          <IonFabList side="top">
-            <IonFabButton
-              style={{
-                width: "50px",
-                height: "50px"
-              }}
-              onClick={e => {
-                onAdd({ isDigitalProduct: true });
-              }}
-            >
-              <span
-                style={{
-                  fontSize: "8px",
-                  fontWeight: "bold"
-                }}
-              >
-                Digital
-              </span>
-            </IonFabButton>
-            <IonFabButton
-              style={{
-                width: "50px",
-                height: "50px"
-              }}
-              onClick={e => {
-                onAdd();
-              }}
-            >
-              <span
-                style={{
-                  fontSize: "9px",
-                  fontWeight: "bold"
-                }}
-              >
-                Physical
-              </span>
-            </IonFabButton>
-          </IonFabList>
+          <IonButton
+            onClick={() => {
+              onAdd();
+            }}
+            shape="round"
+          >
+            <IonIcon slot="start" icon={add} />
+            New Product
+          </IonButton>
         </IonFab>
         {/* </PageHeader> */}
         {limitReached && (
@@ -284,36 +283,36 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
           </LimitReachedAlert>
         )}
         <IonCard>
-        <FilterBar
-          currencySymbol={currencySymbol}
-          currentTab={currentTab}
-          initialSearch={initialSearch}
-          onAll={onAll}
-          onFilterChange={onFilterChange}
-          onFilterAttributeFocus={onFilterAttributeFocus}
-          onSearchChange={onSearchChange}
-          onTabChange={onTabChange}
-          onTabDelete={onTabDelete}
-          onTabSave={onTabSave}
-          tabs={tabs}
-          allTabLabel={intl.formatMessage({
-            defaultMessage: "All Products",
-            description: "tab name"
-          })}
-          filterStructure={filterStructure}
-          searchPlaceholder={intl.formatMessage({
-            defaultMessage: "Search Products..."
-          })}
-        />
-        <ProductList
-          {...listProps}
-          loading={loading}
-          gridAttributes={gridAttributes}
-          settings={settings}
-          channelsCount={channelsCount}
-          selectedChannelId={selectedChannelId}
-          onUpdateListSettings={onUpdateListSettings}
-        />
+          <FilterBar
+            currencySymbol={currencySymbol}
+            currentTab={currentTab}
+            initialSearch={initialSearch}
+            onAll={onAll}
+            onFilterChange={onFilterChange}
+            onFilterAttributeFocus={onFilterAttributeFocus}
+            onSearchChange={onSearchChange}
+            onTabChange={onTabChange}
+            onTabDelete={onTabDelete}
+            onTabSave={onTabSave}
+            tabs={tabs}
+            allTabLabel={intl.formatMessage({
+              defaultMessage: "All Products",
+              description: "tab name"
+            })}
+            filterStructure={filterStructure}
+            searchPlaceholder={intl.formatMessage({
+              defaultMessage: "Search Products..."
+            })}
+          />
+          <ProductList
+            {...listProps}
+            loading={loading}
+            gridAttributes={gridAttributes}
+            settings={settings}
+            channelsCount={channelsCount}
+            selectedChannelId={selectedChannelId}
+            onUpdateListSettings={onUpdateListSettings}
+          />
         </IonCard>
       </IonContent>
     </>

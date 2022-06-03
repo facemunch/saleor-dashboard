@@ -59,7 +59,7 @@ import {
 import { getChoices, ProductUpdatePageFormData } from "../../utils/data";
 import ProductDetailsForm from "../ProductDetailsForm";
 import ProductMedia from "../ProductMedia";
-import ProductOrganization from "../ProductOrganization";
+// import ProductOrganization from "../ProductOrganization";
 import ProductShipping from "../ProductShipping/ProductShipping";
 import ProductStocks, { ProductStockInput } from "../ProductStocks";
 import ProductTaxes from "../ProductTaxes";
@@ -376,43 +376,41 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                   />
                 ) : (
                   <>
-                    {!isDigitalProduct && (
-                      <ProductShipping
-                        data={data}
-                        disabled={disabled}
-                        errors={errors}
-                        weightUnit={product?.weight?.unit || defaultWeightUnit}
-                        onChange={change}
-                      />
-                    )}
+                    <ProductShipping
+                      data={data}
+                      disabled={disabled}
+                      errors={errors}
+                      weightUnit={product?.weight?.unit || defaultWeightUnit}
+                      onChange={change}
+                    />
 
                     <CardSpacer />
-                    {!isDigitalProduct && (
-                      <ProductStocks
-                        onVariantChannelListingChange={
-                          handlers.changeChannelPreorder
-                        }
-                        productVariantChannelListings={data.channelListings}
-                        onEndPreorderTrigger={
-                          !!variants?.[0]?.preorder
-                            ? () => onVariantEndPreorderDialogOpen()
-                            : null
-                        }
-                        data={data}
-                        disabled={disabled}
-                        hasVariants={false}
-                        errors={errors}
-                        formErrors={formErrors}
-                        stocks={data.stocks}
-                        warehouses={warehouses}
-                        onChange={handlers.changeStock}
-                        onFormDataChange={change}
-                        onChangePreorderEndDate={handlers.changePreorderEndDate}
-                        onWarehouseStockAdd={handlers.addStock}
-                        onWarehouseStockDelete={handlers.deleteStock}
-                        onWarehouseConfigure={onWarehouseConfigure}
-                      />
-                    )}
+                    {/* {!isDigitalProduct && ( */}
+                    <ProductStocks
+                      onVariantChannelListingChange={
+                        handlers.changeChannelPreorder
+                      }
+                      productVariantChannelListings={data.channelListings}
+                      onEndPreorderTrigger={
+                        !!variants?.[0]?.preorder
+                          ? () => onVariantEndPreorderDialogOpen()
+                          : null
+                      }
+                      data={data}
+                      disabled={disabled}
+                      hasVariants={false}
+                      errors={errors}
+                      formErrors={formErrors}
+                      stocks={data.stocks}
+                      warehouses={warehouses}
+                      onChange={handlers.changeStock}
+                      onFormDataChange={change}
+                      onChangePreorderEndDate={handlers.changePreorderEndDate}
+                      onWarehouseStockAdd={handlers.addStock}
+                      onWarehouseStockDelete={handlers.deleteStock}
+                      onWarehouseConfigure={onWarehouseConfigure}
+                    />
+                    {/* )} */}
                   </>
                 )}
                 <CardSpacer />
@@ -436,7 +434,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                 <Metadata data={data} onChange={handlers.changeMetadata} />
               </div>
               <div>
-                {!isDigitalProduct && (
+                {/* {!isDigitalProduct && (
                   <ProductOrganization
                     canChangeType={false}
                     categories={categories}
@@ -454,7 +452,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                     onCategoryChange={handlers.selectCategory}
                     onCollectionChange={handlers.selectCollection}
                   />
-                )}
+                )} */}
 
                 {isSimpleProduct ? (
                   <>

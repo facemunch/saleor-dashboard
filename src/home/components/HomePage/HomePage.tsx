@@ -8,7 +8,8 @@ import { makeStyles } from "@saleor/macaw-ui";
 import { UserPermissionProps } from "@saleor/types";
 import { PermissionEnum } from "@saleor/types/globalTypes";
 import React from "react";
-
+import { add } from "ionicons/icons";
+import useNavigator from "@saleor/hooks/useNavigator";
 import Orders from "../../../icons/Orders";
 import Sales from "../../../icons/Sales";
 import {
@@ -20,7 +21,14 @@ import HomeActivityCard from "../HomeActivityCard";
 import HomeAnalyticsCard from "../HomeAnalyticsCard";
 import HomeNotificationTable from "../HomeNotificationTable/HomeNotificationTable";
 import HomeProductListCard from "../HomeProductListCard";
-import { IonContent, IonPage, IonCard } from "@ionic/react";
+import {
+  IonContent,
+  IonPage,
+  IonCard,
+  IonButton,
+  IonFab,
+  IonIcon
+} from "@ionic/react";
 const useStyles = makeStyles(
   theme => ({
     cardContainer: {
@@ -79,6 +87,7 @@ const HomePage: React.FC<HomePageProps> = props => {
     userPermissions = [],
     noChannel
   } = props;
+  const navigate = useNavigator();
 
   const classes = useStyles(props);
 
@@ -182,6 +191,27 @@ const HomePage: React.FC<HomePageProps> = props => {
             </RequirePermissions>
           </div>
         )} */}
+        <IonFab
+          vertical="bottom"
+          horizontal="end"
+          slot="fixed"
+          style={{
+            marginBottom: "50px"
+          }}
+          data-test-id="create-order-button"
+
+          // disabled={limitReached}
+        >
+          <IonButton
+            onClick={() => {
+              navigate("/products/add");
+            }}
+            shape="round"
+          >
+            <IonIcon slot="start" icon={add} />
+            New Product
+          </IonButton>
+        </IonFab>
       </Grid>
       {/* </div> */}
     </IonContent>

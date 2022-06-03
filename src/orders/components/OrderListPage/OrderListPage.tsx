@@ -17,7 +17,8 @@ import {
   IonCard,
   IonFab,
   IonFabButton,
-  IonIcon
+  IonIcon,
+  IonButton
 } from "@ionic/react";
 import { add } from "ionicons/icons";
 
@@ -82,9 +83,15 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
 
         // disabled={limitReached}
       >
-        <IonFabButton onClick={onAdd}>
-          <IonIcon icon={add} />
-        </IonFabButton>
+        <IonButton
+          onClick={() => {
+            onAdd();
+          }}
+          shape="round"
+        >
+          <IonIcon slot="start" icon={add} />
+          New Order
+        </IonButton>
       </IonFab>
 
       {/* {!!onSettingsOpen && (

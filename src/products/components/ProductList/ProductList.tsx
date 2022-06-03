@@ -349,15 +349,9 @@ export const ProductList: React.FC<ProductListProps> = props => {
                 </TableCell> */}
                 <TableCellAvatar thumbnail={maybe(() => product.thumbnail.url)}>
                   {product?.productType ? (
-                    <div className={classes.colNameWrapper}>
+                    // <div className={classes.colNameWrapper}>
                       <span data-test="name">{product.name}</span>
-
-                      {product?.productType && (
-                        <Typography variant="caption">
-                          {product?.productType?.name || <Skeleton />}{" "}
-                        </Typography>
-                      )}
-                    </div>
+                    // </div>
                   ) : (
                     <Skeleton />
                   )}
@@ -370,6 +364,11 @@ export const ProductList: React.FC<ProductListProps> = props => {
                     className={classes.colType}
                     data-test="product-type"
                   >
+                    {product?.productType && (
+                      <Typography variant="caption">
+                        {product?.productType?.name || <Skeleton />}{" "}
+                      </Typography>
+                    )}
                     {/* {product?.productType?.name || <Skeleton />} */}
                   </TableCell>
                 </DisplayColumn>

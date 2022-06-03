@@ -192,8 +192,17 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
 
   useEffect(() => {
     if (productTypes.length === 0 || selectedProductType) return;
-    const digitalProduct = productTypes.find(x => x.label === "Digital product");
+    const digitalProduct = productTypes.find(
+      x =>
+        x.label === (isDigitalProduct ? "Digital product" : "Physical product")
+    );
     digitalProduct?.value && onSelectProductType(digitalProduct.value);
+  }, [productTypes, isDigitalProduct]);
+
+  useEffect(() => {
+    // if (productTypes.length === 0 || selectedProductType) return;
+    // const digitalProduct = productTypes.find(x => x.label === "Digital product");
+    // digitalProduct?.value && onSelectProductType(digitalProduct.value);
   }, [productTypes]);
 
   return (
@@ -280,7 +289,7 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                 <CardSpacer />
                 {isSimpleProduct && (
                   <>
-                    {!isDigitalProduct && (
+                    {/* {!isDigitalProduct && (
                       <ProductShipping
                         data={data}
                         disabled={loading}
@@ -288,8 +297,8 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                         weightUnit={weightUnit}
                         onChange={change}
                       />
-                    )}
-                    <CardSpacer />
+                    )} */}
+                    {/* <CardSpacer /> */}
                     <ProductVariantPrice
                       isDigitalProduct={isDigitalProduct}
                       ProductVariantChannelListings={data.channelListings}

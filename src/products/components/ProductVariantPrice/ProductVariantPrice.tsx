@@ -135,28 +135,28 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
           })}
         </Typography> */}
         <ResponsiveTable className={classes.table}>
-          <TableHead>
-            <TableRow>
-              {/* <TableCell>
+          {/* <TableHead> */}
+          {/* <TableRow> */}
+          {/* <TableCell>
                 <FormattedMessage
                   defaultMessage="Channel Name"
                   description="tabel column header"
                 />
               </TableCell> */}
-              <TableCell className={classes.colType}>
+          {/* <TableCell className={classes.colType}>
                 <FormattedMessage
                   defaultMessage="Selling Price"
                   description="tabel column header"
-                />
-              </TableCell>
-              {/* <TableCell className={classes.colType}>
+                /> */}
+          {/* </TableCell> */}
+          {/* <TableCell className={classes.colType}>
                 <FormattedMessage
                   defaultMessage="Cost Price"
                   description="tabel column header"
                 />
               </TableCell> */}
-            </TableRow>
-          </TableHead>
+          {/* </TableRow> */}
+          {/* </TableHead> */}
           <TableBody>
             {renderCollection(
               ProductVariantChannelListings,
