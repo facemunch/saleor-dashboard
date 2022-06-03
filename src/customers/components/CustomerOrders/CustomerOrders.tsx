@@ -15,7 +15,7 @@ import StatusLabel from "@saleor/components/StatusLabel";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-
+import { IonCard } from "@ionic/react";
 import { maybe, renderCollection, transformPaymentStatus } from "../../../misc";
 import { CustomerDetails_user_orders_edges_node } from "../../types/CustomerDetails";
 
@@ -50,7 +50,7 @@ const CustomerOrders: React.FC<CustomerOrdersProps> = props => {
       }))
     : undefined;
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Recent Orders",
@@ -149,7 +149,7 @@ const CustomerOrders: React.FC<CustomerOrdersProps> = props => {
           )}
         </TableBody>
       </ResponsiveTable>
-    </Card>
+    </IonCard>
   );
 };
 

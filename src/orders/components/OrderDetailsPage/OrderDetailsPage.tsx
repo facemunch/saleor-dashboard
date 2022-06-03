@@ -21,7 +21,7 @@ import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTr
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent, IonPage, IonCardContent } from "@ionic/react";
 
 import { maybe } from "../../../misc";
 import { OrderStatus } from "../../../types/globalTypes";
@@ -220,25 +220,27 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
         return (
           <IonPage>
             <IonContent>
-              <Backlink onClick={onBack}>
-                {intl.formatMessage(sectionNames.orders)}
-              </Backlink>
-              <PageHeader
-                className={classes.header}
-                inline
-                title={<Title order={order} />}
-              >
-                <CardMenu menuItems={selectCardMenuItems} />
-              </PageHeader>
-              <div className={classes.date}>
-                {order && order.created ? (
-                  <>
-                    <DateTime date={order.created} />
-                  </>
-                ) : (
-                  <Skeleton style={{ width: "10em" }} />
-                )}
-              </div>
+              <IonCardContent>
+                <Backlink onClick={onBack}>
+                  {intl.formatMessage(sectionNames.orders)}
+                </Backlink>
+                <PageHeader
+                  className={classes.header}
+                  inline
+                  title={<Title order={order} />}
+                >
+                  <CardMenu menuItems={selectCardMenuItems} />
+                </PageHeader>
+                <div className={classes.date}>
+                  {order && order.created ? (
+                    <>
+                      <DateTime date={order.created} />
+                    </>
+                  ) : (
+                    <Skeleton style={{ width: "10em" }} />
+                  )}
+                </div>
+              </IonCardContent>
               <Grid>
                 <div data-test-id="orderFulfillment">
                   {!isOrderUnconfirmed ? (
@@ -309,9 +311,9 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                     onProfileView={onProfileView}
                   />
                   <CardSpacer />
-                  <OrderChannelSectionCard
+                  {/* <OrderChannelSectionCard
                     selectedChannelName={order?.channel?.name}
-                  />
+                  /> */}
                   <CardSpacer />
                   {!isOrderUnconfirmed && (
                     <>
@@ -326,6 +328,7 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                   )}
                   <OrderCustomerNote note={maybe(() => order.customerNote)} />
                 </div>
+                <div style={{ height: "100px" }} />
               </Grid>
               <Savebar
                 labels={saveLabel}

@@ -11,6 +11,8 @@ import moment from "moment-timezone";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { IonCard } from "@ionic/react";
+
 import { CustomerDetails_user } from "../../types/CustomerDetails";
 
 const useStyles = makeStyles(
@@ -51,7 +53,7 @@ const CustomerDetails: React.FC<CustomerDetailsProps> = props => {
   const formErrors = getFormErrors(["note"], errors);
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         className={classes.cardTitle}
         title={
@@ -104,7 +106,7 @@ const CustomerDetails: React.FC<CustomerDetailsProps> = props => {
           onChange={onChange}
         />
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 CustomerDetails.displayName = "CustomerDetails";

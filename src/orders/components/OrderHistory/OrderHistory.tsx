@@ -22,6 +22,8 @@ import ExtendedTimelineEvent from "./ExtendedTimelineEvent";
 import LinkedTimelineEvent from "./LinkedTimelineEvent";
 import { getEventSecondaryTitle, isTimelineEventOfType } from "./utils";
 
+import { IonCardContent } from "@ionic/react";
+
 export const getEventMessage = (
   event: OrderDetails_order_events,
   intl: IntlShape
@@ -324,7 +326,7 @@ const OrderHistory: React.FC<OrderHistoryProps> = props => {
   };
 
   return (
-    <div className={classes.root}>
+    <IonCardContent >
       <Typography className={classes.header} color="textSecondary">
         <FormattedMessage defaultMessage="Order History" />
       </Typography>
@@ -383,7 +385,7 @@ const OrderHistory: React.FC<OrderHistoryProps> = props => {
       ) : (
         <Skeleton />
       )}
-    </div>
+    </IonCardContent>
   );
 };
 OrderHistory.displayName = "OrderHistory";

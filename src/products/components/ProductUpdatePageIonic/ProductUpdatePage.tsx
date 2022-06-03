@@ -209,7 +209,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
 }) => {
   const intl = useIntl();
   // const { search } = useLocation();
-  const isDigitalProduct = product?.productType?.name === "Digital";
+  const isDigitalProduct = product?.productType?.name === "Digital product";
   const [selectedCategory, setSelectedCategory] = useStateFromProps(
     product?.category?.name || ""
   );
@@ -301,11 +301,11 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
             <Backlink onClick={onBack}>
               {intl.formatMessage(sectionNames.products)}
             </Backlink>
-            <PageHeader title={header}>
+            {/* <PageHeader title={header}>
               {extensionMenuItems.length > 0 && (
                 <CardMenu menuItems={extensionMenuItems} data-test="menu" />
               )}
-            </PageHeader>
+            </PageHeader> */}
             <Grid>
               <div>
                 <ProductDetailsForm

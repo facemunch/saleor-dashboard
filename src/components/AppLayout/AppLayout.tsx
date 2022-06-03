@@ -276,9 +276,15 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             </IonToolbar>
           </IonHeader>
         )}
-        {!location.pathname.includes("configuration") && (
-          <SidebarDrawer menuItems={menuStructure} onMenuItemClick={navigate} />
-        )}
+        {!location.pathname.includes("configuration") &&
+          !location.pathname.includes("/orders/") &&
+          !location.pathname.includes("/products/") &&
+          !location.pathname.includes("/customers/") && (
+            <SidebarDrawer
+              menuItems={menuStructure}
+              onMenuItemClick={navigate}
+            />
+          )}
 
         {/* </Container> */}
         {/* </div> */}

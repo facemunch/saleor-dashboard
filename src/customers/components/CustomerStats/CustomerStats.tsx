@@ -6,6 +6,7 @@ import Skeleton from "@saleor/components/Skeleton";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { IonCard } from "@ionic/react";
 
 import { maybe } from "../../../misc";
 import { CustomerDetails_user } from "../../types/CustomerDetails";
@@ -33,7 +34,7 @@ const CustomerStats: React.FC<CustomerStatsProps> = props => {
   const intl = useIntl();
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Customer History",
@@ -77,7 +78,7 @@ const CustomerStats: React.FC<CustomerStatsProps> = props => {
           <Skeleton />
         )}
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 CustomerStats.displayName = "CustomerStats";

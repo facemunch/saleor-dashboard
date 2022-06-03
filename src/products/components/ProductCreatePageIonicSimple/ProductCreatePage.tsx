@@ -192,7 +192,7 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
 
   useEffect(() => {
     if (productTypes.length === 0 || selectedProductType) return;
-    const digitalProduct = productTypes.find(x => x.label === "Digital");
+    const digitalProduct = productTypes.find(x => x.label === "Digital product");
     digitalProduct?.value && onSelectProductType(digitalProduct.value);
   }, [productTypes]);
 

@@ -16,6 +16,8 @@ import CardTitle from "../OrderReturnPage/OrderReturnRefundItemsCard/CardTitle";
 import ActionButtons from "./ActionButtons";
 import ExtraInfoLines from "./ExtraInfoLines";
 
+import { IonCard, IonCardContent } from "@ionic/react";
+
 const useStyles = makeStyles(
   theme => ({
     table: {
@@ -78,7 +80,7 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
 
   return (
     <>
-      <Card>
+      <IonCard>
         <CardTitle
           withStatus
           lines={fulfillment?.lines}
@@ -98,7 +100,12 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
             )
           }
         />
-        <ResponsiveTable className={classes.table}>
+        <IonCardContent
+          style={{
+            overflow: "scroll",
+            width: "92vw"
+          }}
+        >
           <TableHeader />
           <TableBody>
             {renderCollection(getLines(), line => (
@@ -106,7 +113,7 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
             ))}
           </TableBody>
           <ExtraInfoLines fulfillment={fulfillment} />
-        </ResponsiveTable>
+        </IonCardContent>
         <ActionButtons
           status={fulfillment?.status}
           trackingNumber={fulfillment?.trackingNumber}
@@ -116,7 +123,7 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
           onRefund={onRefund}
           onApprove={onOrderFulfillmentApprove}
         />
-      </Card>
+      </IonCard>
       <CardSpacer />
     </>
   );

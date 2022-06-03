@@ -7,6 +7,8 @@ import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { IonCard } from "@ionic/react";
+
 import { maybe } from "../../../misc";
 import { CustomerDetails_user } from "../../types/CustomerDetails";
 
@@ -33,7 +35,7 @@ const CustomerAddresses: React.FC<CustomerAddressesProps> = props => {
   const intl = useIntl();
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Address Information",
@@ -104,7 +106,7 @@ const CustomerAddresses: React.FC<CustomerAddressesProps> = props => {
           />
         </CardContent>
       )}
-    </Card>
+    </IonCard>
   );
 };
 CustomerAddresses.displayName = "CustomerAddresses";
