@@ -54,9 +54,8 @@ const AttributeListPage: React.FC<AttributeListPageProps> = ({
 
   return (
     <IonContent>
-      {/* <Backlink onClick={onBack}>
-        <FormattedMessage {...sectionNames.configuration} />
-      </Backlink> */}
+      {/* 
+      k> */}
 
 
       <PageHeader title={intl.formatMessage(sectionNames.attributes)}>

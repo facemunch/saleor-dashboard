@@ -1,6 +1,6 @@
 import { Button, Card } from "@mui/material";
 import Container from "@saleor/components/Container";
-import FilterBar from "@saleor/components/FilterBar";
+import FilterBar from "@saleor/components/FilterBarIonic";
 import PageHeader from "@saleor/components/PageHeader";
 import { CustomerListUrlSortField } from "@saleor/customers/urls";
 import { sectionNames } from "@saleor/intl";
@@ -38,6 +38,14 @@ export interface CustomerListPageProps
     TabPageProps {
   customers: ListCustomers_customers_edges_node[];
 }
+const options = [
+  { label: "Customer name A-Z", path: "?asc=true&sort=name" },
+  { label: "Customer name Z-A", path: "?asc=false&sort=name" },
+  { label: "Email A-Z ", path: "?asc=true&sort=email" },
+  { label: "Email Z-A", path: "?asc=false&sort=email" },
+  { label: "No. of order (most first)", path: "?asc=true&sort=orders" },
+  { label: "No. of order (least first)", path: "?asc=false&sort=orders" }
+];
 
 const CustomerListPage: React.FC<CustomerListPageProps> = ({
   currentTab,
@@ -81,6 +89,7 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
       </IonFab>
       <IonCard>
         <FilterBar
+          options={options}
           allTabLabel={intl.formatMessage({
             defaultMessage: "All Customers",
             description: "tab name"

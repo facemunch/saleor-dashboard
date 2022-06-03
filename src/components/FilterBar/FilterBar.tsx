@@ -9,6 +9,9 @@ import { FilterErrorMessages, IFilter } from "../Filter/types";
 import { SearchBarProps } from "../SearchBar";
 import SearchInput from "../SearchBar/SearchInput";
 import FilterTabs, { FilterTab } from "../TableFilter";
+import { useNode, useEditor } from "@craftjs/core";
+import { getRandomId } from "@craftjs/utils";
+
 
 export interface FilterBarProps<TKeys extends string = string>
   extends FilterProps<TKeys>,
@@ -23,13 +26,13 @@ const useStyles = makeStyles(
       borderBottom: `1px solid rgba(255, 255, 255, 0.06)`,
       display: "flex",
       flexWrap: "wrap",
-      padding: theme.spacing(2),
+      padding: theme.spacing(2)
     },
     tabActionButton: {
       marginLeft: theme.spacing(2),
       paddingLeft: theme.spacing(4),
       paddingRight: theme.spacing(2),
-      width: "auto",
+      width: "auto"
     }
   }),
   {
@@ -99,7 +102,8 @@ const FilterBar: React.FC<FilterBarProps> = props => {
           placeholder={searchPlaceholder}
           onSearchChange={onSearchChange}
         />
-        {displayTabAction &&
+
+        {/* {displayTabAction &&
           (displayTabAction === "save" ? (
             <Button
               className={classes.tabActionButton}
@@ -124,7 +128,7 @@ const FilterBar: React.FC<FilterBarProps> = props => {
                 />
               </Button>
             )
-          ))}
+          ))} */}
       </div>
     </>
   );

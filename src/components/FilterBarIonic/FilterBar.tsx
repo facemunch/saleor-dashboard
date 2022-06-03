@@ -1,8 +1,9 @@
 import { Button } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
-import React from "react";
+import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-
+import useNavigator from "@saleor/hooks/useNavigator";
+import { closeOutline, checkmarkOutline } from "ionicons/icons";
 import { FilterProps } from "../../types";
 import Filter from "../Filter";
 import { FilterErrorMessages, IFilter } from "../Filter/types";
@@ -18,8 +19,15 @@ import {
   IonSegment,
   IonSegmentButton,
   IonLabel,
-  IonIcon
+  IonIcon,
+  IonButton,
+  IonModal,
+  IonList,
+  IonItem,
+  IonBadge
 } from "@ionic/react";
+import { repeatOutline } from "ionicons/icons";
+import { useLocation } from "react-router-dom";
 
 export interface FilterBarProps<TKeys extends string = string>
   extends FilterProps<TKeys>,
@@ -48,6 +56,49 @@ const useStyles = makeStyles(
   }
 );
 
+const labelStyle = {
+  fontFamily: "Inter",
+  fontStyle: "normal",
+  fontWeight: "400",
+  fontSize: "14px",
+  lineHeight: "20px",
+  display: "flex",
+  alignItems: "center",
+  color: "#FFFFFF"
+};
+
+const spanStyle = {
+  width: "100%",
+  display: "block",
+  position: "relative",
+  top: "-2px",
+  marginTop: "12px",
+  fontFamily: "Inter",
+  fontStyle: "normal",
+  fontWeight: "600",
+  fontSize: "14px",
+  lineHeight: "20px",
+  textAlign: "center",
+  color: "#ffffff"
+};
+
+const badgeStyle = {
+  background: "#9275fc",
+  width: "8px",
+  height: "8px",
+  borderRadius: "50%",
+  position: "absolute",
+  top: "0",
+  right: "-4px"
+};
+
+const options = [
+  { label: "Product name A-Z", path: "?asc=true&sort=name" },
+  { label: "Product name Z-A", path: "?asc=false&sort=name" },
+  { label: "Price (lowest first)", path: "?asc=true&sort=price" },
+  { label: "Price (highest first)", path: "?asc=false&sort=price" }
+];
+
 const FilterBar: React.FC<FilterBarProps> = props => {
   const {
     allTabLabel,
@@ -64,19 +115,21 @@ const FilterBar: React.FC<FilterBarProps> = props => {
     onTabChange,
     onTabDelete,
     onTabSave,
-    errorMessages
+    errorMessages,
+    options = options
   } = props;
+  const navigate = useNavigator();
+  const { search } = useLocation();
 
   const classes = useStyles(props);
   const intl = useIntl();
-
+  const [showModal, setShowModal] = useState(false);
   const isCustom = currentTab === tabs.length + 1;
   const displayTabAction = isCustom
     ? "save"
     : currentTab === 0
     ? null
     : "delete";
-
   return (
     <>
       <div className={classes.root}>
@@ -92,6 +145,23 @@ const FilterBar: React.FC<FilterBarProps> = props => {
           placeholder={searchPlaceholder}
           onSearchChange={onSearchChange}
         />
+        <IonButton
+          size="small"
+          fill="clear"
+          style={{ marginTop: "16px", overflow: "visible" }}
+          color="dark"
+          onClick={() => {
+            setShowModal(true);
+          }}
+        >
+          {search.length > 0 && <span style={badgeStyle}></span>}
+          <IonIcon
+            slot="icon-only"
+            style={{ transform: "rotate(90deg)" }}
+            icon={repeatOutline}
+          />
+        </IonButton>
+
         {/* {displayTabAction &&
           (displayTabAction === "save" ? (
             <Button
@@ -119,8 +189,67 @@ const FilterBar: React.FC<FilterBarProps> = props => {
             )
           ))} */}
       </div>
+      <IonModal
+        swipeToClose={false}
+        showBackdrop={false}
+        onDidDismiss={() => {
+          setShowModal(false);
+        }}
+        style={{
+          "--background": "#262626"
+        }}
+        isOpen={showModal}
+        canDismiss={true}
+        initialBreakpoint={0.37}
+      >
+        <>
+          <span style={spanStyle}>Sort by</span>
+
+          <IonButton
+            data-test={"close-modal"}
+            size="small"
+            style={{
+              position: "absolute",
+              right: "0",
+              top: "4px"
+            }}
+            fill="clear"
+            onClick={() => {
+              setShowModal(false);
+            }}
+          >
+            <IonIcon slot="icon-only" color="dark" icon={closeOutline} />
+          </IonButton>
+        </>
+        <IonContent>
+          <IonList
+            style={{
+              height: "33vh",
+              overflow: "scroll"
+            }}
+            // className="default-panel-bg"
+          >
+            {options.map(opt => (
+              <IonItem
+                key={opt.path}
+                onClick={() => {
+                  navigate(opt.path);
+                  setShowModal(false);
+                }}
+                className="default-panel-bg"
+              >
+                <IonLabel style={labelStyle}>{opt.label}</IonLabel>
+                {(search.length === 0 || search.includes(opt.path)) && (
+                  <IonIcon color="primary" icon={checkmarkOutline} slot="end" />
+                )}
+              </IonItem>
+            ))}
+          </IonList>
+        </IonContent>
+      </IonModal>
     </>
   );
 };
+
 FilterBar.displayName = "FilterBar";
 export default FilterBar;

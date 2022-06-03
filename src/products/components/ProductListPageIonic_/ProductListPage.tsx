@@ -66,6 +66,13 @@ import {
   logoTwitter
 } from "ionicons/icons";
 
+const options = [
+  { label: "Product name A-Z", path: "?asc=true&sort=name" },
+  { label: "Product name Z-A", path: "?asc=false&sort=name" },
+  { label: "Price (lowest first)", path: "?asc=true&sort=price" },
+  { label: "Price (highest first)", path: "?asc=false&sort=price" }
+];
+
 export interface ProductListPageProps
   extends PageListProps<ProductListColumns>,
     ListActions,
@@ -284,6 +291,7 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
         )}
         <IonCard>
           <FilterBar
+            options={options}
             currencySymbol={currencySymbol}
             currentTab={currentTab}
             initialSearch={initialSearch}

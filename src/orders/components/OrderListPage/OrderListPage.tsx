@@ -1,7 +1,7 @@
 import { Button, Card } from "@mui/material";
 import CardMenu from "@saleor/components/CardMenu";
 import Container from "@saleor/components/Container";
-import FilterBar from "@saleor/components/FilterBar";
+import FilterBar from "@saleor/components/FilterBarIonic";
 import PageHeader from "@saleor/components/PageHeader";
 import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
 import { sectionNames } from "@saleor/intl";
@@ -48,6 +48,19 @@ const useStyles = makeStyles(
   }),
   { name: "OrderListPage" }
 );
+
+const options = [
+  { label: "Order no. (highest first)", path: "?asc=true&sort=number" },
+  { label: "Order no. (lowest first)", path: "?asc=false&sort=number" },
+  { label: "Customer name A-Z", path: "?asc=true&sort=customer" },
+  { label: "Customer name Z-A", path: "?asc=false&sort=customer" },
+  { label: "Date (newest first)", path: "?asc=true&sort=date" },
+  { label: "Date (oldest first)", path: "?asc=false&sort=date" },
+  { label: "Payment (paid first)", path: "?asc=true&sort=payment" },
+  { label: "Payment (unpid first)", path: "?asc=false&sort=payment" },
+  { label: "Fulfilment (fulfilled first)", path: "?asc=true&sort=status" },
+  { label: "Fulfilment (unfulfilled first)", path: "?asc=false&sort=status" }
+];
 
 const OrderListPage: React.FC<OrderListPageProps> = ({
   currentTab,
@@ -112,6 +125,7 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
       {limitsReached && <OrderLimitReached />}
       <IonCard>
         <FilterBar
+          options={options}
           currentTab={currentTab}
           initialSearch={initialSearch}
           onAll={onAll}
