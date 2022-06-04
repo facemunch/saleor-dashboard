@@ -1,16 +1,9 @@
-import {
-  TableBody,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableRow
-} from "@mui/material";
+import { TableBody, TableCell, TableFooter, TableRow } from "@mui/material";
 import { DateTime } from "@saleor/components/Date";
 import Money from "@saleor/components/Money";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import StatusLabel from "@saleor/components/StatusLabel";
-import TableCellHeader from "@saleor/components/TableCellHeader";
 import TablePagination from "@saleor/components/TablePagination";
 import { makeStyles } from "@saleor/macaw-ui";
 import {
@@ -21,7 +14,6 @@ import {
 } from "@saleor/misc";
 import { OrderListUrlSortField } from "@saleor/orders/urls";
 import { ListProps, SortPage } from "@saleor/types";
-import { getArrowDirection } from "@saleor/utils/sort";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -83,10 +75,7 @@ export const OrderList: React.FC<OrderListProps> = props => {
     onPreviousPage,
     onNextPage,
     onUpdateListSettings,
-    onRowClick,
-    onSort,
-    sort
-  } = props;
+    onRowClick  } = props;
   const classes = useStyles(props);
 
   const intl = useIntl();
@@ -100,81 +89,7 @@ export const OrderList: React.FC<OrderListProps> = props => {
     : undefined;
   return (
     <ResponsiveTable>
-      <TableHead>
-        <TableRow>
-          {/* <TableCellHeader
-            direction={
-              sort.sort === OrderListUrlSortField.number
-                ? getArrowDirection(sort.asc)
-                : undefined
-            }
-            arrowPosition="right"
-            onClick={() => onSort(OrderListUrlSortField.number)}
-            className={classes.colNumber}
-          >
-            <FormattedMessage defaultMessage="No. of Order" />
-          </TableCellHeader> */}
-          {/* <TableCellHeader
-            direction={
-              sort.sort === OrderListUrlSortField.date
-                ? getArrowDirection(sort.asc)
-                : undefined
-            }
-            onClick={() => onSort(OrderListUrlSortField.date)}
-            className={classes.colDate}
-          >
-            <FormattedMessage
-              defaultMessage="Date"
-              description="date when order was placed"
-            />
-          </TableCellHeader> */}
-          <TableCellHeader
-            direction={
-              sort.sort === OrderListUrlSortField.customer
-                ? getArrowDirection(sort.asc)
-                : undefined
-            }
-            onClick={() => onSort(OrderListUrlSortField.customer)}
-            className={classes.colCustomer + ' ml-1'}
-          >
-            <FormattedMessage
-              defaultMessage="Customer"
-              description="e-mail or full name"
-            />
-          </TableCellHeader>
-          {/* <TableCellHeader
-            direction={
-              sort.sort === OrderListUrlSortField.payment
-                ? getArrowDirection(sort.asc)
-                : undefined
-            }
-            onClick={() => onSort(OrderListUrlSortField.payment)}
-            className={classes.colPayment}
-          >
-            <FormattedMessage
-              defaultMessage="Payment"
-              description="payment status"
-            />
-          </TableCellHeader> */}
-          {/* <TableCellHeader
-            direction={
-              sort.sort === OrderListUrlSortField.fulfillment
-                ? getArrowDirection(sort.asc)
-                : undefined
-            }
-            onClick={() => onSort(OrderListUrlSortField.fulfillment)}
-            className={classes.colFulfillment}
-          >
-            <FormattedMessage defaultMessage="Fulfillment status" />
-          </TableCellHeader> */}
-          <TableCellHeader textAlign="right" className={classes.colTotal}>
-            <FormattedMessage
-              defaultMessage="Total"
-              description="total order price"
-            />
-          </TableCellHeader>
-        </TableRow>
-      </TableHead>
+  
       <TableFooter>
         <TableRow>
           <TablePagination

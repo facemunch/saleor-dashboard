@@ -19,7 +19,7 @@ import TableHeader from "../OrderProductsCardElements/OrderProductsCardHeader";
 import TableLine from "../OrderProductsCardElements/OrderProductsTableRow";
 import CardTitle from "../OrderReturnPage/OrderReturnRefundItemsCard/CardTitle";
 
-import { IonCard } from "@ionic/react";
+import { IonCard, IonCardContent } from "@ionic/react";
 
 const useStyles = makeStyles(
   () => ({
@@ -54,15 +54,15 @@ const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> 
     <>
       <IonCard>
         <CardTitle withStatus status="unfulfilled" />
-
-        <ResponsiveTable className={classes.table}>
+        {/* <IonCardContent> */}
+        <div style={{ width: "92vw", overflow: "scroll" }}>
           <TableHeader />
           <TableBody>
             {renderCollection(lines, line => (
               <TableLine isOrderLine line={line} />
             ))}
           </TableBody>
-        </ResponsiveTable>
+        </div>
 
         {showFulfillmentAction && (
           <CardActions>
@@ -83,6 +83,7 @@ const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> 
             )}
           </CardActions>
         )}
+        {/* </IonCardContent> */}
       </IonCard>
       <CardSpacer />
     </>

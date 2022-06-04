@@ -174,14 +174,14 @@ export const OrderDraftList: React.FC<OrderDraftListProps> = props => {
                 key={order ? order.id : "skeleton"}
                 selected={isSelected}
               >
-                <TableCell padding="checkbox">
+                {/* <TableCell padding="checkbox">
                   <Checkbox
                     checked={isSelected}
                     disabled={disabled}
                     disableClickPropagation
                     onChange={() => toggle(order.id)}
                   />
-                </TableCell>
+                </TableCell> */}
                 <TableCell className={classes.colNumber}>
                   {maybe(() => order.number) ? (
                     "#" + order.number

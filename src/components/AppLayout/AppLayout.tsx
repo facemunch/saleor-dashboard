@@ -28,6 +28,9 @@ import {
   IonButton,
   IonButtons,
   IonFabButton,
+  IonSegment,
+  IonSegmentButton,
+  IonLabel,
   IonTitle
 } from "@ionic/react";
 import Container from "../Container";
@@ -188,7 +191,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         return e;
       }
     })
-    .flat();
+    .flat()
+    .filter(e => e.label !== "Drafts");
   // const activeMenu = menuStructure.find(menuItem =>
   //   isMenuActive(location.pathname, menuItem)
   // )?.id;
@@ -204,7 +208,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   };
 
   // const toggleTheme = () => setTheme(isDarkTheme(themeType) ? "light" : "dark");
-
   return (
     <>
       <Navigator
@@ -232,6 +235,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         {(location.pathname.split("/").length - 1 < 2 ||
           location.pathname.includes("configuration") ||
           location.pathname.includes("attributes") ||
+          location.pathname === "/orders" ||
+          location.pathname === "/orders/drafts" ||
           location.pathname.includes("shipping") ||
           location.pathname.includes("warehouses") ||
           location.pathname.includes("product-types")) && (
@@ -294,7 +299,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
               {/* </div> */}
               {/* </div> */}
               {!location.pathname.includes("shipping") &&
-              !location.pathname.includes("configuration") &&
+                !location.pathname.includes("configuration") &&
                 !location.pathname.includes("site-settings") && (
                   <IonTitle
                     data-test-id="commerce-title"
@@ -317,21 +322,31 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             </IonToolbar>
           </IonHeader>
         )}
-        {!location.pathname.includes("configuration") &&
-          !location.pathname.includes("/orders/") &&
-          !location.pathname.includes("/attributes") &&
-          !location.pathname.includes("/products/") &&
-          !location.pathname.includes("/shipping") &&
-          !location.pathname.includes("/warehouses") &&
-          !location.pathname.includes("/site-settings") &&
-          !location.pathname.includes("product-types") &&
-          !location.pathname.includes("/customers/") && (
-            <SidebarDrawer
-              menuItems={menuStructure}
-              onMenuItemClick={navigate}
-            />
-          )}
-
+        {(location.pathname.includes("/products") ||
+          location.pathname.includes("/orders") ||
+          location.pathname.includes("/customers") ||
+          location.pathname.includes("/home")) && (
+          <SidebarDrawer menuItems={menuStructure} onMenuItemClick={navigate} />
+        )}
+        {(location.pathname === "/orders" ||
+          location.pathname === "/orders/drafts") && (
+          <div style={{ margin: "24px", marginBottom: "0px" }}>
+            <IonSegment value={location.pathname}>
+              <IonSegmentButton
+                onClick={() => navigate("/orders")}
+                value="/orders"
+              >
+                <IonLabel>Live</IonLabel>
+              </IonSegmentButton>
+              <IonSegmentButton
+                onClick={() => navigate("/orders/drafts")}
+                value="/orders/drafts"
+              >
+                <IonLabel>Drafts</IonLabel>
+              </IonSegmentButton>
+            </IonSegment>
+          </div>
+        )}
         {/* </Container> */}
         {/* </div> */}
         {/* <main className={classes.view}> */}

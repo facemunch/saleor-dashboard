@@ -37,7 +37,8 @@ const ProductList: React.FC = () => {
       categories: getArrayQueryParam(qs.categories),
       collections: getArrayQueryParam(qs.collections),
       ids: getArrayQueryParam(qs.ids),
-      productTypes: getArrayQueryParam(qs.productTypes)
+      productTypes: getArrayQueryParam(qs.productTypes),
+      channel: "USD"
     },
     ProductListUrlSortField
   );
@@ -73,6 +74,7 @@ const ProductVariant: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ProductVariantEditUrlQueryParams = qs;
   const match = useParams();
+
   return (
     <ProductVariantComponent
       variantId={decodeURIComponent(match.variantId)}

@@ -366,14 +366,14 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
               </SectionRoute>
             }
           />
-          <Route
+          {/* <Route
             path="/orders/*"
             element={
               <SectionRoute permissions={[PermissionEnum.MANAGE_ORDERS]}>
                 <OrdersSection />
               </SectionRoute>
             }
-          />
+          /> */}
           <Route
             path="/products"
             element={

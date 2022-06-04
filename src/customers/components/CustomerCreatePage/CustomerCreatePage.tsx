@@ -146,12 +146,12 @@ const CustomerCreatePage: React.FC<CustomerCreatePageProps> = ({
               <Backlink onClick={onBack}>
                 <FormattedMessage {...sectionNames.customers} />
               </Backlink>
-              <PageHeader
+              {/* <PageHeader
                 title={intl.formatMessage({
                   defaultMessage: "Create Customer",
                   description: "page header"
                 })}
-              />
+              /> */}
               <Grid>
                 <div>
                   <CustomerCreateDetails
@@ -179,6 +179,7 @@ const CustomerCreatePage: React.FC<CustomerCreatePageProps> = ({
                   />
                 </div>
               </Grid>
+              <div style={{ height: "100px" }} />
               <Savebar
                 disabled={disabled || !hasChanged}
                 state={saveButtonBar}

@@ -114,6 +114,7 @@ const useStyles = makeStyles(
 );
 
 export const ProductListPage: React.FC<ProductListPageProps> = props => {
+
   const {
     channelsCount,
     currencySymbol,
@@ -207,7 +208,6 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
   //     // header: 'Action Sheet'
   //   });
   // };
-
   const extensionMenuItems = mapToMenuItems(moreActions);
   const extensionCreateButtonItems = mapToMenuItems(create);
   return (

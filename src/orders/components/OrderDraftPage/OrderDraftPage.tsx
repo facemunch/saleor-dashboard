@@ -1,8 +1,6 @@
-import { Typography } from "@mui/material";
 import CardMenu from "@saleor/components/CardMenu";
 import CardSpacer from "@saleor/components/CardSpacer";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
-import { Container } from "@saleor/components/Container";
 import { DateTime } from "@saleor/components/Date";
 import Grid from "@saleor/components/Grid";
 import PageHeader from "@saleor/components/PageHeader";
@@ -11,12 +9,11 @@ import Skeleton from "@saleor/components/Skeleton";
 import { sectionNames } from "@saleor/intl";
 import { Backlink } from "@saleor/macaw-ui";
 import { makeStyles } from "@saleor/macaw-ui";
-import DraftOrderChannelSectionCard from "@saleor/orders/components/DraftOrderChannelSectionCard";
 import { SearchCustomers_search_edges_node } from "@saleor/searches/types/SearchCustomers";
 import { FetchMoreProps, UserPermissionProps } from "@saleor/types";
 import React from "react";
 import { useIntl } from "react-intl";
-import { IonContent } from "@ionic/react";
+import { IonContent, IonPage } from "@ionic/react";
 
 import { OrderDetails_order } from "../../types/OrderDetails";
 import OrderCustomer, { CustomerEditData } from "../OrderCustomer";
@@ -93,84 +90,87 @@ const OrderDraftPage: React.FC<OrderDraftPageProps> = props => {
   const intl = useIntl();
 
   return (
-    <IonContent>
-      <Backlink onClick={onBack}>
-        {intl.formatMessage(sectionNames.draftOrders)}
-      </Backlink>
-      <PageHeader
-        className={classes.header}
-        inline
-        title={order?.number ? "#" + order?.number : undefined}
-      >
-        <CardMenu
-          menuItems={[
-            {
-              label: intl.formatMessage({
-                defaultMessage: "Cancel order",
-                description: "button"
-              }),
-              onSelect: onDraftRemove
-            }
-          ]}
+    <IonPage>
+      <IonContent>
+        <Backlink onClick={onBack}>
+          {intl.formatMessage(sectionNames.draftOrders)}
+        </Backlink>
+        <PageHeader
+          className={classes.header}
+          inline
+          title={order?.number ? "#" + order?.number : undefined}
+        >
+          <CardMenu
+            menuItems={[
+              {
+                label: intl.formatMessage({
+                  defaultMessage: "Cancel order",
+                  description: "button"
+                }),
+                onSelect: onDraftRemove
+              }
+            ]}
+          />
+        </PageHeader>
+        <div className={classes.date}>
+          {order && order.created ? (
+            <>
+              <DateTime date={order.created} />
+            </>
+          ) : (
+            <Skeleton style={{ width: "10em" }} />
+          )}
+        </div>
+        <Grid>
+          <div>
+            <OrderDraftDetails
+              order={order}
+              onOrderLineAdd={onOrderLineAdd}
+              onOrderLineChange={onOrderLineChange}
+              onOrderLineRemove={onOrderLineRemove}
+              onShippingMethodEdit={onShippingMethodEdit}
+            />
+            <OrderHistory
+              history={order?.events}
+              orderCurrency={order?.total?.gross.currency}
+              onNoteAdd={onNoteAdd}
+            />
+          </div>
+          <div>
+            <OrderCustomer
+              canEditAddresses={true}
+              canEditCustomer={true}
+              fetchUsers={fetchUsers}
+              hasMore={hasMore}
+              loading={usersLoading}
+              order={order}
+              users={users}
+              userPermissions={userPermissions}
+              onBillingAddressEdit={onBillingAddressEdit}
+              onCustomerEdit={onCustomerEdit}
+              onFetchMore={onFetchMore}
+              onProfileView={onProfileView}
+              onShippingAddressEdit={onShippingAddressEdit}
+            />
+            <CardSpacer />
+            <div style={{height: '100px'}}></div>
+            {/* <DraftOrderChannelSectionCard channelName={order?.channel?.name} /> */}
+          </div>
+        </Grid>
+        <Savebar
+          state={saveButtonBarState}
+          disabled={disabled || !order?.canFinalize}
+          onCancel={onBack}
+          onSubmit={onDraftFinalize}
+          labels={{
+            confirm: intl.formatMessage({
+              defaultMessage: "Finalize",
+              description: "button"
+            })
+          }}
         />
-      </PageHeader>
-      <div className={classes.date}>
-        {order && order.created ? (
-          <>
-            <DateTime date={order.created} />
-          </>
-        ) : (
-          <Skeleton style={{ width: "10em" }} />
-        )}
-      </div>
-      <Grid>
-        <div>
-          <OrderDraftDetails
-            order={order}
-            onOrderLineAdd={onOrderLineAdd}
-            onOrderLineChange={onOrderLineChange}
-            onOrderLineRemove={onOrderLineRemove}
-            onShippingMethodEdit={onShippingMethodEdit}
-          />
-          <OrderHistory
-            history={order?.events}
-            orderCurrency={order?.total?.gross.currency}
-            onNoteAdd={onNoteAdd}
-          />
-        </div>
-        <div>
-          <OrderCustomer
-            canEditAddresses={true}
-            canEditCustomer={true}
-            fetchUsers={fetchUsers}
-            hasMore={hasMore}
-            loading={usersLoading}
-            order={order}
-            users={users}
-            userPermissions={userPermissions}
-            onBillingAddressEdit={onBillingAddressEdit}
-            onCustomerEdit={onCustomerEdit}
-            onFetchMore={onFetchMore}
-            onProfileView={onProfileView}
-            onShippingAddressEdit={onShippingAddressEdit}
-          />
-          <CardSpacer />
-          <DraftOrderChannelSectionCard channelName={order?.channel?.name} />
-        </div>
-      </Grid>
-      <Savebar
-        state={saveButtonBarState}
-        disabled={disabled || !order?.canFinalize}
-        onCancel={onBack}
-        onSubmit={onDraftFinalize}
-        labels={{
-          confirm: intl.formatMessage({
-            defaultMessage: "Finalize",
-            description: "button"
-          })
-        }}
-      />
-    </IonContent>
+      </IonContent>
+    </IonPage>
   );
 };
 OrderDraftPage.displayName = "OrderDraftPage";

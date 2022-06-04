@@ -104,15 +104,15 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
           iconSvg: ellipse,
           url: orderListUrl()
         },
-        // {
-        //   ariaLabel: "order drafts",
-        //   label: intl.formatMessage(commonMessages.drafts),
-        //   permissions: [PermissionEnum.MANAGE_ORDERS],
-        //   id: "order drafts",
-        //   // iconSrc: ordersIcon,
-        //   iconSvg: ellipse,
-        //   url: orderDraftListUrl()
-        // }
+        {
+          ariaLabel: "order drafts",
+          label: intl.formatMessage(commonMessages.drafts),
+          permissions: [PermissionEnum.MANAGE_ORDERS],
+          id: "order drafts",
+          // iconSrc: ordersIcon,
+          iconSvg: ellipse,
+          url: orderDraftListUrl()
+        }
       ],
       iconSrc: ordersIcon,
       label: intl.formatMessage(sectionNames.orders),

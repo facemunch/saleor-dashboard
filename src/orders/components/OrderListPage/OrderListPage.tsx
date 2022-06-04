@@ -1,25 +1,14 @@
-import { Button, Card } from "@mui/material";
-import CardMenu from "@saleor/components/CardMenu";
-import Container from "@saleor/components/Container";
 import FilterBar from "@saleor/components/FilterBarIonic";
-import PageHeader from "@saleor/components/PageHeader";
 import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
-import { sectionNames } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
 import { OrderListUrlSortField } from "@saleor/orders/urls";
 import { FilterPageProps, PageListProps, SortPage } from "@saleor/types";
-import { hasLimits, isLimitReached } from "@saleor/utils/limits";
+import { isLimitReached } from "@saleor/utils/limits";
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
-import {
-  IonContent,
-  IonCard,
-  IonFab,
-  IonFabButton,
-  IonIcon,
-  IonButton
-} from "@ionic/react";
+import { IonContent, IonCard, IonFab, IonButton, IonIcon } from "@ionic/react";
+
 import { add } from "ionicons/icons";
 
 import { OrderList_orders_edges_node } from "../../types/OrderList";
@@ -124,6 +113,17 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
 
       {limitsReached && <OrderLimitReached />}
       <IonCard>
+        {/* <IonSegment
+          value={"live"}
+          onIonChange={e => console.log("Segment selected", e.detail.value)}
+        >
+          <IonSegmentButton value="live">
+            <IonLabel>Live</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton value="drafts">
+            <IonLabel>Drafts</IonLabel>
+          </IonSegmentButton>
+        </IonSegment> */}
         <FilterBar
           options={options}
           currentTab={currentTab}

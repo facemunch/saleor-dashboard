@@ -5,53 +5,22 @@ import {
   TableRow,
   Typography
 } from "@mui/material";
-import AvailabilityStatusLabel from "@saleor/components/AvailabilityStatusLabel";
-import { ChannelsAvailabilityDropdown } from "@saleor/components/ChannelsAvailabilityDropdown";
-import Checkbox from "@saleor/components/Checkbox";
-import MoneyRange from "@saleor/components/MoneyRange";
-import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import TableCellAvatar from "@saleor/components/TableCellAvatar";
-import { AVATAR_MARGIN } from "@saleor/components/TableCellAvatar/Avatar";
-import TableCellHeader from "@saleor/components/TableCellHeader";
-import TableHead from "@saleor/components/TableHead";
 import TablePagination from "@saleor/components/TablePagination";
 import { ProductListColumns } from "@saleor/config";
 import { makeStyles } from "@saleor/macaw-ui";
 import { maybe, renderCollection } from "@saleor/misc";
-import {
-  getAttributeIdFromColumnValue,
-  isAttributeColumnValue
-} from "@saleor/products/components/ProductListPage/utils";
 import { GridAttributes_grid_edges_node } from "@saleor/products/types/GridAttributes";
 import { ProductList_products_edges_node } from "@saleor/products/types/ProductList";
 import { ProductListUrlSortField } from "@saleor/products/urls";
-import { canBeSorted } from "@saleor/products/views/ProductList/sort";
 import { ChannelProps, ListActions, ListProps, SortPage } from "@saleor/types";
 import TDisplayColumn, {
   DisplayColumnProps
 } from "@saleor/utils/columns/DisplayColumn";
-import { getArrowDirection } from "@saleor/utils/sort";
-import classNames from "classnames";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 
-import { messages } from "./messages";
-import {
-  IonList,
-  IonItem,
-  IonCard,
-  IonPage,
-  IonLabel,
-  IonInput,
-  IonToggle,
-  IonRadio,
-  IonCheckbox,
-  IonItemSliding,
-  IonItemOption,
-  IonItemOptions,
-  IonContent
-} from "@ionic/react";
 const useStyles = makeStyles(
   theme => ({
     [theme.breakpoints.up("md")]: {
@@ -129,174 +98,22 @@ interface ProductListProps
 
 export const ProductList: React.FC<ProductListProps> = props => {
   const {
-    activeAttributeSortId,
-    channelsCount,
     settings,
     disabled,
     isChecked,
-    gridAttributes,
     pageInfo,
     products,
-    selected,
-    sort,
-    toggle,
-    toggleAll,
-    toolbar,
     onNextPage,
     onPreviousPage,
     onUpdateListSettings,
     onRowClick,
-    onSort,
     selectedChannelId
   } = props;
 
   const classes = useStyles(props);
-  const gridAttributesFromSettings = settings.columns.filter(
-    isAttributeColumnValue
-  );
   const numberOfColumns = 2 + settings.columns.length;
   return (
     <div className={classes.tableContainer}>
-      {/* <ResponsiveTable className={classes.table}> */}
-      <colgroup style={{ width: "100vw" }}>
-        {/* <col /> */}
-        <col className={classes.colName} />
-        <DisplayColumn column="productType" displayColumns={settings.columns}>
-          <col className={classes.colType} />
-        </DisplayColumn>
-        {/* <DisplayColumn
-            column="availability"
-            displayColumns={settings.columns}
-          >
-            <col className={classes.colPublished} />
-          </DisplayColumn> */}
-        {gridAttributesFromSettings.map(gridAttribute => (
-          <col className={classes.colAttribute} key={gridAttribute} />
-        ))}
-        <DisplayColumn column="price" displayColumns={settings.columns}>
-          <col className={classes.colPrice} />
-        </DisplayColumn>
-      </colgroup>
-      <TableHead
-        colSpan={numberOfColumns}
-        selected={selected}
-        disabled={disabled}
-        items={products}
-        toggleAll={toggleAll}
-        toolbar={toolbar}
-      >
-        <TableCellHeader
-          data-test-id="colNameHeader"
-          arrowPosition="right"
-          className={classNames(classes.colName, {
-            [classes.colNameFixed]: settings.columns.length > 4
-          })}
-          direction={
-            sort.sort === ProductListUrlSortField.name
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          onClick={() => onSort(ProductListUrlSortField.name)}
-        >
-          <span className={classes.colNameHeader}>
-            <FormattedMessage defaultMessage="Name" description="product" />
-          </span>
-        </TableCellHeader>
-        <DisplayColumn column="productType" displayColumns={settings.columns}>
-          <TableCellHeader
-            data-test-id="colTypeHeader"
-            arrowPosition="right"
-            className={classes.colType}
-            direction={
-              sort.sort === ProductListUrlSortField.productType
-                ? getArrowDirection(sort.asc)
-                : undefined
-            }
-            onClick={() => onSort(ProductListUrlSortField.productType)}
-          >
-            <FormattedMessage
-              defaultMessage="Type"
-              description="product type"
-            />
-          </TableCellHeader>
-        </DisplayColumn>
-        {/* <DisplayColumn
-            column="availability"
-            displayColumns={settings.columns}
-          >
-            <TableCellHeader
-              data-test-id="colAvailabilityHeader"
-              className={classes.colPublished}
-              direction={
-                sort.sort === ProductListUrlSortField.status
-                  ? getArrowDirection(sort.asc)
-                  : undefined
-              }
-              onClick={() => onSort(ProductListUrlSortField.status)}
-              disabled={
-                !canBeSorted(
-                  ProductListUrlSortField.status,
-                  !!selectedChannelId
-                )
-              }
-            >
-              <FormattedMessage
-                defaultMessage="Availability"
-                description="product channels"
-              />
-            </TableCellHeader>
-          </DisplayColumn> */}
-        {gridAttributesFromSettings.map(gridAttributeFromSettings => {
-          const attributeId = getAttributeIdFromColumnValue(
-            gridAttributeFromSettings
-          );
-
-          return (
-            <TableCellHeader
-              className={classes.colAttribute}
-              direction={
-                sort.sort === ProductListUrlSortField.attribute &&
-                attributeId === activeAttributeSortId
-                  ? getArrowDirection(sort.asc)
-                  : undefined
-              }
-              onClick={() =>
-                onSort(ProductListUrlSortField.attribute, attributeId)
-              }
-              key={gridAttributeFromSettings}
-            >
-              {maybe<React.ReactNode>(
-                () =>
-                  gridAttributes.find(
-                    gridAttribute => attributeId === gridAttribute.id
-                  ).name,
-                <Skeleton />
-              )}
-            </TableCellHeader>
-          );
-        })}
-        <DisplayColumn column="price" displayColumns={settings.columns}>
-          <TableCellHeader
-            data-test-id="colPriceHeader"
-            className={classes.colPrice}
-            direction={
-              sort.sort === ProductListUrlSortField.price
-                ? getArrowDirection(sort.asc)
-                : undefined
-            }
-            textAlign="right"
-            onClick={() => onSort(ProductListUrlSortField.price)}
-            disabled={
-              !canBeSorted(ProductListUrlSortField.price, !!selectedChannelId)
-            }
-          >
-            <FormattedMessage
-              defaultMessage="Price"
-              description="product price"
-            />
-          </TableCellHeader>
-        </DisplayColumn>
-      </TableHead>
       <TableFooter>
         <TableRow>
           <TablePagination
@@ -339,20 +156,13 @@ export const ProductList: React.FC<ProductListProps> = props => {
                 data-test="id"
                 data-test-id={product ? product?.id : "skeleton"}
               >
-                {/* <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={isSelected}
-                    disabled={disabled}
-                    disableClickPropagation
-                    onChange={() => toggle(product.id)}
-                  />
-                </TableCell> */}
+             
                 <TableCellAvatar thumbnail={maybe(() => product.thumbnail.url)}>
                   {product?.productType ? (
                     // <div className={classes.colNameWrapper}>
-                      <span data-test="name">{product.name}</span>
-                    // </div>
+                    <span data-test="name">{product.name}</span>
                   ) : (
+                    // </div>
                     <Skeleton />
                   )}
                 </TableCellAvatar>
@@ -369,37 +179,10 @@ export const ProductList: React.FC<ProductListProps> = props => {
                         {product?.productType?.name || <Skeleton />}{" "}
                       </Typography>
                     )}
-                    {/* {product?.productType?.name || <Skeleton />} */}
                   </TableCell>
                 </DisplayColumn>
 
-                {/* {gridAttributesFromSettings.map(gridAttribute => {
-                  console.log("gridAttribute", gridAttribute);
-                  return (
-                    <TableCell
-                      className={classes.colAttribute}
-                      key={gridAttribute}
-                      data-test="attribute"
-                      data-test-attribute={getAttributeIdFromColumnValue(
-                        gridAttribute
-                      )}
-                    >
-                      {maybe<React.ReactNode>(() => {
-                        const attribute = product.attributes.find(
-                          attribute =>
-                            attribute.attribute.id ===
-                            getAttributeIdFromColumnValue(gridAttribute)
-                        );
-                        if (attribute) {
-                          return attribute.values
-                            .map(value => value.name)
-                            .join(", ");
-                        }
-                        return "-";
-                      }, <Skeleton />)}
-                    </TableCell>
-                  );
-                })} */}
+           
                 <DisplayColumn column="price" displayColumns={settings.columns}>
                   <TableCell className={classes.colPrice} data-test="price">
                     {product?.channelListings ? (

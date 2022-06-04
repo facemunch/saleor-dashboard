@@ -1,10 +1,12 @@
 import { Button, Card } from "@mui/material";
 import Container from "@saleor/components/Container";
-import FilterBar from "@saleor/components/FilterBar";
+import FilterBar from "@saleor/components/FilterBarIonic";
 import PageHeader from "@saleor/components/PageHeader";
 import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
 import { sectionNames } from "@saleor/intl";
 import { OrderDraftListUrlSortField } from "@saleor/orders/urls";
+import { add } from "ionicons/icons";
+
 import {
   FilterPageProps,
   ListActions,
@@ -12,7 +14,17 @@ import {
   SortPage,
   TabPageProps
 } from "@saleor/types";
-import { IonContent, IonCard } from "@ionic/react";
+import {
+  IonContent,
+  IonCard,
+  IonPage,
+  IonFab,
+  IonButton,
+  IonIcon,
+  IonSegment,
+  IonSegmentButton,
+  IonLabel
+} from "@ionic/react";
 
 import { hasLimits, isLimitReached } from "@saleor/utils/limits";
 import React from "react";
@@ -37,6 +49,15 @@ export interface OrderDraftListPageProps
   orders: OrderDraftList_draftOrders_edges_node[];
 }
 
+const options = [
+  { label: "Order no. (highest first)", path: "?asc=true&sort=number" },
+  { label: "Order no. (lowest first)", path: "?asc=false&sort=number" },
+  { label: "Customer name A-Z", path: "?asc=true&sort=customer" },
+  { label: "Customer name Z-A", path: "?asc=false&sort=customer" },
+  { label: "Date (newest first)", path: "?asc=true&sort=date" },
+  { label: "Date (oldest first)", path: "?asc=false&sort=date" }
+];
+
 const OrderDraftListPage: React.FC<OrderDraftListPageProps> = ({
   currentTab,
   disabled,
@@ -58,38 +79,73 @@ const OrderDraftListPage: React.FC<OrderDraftListPageProps> = ({
   const limitsReached = isLimitReached(limits, "orders");
 
   return (
+    // <IonPage>
     <IonContent>
-      <PageHeader
-        title={intl.formatMessage(sectionNames.draftOrders)}
-        limitText={
-          hasLimits(limits, "orders") &&
-          intl.formatMessage(
-            {
-              defaultMessage: "{count}/{max} orders",
-              description: "placed orders counter"
-            },
-            {
-              count: limits.currentUsage.orders,
-              max: limits.allowedUsage.orders
-            }
-          )
-        }
-      >
-        <Button
-          color="primary"
-          variant="contained"
-          disabled={disabled || limitsReached}
-          onClick={onAdd}
+      {/* <PageHeader
+          title={intl.formatMessage(sectionNames.draftOrders)}
+          limitText={
+            hasLimits(limits, "orders") &&
+            intl.formatMessage(
+              {
+                defaultMessage: "{count}/{max} orders",
+                description: "placed orders counter"
+              },
+              {
+                count: limits.currentUsage.orders,
+                max: limits.allowedUsage.orders
+              }
+            )
+          }
         >
-          <FormattedMessage
-            defaultMessage="Create order"
-            description="button"
-          />
-        </Button>
-      </PageHeader>
+          <Button
+            color="primary"
+            variant="contained"
+            disabled={disabled || limitsReached}
+            onClick={onAdd}
+          >
+            <FormattedMessage
+              defaultMessage="Create order"
+              description="button"
+            />
+          </Button>
+        </PageHeader> */}
+      <IonFab
+        vertical="bottom"
+        horizontal="end"
+        slot="fixed"
+        style={{
+          marginBottom: "50px"
+        }}
+        data-test-id="create-order-button"
+
+        // disabled={limitReached}
+      >
+        <IonButton
+          onClick={() => {
+            onAdd();
+          }}
+          shape="round"
+        >
+          <IonIcon slot="start" icon={add} />
+          New Order
+        </IonButton>
+      </IonFab>
       {limitsReached && <OrderLimitReached />}
       <IonCard>
+        {/* <IonSegment
+          value={"live"}
+          onIonChange={e => console.log("Segment selected", e.detail.value)}
+        >
+          <IonSegmentButton value="live">
+            <IonLabel>Live</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton value="drafts">
+            <IonLabel>Drafts</IonLabel>
+          </IonSegmentButton>
+        </IonSegment> */}
+
         <FilterBar
+          options={options}
           allTabLabel={intl.formatMessage({
             defaultMessage: "All Drafts",
             description: "tab name"
@@ -111,6 +167,7 @@ const OrderDraftListPage: React.FC<OrderDraftListPageProps> = ({
         <OrderDraftList disabled={disabled} {...listProps} />
       </IonCard>
     </IonContent>
+    // </IonPage>
   );
 };
 OrderDraftListPage.displayName = "OrderDraftListPage";

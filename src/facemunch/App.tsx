@@ -7,7 +7,7 @@ import { ApolloClient } from "apollo-client";
 import { ApolloLink } from "apollo-link";
 import { BatchHttpLink } from "apollo-link-batch-http";
 import { createUploadLink } from "apollo-upload-client";
-import React, { useEffect, lazy, Suspense } from "react";
+import React, { useEffect, lazy, Suspense, useRef, useCallback } from "react";
 import { ApolloProvider } from "react-apollo";
 import ErrorBoundary from "react-error-boundary";
 // import TagManager from "react-gtm-module";
@@ -58,26 +58,29 @@ import ProductSection from "../products";
 // import TaxesSection from "../taxes";
 // import TranslationsSection from "../translations";
 import { PermissionEnum } from "../types/globalTypes";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import "swiper/css";
+
 // import WarehouseSection from "../warehouses";
 import { BrowserRouter } from "react-router-dom";
-const TranslationsSection = lazy(() => import("../translations"));
-const TaxesSection = lazy(() => import("../taxes"));
+// const TranslationsSection = lazy(() => import("../translations"));
+// const TaxesSection = lazy(() => import("../taxes"));
 const ShippingSection = lazy(() => import("../shipping"));
 
 // const StaffSection = lazy(() => import("../staff"));
-const ProductTypesSection = lazy(() => import("../productTypes"));
+// const ProductTypesSection = lazy(() => import("../productTypes"));
 // const ProductSection = lazy(() => import("../products"));
 // const OrdersSection = lazy(() => import("../orders"));
 // const HomePage = lazy(() => import("../home"));
-const GiftCardSection = lazy(() => import("../giftCards"));
+// const GiftCardSection = lazy(() => import("../giftCards"));
 const SiteSettingsSection = lazy(() => import("../siteSettings"));
-const DiscountSection = lazy(() => import("../discounts"));
+// const DiscountSection = lazy(() => import("../discounts"));
 const ConfigurationSection = lazy(() => import("../configuration"));
-const AttributeSection = lazy(() => import("../attributes"));
-const CategorySection = lazy(() => import("../categories"));
-const ChannelsSection = lazy(() => import("../channels"));
-const CollectionSection = lazy(() => import("../collections"));
-const WarehouseSection = lazy(() => import("../warehouses"));
+// const AttributeSection = lazy(() => import("../attributes"));
+// const CategorySection = lazy(() => import("../categories"));
+// const ChannelsSection = lazy(() => import("../channels"));
+// const CollectionSection = lazy(() => import("../collections"));
+// const WarehouseSection = lazy(() => import("../warehouses"));
 
 // if (process.env.GTM_ID) {
 //   TagManager.initialize({ gtmId: GTM_ID });
@@ -163,10 +166,18 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
   //   useAuth();
 
   const location = useLocation();
+  // const ref = useRef();
 
   useEffect(() => {
     setTimeout(() => onRouteUpdate(window.location.pathname), 0);
   }, [location]);
+
+  // useEffect(() => {
+  //   // if (!ref.current) return;
+  //   // const swiper = new Swiper(ref.current);
+  //   // var swiper = new Swiper(".swiper-container");
+  //   console.log("swiper", ref);
+  // }, [ref]);
 
   const { channel } = useAppChannel(false);
 
@@ -238,15 +249,30 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                   </SectionRoute>
                 }
               />
+              {/* <Swiper className="mySwiper">
+                <SwiperSlide style={{ backgroundColor: "pink" }}>
+                  <HomePage />
+                </SwiperSlide>
+                <SwiperSlide style={{ backgroundColor: "yellow" }}>
+                  <HomePage />
+                </SwiperSlide>
+                <SwiperSlide>Slide 3</SwiperSlide>
+                <SwiperSlide>Slide 4</SwiperSlide>
+                <SwiperSlide>Slide 5</SwiperSlide>
+                <SwiperSlide>Slide 6</SwiperSlide>
+                <SwiperSlide>Slide 7</SwiperSlide>
+                <SwiperSlide>Slide 8</SwiperSlide>
+                <SwiperSlide>Slide 9</SwiperSlide>
+              </Swiper> */}
 
-              <Route
+              {/* <Route
                 path="/categories/*"
                 element={
                   <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                     <CategorySection />
                   </SectionRoute>
                 }
-              />
+              /> */}
               {/* <Route
               path="/categories"
               element={
@@ -263,14 +289,14 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                 </SectionRoute>
               }
             /> */}
-              <Route
+              {/* <Route
                 path="/collections/*"
                 element={
                   <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
                     <CollectionSection />
                   </SectionRoute>
                 }
-              />
+              /> */}
               {/* <Route
               path="/customers"
               element={
@@ -295,14 +321,14 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                 </SectionRoute>
               }
             /> */}
-              <Route
+              {/* <Route
                 path="/gift-cards/*"
                 element={
                   <SectionRoute permissions={[PermissionEnum.MANAGE_GIFT_CARD]}>
                     <GiftCardSection />
                   </SectionRoute>
                 }
-              />
+              /> */}
               {/* <Route
               path="/discounts"
               element={
@@ -311,14 +337,14 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                 </SectionRoute>
               }
             /> */}
-              <Route
+              {/* <Route
                 path="/discounts/*"
                 element={
                   <SectionRoute permissions={[PermissionEnum.MANAGE_DISCOUNTS]}>
                     <DiscountSection />
                   </SectionRoute>
                 }
-              />
+              /> */}
               {/* <Route
             path="/pages"
             element={
@@ -377,14 +403,14 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
               </SectionRoute>
             }
           /> */}
-              {/* <Route
+              <Route
               path="/orders"
               element={
                 <SectionRoute permissions={[PermissionEnum.MANAGE_ORDERS]}>
                   <OrdersSection />
                 </SectionRoute>
               }
-            /> */}
+            />
               <Route
                 path="/orders/*"
                 element={
@@ -411,7 +437,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                 }
               />
 
-              <Route
+              {/* <Route
                 path="/product-types"
                 element={
                   <SectionRoute
@@ -422,8 +448,8 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                     <ProductTypesSection />
                   </SectionRoute>
                 }
-              />
-              <Route
+              /> */}
+              {/* <Route
                 path="/product-types/*"
                 element={
                   <SectionRoute
@@ -434,7 +460,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                     <ProductTypesSection />
                   </SectionRoute>
                 }
-              />
+              /> */}
               {/* <Route
               path="/staff"
               element={
@@ -483,7 +509,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                   </SectionRoute>
                 }
               />
-              <Route
+              {/* <Route
                 path="/taxes"
                 element={
                   <SectionRoute permissions={[PermissionEnum.MANAGE_SETTINGS]}>
@@ -498,7 +524,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                     <TaxesSection />
                   </SectionRoute>
                 }
-              />
+              /> */}
               <Route
                 path="/shipping"
                 element={
@@ -515,7 +541,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                   </SectionRoute>
                 }
               />
-              <Route
+              {/* <Route
                 path="/translations"
                 element={
                   <SectionRoute
@@ -524,8 +550,8 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                     <TranslationsSection />
                   </SectionRoute>
                 }
-              />
-              <Route
+              /> */}
+              {/* <Route
                 path="/translations/*"
                 element={
                   <SectionRoute
@@ -534,7 +560,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                     <TranslationsSection />
                   </SectionRoute>
                 }
-              />
+              /> */}
               {/* <Route
             path="/navigation"
             element={
@@ -551,7 +577,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
               </SectionRoute>
             }
           /> */}
-              <Route
+              {/* <Route
                 path="/attributes"
                 element={
                   <SectionRoute
@@ -576,7 +602,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                     <AttributeSection />
                   </SectionRoute>
                 }
-              />
+              /> */}
               {/* <Route
             path="/apps"
             element={
@@ -593,7 +619,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
               </SectionRoute>
             }
           /> */}
-              <Route
+              {/* <Route
                 path="/warehouses"
                 element={
                   <SectionRoute permissions={[PermissionEnum.MANAGE_PRODUCTS]}>
@@ -608,8 +634,8 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                     <WarehouseSection />
                   </SectionRoute>
                 }
-              />
-              <Route
+              /> */}
+              {/* <Route
                 path="/channels"
                 element={
                   <SectionRoute permissions={[PermissionEnum.MANAGE_CHANNELS]}>
@@ -624,7 +650,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                     <ChannelsSection />
                   </SectionRoute>
                 }
-              />
+              /> */}
               <Route
                 path="/configuration"
                 element={
