@@ -73,7 +73,7 @@ const ProductTypeListPage: React.FC<ProductTypeListPageProps> = ({
             marginBottom: "50px"
           }}
           data-test="addProductType"
-          // disabled={limitReached}
+          
         >
           <IonFabButton onClick={onAdd}>
             <IonIcon icon={add} />

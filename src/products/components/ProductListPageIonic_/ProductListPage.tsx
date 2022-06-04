@@ -266,7 +266,7 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
             marginBottom: "50px"
           }}
           data-test="add-product"
-          // disabled={limitReached}
+          
         >
           <IonButton
             onClick={() => {

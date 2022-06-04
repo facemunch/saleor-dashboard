@@ -75,7 +75,7 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
           marginBottom: "50px"
         }}
         data-test="createCustomer"
-        // disabled={limitReached}
+        
       >
         <IonButton
           onClick={() => {

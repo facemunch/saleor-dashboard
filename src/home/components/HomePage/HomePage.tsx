@@ -200,7 +200,7 @@ const HomePage: React.FC<HomePageProps> = props => {
           }}
           data-test-id="create-order-button"
 
-          // disabled={limitReached}
+          
         >
           <IonButton
             onClick={() => {

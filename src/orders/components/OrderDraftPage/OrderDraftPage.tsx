@@ -13,7 +13,7 @@ import { SearchCustomers_search_edges_node } from "@saleor/searches/types/Search
 import { FetchMoreProps, UserPermissionProps } from "@saleor/types";
 import React from "react";
 import { useIntl } from "react-intl";
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent, IonPage, IonCardContent } from "@ionic/react";
 
 import { OrderDetails_order } from "../../types/OrderDetails";
 import OrderCustomer, { CustomerEditData } from "../OrderCustomer";
@@ -92,35 +92,37 @@ const OrderDraftPage: React.FC<OrderDraftPageProps> = props => {
   return (
     <IonPage>
       <IonContent>
-        <Backlink onClick={onBack}>
-          {intl.formatMessage(sectionNames.draftOrders)}
-        </Backlink>
-        <PageHeader
-          className={classes.header}
-          inline
-          title={order?.number ? "#" + order?.number : undefined}
-        >
-          <CardMenu
-            menuItems={[
-              {
-                label: intl.formatMessage({
-                  defaultMessage: "Cancel order",
-                  description: "button"
-                }),
-                onSelect: onDraftRemove
-              }
-            ]}
-          />
-        </PageHeader>
-        <div className={classes.date}>
-          {order && order.created ? (
-            <>
-              <DateTime date={order.created} />
-            </>
-          ) : (
-            <Skeleton style={{ width: "10em" }} />
-          )}
-        </div>
+        <IonCardContent>
+          <Backlink onClick={onBack}>
+            {intl.formatMessage(sectionNames.draftOrders)}
+          </Backlink>
+          <PageHeader
+            className={classes.header}
+            inline
+            title={order?.number ? "#" + order?.number : undefined}
+          >
+            <CardMenu
+              menuItems={[
+                {
+                  label: intl.formatMessage({
+                    defaultMessage: "Cancel order",
+                    description: "button"
+                  }),
+                  onSelect: onDraftRemove
+                }
+              ]}
+            />
+          </PageHeader>
+          <div className={classes.date}>
+            {order && order.created ? (
+              <>
+                <DateTime date={order.created} />
+              </>
+            ) : (
+              <Skeleton style={{ width: "10em" }} />
+            )}
+          </div>
+        </IonCardContent>
         <Grid>
           <div>
             <OrderDraftDetails
@@ -153,7 +155,7 @@ const OrderDraftPage: React.FC<OrderDraftPageProps> = props => {
               onShippingAddressEdit={onShippingAddressEdit}
             />
             <CardSpacer />
-            <div style={{height: '100px'}}></div>
+            <div style={{ height: "100px" }}></div>
             {/* <DraftOrderChannelSectionCard channelName={order?.channel?.name} /> */}
           </div>
         </Grid>
