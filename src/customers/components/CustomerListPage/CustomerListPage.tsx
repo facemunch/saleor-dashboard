@@ -75,7 +75,6 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
           marginBottom: "50px"
         }}
         data-test="createCustomer"
-        
       >
         <IonButton
           onClick={() => {
@@ -110,6 +109,11 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
         />
         <CustomerList {...customerListProps} />
       </IonCard>
+      <div
+        style={{
+          height: "100px"
+        }}
+      />
     </IonContent>
   );
 };

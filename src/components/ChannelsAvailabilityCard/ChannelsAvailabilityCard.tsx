@@ -66,6 +66,7 @@ export const ChannelsAvailability: React.FC<ChannelsAvailabilityCardProps> = pro
       availableForPurchase: null,
       isAvailableForPurchase: true,
       isPublished: true,
+      // TODO: fixme
       publicationDate: "2022-06-03",
       visibleInListings: true
     });

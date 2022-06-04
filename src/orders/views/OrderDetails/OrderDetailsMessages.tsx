@@ -102,6 +102,7 @@ export const OrderDetailsMessages: React.FC<OrderDetailsMessages> = ({
           defaultMessage: "Order successfully cancelled"
         })
       });
+      // navigate("/orders/drafts");
       closeModal();
     }
   };
@@ -114,6 +115,8 @@ export const OrderDetailsMessages: React.FC<OrderDetailsMessages> = ({
           defaultMessage: "Order successfully cancelled"
         })
       });
+      // alert("hello");
+      // navigate("/orders/drafts");
       closeModal();
     }
   };

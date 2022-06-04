@@ -114,7 +114,6 @@ const useStyles = makeStyles(
 );
 
 export const ProductListPage: React.FC<ProductListPageProps> = props => {
-
   const {
     channelsCount,
     currencySymbol,
@@ -212,7 +211,8 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
   const extensionCreateButtonItems = mapToMenuItems(create);
   return (
     <>
-      <IonContent>
+      <IonContent
+      >
         {/* <PageHeader
           title={intl.formatMessage(sectionNames.products)}
           limitText={
@@ -266,7 +266,6 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
             marginBottom: "50px"
           }}
           data-test="add-product"
-          
         >
           <IonButton
             onClick={() => {
@@ -322,6 +321,11 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
             onUpdateListSettings={onUpdateListSettings}
           />
         </IonCard>
+        <div
+          style={{
+            height: "100px"
+          }}
+        />
       </IonContent>
     </>
   );

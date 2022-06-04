@@ -82,8 +82,6 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
           marginBottom: "50px"
         }}
         data-test-id="create-order-button"
-
-        
       >
         <IonButton
           onClick={() => {
@@ -146,6 +144,11 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
         />
         <OrderList {...listProps} />
       </IonCard>
+      <div
+        style={{
+          height: "100px"
+        }}
+      />
     </IonContent>
   );
 };

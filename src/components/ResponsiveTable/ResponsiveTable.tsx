@@ -7,7 +7,6 @@ const useStyles = makeStyles(
     root: {
       position: "relative",
       overflowY: "hidden",
-
       // width: "100%",
       [theme.breakpoints.up("md")]: {
         "&& table": {

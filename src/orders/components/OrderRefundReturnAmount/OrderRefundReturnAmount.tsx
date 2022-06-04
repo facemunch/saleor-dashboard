@@ -17,7 +17,7 @@ import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import { OrderRefundData_order } from "@saleor/orders/types/OrderRefundData";
 import React from "react";
 import { defineMessages, FormattedMessage, useIntl } from "react-intl";
-
+import { IonCard } from "@ionic/react";
 import {
   OrderRefundAmountCalculationMode,
   OrderRefundFormData,
@@ -135,7 +135,7 @@ const OrderRefundAmount: React.FC<OrderRefundAmountProps> = props => {
     : !selectedRefundAmount || isAmountTooBig || isAmountTooSmall;
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Refunded Amount",
@@ -307,7 +307,7 @@ const OrderRefundAmount: React.FC<OrderRefundAmountProps> = props => {
           )}
         </Typography>
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 OrderRefundAmount.displayName = "OrderRefundAmount";

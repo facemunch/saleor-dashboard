@@ -206,7 +206,10 @@ export const OrderDraftDetails: React.FC<OrderDraftDetailsProps> = ({
         confirmButtonState={orderDraftCancel.opts.status}
         errors={orderDraftCancel.opts.data?.draftOrderDelete.errors || []}
         onClose={closeModal}
-        onConfirm={() => orderDraftCancel.mutate({ id })}
+        onConfirm={() => {
+          orderDraftCancel.mutate({ id });
+          // navigate("/orders/drafts");
+        }}
         open={params.action === "cancel"}
         orderNumber={getStringOrPlaceholder(order?.number)}
       />

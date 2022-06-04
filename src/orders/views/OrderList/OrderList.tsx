@@ -166,7 +166,13 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
         orders={mapEdgesToItems(data?.orders)}
         pageInfo={pageInfo}
         sort={getSortParams(params)}
-        onAdd={() => openModal("create-order")}
+        onAdd={() => {
+          createOrder({
+            variables: {
+              input: { channelId: channel?.id }
+            }
+          });
+        }}
         onNextPage={loadNextPage}
         onPreviousPage={loadPreviousPage}
         onUpdateListSettings={updateListSettings}

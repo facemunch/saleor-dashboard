@@ -109,6 +109,11 @@ const OrderDraftListPage: React.FC<OrderDraftListPageProps> = ({
         />
         <OrderDraftList disabled={disabled} {...listProps} />
       </IonCard>
+      <div
+        style={{
+          height: "100px"
+        }}
+      />
     </IonContent>
   );
 };

@@ -208,7 +208,13 @@ export const OrderDraftList: React.FC<OrderDraftListProps> = ({ params }) => {
                 settings={settings}
                 orders={mapEdgesToItems(data?.draftOrders)}
                 pageInfo={pageInfo}
-                onAdd={() => openModal("create-order")}
+                onAdd={() => {
+                  createOrder({
+                    variables: {
+                      input: { channelId: channel?.id }
+                    }
+                  });
+                }}
                 onNextPage={loadNextPage}
                 onPreviousPage={loadPreviousPage}
                 onRowClick={id => () => navigate(orderUrl(id))}
