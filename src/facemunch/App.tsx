@@ -12,7 +12,7 @@ import { ApolloProvider } from "react-apollo";
 import ErrorBoundary from "react-error-boundary";
 // import TagManager from "react-gtm-module";
 import { useIntl } from "react-intl";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import introspectionQueryResultData from "../../fragmentTypes.json";
 // import AppsSection from "../apps";
 import { ExternalAppProvider } from "../apps/components/ExternalAppContext";
@@ -404,13 +404,13 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
             }
           /> */}
               <Route
-              path="/orders"
-              element={
-                <SectionRoute permissions={[PermissionEnum.MANAGE_ORDERS]}>
-                  <OrdersSection />
-                </SectionRoute>
-              }
-            />
+                path="/orders"
+                element={
+                  <SectionRoute permissions={[PermissionEnum.MANAGE_ORDERS]}>
+                    <OrdersSection />
+                  </SectionRoute>
+                }
+              />
               <Route
                 path="/orders/*"
                 element={
@@ -669,6 +669,8 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
                   </SectionRoute>
                 }
               />
+              {/* <Navigate to="/home" replae={true} /> */}
+
               {/* </Route> */}
             </Routes>
           </Suspense>

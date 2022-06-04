@@ -239,7 +239,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           location.pathname === "/orders/drafts" ||
           location.pathname.includes("shipping") ||
           location.pathname.includes("warehouses") ||
-          location.pathname.includes("product-types")) && (
+          location.pathname.includes("product-types") ||
+          location.pathname === "/") && (
           <IonHeader translucent collapse="condense">
             <IonToolbar>
               {/* <div className={classes.header}> */}
@@ -323,6 +324,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           </IonHeader>
         )}
         {(location.pathname.includes("/products") ||
+          location.pathname === "/" ||
           location.pathname.includes("/orders") ||
           location.pathname.includes("/customers") ||
           location.pathname.includes("/home")) && (

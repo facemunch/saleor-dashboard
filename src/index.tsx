@@ -12,7 +12,7 @@ import { ApolloProvider } from "react-apollo";
 // import ErrorBoundary from "react-error-boundary";
 import TagManager from "react-gtm-module";
 import { useIntl } from "react-intl";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import introspectionQueryResultData from "fragmentTypes.json";
 import AppsSection from "./apps";
 import { ExternalAppProvider } from "./apps/components/ExternalAppContext";
@@ -73,7 +73,7 @@ errorTracker.init();
 // so we need to explicitly set them
 const linkOptions = {
   credentials: "include",
-  uri: localStorage.getItem('ecomAPI')
+  uri: localStorage.getItem("ecomAPI")
 };
 const uploadLink = createUploadLink(linkOptions);
 const batchLink = new BatchHttpLink({
@@ -611,13 +611,14 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
               </SectionRoute>
             }
           />
-          <Route
+          {/* <Route
             element={
               <SectionRoute>
                 <HomePage />
               </SectionRoute>
             }
-          />
+          /> */}
+          <Navigate to="/c/home" replace={true} />
           {/* </Route> */}
         </Routes>
         {/* </ErrorBoundary> */}
@@ -626,4 +627,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
   );
 };
 
-render(<App onRouteUpdate={() => {}} />, document.querySelector("#dashboard-app"));
+render(
+  <App onRouteUpdate={() => {}} />,
+  document.querySelector("#dashboard-app")
+);
