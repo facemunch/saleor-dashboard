@@ -1,7 +1,15 @@
 import CardSpacer from "@saleor/components/CardSpacer";
-import { IonContent, IonPage } from "@ionic/react";
+import {
+  IonButton,
+  IonButtons,
+  IonContent,
+  IonIcon,
+  IonPage,
+  IonTitle,
+  IonToolbar
+} from "@ionic/react";
 import Grid from "@saleor/components/Grid";
-import PageHeader from "@saleor/components/PageHeader";
+import { chevronBackOutline } from "ionicons/icons";
 import { OrderErrorFragment } from "@saleor/fragments/types/OrderErrorFragment";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import { Backlink } from "@saleor/macaw-ui";
@@ -61,16 +69,36 @@ const OrderRefundPage: React.FC<OrderReturnPageProps> = props => {
         return (
           <IonPage>
             <IonContent>
-              <Backlink onClick={onBack}>
-                {intl.formatMessage(messages.appTitle, {
-                  orderNumber: order?.number
-                })}
-              </Backlink>
-              <PageHeader
-                title={intl.formatMessage(messages.pageTitle, {
-                  orderNumber: order?.number
-                })}
-              />
+              <IonToolbar>
+                <IonButtons slot="start">
+                  <IonButton onClick={() => onBack()}>
+                    <IonIcon icon={chevronBackOutline} />
+                  </IonButton>
+                </IonButtons>
+                <IonTitle>
+                  {intl.formatMessage(messages.pageTitle, {
+                    orderNumber: order?.number
+                  })}
+                </IonTitle>
+
+                <Backlink onClick={onBack}>
+                  {order?.number
+                    ? intl.formatMessage(
+                        {
+                          defaultMessage: "Order #{orderNumber}",
+                          description: "page header with order number"
+                        },
+                        {
+                          orderNumber: order.number
+                        }
+                      )
+                    : intl.formatMessage({
+                        defaultMessage: "Order",
+                        description: "page header"
+                      })}
+                </Backlink>
+              </IonToolbar>
+
               <Grid>
                 <div>
                   {!!data.unfulfilledItemsQuantities.length && (

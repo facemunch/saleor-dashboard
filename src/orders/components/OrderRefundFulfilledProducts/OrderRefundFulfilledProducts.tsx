@@ -1,14 +1,12 @@
 import {
   Button,
-  Card,
   CardContent,
-  Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import Money from "@saleor/components/Money";
@@ -20,6 +18,7 @@ import { renderCollection } from "@saleor/misc";
 import { OrderRefundData_order_fulfillments } from "@saleor/orders/types/OrderRefundData";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { IonCard } from "@ionic/react";
 
 import { OrderRefundFormData } from "../OrderRefundPage/form";
 import { getTitle } from "./messages";
@@ -89,7 +88,7 @@ const OrderRefundFulfilledProducts: React.FC<OrderRefundFulfilledProductsProps> 
   const intl = useIntl();
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={
           <>
@@ -116,7 +115,7 @@ const OrderRefundFulfilledProducts: React.FC<OrderRefundFulfilledProductsProps> 
           />
         </Button>
       </CardContent>
-      <Table>
+      <div style={{width: '92vw', overflow: 'scroll'}}>
         <TableHead>
           <TableRow>
             <TableCell>
@@ -237,8 +236,8 @@ const OrderRefundFulfilledProducts: React.FC<OrderRefundFulfilledProductsProps> 
             )
           )}
         </TableBody>
-      </Table>
-    </Card>
+      </div>
+    </IonCard>
   );
 };
 OrderRefundFulfilledProducts.displayName = "OrderRefundFulfilledProducts";

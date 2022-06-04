@@ -1,9 +1,11 @@
-import { Card, CardContent } from "@mui/material";
+import { CardContent } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import RadioGroupField from "@saleor/components/RadioGroupField";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
+
+import { IonCard } from "@ionic/react";
 
 import { OrderRefundFormData, OrderRefundType } from "../OrderRefundPage/form";
 
@@ -37,7 +39,7 @@ const OrderRefund: React.FC<OrderRefundProps> = props => {
   const intl = useIntl();
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Refund Order",
@@ -63,7 +65,7 @@ const OrderRefund: React.FC<OrderRefundProps> = props => {
           variant="inline"
         />
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 OrderRefund.displayName = "OrderRefund";
