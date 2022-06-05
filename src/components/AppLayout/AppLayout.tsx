@@ -210,10 +210,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   // const toggleTheme = () => setTheme(isDarkTheme(themeType) ? "light" : "dark");
   return (
     <>
-      <Navigator
+      {/* <Navigator
         visible={isNavigatorVisible}
         setVisibility={setNavigatorVisibility}
-      />
+      /> */}
       {/* <div className={classes.root} data-test="ecomm-app-layout"> */}
       {/* {isMdUp && (
           <Sidebar
@@ -332,7 +332,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         )}
         {(location.pathname === "/orders" ||
           location.pathname === "/orders/drafts") && (
-          <div style={{ margin: "24px", marginBottom: "0px" }}>
+          <div
+            style={{ margin: "24px", marginBottom: "12px", marginTop: "12px" }}
+          >
             <IonSegment value={location.pathname}>
               <IonSegmentButton
                 onClick={() => navigate("/orders")}
@@ -358,15 +360,15 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             )
           : children}
         {/* </main> */}
+        <Portal container={document.getElementsByTagName("ion-app")[0]}>
+          <div
+            className={classNames(classes.appAction, {
+              [classes.appActionDocked]: docked
+            })}
+            ref={appActionAnchor}
+          />
+        </Portal>
       </IonPage>
-      <Portal>
-        <div
-          className={classNames(classes.appAction, {
-            [classes.appActionDocked]: docked
-          })}
-          ref={appActionAnchor}
-        />
-      </Portal>
 
       {/* </div> */}
     </>

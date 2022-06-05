@@ -191,28 +191,26 @@ const HomePage: React.FC<HomePageProps> = props => {
             </RequirePermissions>
           </div>
         )} */}
-        <IonFab
-          vertical="bottom"
-          horizontal="end"
-          slot="fixed"
-          style={{
-            marginBottom: "50px"
-          }}
-          data-test-id="create-order-button"
-
-          
-        >
-          <IonButton
-            onClick={() => {
-              navigate("/products/add");
-            }}
-            shape="round"
-          >
-            <IonIcon slot="start" icon={add} />
-            New Product
-          </IonButton>
-        </IonFab>
       </Grid>
+      <IonFab
+        vertical="bottom"
+        horizontal="end"
+        slot="fixed"
+        style={{
+          marginBottom: "50px"
+        }}
+        data-test-id="create-order-button"
+      >
+        <IonButton
+          onClick={() => {
+            navigate("/products/add");
+          }}
+          shape="round"
+        >
+          <IonIcon slot="start" icon={add} />
+          New Product
+        </IonButton>
+      </IonFab>
       {/* </div> */}
     </IonContent>
   );

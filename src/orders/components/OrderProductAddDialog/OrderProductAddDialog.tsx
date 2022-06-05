@@ -31,6 +31,19 @@ import getOrderErrorMessage from "@saleor/utils/errors/order";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { FormattedMessage, useIntl } from "react-intl";
+import { closeOutline } from "ionicons/icons";
+import Portal from "@mui/material/Portal";
+
+import {
+  IonModal,
+  IonButton,
+  IonIcon,
+  IonSearchbar,
+  IonFooter,
+  IonContent,
+  IonToolbar,
+  IonButtons
+} from "@ionic/react";
 
 import {
   SearchOrderVariant_search_edges_node,
@@ -55,7 +68,7 @@ const useStyles = makeStyles(
       marginBottom: theme.spacing(3)
     },
     grayText: {
-      color: theme.palette.text.disabled
+      color: "white"
     },
     loadMoreLoaderContainer: {
       alignItems: "center",
@@ -91,6 +104,21 @@ const useStyles = makeStyles(
   }),
   { name: "OrderProductAddDialog" }
 );
+
+const spanStyle = {
+  width: "100%",
+  display: "block",
+  position: "relative",
+  top: "-2px",
+  marginTop: "12px",
+  fontFamily: "Inter",
+  fontStyle: "normal",
+  fontWeight: "600",
+  fontSize: "14px",
+  lineHeight: "20px",
+  textAlign: "center",
+  color: "#ffffff"
+};
 
 type SetVariantsAction = (
   data: SearchOrderVariant_search_edges_node_variants[]
@@ -242,26 +270,49 @@ const OrderProductAddDialog: React.FC<OrderProductAddDialogProps> = props => {
   const productChoicesWithValidVariants = productChoices.filter(
     ({ variants }) => variants.some(isValidVariant)
   );
-
+  console.log("productChoicesWithValidVariants", {
+    productChoicesWithValidVariants,
+    products,
+    variants
+  });
   return (
-    <Dialog
-      onClose={onClose}
-      open={open}
-      classes={{ paper: classes.overflow }}
-      fullWidth
-      maxWidth="sm"
-    >
-      <DialogTitle>
-        <FormattedMessage
-          defaultMessage="Add Product"
-          description="dialog header"
-        />
-      </DialogTitle>
-      <DialogContent className={classes.topArea} data-test-id="searchQuery">
-        <TextField
+    <>
+      <IonModal
+        // presentingElement={document.getElementsByTagName("BODY")[0]}
+        isOpen={open}
+        initialBreakpoint={0.91}
+        showBackdrop={false}
+        swipeToClose={false}
+        onDidDismiss={async () => {
+          onClose();
+        }}
+      >
+        <>
+          <span style={spanStyle}>Add Product</span>
+
+          <IonButton
+            data-test={"close-modal"}
+            size="small"
+            style={{
+              position: "absolute",
+              right: "0",
+              top: "4px"
+            }}
+            fill="clear"
+            onClick={() => {
+              onClose(false);
+            }}
+          >
+            <IonIcon slot="icon-only" color="dark" icon={closeOutline} />
+          </IonButton>
+        </>
+
+        {/* < data-test-id="searchQuery"> */}
+        <IonSearchbar
           name="query"
           value={query}
-          onChange={onQueryChange}
+          showClearButton={true}
+          onIonChange={onQueryChange}
           label={intl.formatMessage({
             defaultMessage: "Search Products"
           })}
@@ -269,147 +320,169 @@ const OrderProductAddDialog: React.FC<OrderProductAddDialogProps> = props => {
             defaultMessage:
               "Search by product name, attribute, product type etc..."
           })}
+          loading={loading}
           fullWidth
-          InputProps={{
-            autoComplete: "off",
-            endAdornment: loading && <CircularProgress size={16} />
-          }}
+          // InputProps={{
+          //   autoComplete: "off",
+          //   endAdornment: loading && <CircularProgress size={16} />
+          // }}
         />
-      </DialogContent>
-      <DialogContent className={classes.content} id={scrollableTargetId}>
-        <InfiniteScroll
-          dataLength={productChoicesWithValidVariants?.length}
-          next={onFetchMore}
-          hasMore={hasMore}
-          scrollThreshold="100px"
-          loader={
-            <div className={classes.loadMoreLoaderContainer}>
-              <CircularProgress size={16} />
-            </div>
-          }
-          scrollableTarget={scrollableTargetId}
-        >
-          <ResponsiveTable key="table">
-            <TableBody>
-              {renderCollection(
-                productChoicesWithValidVariants,
-                (product, productIndex) => (
-                  <React.Fragment key={product ? product.id : "skeleton"}>
-                    <TableRow>
-                      <TableCell
-                        padding="checkbox"
-                        className={classes.productCheckboxCell}
-                      >
-                        <Checkbox
-                          checked={
-                            productsWithAllVariantsSelected[productIndex]
-                          }
-                          disabled={loading}
-                          onChange={() =>
-                            onProductAdd(
-                              product,
-                              productIndex,
-                              productsWithAllVariantsSelected,
-                              variants,
-                              setVariants
-                            )
-                          }
+
+        <IonContent>
+          {/* </> */}
+          {/* <DialogContent className={classes.content} id={scrollableTargetId}> */}
+          <InfiniteScroll
+            dataLength={productChoicesWithValidVariants?.length}
+            next={onFetchMore}
+            hasMore={hasMore}
+            scrollThreshold="100px"
+            loader={
+              <div className={classes.loadMoreLoaderContainer}>
+                <CircularProgress size={16} />
+              </div>
+            }
+            scrollableTarget={scrollableTargetId}
+          >
+            <ResponsiveTable key="table">
+              <TableBody>
+                {renderCollection(
+                  productChoicesWithValidVariants,
+                  (product, productIndex) => (
+                    <React.Fragment key={product ? product.id : "skeleton"}>
+                      <TableRow>
+                        <TableCell
+                          padding="checkbox"
+                          className={classes.productCheckboxCell}
+                        >
+                          <Checkbox
+                            checked={
+                              productsWithAllVariantsSelected[productIndex]
+                            }
+                            disabled={loading}
+                            onChange={() =>
+                              onProductAdd(
+                                product,
+                                productIndex,
+                                productsWithAllVariantsSelected,
+                                variants,
+                                setVariants
+                              )
+                            }
+                          />
+                        </TableCell>
+                        <TableCellAvatar
+                          className={classes.avatar}
+                          thumbnail={maybe(() => product.thumbnail.url)}
                         />
-                      </TableCell>
-                      <TableCellAvatar
-                        className={classes.avatar}
-                        thumbnail={maybe(() => product.thumbnail.url)}
-                      />
-                      <TableCell className={classes.colName} colSpan={2}>
-                        {maybe(() => product.name)}
+                        <TableCell className={classes.colName} colSpan={2}>
+                          {maybe(() => product.name)}
+                        </TableCell>
+                      </TableRow>
+                      {maybe(() => product.variants, [])
+                        .filter(isValidVariant)
+                        .map((variant, variantIndex) => (
+                          <TableRow key={variant.id}>
+                            <TableCell />
+                            <TableCell className={classes.colVariantCheckbox}>
+                              <Checkbox
+                                className={classes.variantCheckbox}
+                                checked={
+                                  selectedVariantsToProductsMap[productIndex][
+                                    variantIndex
+                                  ]
+                                }
+                                disabled={loading}
+                                onChange={() =>
+                                  onVariantAdd(
+                                    variant,
+                                    variantIndex,
+                                    productIndex,
+                                    variants,
+                                    selectedVariantsToProductsMap,
+                                    setVariants
+                                  )
+                                }
+                              />
+                            </TableCell>
+                            <TableCell className={classes.colName}>
+                              <div>{variant.name}</div>
+                              {variant.sku && (
+                                <div className={classes.grayText}>
+                                  <FormattedMessage
+                                    defaultMessage="SKU {sku}"
+                                    description="variant sku"
+                                    values={{
+                                      sku: variant.sku
+                                    }}
+                                  />
+                                </div>
+                              )}
+                            </TableCell>
+                            <TableCell className={classes.textRight}>
+                              {variant?.channelListings[0]?.price && (
+                                <Money
+                                  money={variant.channelListings[0].price}
+                                />
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                    </React.Fragment>
+                  ),
+                  () => (
+                    <TableRow>
+                      <TableCell colSpan={4}>
+                        <FormattedMessage defaultMessage="No products available in order channel matching given query" />
                       </TableCell>
                     </TableRow>
-                    {maybe(() => product.variants, [])
-                      .filter(isValidVariant)
-                      .map((variant, variantIndex) => (
-                        <TableRow key={variant.id}>
-                          <TableCell />
-                          <TableCell className={classes.colVariantCheckbox}>
-                            <Checkbox
-                              className={classes.variantCheckbox}
-                              checked={
-                                selectedVariantsToProductsMap[productIndex][
-                                  variantIndex
-                                ]
-                              }
-                              disabled={loading}
-                              onChange={() =>
-                                onVariantAdd(
-                                  variant,
-                                  variantIndex,
-                                  productIndex,
-                                  variants,
-                                  selectedVariantsToProductsMap,
-                                  setVariants
-                                )
-                              }
-                            />
-                          </TableCell>
-                          <TableCell className={classes.colName}>
-                            <div>{variant.name}</div>
-                            {variant.sku && (
-                              <div className={classes.grayText}>
-                                <FormattedMessage
-                                  defaultMessage="SKU {sku}"
-                                  description="variant sku"
-                                  values={{
-                                    sku: variant.sku
-                                  }}
-                                />
-                              </div>
-                            )}
-                          </TableCell>
-                          <TableCell className={classes.textRight}>
-                            {variant?.channelListings[0]?.price && (
-                              <Money money={variant.channelListings[0].price} />
-                            )}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                  </React.Fragment>
-                ),
-                () => (
-                  <TableRow>
-                    <TableCell colSpan={4}>
-                      <FormattedMessage defaultMessage="No products available in order channel matching given query" />
-                    </TableCell>
-                  </TableRow>
-                )
-              )}
-            </TableBody>
-          </ResponsiveTable>
-        </InfiniteScroll>
-        {errors.length > 0 && (
-          <>
-            <FormSpacer />
-            {errors.map((err, index) => (
-              <DialogContentText color="error" key={index}>
-                {getOrderErrorMessage(err, intl)}
-              </DialogContentText>
-            ))}
-          </>
-        )}
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>
-          <FormattedMessage {...buttonMessages.back} />
-        </Button>
-        <ConfirmButton
-          transitionState={confirmButtonState}
-          color="primary"
-          variant="contained"
-          type="submit"
-          onClick={handleSubmit}
-        >
-          <FormattedMessage {...buttonMessages.confirm} />
-        </ConfirmButton>
-      </DialogActions>
-    </Dialog>
+                  )
+                )}
+              </TableBody>
+            </ResponsiveTable>
+            <div style={{ height: "200px" }} />
+          </InfiniteScroll>
+          {errors.length > 0 && (
+            <>
+              <FormSpacer />
+              {errors.map((err, index) => (
+                <DialogContentText color="error" key={index}>
+                  {getOrderErrorMessage(err, intl)}
+                </DialogContentText>
+              ))}
+            </>
+          )}
+          {/* </DialogContent> */}
+          <IonFooter
+            style={{
+              // height: "60px",
+              // bottom: "60px",
+              // position: 'fixed',
+              top: "calc(91% - 50px)",
+              position: "fixed"
+            }}
+            // slot="fixed"
+          >
+            <IonToolbar>
+              <IonButtons slot="primary">
+                <IonButton fill="clear" onClick={onClose}>
+                  <FormattedMessage {...buttonMessages.back} />
+                </IonButton>
+                <IonButton
+                  disabled={variants.length === 0}
+                  // transitionState={confirmButtonState}
+                  color="primary"
+                  // variant="contained"
+                  type="submit"
+                  onClick={handleSubmit}
+                >
+                  <FormattedMessage {...buttonMessages.confirm} />
+                </IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonFooter>
+        </IonContent>
+      </IonModal>
+    </>
   );
 };
 OrderProductAddDialog.displayName = "OrderProductAddDialog";
