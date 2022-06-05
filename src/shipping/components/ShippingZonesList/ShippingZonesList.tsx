@@ -150,14 +150,14 @@ const ShippingZonesList: React.FC<ShippingZonesListProps> = props => {
                   onClick={shippingZone && onRowClick(shippingZone.id)}
                   selected={isSelected}
                 >
-                  <TableCell padding="checkbox">
+                  {/* <TableCell padding="checkbox">
                     <Checkbox
                       checked={isSelected}
                       disabled={disabled}
                       disableClickPropagation
                       onChange={() => toggle(shippingZone.id)}
                     />
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell className={classes.colName}>
                     {maybe<React.ReactNode>(
                       () => shippingZone.name,

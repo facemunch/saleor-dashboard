@@ -23,6 +23,8 @@ import { ListActions, ListProps } from "@saleor/types";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { IonCard } from "@ionic/react";
+
 const useStyles = makeStyles(
   theme => ({
     colAction: {
@@ -75,7 +77,7 @@ const ShippingMethodProducts: React.FC<ShippingMethodProductsProps> = props => {
   const intl = useIntl();
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Excluded Products",
@@ -137,14 +139,14 @@ const ShippingMethodProducts: React.FC<ShippingMethodProductsProps> = props => {
               const isSelected = product ? isChecked(product.id) : false;
               return (
                 <TableRow key={product ? product.id : "skeleton"}>
-                  <TableCell padding="checkbox">
+                  {/* <TableCell padding="checkbox">
                     <Checkbox
                       checked={isSelected}
                       disabled={disabled}
                       disableClickPropagation
                       onChange={() => toggle(product.id)}
                     />
-                  </TableCell>
+                  </TableCell> */}
                   <TableCellAvatar
                     className={classes.colName}
                     thumbnail={product?.thumbnail?.url}
@@ -166,7 +168,7 @@ const ShippingMethodProducts: React.FC<ShippingMethodProductsProps> = props => {
           )}
         </TableBody>
       </ResponsiveTable>
-    </Card>
+    </IonCard>
   );
 };
 ShippingMethodProducts.displayName = "ShippingMethodProducts";

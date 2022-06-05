@@ -31,7 +31,9 @@ const useStyles = makeStyles(
         colCustomer: {
           width: 220
         },
-        colDate: {},
+        colDate: {
+          marginLeft: "8px"
+        },
         colFulfillment: {
           width: 230,
           marginLeft: "12px"
@@ -45,7 +47,9 @@ const useStyles = makeStyles(
         colTotal: {}
       },
       colCustomer: overflowing,
-      colDate: {},
+      colDate: {
+        marginLeft: "8px"
+      },
       colFulfillment: { ...overflowing, marginLeft: "12px" },
       colNumber: {},
       colPayment: overflowing,
@@ -75,7 +79,8 @@ export const OrderList: React.FC<OrderListProps> = props => {
     onPreviousPage,
     onNextPage,
     onUpdateListSettings,
-    onRowClick  } = props;
+    onRowClick
+  } = props;
   const classes = useStyles(props);
 
   const intl = useIntl();
@@ -89,7 +94,6 @@ export const OrderList: React.FC<OrderListProps> = props => {
     : undefined;
   return (
     <ResponsiveTable>
-  
       <TableFooter>
         <TableRow>
           <TablePagination
@@ -125,7 +129,7 @@ export const OrderList: React.FC<OrderListProps> = props => {
                       <Skeleton />
                     )}
                   </div>
-                  •
+                  {` `}•{` `}
                   <div className={classes.colDate}>
                     {maybe(() => order.created) ? (
                       <DateTime date={order.created} />

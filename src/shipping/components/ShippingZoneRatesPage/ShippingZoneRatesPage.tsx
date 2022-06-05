@@ -34,7 +34,7 @@ import { mapEdgesToItems, mapMetadataItemToInput } from "@saleor/utils/maps";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
 import React from "react";
 import { FormattedMessage } from "react-intl";
-
+import { IonContent, IonPage } from "@ionic/react";
 import ShippingZonePostalCodes from "../ShippingZonePostalCodes";
 import { ShippingZoneRateUpdateFormData } from "./types";
 
@@ -131,87 +131,89 @@ export const ShippingZoneRatesPage: React.FC<ShippingZoneRatesPageProps> = ({
           !hasChanged && !hasChannelChanged && !havePostalCodesChanged;
 
         return (
-          <Container>
-            <Backlink onClick={onBack}>
-              <FormattedMessage defaultMessage="Shipping" />
-            </Backlink>
-            <PageHeader title={rate?.name} />
-            <Grid>
-              <div>
-                <ShippingRateInfo
-                  data={data}
-                  disabled={disabled}
-                  errors={errors}
-                  onChange={change}
-                  onDescriptionChange={onDescriptionChange}
-                />
-                <CardSpacer />
-                {isPriceVariant ? (
-                  <OrderValue
-                    channels={data.channelListings}
-                    errors={channelErrors}
-                    orderValueRestricted={data.orderValueRestricted}
+          <IonPage>
+            <IonContent>
+              <Backlink onClick={onBack}>
+                <FormattedMessage defaultMessage="Shipping" />
+              </Backlink>
+              <PageHeader title={rate?.name} />
+              <Grid>
+                <div>
+                  <ShippingRateInfo
+                    data={data}
                     disabled={disabled}
-                    onChange={change}
-                    onChannelsChange={handleChannelsChange}
-                  />
-                ) : (
-                  <OrderWeight
-                    orderValueRestricted={data.orderValueRestricted}
-                    disabled={disabled}
-                    minValue={data.minValue}
-                    maxValue={data.maxValue}
-                    onChange={change}
                     errors={errors}
+                    onChange={change}
+                    onDescriptionChange={onDescriptionChange}
                   />
-                )}
-                <CardSpacer />
-                <PricingCard
-                  channels={data.channelListings}
-                  onChange={handleChannelsChange}
-                  disabled={disabled}
-                  errors={channelErrors}
-                />
-                <CardSpacer />
-                <ShippingZonePostalCodes
-                  disabled={disabled}
-                  onPostalCodeDelete={onPostalCodeUnassign}
-                  onPostalCodeInclusionChange={onPostalCodeInclusionChange}
-                  onPostalCodeRangeAdd={onPostalCodeAssign}
-                  postalCodes={postalCodeRules}
-                />
-                <CardSpacer />
-                <ShippingMethodProducts
-                  products={mapEdgesToItems(rate?.excludedProducts)}
-                  onProductAssign={onProductAssign}
-                  onProductUnassign={onProductUnassign}
-                  disabled={disabled}
-                  {...listProps}
-                />
-                <CardSpacer />
-                <Metadata data={data} onChange={changeMetadata} />
-              </div>
-              <div>
-                <ChannelsAvailabilityCard
-                  managePermissions={[PermissionEnum.MANAGE_SHIPPING]}
-                  allChannelsCount={allChannelsCount}
-                  selectedChannelsCount={shippingChannels?.length}
-                  channelsList={data.channelListings.map(channel => ({
-                    id: channel.id,
-                    name: channel.name
-                  }))}
-                  openModal={openChannelsModal}
-                />
-              </div>
-            </Grid>
-            <Savebar
-              disabled={disabled || formDisabled || formIsUnchanged}
-              onCancel={onBack}
-              onDelete={onDelete}
-              onSubmit={submit}
-              state={saveButtonBarState}
-            />
-          </Container>
+                  <CardSpacer />
+                  {isPriceVariant ? (
+                    <OrderValue
+                      channels={data.channelListings}
+                      errors={channelErrors}
+                      orderValueRestricted={data.orderValueRestricted}
+                      disabled={disabled}
+                      onChange={change}
+                      onChannelsChange={handleChannelsChange}
+                    />
+                  ) : (
+                    <OrderWeight
+                      orderValueRestricted={data.orderValueRestricted}
+                      disabled={disabled}
+                      minValue={data.minValue}
+                      maxValue={data.maxValue}
+                      onChange={change}
+                      errors={errors}
+                    />
+                  )}
+                  <CardSpacer />
+                  <PricingCard
+                    channels={data.channelListings}
+                    onChange={handleChannelsChange}
+                    disabled={disabled}
+                    errors={channelErrors}
+                  />
+                  <CardSpacer />
+                  <ShippingZonePostalCodes
+                    disabled={disabled}
+                    onPostalCodeDelete={onPostalCodeUnassign}
+                    onPostalCodeInclusionChange={onPostalCodeInclusionChange}
+                    onPostalCodeRangeAdd={onPostalCodeAssign}
+                    postalCodes={postalCodeRules}
+                  />
+                  <CardSpacer />
+                  <ShippingMethodProducts
+                    products={mapEdgesToItems(rate?.excludedProducts)}
+                    onProductAssign={onProductAssign}
+                    onProductUnassign={onProductUnassign}
+                    disabled={disabled}
+                    {...listProps}
+                  />
+                  <CardSpacer />
+                  <Metadata data={data} onChange={changeMetadata} />
+                </div>
+                <div>
+                  <ChannelsAvailabilityCard
+                    managePermissions={[PermissionEnum.MANAGE_SHIPPING]}
+                    allChannelsCount={allChannelsCount}
+                    selectedChannelsCount={shippingChannels?.length}
+                    channelsList={data.channelListings.map(channel => ({
+                      id: channel.id,
+                      name: channel.name
+                    }))}
+                    openModal={openChannelsModal}
+                  />
+                </div>
+              </Grid>
+              <Savebar
+                disabled={disabled || formDisabled || formIsUnchanged}
+                onCancel={onBack}
+                onDelete={onDelete}
+                onSubmit={submit}
+                state={saveButtonBarState}
+              />
+            </IonContent>
+          </IonPage>
         );
       }}
     </Form>
