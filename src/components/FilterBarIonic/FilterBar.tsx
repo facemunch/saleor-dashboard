@@ -1,7 +1,5 @@
-import { Button } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React, { useState } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { closeOutline, checkmarkOutline } from "ionicons/icons";
 import { FilterProps } from "../../types";
@@ -9,22 +7,14 @@ import Filter from "../Filter";
 import { FilterErrorMessages, IFilter } from "../Filter/types";
 import { SearchBarProps } from "../SearchBar";
 import SearchInput from "../SearchBar/SearchInput";
-import FilterTabs, { FilterTab } from "../TableFilter";
 import {
   IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-  IonSegment,
-  IonSegmentButton,
   IonLabel,
   IonIcon,
   IonButton,
   IonModal,
   IonList,
-  IonItem,
-  IonBadge
+  IonItem
 } from "@ionic/react";
 import { repeatOutline } from "ionicons/icons";
 import { useLocation } from "react-router-dom";
@@ -34,6 +24,7 @@ export interface FilterBarProps<TKeys extends string = string>
     SearchBarProps {
   errorMessages?: FilterErrorMessages<TKeys>;
   filterStructure: IFilter<TKeys>;
+  options?: [unknown];
 }
 
 const useStyles = makeStyles(
@@ -92,44 +83,23 @@ const badgeStyle = {
   right: "-4px"
 };
 
-const options = [
-  { label: "Product name A-Z", path: "?asc=true&sort=name" },
-  { label: "Product name Z-A", path: "?asc=false&sort=name" },
-  { label: "Price (lowest first)", path: "?asc=true&sort=price" },
-  { label: "Price (highest first)", path: "?asc=false&sort=price" }
-];
-
 const FilterBar: React.FC<FilterBarProps> = props => {
   const {
-    allTabLabel,
     currencySymbol,
     filterStructure,
-    currentTab,
     initialSearch,
     searchPlaceholder,
-    tabs,
-    onAll,
     onSearchChange,
     onFilterChange,
     onFilterAttributeFocus,
-    onTabChange,
-    onTabDelete,
-    onTabSave,
     errorMessages,
-    options = options
+    options = []
   } = props;
   const navigate = useNavigator();
   const { search } = useLocation();
-
   const classes = useStyles(props);
-  const intl = useIntl();
   const [showModal, setShowModal] = useState(false);
-  const isCustom = currentTab === tabs.length + 1;
-  const displayTabAction = isCustom
-    ? "save"
-    : currentTab === 0
-    ? null
-    : "delete";
+
   return (
     <>
       <div className={classes.root}>
@@ -161,33 +131,6 @@ const FilterBar: React.FC<FilterBarProps> = props => {
             icon={repeatOutline}
           />
         </IonButton>
-
-        {/* {displayTabAction &&
-          (displayTabAction === "save" ? (
-            <Button
-              className={classes.tabActionButton}
-              color="primary"
-              onClick={onTabSave}
-            >
-              <FormattedMessage
-                defaultMessage="Save Search"
-                description="button"
-              />
-            </Button>
-          ) : (
-            displayTabAction === "delete" && (
-              <Button
-                className={classes.tabActionButton}
-                color="primary"
-                onClick={onTabDelete}
-              >
-                <FormattedMessage
-                  defaultMessage="Delete Search"
-                  description="button"
-                />
-              </Button>
-            )
-          ))} */}
       </div>
       <IonModal
         swipeToClose={false}
@@ -229,7 +172,7 @@ const FilterBar: React.FC<FilterBarProps> = props => {
             }}
             // className="default-panel-bg"
           >
-            {options.map(opt => (
+            {options.map((opt, index) => (
               <IonItem
                 key={opt.path}
                 onClick={() => {
@@ -239,7 +182,8 @@ const FilterBar: React.FC<FilterBarProps> = props => {
                 className="default-panel-bg"
               >
                 <IonLabel style={labelStyle}>{opt.label}</IonLabel>
-                {(search.length === 0 || search.includes(opt.path)) && (
+                {(search.includes(opt.path) ||
+                  (search.length === 0 && index === 0)) && (
                   <IonIcon color="primary" icon={checkmarkOutline} slot="end" />
                 )}
               </IonItem>
