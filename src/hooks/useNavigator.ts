@@ -12,10 +12,8 @@ function useNavigator(): UseNavigatorResult {
 
   return (url: string, replace = false, preserveQs = false) => {
     const targetUrl = preserveQs ? url + window.location.search : url;
-    // console.log("location from useNavigator", location);
     const path = `${urlJoin("/", targetUrl)}`;
     navigator(path, { replace: replace });
-
     // window.scrollTo({ behavior: "smooth", top: 0 });
   };
 }

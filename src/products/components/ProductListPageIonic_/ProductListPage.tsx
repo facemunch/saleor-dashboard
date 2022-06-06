@@ -1,19 +1,7 @@
-import { Card } from "@mui/material";
-import { mapToMenuItems, useExtensions } from "@saleor/apps/useExtensions";
-import { drawerWidthExpanded } from "@saleor/components/AppLayout/consts";
-import { ButtonWithSelect } from "@saleor/components/ButtonWithSelect";
-import CardMenu from "@saleor/components/CardMenu";
-import ColumnPicker, {
-  ColumnPickerChoice
-} from "@saleor/components/ColumnPicker";
-import Container from "@saleor/components/Container";
 import FilterBar from "@saleor/components/FilterBarIonic";
 import LimitReachedAlert from "@saleor/components/LimitReachedAlert";
-import PageHeader from "@saleor/components/PageHeader";
 import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
 import { ProductListColumns } from "@saleor/config";
-import { sectionNames } from "@saleor/intl";
-import { makeStyles } from "@saleor/macaw-ui";
 import { AvailableInGridAttributes_availableInGrid_edges_node } from "@saleor/products/types/AvailableInGridAttributes";
 import { GridAttributes_grid_edges_node } from "@saleor/products/types/GridAttributes";
 import { ProductList_products_edges_node } from "@saleor/products/types/ProductList";
@@ -25,11 +13,7 @@ import {
   PageListProps,
   SortPage
 } from "@saleor/types";
-import {
-  AppExtensionTypeEnum,
-  AppExtensionViewEnum
-} from "@saleor/types/globalTypes";
-import { hasLimits, isLimitReached } from "@saleor/utils/limits";
+import { isLimitReached } from "@saleor/utils/limits";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -41,30 +25,8 @@ import {
   ProductListFilterOpts
 } from "./filters";
 
-import {
-  IonFab,
-  IonPage,
-  IonContent,
-  IonIcon,
-  IonFabButton,
-  IonFabList,
-  IonButton,
-  useIonActionSheet,
-  IonCard
-} from "@ionic/react";
-import {
-  add,
-  settings,
-  share,
-  person,
-  arrowForwardCircle,
-  arrowBackCircle,
-  arrowUpCircle,
-  logoVimeo,
-  logoFacebook,
-  logoInstagram,
-  logoTwitter
-} from "ionicons/icons";
+import { IonFab, IonContent, IonIcon, IonButton, IonCard } from "@ionic/react";
+import { add } from "ionicons/icons";
 
 const options = [
   { label: "Product name A-Z", path: "?asc=true&sort=name" },
@@ -90,28 +52,6 @@ export interface ProductListPageProps
   products: ProductList_products_edges_node[];
   onExport: () => void;
 }
-
-const useStyles = makeStyles(
-  theme => ({
-    columnPicker: {
-      marginRight: theme.spacing(3),
-      [theme.breakpoints.down("xs")]: {
-        "& > button": {
-          width: "100%"
-        }
-      }
-    },
-    settings: {
-      marginRight: theme.spacing(2)
-    },
-    container: {
-      [theme.breakpoints.up("md")]: {
-        // marginLeft: drawerWidthExpanded
-      }
-    }
-  }),
-  { name: "ProductListPage" }
-);
 
 export const ProductListPage: React.FC<ProductListPageProps> = props => {
   const {
@@ -144,120 +84,14 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
     ...listProps
   } = props;
   const intl = useIntl();
-  const classes = useStyles(props);
-
-  const handleSave = (columns: ProductListColumns[]) =>
-    onUpdateListSettings("columns", columns);
 
   const filterStructure = createFilterStructure(intl, filterOpts);
 
-  const columns: ColumnPickerChoice[] = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Price",
-        description: "product price"
-      }),
-      value: "price" as ProductListColumns
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Type",
-        description: "product type"
-      }),
-      value: "productType" as ProductListColumns
-    },
-    ...availableInGridAttributes.map(attribute => ({
-      label: attribute.name,
-      value: `attribute:${attribute.id}`
-    }))
-  ];
-
   const limitReached = isLimitReached(limits, "productVariants");
-  const { create, moreActions } = useExtensions(
-    AppExtensionViewEnum.PRODUCT,
-    AppExtensionTypeEnum.OVERVIEW
-  );
-  const [present, dismiss] = useIonActionSheet();
 
-  // const addProductOptions = () => {
-  //   present({
-  //     buttons: [
-  //       {
-  //         text: "Physical Product",
-  //         handler: () => {
-  //           onAdd();
-  //         }
-  //       },
-  //       // {
-  //       //   disabled: true,
-  //       //   text: "Digital Product",
-  //       //   // icon: share,
-  //       //   handler: () => {
-  //       //     onAdd({ isDigitalProduct: true });
-  //       //   }
-  //       // },
-  //       {
-  //         text: "Cancel",
-  //         role: "cancel",
-  //         handler: () => {
-  //           dismiss();
-  //         }
-  //       }
-  //     ]
-  //     // header: 'Action Sheet'
-  //   });
-  // };
-  const extensionMenuItems = mapToMenuItems(moreActions);
-  const extensionCreateButtonItems = mapToMenuItems(create);
   return (
     <>
-      <IonContent
-      >
-        {/* <PageHeader
-          title={intl.formatMessage(sectionNames.products)}
-          limitText={
-            hasLimits(limits, "productVariants") &&
-            intl.formatMessage(
-              {
-                defaultMessage: "{count}/{max} SKUs used",
-                description: "created products counter"
-              },
-              {
-                count: limits.currentUsage.productVariants,
-                max: limits.allowedUsage.productVariants
-              }
-            )
-          }
-        > */}
-        {/* <CardMenu
-          className={classes.settings}
-          menuItems={[
-            {
-              label: intl.formatMessage({
-                defaultMessage: "Export Products",
-                description: "export products to csv file, button"
-              }),
-              onSelect: onExport,
-              testId: "export"
-            },
-            ...extensionMenuItems
-          ]}
-          data-test="menu"
-        /> */}
-        {/* <ColumnPicker
-          className={classes.columnPicker}
-          columns={columns}
-          defaultColumns={defaultSettings.columns}
-          hasMore={hasMore}
-          initialColumns={settings.columns}
-          total={
-            columns.length -
-            availableInGridAttributes.length +
-            totalGridAttributes
-          }
-          onFetchMore={onFetchMore}
-          onSave={handleSave}
-        /> */}
+      <IonContent>
         <IonFab
           vertical="bottom"
           horizontal="end"

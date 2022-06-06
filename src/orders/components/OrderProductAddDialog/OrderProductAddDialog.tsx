@@ -270,15 +270,10 @@ const OrderProductAddDialog: React.FC<OrderProductAddDialogProps> = props => {
   const productChoicesWithValidVariants = productChoices.filter(
     ({ variants }) => variants.some(isValidVariant)
   );
-  console.log("productChoicesWithValidVariants", {
-    productChoicesWithValidVariants,
-    products,
-    variants
-  });
+
   return (
     <>
       <IonModal
-        // presentingElement={document.getElementsByTagName("BODY")[0]}
         isOpen={open}
         initialBreakpoint={0.91}
         showBackdrop={false}

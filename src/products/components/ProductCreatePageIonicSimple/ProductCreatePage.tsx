@@ -11,13 +11,8 @@ import ChannelsAvailabilityCard from "@saleor/components/ChannelsAvailabilityCar
 import generateHash from "random-hash";
 
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
-import Container from "@saleor/components/Container";
-import Grid from "@saleor/components/Grid";
-import Metadata from "@saleor/components/Metadata";
 import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
-import PageHeader from "@saleor/components/PageHeader";
 import Savebar from "@saleor/components/Savebar";
-import SeoForm from "@saleor/components/SeoForm";
 import { ProductChannelListingErrorFragment } from "@saleor/fragments/types/ProductChannelListingErrorFragment";
 import { ProductErrorWithAttributesFragment } from "@saleor/fragments/types/ProductErrorWithAttributesFragment";
 import { TaxTypeFragment } from "@saleor/fragments/types/TaxTypeFragment";
@@ -42,28 +37,14 @@ import { useLocation } from "react-router-dom";
 import { FetchMoreProps } from "../../../types";
 import ProductDetailsForm from "../ProductDetailsForm";
 import ProductOrganization from "../ProductOrganization";
-import ProductShipping from "../ProductShipping/ProductShipping";
 import ProductStocks from "../ProductStocks";
-import ProductTaxes from "../ProductTaxes";
 import ProductCreateForm, {
   ProductCreateData,
   ProductCreateFormData,
   ProductCreateHandlers
 } from "./form";
 
-import {
-  IonModal,
-  IonRange,
-  IonItem,
-  IonPage,
-  IonButton,
-  IonToolbar,
-  IonHeader,
-  IonContent,
-  IonList,
-  IonLabel,
-  IonTitle
-} from "@ionic/react";
+import { IonPage, IonToolbar, IonHeader, IonContent, IonTitle } from "@ionic/react";
 
 interface ProductCreatePageProps {
   errors: ProductErrorWithAttributesFragment[];
@@ -203,13 +184,9 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
       ? onSelectProductType(digitalProduct.value)
       : onSelectProductType(productTypes[0].value);
   }, [productTypes, isDigitalProduct]);
-
-  useEffect(() => {
-    // if (productTypes.length === 0 || selectedProductType) return;
-    // const digitalProduct = productTypes.find(x => x.label === "Digital product");
-    // digitalProduct?.value && onSelectProductType(digitalProduct.value);
-  }, [productTypes]);
+  
   const randomHash = useMemo(() => generateHash({ length: 4 }), []);
+  
   return (
     <ProductCreateForm
       onSubmit={onSubmit}
@@ -246,7 +223,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
       }) => {
         // Comparing explicitly to false because `hasVariants` can be undefined
         const isSimpleProduct = data.productType?.hasVariants === false;
-        console.log(" ProductCreateForm data", data);
 
         return (
           <IonPage>

@@ -95,8 +95,6 @@ const useStyles = makeStyles(
 );
 
 export const ProductListPage: React.FC<ProductListPageProps> = props => {
-  console.log("ProductListPage");
-
   const {
     channelsCount,
     currencySymbol,

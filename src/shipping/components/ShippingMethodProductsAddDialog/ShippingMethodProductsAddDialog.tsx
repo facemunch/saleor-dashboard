@@ -149,7 +149,6 @@ const ShippingMethodProductsAddDialog: React.FC<ShippingMethodProductsAddDialogP
     setSelectedProducts([]);
     resetQuery();
   };
-  console.log("selectedProducts", selectedProducts);
   return (
     <>
       <IonModal

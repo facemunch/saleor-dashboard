@@ -124,7 +124,6 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
   useEffect(() => {
     setTimeout(() => onRouteUpdate(window.location.pathname), 0);
   }, [location]);
-  console.log("user", { user, ecomAccessToken });
 
   useEffect(() => {
     if (!ecomAccessToken) return;
@@ -159,7 +158,6 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
       ],
       avatar: undefined
     });
-    console.log("loginByTokenResult", { loginByTokenResult, ecomAccessToken });
   }, [ecomAccessToken]);
 
   return (
