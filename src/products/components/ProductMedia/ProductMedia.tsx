@@ -12,7 +12,7 @@ import classNames from "classnames";
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { SortableContainer, SortableElement } from "react-sortable-hoc";
-
+import { IonCard } from "@ionic/react";
 const messages = defineMessages({
   media: {
     defaultMessage: "Media",
@@ -220,7 +220,7 @@ const ProductMedia: React.FC<ProductMediaProps> = props => {
   });
 
   return (
-    <Card className={classes.card}>
+    <IonCard className={classes.card}>
       <CardTitle
         title={intl.formatMessage(messages.media)}
         toolbar={
@@ -298,7 +298,7 @@ const ProductMedia: React.FC<ProductMediaProps> = props => {
           <ImageUpload onImageUpload={handleImageUpload} />
         )}
       </div>
-    </Card>
+    </IonCard>
   );
 };
 ProductMedia.displayName = "ProductMedia";

@@ -8,7 +8,8 @@ import { makeStyles } from "@saleor/macaw-ui";
 import { UserPermissionProps } from "@saleor/types";
 import { PermissionEnum } from "@saleor/types/globalTypes";
 import React from "react";
-
+import { add } from "ionicons/icons";
+import useNavigator from "@saleor/hooks/useNavigator";
 import Orders from "../../../icons/Orders";
 import Sales from "../../../icons/Sales";
 import {
@@ -20,12 +21,19 @@ import HomeActivityCard from "../HomeActivityCard";
 import HomeAnalyticsCard from "../HomeAnalyticsCard";
 import HomeNotificationTable from "../HomeNotificationTable/HomeNotificationTable";
 import HomeProductListCard from "../HomeProductListCard";
-
+import {
+  IonContent,
+  IonPage,
+  IonCard,
+  IonButton,
+  IonFab,
+  IonIcon
+} from "@ionic/react";
 const useStyles = makeStyles(
   theme => ({
     cardContainer: {
       display: "grid",
-      width: "92vw",
+      // width: "92vw",
       gridColumnGap: theme.spacing(4),
       gridTemplateColumns: "1fr 1fr",
       [theme.breakpoints.down("sm")]: {
@@ -79,66 +87,67 @@ const HomePage: React.FC<HomePageProps> = props => {
     userPermissions = [],
     noChannel
   } = props;
+  const navigate = useNavigator();
 
   const classes = useStyles(props);
 
   return (
-    <div
-      style={{
-        width: "92vw",
-        margin: "4vw",
-        // marginTop: "10vw",
-        overflow: "hidden"
-      }}
-    >
-      <CardSpacer />
-      <Grid>
-        <div>
-          <RequirePermissions
+    <>
+      <IonContent
+      // forceOverscroll
+      // style={{ height: "90vh", overflow: "scroll", margin: "12px" }}
+      >
+        {/* <div style={{ margin: "12px" }}> */}
+        {/* <CardSpacer /> */}
+        {/* <Grid> */}
+        <IonCard>
+          {/* <RequirePermissions
             userPermissions={userPermissions}
             requiredPermissions={[PermissionEnum.MANAGE_ORDERS]}
-          >
-            <div className={classes.cardContainer}>
-              <HomeAnalyticsCard
-                title={"Sales"}
-                testId="sales-analytics"
-                icon={
-                  <Sales
-                    className={classes.icon}
-                    fontSize={"inherit"}
-                    viewBox="0 0 64 64"
-                  />
-                }
-              >
-                {noChannel ? (
-                  0
-                ) : sales ? (
-                  <Money money={sales} />
-                ) : (
-                  <Skeleton style={{ width: "5em" }} />
-                )}
-              </HomeAnalyticsCard>
-              <HomeAnalyticsCard
-                title={"Orders"}
-                testId="orders-analytics"
-                icon={
-                  <Orders
-                    className={classes.icon}
-                    fontSize={"inherit"}
-                    viewBox="0 0 64 64"
-                  />
-                }
-              >
-                {noChannel ? (
-                  0
-                ) : orders !== undefined ? (
-                  orders
-                ) : (
-                  <Skeleton style={{ width: "5em" }} />
-                )}
-              </HomeAnalyticsCard>
-            </div>
-          </RequirePermissions>
+          > */}
+          <div className={classes.cardContainer}>
+            <HomeAnalyticsCard
+              title={"Sales"}
+              testId="sales-analytics"
+              icon={
+                <Sales
+                  className={classes.icon}
+                  fontSize={"inherit"}
+                  viewBox="0 0 64 64"
+                />
+              }
+            >
+              {noChannel ? (
+                0
+              ) : sales ? (
+                <Money money={sales} />
+              ) : (
+                <Skeleton style={{ width: "5em" }} />
+              )}
+            </HomeAnalyticsCard>
+            <HomeAnalyticsCard
+              title={"Orders"}
+              testId="orders-analytics"
+              icon={
+                <Orders
+                  className={classes.icon}
+                  fontSize={"inherit"}
+                  viewBox="0 0 64 64"
+                />
+              }
+            >
+              {noChannel ? (
+                0
+              ) : orders !== undefined ? (
+                orders
+              ) : (
+                <Skeleton style={{ width: "5em" }} />
+              )}
+            </HomeAnalyticsCard>
+          </div>
+        </IonCard>
+        {/* </RequirePermissions> */}
+        <IonCard>
           <HomeNotificationTable
             onCreateNewChannelClick={onCreateNewChannelClick}
             onOrdersToCaptureClick={onOrdersToCaptureClick}
@@ -150,39 +159,58 @@ const HomePage: React.FC<HomePageProps> = props => {
             userPermissions={userPermissions}
             noChannel={noChannel}
           />
-          <CardSpacer />
+        </IonCard>
+        <CardSpacer />
+        <IonCard>
           {topProducts && (
-            <RequirePermissions
-              userPermissions={userPermissions}
-              requiredPermissions={[
-                PermissionEnum.MANAGE_ORDERS,
-                PermissionEnum.MANAGE_PRODUCTS
-              ]}
-            >
+            <>
               <HomeProductListCard
                 testId="top-products"
                 onRowClick={onProductClick}
                 topProducts={topProducts}
               />
               <CardSpacer />
-            </RequirePermissions>
+            </>
           )}
-        </div>
-        {activities && (
-          <div>
-            <RequirePermissions
-              userPermissions={userPermissions}
-              requiredPermissions={[PermissionEnum.MANAGE_ORDERS]}
-            >
-              <HomeActivityCard
-                activities={activities}
-                testId="activity-card"
-              />
-            </RequirePermissions>
-          </div>
-        )}
-      </Grid>
-    </div>
+        </IonCard>
+        <IonCard>
+          {activities && (
+            <div>
+              <>
+                <HomeActivityCard
+                  activities={activities}
+                  testId="activity-card"
+                />
+              </>
+            </div>
+          )}
+         
+        </IonCard>
+        <div style={{ height: "100px" }} />
+        {/* </Grid> */}
+        {/* </div> */}
+        <IonFab
+          vertical="bottom"
+          horizontal="end"
+          slot="fixed"
+          style={{
+            marginBottom: "50px"
+          }}
+          data-test-id="create-order-button"
+        >
+          <IonButton
+            onClick={() => {
+              navigate("/products/add");
+            }}
+            shape="round"
+          >
+            <IonIcon slot="start" icon={add} />
+            New Product
+          </IonButton>
+        </IonFab>
+        {/* </div> */}
+      </IonContent>
+    </>
   );
 };
 HomePage.displayName = "HomePage";

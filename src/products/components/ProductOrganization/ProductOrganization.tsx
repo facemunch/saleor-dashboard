@@ -15,8 +15,9 @@ import { makeStyles } from "@saleor/macaw-ui";
 import { maybe } from "@saleor/misc";
 import { FetchMoreProps } from "@saleor/types";
 import { getFormErrors, getProductErrorMessage } from "@saleor/utils/errors";
-import React from "react";
+import React, { useEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { IonCard } from "@ionic/react";
 
 interface ProductType {
   hasVariants: boolean;
@@ -99,8 +100,15 @@ const ProductOrganization: React.FC<ProductOrganizationProps> = props => {
     errors
   );
 
+  useEffect(() => {
+    if (categories.length === 0) return;
+    onCategoryChange({
+      target: { name: "category", value: categories[0].value }
+    });
+  }, [categories]);
+
   return (
-    <Card className={classes.card}>
+    <IonCard className={classes.card}>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Organize Product",
@@ -166,15 +174,18 @@ const ProductOrganization: React.FC<ProductOrganizationProps> = props => {
           choices={disabled ? [] : categories}
           name="category"
           value={data.category}
-          onChange={onCategoryChange}
+          onChange={e => {
+            console.log("onCategoryChange", e);
+            onCategoryChange(e);
+          }}
           fetchChoices={fetchCategories}
           data-test="category"
           {...fetchMoreCategories}
         />
         <FormSpacer />
         <Hr />
-        <FormSpacer />
-        <MultiAutocompleteSelectField
+        {/* <FormSpacer /> */}
+        {/* <MultiAutocompleteSelectField
           displayValues={collectionsInputDisplayValue}
           error={!!formErrors.collections}
           label={intl.formatMessage({
@@ -196,9 +207,9 @@ const ProductOrganization: React.FC<ProductOrganizationProps> = props => {
           data-test="collections"
           testId="collection"
           {...fetchMoreCollections}
-        />
+        /> */}
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 ProductOrganization.displayName = "ProductOrganization";

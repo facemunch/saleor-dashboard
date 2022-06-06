@@ -6,6 +6,7 @@ import { getFormErrors } from "@saleor/utils/errors";
 import getAccountErrorMessage from "@saleor/utils/errors/account";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { IonCard, IonCardContent } from "@ionic/react";
 
 export interface CustomerCreateNoteProps {
   data: {
@@ -27,14 +28,14 @@ const CustomerCreateNote: React.FC<CustomerCreateNoteProps> = ({
   const formErrors = getFormErrors(["note"], errors);
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Notes",
           description: "notes about customer header"
         })}
       />
-      <CardContent>
+      <IonCardContent>
         <Typography>
           <FormattedMessage defaultMessage="Enter any extra infotmation regarding this customer." />
         </Typography>
@@ -53,8 +54,8 @@ const CustomerCreateNote: React.FC<CustomerCreateNoteProps> = ({
           value={data.note}
           onChange={onChange}
         />
-      </CardContent>
-    </Card>
+      </IonCardContent>
+    </IonCard>
   );
 };
 CustomerCreateNote.displayName = "CustomerCreateNote";

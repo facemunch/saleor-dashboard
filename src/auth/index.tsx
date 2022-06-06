@@ -1,7 +1,7 @@
 import { User } from "@saleor/fragments/types/User";
 import { parse as parseQs } from "qs";
 import React, { MutableRefObject } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 import Layout from "./components/Layout";
 import {
@@ -59,12 +59,12 @@ export const UserContext = React.createContext<UserContext>({
 
 const AuthRouter: React.FC = () => (
   <Layout>
-    <Routes>
-      <Route path={passwordResetSuccessPath} element={<ResetPasswordSuccess />} />
-      <Route path={passwordResetPath} element={<ResetPassword />} />
-      <Route path={newPasswordPath} element={<NewPassword />} />
-      <Route path="/*" element={<LoginView />} />
-    </Routes>
+    {/* <Routes> */}
+    <Route path={passwordResetSuccessPath} element={<ResetPasswordSuccess />} />
+    <Route path={passwordResetPath} element={<ResetPassword />} />
+    <Route path={newPasswordPath} element={<NewPassword />} />
+    <Route path="/*" element={<LoginView />} />
+    {/* </Routes> */}
   </Layout>
 );
 

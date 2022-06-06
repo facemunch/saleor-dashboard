@@ -217,7 +217,7 @@ const ExtendedTimelineEvent: React.FC<ExtendedTimelineEventProps> = ({
   }
 
   return (
-    <TimelineEvent date={date} titleElements={selectTitleElements()} key={id}>
+    <TimelineEvent date={date} titleElements={selectTitleElements()} key={id+date}>
       {lines && (
         <>
           <Label

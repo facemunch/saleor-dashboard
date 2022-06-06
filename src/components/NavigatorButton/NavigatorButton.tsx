@@ -6,11 +6,14 @@ import {
   Popper,
   IconButtonProps
 } from "@mui/material";
+import { IonButton, IonIcon } from "@ionic/react";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
 import ReactSVG from "react-inlinesvg";
 import { FormattedMessage } from "react-intl";
+import { flashOutline } from "ionicons/icons";
+
 
 const useStyles = makeStyles(
   theme => {
@@ -96,6 +99,7 @@ const NavigatorButton: React.FC<NavigatorButtonProps> = ({
   isMac,
   ...props
 }) => {
+
   const classes = useStyles({});
   const helperTimer = React.useRef(null);
   const [helperVisibility, setHelperVisibility] = React.useState(false);
@@ -115,23 +119,27 @@ const NavigatorButton: React.FC<NavigatorButtonProps> = ({
 
   return (
     <>
-      <IconButton
-        className={classNames(className, classes.root)}
+      <IonButton
+        shape="round"
+        fill="outline"
+        color="dark"
+        // className={classNames(className, classes.root)}
         data-test="navigator"
         onMouseEnter={setHelper}
         onMouseLeave={clearHelper}
         {...props}
-        style={{
-          background: "#b8a7fd",
-          width: "36px",
-          height: "36px",
-          marginTop: "-2px",
-          marginRight: "-7px"
-        }}
+        // {...props}
+        // style={{
+        //   background: "#b8a7fd",
+        //   width: "36px",
+        //   height: "36px",
+        //   marginTop: "-2px",
+        //   marginRight: "-7px"
+        // }}
         ref={anchor}
       >
-        <ReactSVG src={navigatorIcon} />
-      </IconButton>
+        <IonIcon icon={flashOutline} />
+      </IonButton>
       <Popper
         open={helperVisibility}
         anchorEl={anchor.current}

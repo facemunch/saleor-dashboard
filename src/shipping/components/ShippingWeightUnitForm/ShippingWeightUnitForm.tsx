@@ -6,6 +6,7 @@ import SingleSelectField from "@saleor/components/SingleSelectField";
 import { buttonMessages, sectionNames } from "@saleor/intl";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { IonCard } from "@ionic/react";
 
 import { WeightUnitsEnum } from "../../../types/globalTypes";
 
@@ -31,7 +32,7 @@ const ShippingWeightUnitForm: React.FC<ShippingWeightUnitFormProps> = ({
   return (
     <Form initial={initialForm} onSubmit={formData => onSubmit(formData.unit)}>
       {({ change, data, submit }) => (
-        <Card>
+        <IonCard>
           <CardTitle title={intl.formatMessage(sectionNames.configuration)} />
           <CardContent>
             <SingleSelectField
@@ -58,7 +59,7 @@ const ShippingWeightUnitForm: React.FC<ShippingWeightUnitFormProps> = ({
               <FormattedMessage {...buttonMessages.save} />
             </Button>
           </CardActions>
-        </Card>
+        </IonCard>
       )}
     </Form>
   );

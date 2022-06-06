@@ -17,6 +17,8 @@ import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { IonCard } from "@ionic/react";
+
 const useStyles = makeStyles(
   () => ({
     card: {
@@ -69,7 +71,7 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
   );
 
   return (
-    <Card className={classes.card}>
+    <IonCard className={classes.card}>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Invoices",
@@ -87,7 +89,7 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
         }
       />
       <CardContent
-        className={!!generatedInvoices?.length && classes.cardContentTable}
+      // className={!!generatedInvoices?.length && classes.cardContentTable}
       >
         {!generatedInvoices ? (
           <Skeleton />
@@ -137,7 +139,7 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
           </ResponsiveTable>
         )}
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 

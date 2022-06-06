@@ -57,7 +57,6 @@ export interface TableCellHeaderProps extends TableCellProps {
   direction?: TableCellHeaderArrowDirection;
   textAlign?: "left" | "center" | "right";
   disabled?: boolean;
-  key?: any;
 }
 
 const TableCellHeader: React.FC<TableCellHeaderProps> = props => {
@@ -68,7 +67,6 @@ const TableCellHeader: React.FC<TableCellHeaderProps> = props => {
     className,
     direction,
     textAlign,
-    key,
     disabled = false,
     onClick,
     ...rest

@@ -1,6 +1,6 @@
 import { Button, Card } from "@mui/material";
 import Container from "@saleor/components/Container";
-import FilterBar from "@saleor/components/FilterBar";
+import FilterBar from "@saleor/components/FilterBarIonic";
 import PageHeader from "@saleor/components/PageHeader";
 import { CustomerListUrlSortField } from "@saleor/customers/urls";
 import { sectionNames } from "@saleor/intl";
@@ -13,7 +13,15 @@ import {
 } from "@saleor/types";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-
+import {
+  IonContent,
+  IonCard,
+  IonFab,
+  IonFabButton,
+  IonIcon,
+  IonButton
+} from "@ionic/react";
+import { add } from "ionicons/icons";
 import { ListCustomers_customers_edges_node } from "../../types/ListCustomers";
 import CustomerList from "../CustomerList/CustomerList";
 import {
@@ -21,6 +29,7 @@ import {
   CustomerFilterKeys,
   CustomerListFilterOpts
 } from "./filters";
+import useNavigator from "@saleor/hooks/useNavigator";
 
 export interface CustomerListPageProps
   extends PageListProps,
@@ -30,6 +39,14 @@ export interface CustomerListPageProps
     TabPageProps {
   customers: ListCustomers_customers_edges_node[];
 }
+const options = [
+  { label: "Customer name A-Z", path: "?asc=true&sort=name" },
+  { label: "Customer name Z-A", path: "?asc=false&sort=name" },
+  { label: "Email A-Z ", path: "?asc=true&sort=email" },
+  { label: "Email Z-A", path: "?asc=false&sort=email" },
+  { label: "No. of order (most first)", path: "?asc=true&sort=orders" },
+  { label: "No. of order (least first)", path: "?asc=false&sort=orders" }
+];
 
 const CustomerListPage: React.FC<CustomerListPageProps> = ({
   currentTab,
@@ -46,26 +63,34 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
   ...customerListProps
 }) => {
   const intl = useIntl();
+  const navigate = useNavigator();
 
   const structure = createFilterStructure(intl, filterOpts);
 
   return (
-    <Container>
-      <PageHeader title={intl.formatMessage(sectionNames.customers)}>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={onAdd}
-          data-test-id="createCustomer"
+    <IonContent>
+      <IonFab
+        vertical="bottom"
+        horizontal="end"
+        slot="fixed"
+        style={{
+          marginBottom: "50px"
+        }}
+        data-test-id="create-order-button"
+      >
+        <IonButton
+          onClick={() => {
+            navigate("/products/add");
+          }}
+          shape="round"
         >
-          <FormattedMessage
-            defaultMessage="Create customer"
-            description="button"
-          />
-        </Button>
-      </PageHeader>
-      <Card>
+          <IonIcon slot="start" icon={add} />
+          New Product
+        </IonButton>
+      </IonFab>
+      <IonCard>
         <FilterBar
+          options={options}
           allTabLabel={intl.formatMessage({
             defaultMessage: "All Customers",
             description: "tab name"
@@ -85,8 +110,13 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
           onTabSave={onTabSave}
         />
         <CustomerList {...customerListProps} />
-      </Card>
-    </Container>
+      </IonCard>
+      <div
+        style={{
+          height: "100px"
+        }}
+      />
+    </IonContent>
   );
 };
 CustomerListPage.displayName = "CustomerListPage";

@@ -14,7 +14,7 @@ import { ProductTypeKindEnum } from "@saleor/types/globalTypes";
 import { getFieldError } from "@saleor/utils/errors";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-
+import { IonCard } from "@ionic/react";
 import { messages } from "./messages";
 
 const useStyles = makeStyles(
@@ -61,7 +61,7 @@ const ProductTypeDetails: React.FC<ProductTypeDetailsProps> = props => {
   ];
 
   return (
-    <Card className={classes.root}>
+    <IonCard className={classes.root}>
       <CardTitle
         title={intl.formatMessage(commonMessages.generalInformations)}
       />
@@ -104,7 +104,7 @@ const ProductTypeDetails: React.FC<ProductTypeDetailsProps> = props => {
           value={data.kind}
         />
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 ProductTypeDetails.displayName = "ProductTypeDetails";

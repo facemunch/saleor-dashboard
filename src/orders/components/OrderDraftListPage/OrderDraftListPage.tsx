@@ -1,10 +1,8 @@
-import { Button, Card } from "@mui/material";
-import Container from "@saleor/components/Container";
-import FilterBar from "@saleor/components/FilterBar";
-import PageHeader from "@saleor/components/PageHeader";
+import FilterBar from "@saleor/components/FilterBarIonic";
 import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
-import { sectionNames } from "@saleor/intl";
 import { OrderDraftListUrlSortField } from "@saleor/orders/urls";
+import { add } from "ionicons/icons";
+
 import {
   FilterPageProps,
   ListActions,
@@ -12,9 +10,11 @@ import {
   SortPage,
   TabPageProps
 } from "@saleor/types";
-import { hasLimits, isLimitReached } from "@saleor/utils/limits";
+import { IonContent, IonCard, IonFab, IonButton, IonIcon } from "@ionic/react";
+
+import { isLimitReached } from "@saleor/utils/limits";
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
 import { OrderDraftList_draftOrders_edges_node } from "../../types/OrderDraftList";
 import OrderDraftList from "../OrderDraftList";
@@ -34,6 +34,15 @@ export interface OrderDraftListPageProps
   limits: RefreshLimits_shop_limits;
   orders: OrderDraftList_draftOrders_edges_node[];
 }
+
+const options = [
+  { label: "Order no. (highest first)", path: "?asc=true&sort=number" },
+  { label: "Order no. (lowest first)", path: "?asc=false&sort=number" },
+  { label: "Customer name A-Z", path: "?asc=true&sort=customer" },
+  { label: "Customer name Z-A", path: "?asc=false&sort=customer" },
+  { label: "Date (newest first)", path: "?asc=true&sort=date" },
+  { label: "Date (oldest first)", path: "?asc=false&sort=date" }
+];
 
 const OrderDraftListPage: React.FC<OrderDraftListPageProps> = ({
   currentTab,
@@ -56,38 +65,30 @@ const OrderDraftListPage: React.FC<OrderDraftListPageProps> = ({
   const limitsReached = isLimitReached(limits, "orders");
 
   return (
-    <Container>
-      <PageHeader
-        title={intl.formatMessage(sectionNames.draftOrders)}
-        limitText={
-          hasLimits(limits, "orders") &&
-          intl.formatMessage(
-            {
-              defaultMessage: "{count}/{max} orders",
-              description: "placed orders counter"
-            },
-            {
-              count: limits.currentUsage.orders,
-              max: limits.allowedUsage.orders
-            }
-          )
-        }
+    <IonContent>
+      <IonFab
+        vertical="bottom"
+        horizontal="end"
+        slot="fixed"
+        style={{
+          marginBottom: "50px"
+        }}
+        data-test-id="create-order-button"
       >
-        <Button
-          color="primary"
-          variant="contained"
-          disabled={disabled || limitsReached}
-          onClick={onAdd}
+        <IonButton
+          onClick={() => {
+            onAdd();
+          }}
+          shape="round"
         >
-          <FormattedMessage
-            defaultMessage="Create order"
-            description="button"
-          />
-        </Button>
-      </PageHeader>
+          <IonIcon slot="start" icon={add} />
+          New Order
+        </IonButton>
+      </IonFab>
       {limitsReached && <OrderLimitReached />}
-      <Card>
+      <IonCard>
         <FilterBar
+          options={options}
           allTabLabel={intl.formatMessage({
             defaultMessage: "All Drafts",
             description: "tab name"
@@ -107,8 +108,13 @@ const OrderDraftListPage: React.FC<OrderDraftListPageProps> = ({
           onTabSave={onTabSave}
         />
         <OrderDraftList disabled={disabled} {...listProps} />
-      </Card>
-    </Container>
+      </IonCard>
+      <div
+        style={{
+          height: "100px"
+        }}
+      />
+    </IonContent>
   );
 };
 OrderDraftListPage.displayName = "OrderDraftListPage";

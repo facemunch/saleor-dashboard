@@ -23,7 +23,7 @@ import { createHref, maybe } from "../../../misc";
 import { OrderDetails_order } from "../../types/OrderDetails";
 import { WarehouseClickAndCollectOptionEnum } from "./../../../types/globalTypes";
 import messages from "./messages";
-
+import { IonCard } from "@ionic/react";
 const useStyles = makeStyles(
   theme => ({
     sectionHeader: {
@@ -122,7 +122,7 @@ const OrderCustomer: React.FC<OrderCustomerProps> = props => {
   };
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Customer",
@@ -216,7 +216,9 @@ const OrderCustomer: React.FC<OrderCustomerProps> = props => {
               <div>
                 <Link
                   underline={false}
-                  href={createHref(customerUrl(user.id))}
+                  href={createHref(
+                    customerUrl(user?.id === undefined ? "" : user.id)
+                  )}
                   onClick={onProfileView}
                 >
                   <FormattedMessage
@@ -396,7 +398,7 @@ const OrderCustomer: React.FC<OrderCustomerProps> = props => {
           </>
         )}
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 

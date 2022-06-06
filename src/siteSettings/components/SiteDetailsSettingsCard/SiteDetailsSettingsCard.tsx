@@ -9,6 +9,8 @@ import getShopErrorMessage from "@saleor/utils/errors/shop";
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { IonCard, IonCardContent } from "@ionic/react";
+
 import { SiteSettingsPageFormData } from "../SiteSettingsPage";
 
 interface SiteDetailsSettingsCardProps {
@@ -29,11 +31,11 @@ const SiteDetailsSettingsCard: React.FC<SiteDetailsSettingsCardProps> = ({
   const formErrors = getFormErrors(["name", "domain", "description"], errors);
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage(commonMessages.generalInformations)}
       />
-      <CardContent>
+      <IonCardContent>
         <TextField
           disabled={disabled}
           error={!!formErrors.name}
@@ -100,8 +102,8 @@ const SiteDetailsSettingsCard: React.FC<SiteDetailsSettingsCardProps> = ({
             }
           }}
         />
-      </CardContent>
-    </Card>
+      </IonCardContent>
+    </IonCard>
   );
 };
 SiteDetailsSettingsCard.displayName = "SiteDetailsSettingsCard";

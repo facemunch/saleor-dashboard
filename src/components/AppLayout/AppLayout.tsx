@@ -1,13 +1,13 @@
-import { LinearProgress, useMediaQuery, Box } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
 import useAppState from "@saleor/hooks/useAppState";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useUser from "@saleor/hooks/useUser";
 import Portal from "@mui/material/Portal";
-
+import { settingsOutline, chevronBackOutline } from "ionicons/icons";
 import {
   makeStyles,
   SaleorTheme,
-  Sidebar,
+  // Sidebar,
   SidebarDrawer,
   // useBacklink,
   useActionBar
@@ -18,22 +18,21 @@ import classNames from "classnames";
 import React from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
-
-import Container from "../Container";
-import ErrorPage from "../ErrorPage";
-import Navigator from "../Navigator";
-import NavigatorButton from "../NavigatorButton/NavigatorButton";
-// import UserChip from "../UserChip";
-// import useAppChannel from "./AppChannelContext";
-// import AppChannelSelect from "./AppChannelSelect";
-import { appLoaderHeight } from "./consts";
+import {
+  IonPage,
+  IonToolbar,
+  IonHeader,
+  IonIcon,
+  IonButton,
+  IonButtons,
+  IonTitle
+} from "@ionic/react";
 import createMenuStructure from "./menuStructure";
-import { isMenuActive } from "./utils";
 
 const useStyles = makeStyles(
   theme => ({
     appAction: {
-      [theme.breakpoints.down("sm")]: {
+      [theme.breakpoints.up("sm")]: {
         left: 0,
         width: "100%"
       },
@@ -45,7 +44,8 @@ const useStyles = makeStyles(
     appActionDocked: {
       bottom: "env(safe-area-inset-bottom, 10px)",
       zIndex: 10000,
-      position: "fixed"
+      position: "fixed",
+      width: "100vw"
     },
     appLoader: {
       // height: appLoaderHeight,
@@ -74,11 +74,11 @@ const useStyles = makeStyles(
       // left: "0",
 
       display: "grid",
-      gridTemplateAreas: `"headerAnchor headerToolbar"`,
-      [theme.breakpoints.down("sm")]: {
-        gridTemplateAreas: `"headerToolbar" 
-        "headerAnchor"`
-      }
+      gridTemplateAreas: `"headerAnchor headerToolbar"`
+      // [theme.breakpoints.down("sm")]: {
+      // gridTemplateAreas: `"headerToolbar"
+      // "headerAnchor"`
+      // }
       // marginBottom: theme.spacing(3)
     },
     headerAnchor: {
@@ -104,9 +104,9 @@ const useStyles = makeStyles(
       }
     },
     root: {
-      // [theme.breakpoints.up("md")]: {
-      // display: "flex"
-      // }
+      [theme.breakpoints.up("sm")]: {
+        paddingBottom: "10vh"
+      }
       // width: `100%`
     },
     spacer: {
@@ -134,7 +134,12 @@ const useStyles = makeStyles(
       WebkitOverflowScrolling: "touch",
       marginBottom: "13vh",
       overflowY: "hidden",
-      overflowX: "hidden"
+      overflowX: "hidden",
+      [theme.breakpoints.up("md")]: {
+        maxWidth: "90vw",
+        margin: "auto",
+        marginLeft: 125
+      }
       // WebkitOverflowScrolling: "touch"
       // minHeight: `calc(var(--vh) * 100)`,
       // marginTop: "-30px"
@@ -151,7 +156,6 @@ interface AppLayoutProps {
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const classes = useStyles({});
-  // const { themeType, setTheme } = useTheme();
   const { anchor: appActionAnchor, docked } = useActionBar();
   const { logout, user } = useUser();
   const navigate = useNavigator();
@@ -163,17 +167,17 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     theme.breakpoints.up("md")
   );
 
-  const menuStructure = createMenuStructure(intl, user).map(e => {
-    if (e.children) {
-      return e.children
-    } else {
-      return e
-    }
-  }).flat();
-  // const activeMenu = menuStructure.find(menuItem =>
-  //   isMenuActive(location.pathname, menuItem)
-  // )?.id;
-  console.log("menuStructure", menuStructure)
+  const menuStructure = createMenuStructure(intl, user)
+    .map(e => {
+      if (e.children) {
+        return e.children;
+      } else {
+        return e;
+      }
+    })
+    .flat()
+    .filter(e => e.label !== "Drafts");
+
   const handleErrorBack = () => {
     navigate("/");
     dispatchAppState({
@@ -183,73 +187,103 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       type: "displayError"
     });
   };
-
-  // const toggleTheme = () => setTheme(isDarkTheme(themeType) ? "light" : "dark");
-
   return (
     <>
-      <Navigator
-        visible={isNavigatorVisible}
-        setVisibility={setNavigatorVisibility}
-      />
-      <div className={classes.root} data-test="ecomm-app-layout">
-        {/* {isMdUp && (
-          <Sidebar
-            active={activeMenu}
-            menuItems={menuStructure}
-            onMenuItemClick={navigate}
+      <IonPage>
+        {(location.pathname.split("/").length - 1 < 2 ||
+          location.pathname.includes("configuration") ||
+          location.pathname.includes("attributes") ||
+          location.pathname === "/orders" ||
+          location.pathname === "/products/" ||
+          location.pathname === "/customers/" ||
+          location.pathname.includes("shipping") ||
+          location.pathname.includes("warehouses") ||
+          location.pathname.includes("product-types") ||
+          location.pathname === "/") && (
+          <IonHeader translucent collapse="condense">
+            <IonToolbar>
+              {(location.pathname.includes("configuration") ||
+                location.pathname.includes("attributes") ||
+                location.pathname.includes("warehouses") ||
+                location.pathname.includes("site-settings") ||
+                location.pathname.includes("shipping") ||
+                location.pathname.includes("product-types")) && (
+                <IonButtons slot="secondary">
+                  <IonButton
+                    onClick={() => {
+                      location.pathname.includes("configuration")
+                        ? navigate("/home")
+                        : navigate("/configuration");
+                    }}
+                    fill="clear"
+                  >
+                    <IonIcon slot="icon-only" icon={chevronBackOutline} />
+                  </IonButton>
+                </IonButtons>
+              )}
+
+              {!location.pathname.includes("configuration") &&
+                !location.pathname.includes("attributes") &&
+                !location.pathname.includes("shipping") &&
+                !location.pathname.includes("warehouses") &&
+                !location.pathname.includes("site-settings") &&
+                !location.pathname.includes("product-types") &&
+                !location.pathname.includes("product-ss") && (
+                  <IonButtons slot="primary">
+                    <IonButton
+                      color="dark"
+                      onClick={() => {
+                        navigate("/configuration");
+                      }}
+                      fill="clear"
+                    >
+                      <IonIcon slot="icon-only" icon={settingsOutline} />
+                    </IonButton>
+                  </IonButtons>
+                )}
+
+              {!location.pathname.includes("shipping") &&
+                !location.pathname.includes("configuration") &&
+                !location.pathname.includes("site-settings") && (
+                  <IonTitle
+                    data-test-id="commerce-title"
+                    size="large"
+                    style={{
+                      marginTop: "8px",
+                      fontFamily: '"Inter"',
+                      fontStyle: "normal",
+                      fontWeight: "900",
+                      fontSize: "28px",
+                      // lineHeight: '36px',
+                      letterSpacing: "-0.02em",
+                      color: "#ffffff",
+                      opacity: "0.95"
+                    }}
+                  >
+                    Commerce
+                  </IonTitle>
+                )}
+            </IonToolbar>
+          </IonHeader>
+        )}
+        {(location.pathname.includes("/products") ||
+          location.pathname === "/" ||
+          location.pathname.includes("/orders") ||
+          location.pathname.includes("/customers") ||
+          location.pathname.includes("/home")) && (
+          <SidebarDrawer menuItems={menuStructure} onMenuItemClick={navigate} />
+        )}
+
+        {children}
+        <Portal container={document.getElementsByTagName("ion-app")[0]}>
+          <div
+            className={classNames(classes.appAction, {
+              [classes.appActionDocked]: docked
+            })}
+            ref={appActionAnchor}
           />
-        )} */}
-        <div className={classes.content}>
-          {appState.loading ? (
-            <Box sx={{ position: "fixed", top: 0 }}>
-              <LinearProgress className={classes.appLoader} color="primary" />
-            </Box>
-          ) : (
-            <div className={classes.appLoaderPlaceholder} />
-          )}
-          <div className={classes.viewContainer}>
-            <div>
-              <Container>
-                <div className={classes.header}>
-                  {/* //hidden for mobile views, might be good for desktop */}
-                  {/* <div className={classes.headerAnchor} ref={appHeaderAnchor} /> */}
-                  <div className={classes.headerToolbar}>
-                    {!isMdUp && (
-                      <SidebarDrawer
-                        menuItems={menuStructure}
-                        onMenuItemClick={navigate}
-                      />
-                    )}
-                    <div className={classes.spacer} />
-                    <div className={classes.userBar}>
-                      <NavigatorButton
-                        isMac={navigator.platform.toLowerCase().includes("mac")}
-                        onClick={() => setNavigatorVisibility(true)}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </Container>
-            </div>
-            {/* <main className={classes.view}> */}
-            {appState.error
-              ? appState.error.type === "unhandled" && (
-                <ErrorPage id={appState.error.id} onBack={handleErrorBack} />
-              )
-              : children}
-            {/* </main> */}
-          </div>
-          <Portal>
-            <div
-              className={classNames(classes.appAction, {
-                [classes.appActionDocked]: docked
-              })}
-              ref={appActionAnchor}
-            />
-          </Portal>
-        </div>
-      </div>
+        </Portal>
+      </IonPage>
     </>
   );
 };

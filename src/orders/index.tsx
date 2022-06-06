@@ -3,7 +3,7 @@ import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, Routes, useParams } from "react-router-dom";
+import { Route, Switch, useParams } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
@@ -27,12 +27,14 @@ import OrderSettings from "./views/OrderSettings";
 
 const OrderList: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
-  const params: OrderListUrlQueryParams = asSortParams(
-    qs,
-    OrderListUrlSortField,
-    OrderListUrlSortField.number,
-    false
-  );
+  const params: OrderListUrlQueryParams = location.pathname.includes("/orders")
+    ? asSortParams(
+        qs,
+        OrderListUrlSortField,
+        OrderListUrlSortField.number,
+        false
+      )
+    : {};
   return <OrderListComponent params={params} />;
 };
 const OrderDraftList: React.FC = () => {
@@ -73,15 +75,39 @@ const Component = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.orders)} />
-      <Routes>
-        <Route path="" element={<OrderList />} />
-        <Route path="settings" element={<OrderSettings />} />
-        <Route path="drafts" element={<OrderDraftList />} />
-        <Route path={orderFulfillPath(":id", "")} element={<OrderFulfill />} />
-        <Route path={orderReturnPath(":id", "")} element={<OrderReturn />} />
-        <Route path={orderRefundPath(":id", "")} element={<OrderRefund />} />
-        <Route path={orderPath(":id", "")} element={<OrderDetails />} />
-      </Routes>
+      <Switch>
+        <Route exact path="/orders" render={() => <OrderList />} />
+        <Route
+          exact
+          path={"/orders/" + "settings"}
+          render={() => <OrderSettings />}
+        />
+        <Route
+          exact
+          path={"/orders/" + "drafts"}
+          render={() => <OrderDraftList />}
+        />
+        <Route
+          exact
+          path={"/orders/" + orderFulfillPath(":id", "")}
+          render={() => <OrderFulfill />}
+        />
+        <Route
+          exact
+          path={"/orders/" + orderReturnPath(":id", "")}
+          render={() => <OrderReturn />}
+        />
+        <Route
+          exact
+          path={"/orders/" + orderRefundPath(":id", "")}
+          render={() => <OrderRefund />}
+        />
+        <Route
+          exact
+          path={"/orders/" + orderPath(":id", "")}
+          render={() => <OrderDetails />}
+        />
+      </Switch>
     </>
   );
 };

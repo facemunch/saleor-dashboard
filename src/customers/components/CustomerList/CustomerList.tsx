@@ -1,4 +1,10 @@
-import { TableBody, TableCell, TableFooter, TableRow } from "@mui/material";
+import {
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableRow,
+  Typography
+} from "@mui/material";
 import Checkbox from "@saleor/components/Checkbox";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
@@ -12,7 +18,6 @@ import { ListActions, ListProps, SortPage } from "@saleor/types";
 import { getArrowDirection } from "@saleor/utils/sort";
 import React from "react";
 import { FormattedMessage } from "react-intl";
-
 import { ListCustomers_customers_edges_node } from "../../types/ListCustomers";
 
 const useStyles = makeStyles(
@@ -90,7 +95,7 @@ const CustomerList: React.FC<CustomerListProps> = props => {
         >
           <FormattedMessage defaultMessage="Customer Name" />
         </TableCellHeader>
-        <TableCellHeader
+        {/* <TableCellHeader
           direction={
             sort.sort === CustomerListUrlSortField.email
               ? getArrowDirection(sort.asc)
@@ -100,7 +105,7 @@ const CustomerList: React.FC<CustomerListProps> = props => {
           className={classes.colEmail}
         >
           <FormattedMessage defaultMessage="Customer Email" />
-        </TableCellHeader>
+        </TableCellHeader> */}
         <TableCellHeader
           direction={
             sort.sort === CustomerListUrlSortField.orders
@@ -143,20 +148,24 @@ const CustomerList: React.FC<CustomerListProps> = props => {
                 selected={isSelected}
                 onClick={customer ? onRowClick(customer.id) : undefined}
               >
-                <TableCell padding="checkbox">
+                {/* <TableCell padding="checkbox">
                   <Checkbox
                     checked={isSelected}
                     disabled={disabled}
                     disableClickPropagation
                     onChange={() => toggle(customer.id)}
                   />
-                </TableCell>
+                </TableCell> */}
                 <TableCell className={classes.colName}>
                   {getUserName(customer)}
+                  <br />
+                  <Typography variant="caption">
+                    {maybe<React.ReactNode>(() => customer.email, <Skeleton />)}
+                  </Typography>
                 </TableCell>
-                <TableCell className={classes.colEmail}>
-                  {maybe<React.ReactNode>(() => customer.email, <Skeleton />)}
-                </TableCell>
+                {/* <TableCell className={classes.colEmail}>
+                
+                </TableCell> */}
                 <TableCell className={classes.colOrders}>
                   {maybe<React.ReactNode>(
                     () => customer.orders.totalCount,

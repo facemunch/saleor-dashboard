@@ -1,9 +1,7 @@
 import { CardSpacer } from "@saleor/components/CardSpacer";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
-import Container from "@saleor/components/Container";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
-import PageHeader from "@saleor/components/PageHeader";
 import Savebar from "@saleor/components/Savebar";
 import { AccountErrorFragment } from "@saleor/fragments/types/AccountErrorFragment";
 import useAddressValidation from "@saleor/hooks/useAddressValidation";
@@ -20,6 +18,8 @@ import { CustomerCreateData_shop_countries } from "../../types/CustomerCreateDat
 import CustomerCreateAddress from "../CustomerCreateAddress/CustomerCreateAddress";
 import CustomerCreateDetails from "../CustomerCreateDetails";
 import CustomerCreateNote from "../CustomerCreateNote/CustomerCreateNote";
+
+import { IonContent, IonPage } from "@ionic/react";
 
 export interface CustomerCreatePageFormData {
   customerFirstName: string;
@@ -139,50 +139,53 @@ const CustomerCreatePage: React.FC<CustomerCreatePageProps> = ({
         );
 
         return (
-          <Container>
-            <Backlink onClick={onBack}>
-              <FormattedMessage {...sectionNames.customers} />
-            </Backlink>
-            <PageHeader
-              title={intl.formatMessage({
-                defaultMessage: "Create Customer",
-                description: "page header"
-              })}
-            />
-            <Grid>
-              <div>
-                <CustomerCreateDetails
-                  data={data}
-                  disabled={disabled}
-                  errors={errors}
-                  onChange={change}
-                />
-                <CardSpacer />
-                <CustomerCreateAddress
-                  countries={countryChoices}
-                  countryDisplayName={countryDisplayName}
-                  data={data}
-                  disabled={disabled}
-                  errors={errors}
-                  onChange={change}
-                  onCountryChange={handleCountrySelect}
-                />
-                <CardSpacer />
-                <CustomerCreateNote
-                  data={data}
-                  disabled={disabled}
-                  errors={errors}
-                  onChange={change}
-                />
-              </div>
-            </Grid>
-            <Savebar
-              disabled={disabled || !hasChanged}
-              state={saveButtonBar}
-              onSubmit={submit}
-              onCancel={onBack}
-            />
-          </Container>
+          <IonPage>
+            <IonContent>
+              <Backlink onClick={onBack}>
+                <FormattedMessage {...sectionNames.customers} />
+              </Backlink>
+              {/* <PageHeader
+                title={intl.formatMessage({
+                  defaultMessage: "Create Customer",
+                  description: "page header"
+                })}
+              /> */}
+              <Grid>
+                <div>
+                  <CustomerCreateDetails
+                    data={data}
+                    disabled={disabled}
+                    errors={errors}
+                    onChange={change}
+                  />
+                  <CardSpacer />
+                  <CustomerCreateAddress
+                    countries={countryChoices}
+                    countryDisplayName={countryDisplayName}
+                    data={data}
+                    disabled={disabled}
+                    errors={errors}
+                    onChange={change}
+                    onCountryChange={handleCountrySelect}
+                  />
+                  <CardSpacer />
+                  <CustomerCreateNote
+                    data={data}
+                    disabled={disabled}
+                    errors={errors}
+                    onChange={change}
+                  />
+                </div>
+              </Grid>
+              <div style={{ height: "100px" }} />
+              <Savebar
+                disabled={disabled || !hasChanged}
+                state={saveButtonBar}
+                onSubmit={submit}
+                onCancel={onBack}
+              />
+            </IonContent>
+          </IonPage>
         );
       }}
     </Form>

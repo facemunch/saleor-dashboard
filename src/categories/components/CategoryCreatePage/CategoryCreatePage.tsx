@@ -10,6 +10,7 @@ import { sectionNames } from "@saleor/intl";
 import { Backlink } from "@saleor/macaw-ui";
 import React from "react";
 import { useIntl } from "react-intl";
+import { IonContent, IonPage, IonCard } from "@ionic/react";
 
 import CategoryDetailsForm from "../../components/CategoryDetailsForm";
 import CategoryCreateForm, { CategoryCreateData } from "./form";
@@ -34,51 +35,53 @@ export const CategoryCreatePage: React.FC<CategoryCreatePageProps> = ({
   return (
     <CategoryCreateForm onSubmit={onSubmit}>
       {({ data, change, handlers, submit, hasChanged }) => (
-        <Container>
-          <Backlink onClick={onBack}>
-            {intl.formatMessage(sectionNames.categories)}
-          </Backlink>
-          <PageHeader
-            title={intl.formatMessage({
-              defaultMessage: "Create New Category",
-              description: "page header"
-            })}
-          />
-          <div>
-            <CategoryDetailsForm
-              data={data}
-              disabled={disabled}
-              errors={errors}
-              onChange={change}
-              onDescriptionChange={handlers.changeDescription}
-            />
-            <CardSpacer />
-            <SeoForm
-              allowEmptySlug={true}
-              helperText={intl.formatMessage({
-                defaultMessage:
-                  "Add search engine title and description to make this category easier to find"
+        <IonPage>
+          <IonContent>
+            <Backlink onClick={onBack}>
+              {intl.formatMessage(sectionNames.categories)}
+            </Backlink>
+            <PageHeader
+              title={intl.formatMessage({
+                defaultMessage: "Create New Category",
+                description: "page header"
               })}
-              slug={data.slug}
-              slugPlaceholder={data.name}
-              title={data.seoTitle}
-              titlePlaceholder={data.name}
-              description={data.seoDescription}
-              descriptionPlaceholder={data.name}
-              loading={disabled}
-              onChange={change}
-              disabled={disabled}
             />
-            <CardSpacer />
-            <Metadata data={data} onChange={handlers.changeMetadata} />
-            <Savebar
-              onCancel={onBack}
-              onSubmit={submit}
-              state={saveButtonBarState}
-              disabled={disabled || !hasChanged}
-            />
-          </div>
-        </Container>
+            <div>
+              <CategoryDetailsForm
+                data={data}
+                disabled={disabled}
+                errors={errors}
+                onChange={change}
+                onDescriptionChange={handlers.changeDescription}
+              />
+              <CardSpacer />
+              <SeoForm
+                allowEmptySlug={true}
+                helperText={intl.formatMessage({
+                  defaultMessage:
+                    "Add search engine title and description to make this category easier to find"
+                })}
+                slug={data.slug}
+                slugPlaceholder={data.name}
+                title={data.seoTitle}
+                titlePlaceholder={data.name}
+                description={data.seoDescription}
+                descriptionPlaceholder={data.name}
+                loading={disabled}
+                onChange={change}
+                disabled={disabled}
+              />
+              <CardSpacer />
+              <Metadata data={data} onChange={handlers.changeMetadata} />
+              <Savebar
+                onCancel={onBack}
+                onSubmit={submit}
+                state={saveButtonBarState}
+                disabled={disabled || !hasChanged}
+              />
+            </div>
+          </IonContent>
+        </IonPage>
       )}
     </CategoryCreateForm>
   );

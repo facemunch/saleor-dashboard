@@ -32,7 +32,21 @@ import {
 import { hasLimits, isLimitReached } from "@saleor/utils/limits";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-
+import {
+  IonList,
+  IonItem,
+  IonCard,
+  IonPage,
+  IonLabel,
+  IonInput,
+  IonToggle,
+  IonRadio,
+  IonCheckbox,
+  IonItemSliding,
+  IonItemOption,
+  IonItemOptions,
+  IonContent
+} from "@ionic/react";
 import { ProductListUrlSortField } from "../../urls";
 import ProductList from "../ProductList";
 import {
@@ -40,7 +54,6 @@ import {
   ProductFilterKeys,
   ProductListFilterOpts
 } from "./filters";
-
 export interface ProductListPageProps
   extends PageListProps<ProductListColumns>,
     ListActions,
@@ -74,7 +87,7 @@ const useStyles = makeStyles(
     },
     container: {
       [theme.breakpoints.up("md")]: {
-        marginLeft: drawerWidthExpanded
+        // marginLeft: drawerWidthExpanded
       }
     }
   }),
@@ -218,7 +231,7 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
           <FormattedMessage defaultMessage="You have reached your SKU limit, you will be no longer able to add SKUs to your store. If you would like to up your limit, contact your administration staff about raising your limits." />
         </LimitReachedAlert>
       )}
-      <Card>
+      <IonCard>
         <FilterBar
           currencySymbol={currencySymbol}
           currentTab={currentTab}
@@ -249,7 +262,7 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
           selectedChannelId={selectedChannelId}
           onUpdateListSettings={onUpdateListSettings}
         />
-      </Card>
+      </IonCard>
     </Container>
   );
 };

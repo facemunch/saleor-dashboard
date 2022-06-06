@@ -8,6 +8,7 @@ import { getFormErrors } from "@saleor/utils/errors";
 import getShippingErrorMessage from "@saleor/utils/errors/shipping";
 import React from "react";
 import { defineMessages, FormattedMessage, useIntl } from "react-intl";
+import { IonCard } from "@ionic/react";
 
 const messages = defineMessages({
   descriptionCharacterLimit: {
@@ -60,7 +61,7 @@ const ShippingZoneInfo: React.FC<ShippingZoneInfoProps> = ({
   const formErrors = getFormErrors(["name"], errors);
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage(commonMessages.generalInformations)}
       />
@@ -114,7 +115,7 @@ const ShippingZoneInfo: React.FC<ShippingZoneInfoProps> = ({
           rows={10}
         />
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 ShippingZoneInfo.displayName = "ShippingZoneInfo";

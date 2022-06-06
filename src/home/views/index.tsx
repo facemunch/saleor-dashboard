@@ -16,13 +16,12 @@ const HomeSection = () => {
   const navigate = useNavigator();
   const { user } = useUser();
   const { channel } = useAppChannel();
-
   const noChannel = !channel && typeof channel !== "undefined";
 
   const { data } = useHomePage({
     displayLoader: true,
     skip: noChannel,
-    variables: { channel: channel?.slug, datePeriod: getDatePeriod(1) }
+    variables: { channel: "usd", datePeriod: getDatePeriod(1) }
   });
 
   return (
@@ -63,7 +62,7 @@ const HomeSection = () => {
       }
       ordersToCapture={data?.ordersToCapture?.totalCount}
       ordersToFulfill={data?.ordersToFulfill?.totalCount}
-      productsOutOfStock={data?.productsOutOfStock.totalCount}
+      productsOutOfStock={data?.productsOutOfStock?.totalCount}
       userName={getUserName(user, true)}
       userPermissions={user?.userPermissions}
       noChannel={noChannel}

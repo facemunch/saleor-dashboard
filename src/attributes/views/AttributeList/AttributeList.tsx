@@ -31,7 +31,7 @@ import { PAGINATE_BY } from "../../../config";
 import useBulkActions from "../../../hooks/useBulkActions";
 import { maybe } from "../../../misc";
 import AttributeBulkDeleteDialog from "../../components/AttributeBulkDeleteDialog";
-import AttributeListPage from "../../components/AttributeListPage";
+import AttributeListPage from "../../components/AttributeListPageIonic";
 import { useAttributeBulkDeleteMutation } from "../../mutations";
 import { useAttributeListQuery } from "../../queries";
 import {

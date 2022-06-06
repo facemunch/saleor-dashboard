@@ -58,13 +58,13 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
     ListViews.ORDER_LIST
   );
 
-  usePaginationReset(
-    orderListUrl({
-      ...params,
-      ...DEFAULT_INITIAL_PAGINATION_DATA
-    }),
-    settings.rowNumber
-  );
+  // usePaginationReset(
+  //   orderListUrl({
+  //     ...params,
+  //     ...DEFAULT_INITIAL_PAGINATION_DATA
+  //   }),
+  //   settings.rowNumber
+  // );
 
   const intl = useIntl();
 
@@ -166,7 +166,13 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
         orders={mapEdgesToItems(data?.orders)}
         pageInfo={pageInfo}
         sort={getSortParams(params)}
-        onAdd={() => openModal("create-order")}
+        onAdd={() => {
+          createOrder({
+            variables: {
+              input: { channelId: channel?.id }
+            }
+          });
+        }}
         onNextPage={loadNextPage}
         onPreviousPage={loadPreviousPage}
         onUpdateListSettings={updateListSettings}
@@ -195,7 +201,7 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
         onSubmit={handleFilterTabDelete}
         tabName={getStringOrPlaceholder(tabs[currentTab - 1]?.name)}
       />
-      {!noChannel && (
+      {/* {!noChannel && (
         <ChannelPickerDialog
           channelsChoices={mapNodeToChoice(availableChannels)}
           confirmButtonState="success"
@@ -210,7 +216,7 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
             })
           }
         />
-      )}
+      )} */}
     </>
   );
 };

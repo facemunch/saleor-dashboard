@@ -25,6 +25,14 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { Channels_channels } from "../../types/Channels";
 import { useStyles } from "./styles";
 
+import {
+  IonContent,
+  IonCard,
+  IonFab,
+  IonFabButton,
+  IonIcon
+} from "@ionic/react";
+import { add } from "ionicons/icons";
 export interface ChannelsListPageProps {
   channelsList: Channels_channels[] | undefined;
   limits: RefreshLimits_shop_limits;
@@ -50,39 +58,25 @@ export const ChannelsListPage: React.FC<ChannelsListPageProps> = ({
   const limitReached = isLimitReached(limits, "channels");
 
   return (
-    <Container>
+    <IonContent>
       <Backlink onClick={onBack}>
         {intl.formatMessage(sectionNames.configuration)}
       </Backlink>
-      <PageHeader
-        title={intl.formatMessage(sectionNames.channels)}
-        limitText={
-          hasLimits(limits, "channels") &&
-          intl.formatMessage(
-            {
-              defaultMessage: "{count}/{max} channels used",
-              description: "created channels counter"
-            },
-            {
-              count: limits.currentUsage.channels,
-              max: limits.allowedUsage.channels
-            }
-          )
-        }
+
+      <IonFab
+        vertical="bottom"
+        horizontal="end"
+        slot="fixed"
+        style={{
+          marginBottom: "50px"
+        }}
+        data-test-id="create-order-button"
       >
-        <Button
-          disabled={limitReached}
-          onClick={navigateToChannelCreate}
-          color="primary"
-          variant="contained"
-          data-test="add-channel"
-        >
-          <FormattedMessage
-            defaultMessage="Create Channel"
-            description="button"
-          />
-        </Button>
-      </PageHeader>
+        <IonFabButton onClick={onAdd}>
+          <IonIcon icon={add} />
+        </IonFabButton>
+      </IonFab>
+
       {limitReached && (
         <LimitReachedAlert
           title={intl.formatMessage({
@@ -153,7 +147,7 @@ export const ChannelsListPage: React.FC<ChannelsListPageProps> = ({
           </TableBody>
         </ResponsiveTable>
       </Card>
-    </Container>
+    </IonContent>
   );
 };
 

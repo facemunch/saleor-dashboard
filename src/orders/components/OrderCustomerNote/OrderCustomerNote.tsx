@@ -4,6 +4,8 @@ import Skeleton from "@saleor/components/Skeleton";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { IonCard } from "@ionic/react";
+
 interface OrderCustomerNoteProps {
   note: string;
 }
@@ -14,7 +16,7 @@ export const OrderCustomerNote: React.FC<OrderCustomerNoteProps> = ({
   const intl = useIntl();
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Notes",
@@ -32,7 +34,7 @@ export const OrderCustomerNote: React.FC<OrderCustomerNoteProps> = ({
           <Typography>{note}</Typography>
         )}
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 export default OrderCustomerNote;

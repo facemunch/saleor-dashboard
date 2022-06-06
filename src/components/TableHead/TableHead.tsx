@@ -96,7 +96,7 @@ const TableHead: React.FC<TableHeadProps> = props => {
             })}
           />
         )}
-        {(items === undefined || items.length > 0) && (
+        {/* {(items === undefined || items.length > 0) && (
           <TableCell
             padding="checkbox"
             className={classNames({
@@ -111,8 +111,8 @@ const TableHead: React.FC<TableHeadProps> = props => {
               onChange={() => toggleAll(items, selected)}
             />
           </TableCell>
-        )}
-        {selected ? (
+        )} */}
+        {/* {selected ? (
           <>
             <TableCell
               className={classNames(classes.root)}
@@ -134,9 +134,9 @@ const TableHead: React.FC<TableHeadProps> = props => {
               </div>
             </TableCell>
           </>
-        ) : (
-          children
-        )}
+        ) : ( */}
+        {children}
+        {/* )} */}
       </TableRow>
     </MuiTableHead>
   );

@@ -22,6 +22,7 @@ import { PostalCodeRuleInclusionTypeEnum } from "@saleor/types/globalTypes";
 import classNames from "classnames";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { IonCard, IonCardContent } from "@ionic/react";
 
 export interface ShippingZonePostalCodesProps {
   disabled: boolean;
@@ -48,7 +49,8 @@ const useStyles = makeStyles(
     colCode: {},
     option: {
       marginBottom: theme.spacing(2),
-      width: 400
+      width: 400,
+      display: "contents"
     },
     radioContainer: {
       paddingBottom: 0
@@ -103,7 +105,7 @@ const ShippingZonePostalCodes: React.FC<ShippingZonePostalCodesProps> = ({
   };
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Postal codes",
@@ -122,7 +124,12 @@ const ShippingZonePostalCodes: React.FC<ShippingZonePostalCodesProps> = ({
           </Button>
         }
       />
-      <CardContent className={classNames(classes.radioContainer)}>
+      <IonCardContent
+        style={{
+          width: "92vw"
+        }}
+        className={classNames(classes.radioContainer)}
+      >
         <RadioGroupField
           alignTop
           choices={[
@@ -163,7 +170,7 @@ const ShippingZonePostalCodes: React.FC<ShippingZonePostalCodesProps> = ({
           value={getInclusionType()}
           onChange={onInclusionRadioChange}
         />
-      </CardContent>
+      </IonCardContent>
       <ResponsiveTable>
         <colgroup>
           <col />
@@ -232,7 +239,7 @@ const ShippingZonePostalCodes: React.FC<ShippingZonePostalCodesProps> = ({
           </TableBody>
         )}
       </ResponsiveTable>
-    </Card>
+    </IonCard>
   );
 };
 

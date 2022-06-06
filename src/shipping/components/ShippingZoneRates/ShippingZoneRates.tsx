@@ -22,6 +22,8 @@ import { ChannelProps } from "@saleor/types";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { IonCard } from "@ionic/react";
+
 import { maybe, renderCollection } from "../../../misc";
 
 export interface ShippingZoneRatesProps extends ChannelProps {
@@ -69,7 +71,7 @@ const ShippingZoneRates: React.FC<ShippingZoneRatesProps> = props => {
   const intl = useIntl();
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         height="const"
         title={
@@ -200,7 +202,7 @@ const ShippingZoneRates: React.FC<ShippingZoneRatesProps> = props => {
           )}
         </TableBody>
       </ResponsiveTable>
-    </Card>
+    </IonCard>
   );
 };
 ShippingZoneRates.displayName = "ShippingZoneRates";

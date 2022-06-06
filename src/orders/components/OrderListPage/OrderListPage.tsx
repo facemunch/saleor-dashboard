@@ -1,16 +1,16 @@
-import { Button, Card } from "@mui/material";
-import CardMenu from "@saleor/components/CardMenu";
-import Container from "@saleor/components/Container";
-import FilterBar from "@saleor/components/FilterBar";
-import PageHeader from "@saleor/components/PageHeader";
+import FilterBar from "@saleor/components/FilterBarIonic";
 import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
-import { sectionNames } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
 import { OrderListUrlSortField } from "@saleor/orders/urls";
 import { FilterPageProps, PageListProps, SortPage } from "@saleor/types";
-import { hasLimits, isLimitReached } from "@saleor/utils/limits";
+import { isLimitReached } from "@saleor/utils/limits";
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
+import useNavigator from "@saleor/hooks/useNavigator";
+
+import { IonContent, IonCard, IonFab, IonButton, IonIcon } from "@ionic/react";
+
+import { add } from "ionicons/icons";
 
 import { OrderList_orders_edges_node } from "../../types/OrderList";
 import OrderLimitReached from "../OrderLimitReached";
@@ -39,6 +39,19 @@ const useStyles = makeStyles(
   { name: "OrderListPage" }
 );
 
+const options = [
+  { label: "Order no. (highest first)", path: "?asc=true&sort=number" },
+  { label: "Order no. (lowest first)", path: "?asc=false&sort=number" },
+  { label: "Customer name A-Z", path: "?asc=true&sort=customer" },
+  { label: "Customer name Z-A", path: "?asc=false&sort=customer" },
+  { label: "Date (newest first)", path: "?asc=true&sort=date" },
+  { label: "Date (oldest first)", path: "?asc=false&sort=date" },
+  { label: "Payment (paid first)", path: "?asc=true&sort=payment" },
+  { label: "Payment (unpid first)", path: "?asc=false&sort=payment" },
+  { label: "Fulfilment (fulfilled first)", path: "?asc=true&sort=status" },
+  { label: "Fulfilment (unfulfilled first)", path: "?asc=false&sort=status" }
+];
+
 const OrderListPage: React.FC<OrderListPageProps> = ({
   currentTab,
   initialSearch,
@@ -59,55 +72,60 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
   const classes = useStyles({});
   const filterStructure = createFilterStructure(intl, filterOpts);
   const limitsReached = isLimitReached(limits, "orders");
+  const navigate = useNavigator();
 
   return (
-    <Container>
-      <PageHeader
-        title={intl.formatMessage(sectionNames.orders)}
-        limitText={
-          hasLimits(limits, "orders") &&
-          intl.formatMessage(
-            {
-              defaultMessage: "{count}/{max} orders",
-              description: "placed order counter"
-            },
-            {
-              count: limits.currentUsage.orders,
-              max: limits.allowedUsage.orders
-            }
-          )
-        }
+    <IonContent>
+      <IonFab
+        vertical="bottom"
+        horizontal="end"
+        slot="fixed"
+        style={{
+          marginBottom: "50px"
+        }}
+        data-test-id="create-order-button"
       >
-        {!!onSettingsOpen && (
-          <CardMenu
-            className={classes.settings}
-            menuItems={[
-              {
-                label: intl.formatMessage({
-                  defaultMessage: "Order Settings",
-                  description: "button"
-                }),
-                onSelect: onSettingsOpen
-              }
-            ]}
-          />
-        )}
-        <Button
-          disabled={limitsReached}
-          color="primary"
-          variant="contained"
-          onClick={onAdd}
-          data-test-id="create-order-button"
+        <IonButton
+          onClick={() => {
+            navigate("/products/add");
+          }}
+          shape="round"
         >
-          <FormattedMessage
-            defaultMessage="Create order"
-            description="button"
-          />
-        </Button>
-      </PageHeader>
+          <IonIcon slot="start" icon={add} />
+          New Product
+        </IonButton>
+      </IonFab>
+
+      {/* {!!onSettingsOpen && (
+        <CardMenu
+          className={classes.settings}
+          menuItems={[
+            {
+              label: intl.formatMessage({
+                defaultMessage: "Order Settings",
+                description: "button"
+              }),
+              onSelect: onSettingsOpen
+            }
+          ]}
+        />
+      )} */}
+
       {limitsReached && <OrderLimitReached />}
-      <Card>
+      <IonCard>
+        {/* <IonSegment
+          value={"live"}
+          onIonChange={e => console.log("Segment selected", e.detail.value)}
+        >
+          <IonSegmentButton value="live">
+            <IonLabel>Live</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton value="drafts">
+            <IonLabel>Drafts</IonLabel>
+          </IonSegmentButton>
+        </IonSegment> */}
         <FilterBar
+          options={options}
           currentTab={currentTab}
           initialSearch={initialSearch}
           onAll={onAll}
@@ -127,8 +145,13 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
           })}
         />
         <OrderList {...listProps} />
-      </Card>
-    </Container>
+      </IonCard>
+      <div
+        style={{
+          height: "100px"
+        }}
+      />
+    </IonContent>
   );
 };
 OrderListPage.displayName = "OrderListPage";

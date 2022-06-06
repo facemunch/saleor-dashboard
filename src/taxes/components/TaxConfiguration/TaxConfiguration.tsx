@@ -7,7 +7,7 @@ import { sectionNames } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-
+import { IonCard } from "@ionic/react";
 import { FormData } from "../CountryListPage";
 
 interface TaxConfigurationProps {
@@ -33,7 +33,7 @@ export const TaxConfiguration: React.FC<TaxConfigurationProps> = props => {
   const intl = useIntl();
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle title={intl.formatMessage(sectionNames.configuration)} />
       <CardContent className={classes.content}>
         <ControlledCheckbox
@@ -73,7 +73,7 @@ export const TaxConfiguration: React.FC<TaxConfigurationProps> = props => {
           <FormattedMessage defaultMessage="Fetch taxes" description="button" />
         </Button>
       </CardActions>
-    </Card>
+    </IonCard>
   );
 };
 export default TaxConfiguration;

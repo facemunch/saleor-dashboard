@@ -80,11 +80,13 @@ const GiftCardsListTableHeader: React.FC = () => {
           </>
         }
       >
-        {headerItems.map(({ title, options }, index) => (
-          <TableCellHeader {...options}>
-            <Label text={intl.formatMessage(title)} size={LabelSizes.md} />
-          </TableCellHeader>
-        ))}
+        {headerItems.map(({ title, options }) => {
+          return (
+            <TableCellHeader key={title.id} {...options}>
+              <Label text={intl.formatMessage(title)} size={LabelSizes.md} />
+            </TableCellHeader>
+          );
+        })}
         <TableCell className={classes.colDelete} />
       </TableHead>
     </>

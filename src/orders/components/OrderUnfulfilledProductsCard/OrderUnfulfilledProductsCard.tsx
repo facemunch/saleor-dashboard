@@ -19,6 +19,8 @@ import TableHeader from "../OrderProductsCardElements/OrderProductsCardHeader";
 import TableLine from "../OrderProductsCardElements/OrderProductsTableRow";
 import CardTitle from "../OrderReturnPage/OrderReturnRefundItemsCard/CardTitle";
 
+import { IonCard, IonCardContent } from "@ionic/react";
+
 const useStyles = makeStyles(
   () => ({
     table: {
@@ -35,60 +37,59 @@ interface OrderUnfulfilledProductsCardProps {
   onFulfill: () => void;
 }
 
-const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> =
-  props => {
-    const {
-      showFulfillmentAction,
-      notAllowedToFulfillUnpaid,
-      lines,
-      onFulfill
-    } = props;
-    const classes = useStyles({});
+const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> = props => {
+  const {
+    showFulfillmentAction,
+    notAllowedToFulfillUnpaid,
+    lines,
+    onFulfill
+  } = props;
+  const classes = useStyles({});
 
-    if (!lines.length) {
-      return null;
-    }
+  if (!lines.length) {
+    return null;
+  }
 
-    return (
-      <>
-        <Card>
-          <CardTitle withStatus status="unfulfilled" />
-
-          <ResponsiveTable className={classes.table}>
-            <TableHeader />
-            <TableBody>
-              {renderCollection(lines, line => (
+  return (
+    <>
+      <IonCard>
+        <CardTitle withStatus status="unfulfilled" />
+        {/* <IonCardContent> */}
+        <div style={{ width: "92vw", overflow: "scroll" }}>
+          <TableHeader />
+          <TableBody>
+            {renderCollection(lines, line => (
+              <div key={line.id}>
                 <TableLine isOrderLine line={line} />
-              ))}
-            </TableBody>
-          </ResponsiveTable>
+              </div>
+            ))}
+          </TableBody>
+        </div>
 
-          {showFulfillmentAction && (
-            <CardActions>
-              <Button
-                variant="text"
-                color="primary"
-                onClick={onFulfill}
-                disabled={notAllowedToFulfillUnpaid}
-              >
+        {showFulfillmentAction && (
+          <CardActions>
+            <Button
+              variant="text"
+              color="primary"
+              onClick={onFulfill}
+              disabled={notAllowedToFulfillUnpaid}
+            >
+              <FormattedMessage defaultMessage="Fulfill" description="button" />
+            </Button>
+            {notAllowedToFulfillUnpaid && (
+              <Typography color="error" variant="caption">
                 <FormattedMessage
-                  defaultMessage="Fulfill"
-                  description="button"
+                  {...commonMessages.cannotFullfillUnpaidOrder}
                 />
-              </Button>
-              {notAllowedToFulfillUnpaid && (
-                <Typography color="error" variant="caption">
-                  <FormattedMessage
-                    {...commonMessages.cannotFullfillUnpaidOrder}
-                  />
-                </Typography>
-              )}
-            </CardActions>
-          )}
-        </Card>
-        <CardSpacer />
-      </>
-    );
-  };
+              </Typography>
+            )}
+          </CardActions>
+        )}
+        {/* </IonCardContent> */}
+      </IonCard>
+      <CardSpacer />
+    </>
+  );
+};
 
 export default OrderUnfulfilledProductsCard;

@@ -1,14 +1,12 @@
 import {
   Button,
-  Card,
   CardContent,
   Table,
-  TableBody,
   TableCell,
   TableHead,
   TableRow,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import Money from "@saleor/components/Money";
@@ -20,6 +18,7 @@ import { renderCollection } from "@saleor/misc";
 import { OrderRefundData_order_lines } from "@saleor/orders/types/OrderRefundData";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { IonCard } from "@ionic/react";
 
 import { OrderRefundFormData } from "../OrderRefundPage/form";
 
@@ -82,7 +81,7 @@ const OrderRefundUnfulfilledProducts: React.FC<OrderRefundUnfulfilledProductsPro
   const intl = useIntl();
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Unfulfilled Products",
@@ -141,7 +140,7 @@ const OrderRefundUnfulfilledProducts: React.FC<OrderRefundUnfulfilledProductsPro
             </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        <div style={{width: '92vw', overflow: 'scroll'}}>
           {renderCollection(
             unfulfilledLines,
             line => {
@@ -229,9 +228,9 @@ const OrderRefundUnfulfilledProducts: React.FC<OrderRefundUnfulfilledProductsPro
               </TableRow>
             )
           )}
-        </TableBody>
+        </div>
       </Table>
-    </Card>
+    </IonCard>
   );
 };
 OrderRefundUnfulfilledProducts.displayName = "OrderRefundUnfulfilledProducts";

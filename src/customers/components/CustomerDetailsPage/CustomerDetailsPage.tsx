@@ -16,6 +16,8 @@ import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTr
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { IonContent, IonPage, IonCardContent } from "@ionic/react";
+
 import { getUserName } from "../../../misc";
 import { CustomerDetails_user } from "../../types/CustomerDetails";
 import CustomerAddresses from "../CustomerAddresses";
@@ -79,54 +81,59 @@ const CustomerDetailsPage: React.FC<CustomerDetailsPageProps> = ({
         const changeMetadata = makeMetadataChangeHandler(change);
 
         return (
-          <Container>
-            <Backlink onClick={onBack}>
-              {intl.formatMessage(sectionNames.customers)}
-            </Backlink>
-            <PageHeader title={getUserName(customer, true)} />
-            <Grid>
-              <div>
-                <CustomerDetails
-                  customer={customer}
-                  data={data}
-                  disabled={disabled}
-                  errors={errors}
-                  onChange={change}
-                />
-                <CardSpacer />
-                <CustomerInfo
-                  data={data}
-                  disabled={disabled}
-                  errors={errors}
-                  onChange={change}
-                />
-                <CardSpacer />
-                <CustomerOrders
-                  orders={mapEdgesToItems(customer?.orders)}
-                  onViewAllOrdersClick={onViewAllOrdersClick}
-                  onRowClick={onRowClick}
-                />
-                <CardSpacer />
-                <Metadata data={data} onChange={changeMetadata} />
-              </div>
-              <div>
-                <CustomerAddresses
-                  customer={customer}
-                  disabled={disabled}
-                  onAddressManageClick={onAddressManageClick}
-                />
-                <CardSpacer />
-                <CustomerStats customer={customer} />
-              </div>
-            </Grid>
-            <Savebar
-              disabled={disabled || !hasChanged}
-              state={saveButtonBar}
-              onSubmit={submit}
-              onCancel={onBack}
-              onDelete={onDelete}
-            />
-          </Container>
+          <IonPage>
+            <IonContent>
+              {/* <IonCardContent>
+                <Backlink onClick={onBack}>
+                  {intl.formatMessage(sectionNames.customers)}
+                </Backlink>
+                <PageHeader title={getUserName(customer, true)} />
+              </IonCardContent> */}
+              <Grid>
+                <div>
+                  <CustomerDetails
+                    customer={customer}
+                    data={data}
+                    disabled={disabled}
+                    errors={errors}
+                    onChange={change}
+                  />
+                  <CardSpacer />
+                  <CustomerInfo
+                    data={data}
+                    disabled={disabled}
+                    errors={errors}
+                    onChange={change}
+                  />
+                  <CardSpacer />
+                  <CustomerOrders
+                    orders={mapEdgesToItems(customer?.orders)}
+                    onViewAllOrdersClick={onViewAllOrdersClick}
+                    onRowClick={onRowClick}
+                  />
+                  <CardSpacer />
+                  <Metadata data={data} onChange={changeMetadata} />
+                </div>
+                <div>
+                  <CustomerAddresses
+                    customer={customer}
+                    disabled={disabled}
+                    onAddressManageClick={onAddressManageClick}
+                  />
+                  <CardSpacer />
+                  <CustomerStats customer={customer} />
+                  <div style={{ height: "100px" }} />
+                </div>
+              </Grid>
+              <Savebar
+                disabled={disabled || !hasChanged}
+                state={saveButtonBar}
+                onSubmit={submit}
+                onCancel={onBack}
+                onDelete={onDelete}
+              />
+            </IonContent>
+          </IonPage>
         );
       }}
     </Form>

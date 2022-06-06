@@ -16,8 +16,10 @@ const useStyles = makeStyles(
       width: "100%"
     },
     date: {
-      color: theme.typography.caption.color,
-      paddingLeft: 24
+      // color: theme.typography.caption.color,
+      paddingLeft: 24,
+      color: 'white',
+      fontSize: 12
     },
     elementsContainer: {
       alignItems: "center",
@@ -31,7 +33,8 @@ const useStyles = makeStyles(
       marginTop: theme.spacing(2)
     },
     titleElement: {
-      marginRight: theme.spacing(0.5)
+      marginRight: theme.spacing(0.5),
+    
     }
   }),
   { name: "TimelineEventHeader" }
@@ -66,6 +69,7 @@ export const TimelineEventHeader: React.FC<TimelineEventHeaderProps> = props => 
                 <Link
                   className={classes.titleElement}
                   onClick={() => navigate(link)}
+                  key={link}
                 >
                   {text}
                 </Link>
@@ -73,14 +77,14 @@ export const TimelineEventHeader: React.FC<TimelineEventHeaderProps> = props => 
             }
 
             return (
-              <Typography className={classes.titleElement}>{text}</Typography>
+              <Typography key={text} className={classes.titleElement}>{text}</Typography>
             );
           })}
         </div>
       )}
-      <Typography className={classes.date}>
+      <div className={classes.date}>
         <DateTime date={date} />
-      </Typography>
+      </div>
       {secondaryTitle && (
         <Typography className={classes.secondaryTitle}>
           {secondaryTitle}

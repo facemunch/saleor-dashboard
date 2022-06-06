@@ -21,7 +21,7 @@ import reduceProductVariantCreateFormData, {
   ProductVariantCreateReducerActionType
 } from "./reducer";
 import { ProductVariantCreatorStep } from "./types";
-
+import { IonContent, IonPage } from "@ionic/react";
 const useStyles = makeStyles(
   theme => ({
     button: {
@@ -193,67 +193,73 @@ const ProductVariantCreatePage: React.FC<ProductVariantCreatePageProps> = props 
     : null;
 
   return (
-    <Container>
-      <ProductVariantCreateTabs step={step} onStepClick={setStep} />
-      <PageHeader
-        title={
-          <>
-            {getTitle(step, intl)}
-            <Typography className={classes.description} variant="body2">
-              {getDescription(step, intl)}
-            </Typography>
-          </>
-        }
-      >
-        {step !== ProductVariantCreatorStep.values && (
-          <Button className={classes.button} color="primary" onClick={prevStep}>
-            <FormattedMessage
-              defaultMessage="Previous"
-              description="previous step, button"
-            />
-          </Button>
-        )}
-        {step !== ProductVariantCreatorStep.summary ? (
-          <Button
-            data-test-id="next-step"
-            className={classes.button}
-            color="primary"
-            disabled={!canHitNext(step, wizardData, variantsLeft)}
-            variant="contained"
-            onClick={nextStep}
-          >
-            <FormattedMessage defaultMessage="Next" description="button" />
-          </Button>
-        ) : (
-          <Button
-            className={classes.button}
-            color="primary"
-            disabled={!canHitNext(step, wizardData, variantsLeft)}
-            variant="contained"
-            onClick={() => onSubmit(wizardData.variants)}
-          >
-            <FormattedMessage
-              defaultMessage="Create"
-              description="create multiple variants, button"
-            />
-          </Button>
-        )}
-      </PageHeader>
-      <Hr className={classes.hr} />
-      <div className={classes.content}>
-        <ProductVariantCreatorContent
-          {...contentProps}
-          attributes={attributes}
-          channelListings={channelListings}
-          data={wizardData}
-          dispatchFormDataAction={dispatchFormDataAction}
-          errors={errors}
-          variantsLeft={variantsLeft}
-          step={step}
-          warehouses={warehouses}
-        />
-      </div>
-    </Container>
+    <IonPage>
+      <IonContent>
+        <ProductVariantCreateTabs step={step} onStepClick={setStep} />
+        <PageHeader
+          title={
+            <>
+              {getTitle(step, intl)}
+              <Typography className={classes.description} variant="body2">
+                {getDescription(step, intl)}
+              </Typography>
+            </>
+          }
+        >
+          {step !== ProductVariantCreatorStep.values && (
+            <Button
+              className={classes.button}
+              color="primary"
+              onClick={prevStep}
+            >
+              <FormattedMessage
+                defaultMessage="Previous"
+                description="previous step, button"
+              />
+            </Button>
+          )}
+          {step !== ProductVariantCreatorStep.summary ? (
+            <Button
+              data-test-id="next-step"
+              className={classes.button}
+              color="primary"
+              disabled={!canHitNext(step, wizardData, variantsLeft)}
+              variant="contained"
+              onClick={nextStep}
+            >
+              <FormattedMessage defaultMessage="Next" description="button" />
+            </Button>
+          ) : (
+            <Button
+              className={classes.button}
+              color="primary"
+              disabled={!canHitNext(step, wizardData, variantsLeft)}
+              variant="contained"
+              onClick={() => onSubmit(wizardData.variants)}
+            >
+              <FormattedMessage
+                defaultMessage="Create"
+                description="create multiple variants, button"
+              />
+            </Button>
+          )}
+        </PageHeader>
+        <Hr className={classes.hr} />
+        <div className={classes.content}>
+          <ProductVariantCreatorContent
+            {...contentProps}
+            attributes={attributes}
+            channelListings={channelListings}
+            data={wizardData}
+            dispatchFormDataAction={dispatchFormDataAction}
+            errors={errors}
+            variantsLeft={variantsLeft}
+            step={step}
+            warehouses={warehouses}
+          />
+        </div>
+      </IonContent>
+    </IonPage>
   );
 };
 

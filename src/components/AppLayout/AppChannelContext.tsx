@@ -6,7 +6,7 @@ import useLocalStorage from "@saleor/hooks/useLocalStorage";
 import { getById } from "@saleor/orders/components/OrderReturnPage/utils";
 import React from "react";
 
-interface UseAppChannel {
+interface channelUseAppChannel {
   availableChannels: ChannelFragment[];
   channel: ChannelFragment;
   isPickerActive: boolean;
@@ -39,7 +39,10 @@ const isValidChannel = (
 
 export const AppChannelProvider: React.FC = ({ children }) => {
   const { isAuthenticated } = useAuth();
-  const [selectedChannel, setSelectedChannel] = useLocalStorage("channel", "");
+  const [
+    selectedChannel = "Q2hhbm5lbDox",
+    setSelectedChannel
+  ] = useLocalStorage("channel", "");
   const { data: channelData, refetch } = useBaseChannelsList({
     skip: !isAuthenticated
   });
@@ -51,6 +54,8 @@ export const AppChannelProvider: React.FC = ({ children }) => {
       channelData?.channels?.length > 0
     ) {
       setSelectedChannel(channelData.channels[0].id);
+    } else {
+      // refetch();
     }
   }, [channelData]);
 
@@ -58,7 +63,13 @@ export const AppChannelProvider: React.FC = ({ children }) => {
 
   const channel =
     channelData && (availableChannels.find(getById(selectedChannel)) || null);
-
+  // console.log("channelchannel", {
+  //   channel,
+  //   selectedChannel,
+  //   channelData
+  //   // availableChannels,
+  //   // isAuthenticated
+  // });
   return (
     <AppChannelContext.Provider
       value={{

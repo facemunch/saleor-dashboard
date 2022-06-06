@@ -18,6 +18,8 @@ import classNames from "classnames";
 import React from "react";
 import { defineMessages, FormattedMessage, useIntl } from "react-intl";
 
+import { IonCard } from "@ionic/react";
+
 import AttributeRow from "./AttributeRow";
 import { AttributeRowHandlers, VariantAttributeScope } from "./types";
 
@@ -128,7 +130,7 @@ const Attributes: React.FC<AttributesProps> = ({
   const toggleExpansion = () => setExpansionStatus(!expanded);
 
   return (
-    <Card className={classes.card}>
+    <IonCard className={classes.card}>
       <CardTitle title={title || intl.formatMessage(messages.header)} />
       <CardContent className={classes.cardContent}>
         <div className={classes.expansionBar}>
@@ -179,7 +181,7 @@ const Attributes: React.FC<AttributesProps> = ({
           </>
         )}
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 Attributes.displayName = "Attributes";

@@ -7,6 +7,7 @@ import { getFormErrors } from "@saleor/utils/errors";
 import getAccountErrorMessage from "@saleor/utils/errors/account";
 import React from "react";
 import { useIntl } from "react-intl";
+import { IonCard, IonCardContent } from "@ionic/react";
 
 import { CustomerCreatePageFormData } from "../CustomerCreatePage";
 
@@ -41,14 +42,14 @@ const CustomerCreateDetails: React.FC<CustomerCreateDetailsProps> = props => {
   );
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Customer Overview",
           description: "header"
         })}
       />
-      <CardContent>
+      <IonCardContent>
         <div className={classes.root}>
           <TextField
             disabled={disabled}
@@ -90,8 +91,8 @@ const CustomerCreateDetails: React.FC<CustomerCreateDetailsProps> = props => {
             onChange={onChange}
           />
         </div>
-      </CardContent>
-    </Card>
+      </IonCardContent>
+    </IonCard>
   );
 };
 
