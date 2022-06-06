@@ -158,27 +158,7 @@ const Component = () => {
           path={"/products/" + productImagePath(":productId", ":imageId", "")}
           render={() => <ProductImage />}
         />
-
-        {/* <Route path="add" element={<ProductCreate />} />
-        <Route
-          path={productVariantCreatorPath(":id", "")}
-          element={<ProductVariantCreator />}
-        />
-        <Route
-          path={productVariantAddPath(":id", "")}
-          element={<ProductVariantCreate />}
-        />
-        <Route
-          path={productVariantEditPath(":productId", ":variantId", "")}
-          element={<ProductVariant />}
-        />
-        <Route
-          path={productImagePath(":productId", ":imageId", "")}
-          element={<ProductImage />}
-        />
-        <Route path={productPath(":id", "")} element={<ProductUpdate />} /> */}
       </Switch>
-      {/* </> */}
     </>
   );
 };

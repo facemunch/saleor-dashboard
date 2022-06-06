@@ -6,6 +6,7 @@ import { FilterPageProps, PageListProps, SortPage } from "@saleor/types";
 import { isLimitReached } from "@saleor/utils/limits";
 import React from "react";
 import { useIntl } from "react-intl";
+import useNavigator from "@saleor/hooks/useNavigator";
 
 import { IonContent, IonCard, IonFab, IonButton, IonIcon } from "@ionic/react";
 
@@ -71,6 +72,7 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
   const classes = useStyles({});
   const filterStructure = createFilterStructure(intl, filterOpts);
   const limitsReached = isLimitReached(limits, "orders");
+  const navigate = useNavigator();
 
   return (
     <IonContent>
@@ -85,12 +87,12 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
       >
         <IonButton
           onClick={() => {
-            onAdd();
+            navigate("/products/add");
           }}
           shape="round"
         >
           <IonIcon slot="start" icon={add} />
-          New Order
+          New Product
         </IonButton>
       </IonFab>
 

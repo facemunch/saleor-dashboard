@@ -63,13 +63,13 @@ export const AppChannelProvider: React.FC = ({ children }) => {
 
   const channel =
     channelData && (availableChannels.find(getById(selectedChannel)) || null);
-  console.log("channelchannel", {
-    channel,
-    selectedChannel,
-    channelData
-    // availableChannels,
-    // isAuthenticated
-  });
+  // console.log("channelchannel", {
+  //   channel,
+  //   selectedChannel,
+  //   channelData
+  //   // availableChannels,
+  //   // isAuthenticated
+  // });
   return (
     <AppChannelContext.Provider
       value={{

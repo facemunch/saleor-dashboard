@@ -25,10 +25,7 @@ import {
   IonIcon,
   IonButton,
   IonButtons,
-  IonSegment,
-  IonSegmentButton,
-  IonLabel,
-  IonTitle,
+  IonTitle
 } from "@ionic/react";
 import createMenuStructure from "./menuStructure";
 
@@ -195,7 +192,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   };
   return (
     <>
-     
       <IonPage>
         {(location.pathname.split("/").length - 1 < 2 ||
           location.pathname.includes("configuration") ||
@@ -203,14 +199,12 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           location.pathname === "/orders" ||
           location.pathname === "/products/" ||
           location.pathname === "/customers/" ||
-          location.pathname === "/orders/drafts" ||
           location.pathname.includes("shipping") ||
           location.pathname.includes("warehouses") ||
           location.pathname.includes("product-types") ||
           location.pathname === "/") && (
           <IonHeader translucent collapse="condense">
             <IonToolbar>
-          
               {(location.pathname.includes("configuration") ||
                 location.pathname.includes("attributes") ||
                 location.pathname.includes("warehouses") ||
@@ -248,10 +242,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                     >
                       <IonIcon slot="icon-only" icon={settingsOutline} />
                     </IonButton>
-
                   </IonButtons>
                 )}
-          
+
               {!location.pathname.includes("shipping") &&
                 !location.pathname.includes("configuration") &&
                 !location.pathname.includes("site-settings") && (
@@ -280,32 +273,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           location.pathname === "/" ||
           location.pathname.includes("/orders") ||
           location.pathname.includes("/customers") ||
-          
           location.pathname.includes("/home")) && (
           <SidebarDrawer menuItems={menuStructure} onMenuItemClick={navigate} />
         )}
-        {(location.pathname === "/orders" ||
-          location.pathname === "/orders/drafts") && (
-          <div
-            style={{ margin: "24px", marginBottom: "12px", marginTop: "12px" }}
-          >
-            <IonSegment value={location.pathname}>
-              <IonSegmentButton
-                onClick={() => navigate("/orders")}
-                value="/orders"
-              >
-                <IonLabel>Live</IonLabel>
-              </IonSegmentButton>
-              <IonSegmentButton
-                onClick={() => navigate("/orders/drafts")}
-                value="/orders/drafts"
-              >
-                <IonLabel>Drafts</IonLabel>
-              </IonSegmentButton>
-            </IonSegment>
-          </div>
-        )}
-    
+
         {children}
         <Portal container={document.getElementsByTagName("ion-app")[0]}>
           <div

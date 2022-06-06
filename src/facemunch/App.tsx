@@ -5,8 +5,9 @@ import { ApolloClient } from "apollo-client";
 import { ApolloLink } from "apollo-link";
 import { BatchHttpLink } from "apollo-link-batch-http";
 import { createUploadLink } from "apollo-upload-client";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { ApolloProvider } from "react-apollo";
+import useUser from "@saleor/hooks/useUser";
 
 import { Route, useLocation } from "react-router-dom";
 import introspectionQueryResultData from "../../fragmentTypes.json";
@@ -42,79 +43,124 @@ import SiteSettingsSection from "../siteSettings";
 import "swiper/css";
 
 import { BrowserRouter } from "react-router-dom";
-
-const linkOptions = {
-  credentials: "include",
-  uri: localStorage.getItem("ecomAPI")
-};
-const uploadLink = createUploadLink(linkOptions);
-const batchLink = new BatchHttpLink({
-  batchInterval: 100,
-  ...linkOptions
-});
-
-const link = ApolloLink.split(
-  operation => operation.getContext().useBatching,
-  batchLink,
-  uploadLink
-);
-
-const fragmentMatcher = new IntrospectionFragmentMatcher({
-  introspectionQueryResultData
-});
-
-const apolloClient = new ApolloClient({
-  cache: new InMemoryCache({
-    fragmentMatcher,
-    dataIdFromObject: (obj: any) => {
-      if (obj.__typename === "Shop") {
-        return "shop";
-      }
-      return defaultDataIdFromObject(obj);
-    }
-  }),
-  link: authLink.concat(link)
-});
-
+import { PermissionEnum } from "@saleor/types/globalTypes";
 interface IProps {
   onRouteUpdate: (route: string) => void;
+  ecomAccessToken?: string | null;
+  ecomAPI?: string | null;
 }
+const App: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken, ecomAPI }) => {
+  const apolloClient = useMemo(() => {
+    const linkOptions = {
+      credentials: "include",
+      uri: ecomAPI
+    };
+    const uploadLink = createUploadLink(linkOptions);
+    const batchLink = new BatchHttpLink({
+      batchInterval: 100,
+      ...linkOptions
+    });
 
-const App: React.FC<IProps> = ({ onRouteUpdate }) => (
-  <ApolloProvider client={apolloClient}>
-    <BrowserRouter basename={"/c"}>
-      <ThemeProvider>
-        <DateProvider>
-          <LocaleProvider>
-            <MessageManagerProvider>
-              <ServiceWorker />
-              <BackgroundTasksProvider>
-                <AppStateProvider>
-                  <AuthProvider>
-                    <ShopProvider>
-                      <AppChannelProvider>
-                        <ExternalAppProvider>
-                          <RoutesApp onRouteUpdate={onRouteUpdate} />
-                        </ExternalAppProvider>
-                      </AppChannelProvider>
-                    </ShopProvider>
-                  </AuthProvider>
-                </AppStateProvider>
-              </BackgroundTasksProvider>
-            </MessageManagerProvider>
-          </LocaleProvider>
-        </DateProvider>
-      </ThemeProvider>
-    </BrowserRouter>
-  </ApolloProvider>
-);
+    const link = ApolloLink.split(
+      operation => operation.getContext().useBatching,
+      batchLink,
+      uploadLink
+    );
 
-const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
+    const fragmentMatcher = new IntrospectionFragmentMatcher({
+      introspectionQueryResultData
+    });
+
+    return new ApolloClient({
+      cache: new InMemoryCache({
+        fragmentMatcher,
+        dataIdFromObject: (obj: any) => {
+          if (obj.__typename === "Shop") {
+            return "shop";
+          }
+          return defaultDataIdFromObject(obj);
+        }
+      }),
+      link: authLink.concat(link)
+    });
+  }, [ecomAPI]);
+
+  return (
+    <ApolloProvider client={apolloClient}>
+      <BrowserRouter basename={"/c"}>
+        <ThemeProvider>
+          <DateProvider>
+            <LocaleProvider>
+              <MessageManagerProvider>
+                <ServiceWorker />
+                <BackgroundTasksProvider>
+                  <AppStateProvider>
+                    <AuthProvider>
+                      <ShopProvider>
+                        <AppChannelProvider>
+                          <ExternalAppProvider>
+                            <RoutesApp
+                              ecomAccessToken={ecomAccessToken}
+                              onRouteUpdate={onRouteUpdate}
+                            />
+                          </ExternalAppProvider>
+                        </AppChannelProvider>
+                      </ShopProvider>
+                    </AuthProvider>
+                  </AppStateProvider>
+                </BackgroundTasksProvider>
+              </MessageManagerProvider>
+            </LocaleProvider>
+          </DateProvider>
+        </ThemeProvider>
+      </BrowserRouter>
+    </ApolloProvider>
+  );
+};
+
+const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
   const location = useLocation();
-
+  const { loginByToken, user } = useUser();
   useEffect(() => {
     setTimeout(() => onRouteUpdate(window.location.pathname), 0);
   }, [location]);
+  console.log("user", { user, ecomAccessToken });
+
+  useEffect(() => {
+    if (!ecomAccessToken) return;
+    const loginByTokenResult = loginByToken(ecomAccessToken, "", {
+      __typename: "User",
+      id: "",
+      email: "",
+      firstName: "",
+      lastName: "",
+      isStaff: true,
+      userPermissions: [
+        {
+          code: "MANAGE_ORDERS" as PermissionEnum,
+          name: "Manage orders.",
+          __typename: "UserPermission"
+        },
+        {
+          code: "MANAGE_USERS" as PermissionEnum,
+          name: "Manage users.",
+          __typename: "UserPermission"
+        },
+        {
+          code: "MANAGE_PRODUCTS" as PermissionEnum,
+          name: "Manage products.",
+          __typename: "UserPermission"
+        },
+        {
+          code: "MANAGE_SHIPPING" as PermissionEnum,
+          name: "Manage shipping.",
+          __typename: "UserPermission"
+        }
+      ],
+      avatar: undefined
+    });
+    console.log("loginByTokenResult", { loginByTokenResult, ecomAccessToken });
+  }, [ecomAccessToken]);
 
   return (
     <>
@@ -138,7 +184,6 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
           )}
         />
         <Route
-         
           path={"/orders/"}
           render={() => (
             <>
@@ -164,7 +209,6 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
           )}
         />
         <Route
-          
           path={"/shipping"}
           render={() => (
             <SectionRoute>
@@ -173,7 +217,6 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
           )}
         />
         <Route
-          
           path={"/site-settings"}
           render={() => (
             <SectionRoute>
