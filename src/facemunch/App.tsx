@@ -147,7 +147,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate }) => {
           )}
         />
         <Route
-          path={"/customers/"}
+          path={"/customers"}
           render={() => (
             <>
               <CustomerSection />

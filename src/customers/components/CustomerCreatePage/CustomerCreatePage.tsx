@@ -19,7 +19,7 @@ import CustomerCreateAddress from "../CustomerCreateAddress/CustomerCreateAddres
 import CustomerCreateDetails from "../CustomerCreateDetails";
 import CustomerCreateNote from "../CustomerCreateNote/CustomerCreateNote";
 
-import { IonContent } from "@ionic/react";
+import { IonContent, IonPage } from "@ionic/react";
 
 export interface CustomerCreatePageFormData {
   customerFirstName: string;
@@ -139,7 +139,7 @@ const CustomerCreatePage: React.FC<CustomerCreatePageProps> = ({
         );
 
         return (
-          <>
+          <IonPage>
             <IonContent>
               <Backlink onClick={onBack}>
                 <FormattedMessage {...sectionNames.customers} />
@@ -185,7 +185,7 @@ const CustomerCreatePage: React.FC<CustomerCreatePageProps> = ({
                 onCancel={onBack}
               />
             </IonContent>
-          </>
+          </IonPage>
         );
       }}
     </Form>

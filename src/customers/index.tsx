@@ -70,12 +70,10 @@ export const CustomerSection: React.FC<{}> = () => {
           render={() => <CustomerCreateView />}
         />
         <Route
-          exact
           path={"/customers/" + customerAddressesPath(":id", "")}
           render={() => <CustomerAddressesView />}
         />
         <Route
-          exact
           path={"/customers/" + customerPath(":id", "")}
           render={() => <CustomerDetailsView />}
         />
