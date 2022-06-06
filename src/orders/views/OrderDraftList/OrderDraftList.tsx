@@ -275,7 +275,7 @@ export const OrderDraftList: React.FC<OrderDraftListProps> = ({ params }) => {
                 onSubmit={handleTabDelete}
                 tabName={maybe(() => tabs[currentTab - 1].name, "...")}
               />
-              <ChannelPickerDialog
+              {/* <ChannelPickerDialog
                 channelsChoices={mapNodeToChoice(availableChannels)}
                 confirmButtonState="success"
                 defaultChoice={channel?.id}
@@ -288,7 +288,7 @@ export const OrderDraftList: React.FC<OrderDraftListProps> = ({ params }) => {
                     }
                   })
                 }
-              />
+              /> */}
             </>
           );
         }}

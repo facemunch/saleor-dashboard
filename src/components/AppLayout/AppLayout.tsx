@@ -1,4 +1,4 @@
-import { LinearProgress, useMediaQuery, Box } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
 import useAppState from "@saleor/hooks/useAppState";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useUser from "@saleor/hooks/useUser";
@@ -19,30 +19,18 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 import {
-  IonFab,
   IonPage,
-  IonContent,
   IonToolbar,
   IonHeader,
   IonIcon,
   IonButton,
   IonButtons,
-  IonFabButton,
   IonSegment,
   IonSegmentButton,
   IonLabel,
-  IonTitle
+  IonTitle,
 } from "@ionic/react";
-import Container from "../Container";
-import ErrorPage from "../ErrorPage";
-import Navigator from "../Navigator";
-// import NavigatorButton from "../NavigatorButton/NavigatorButton";
-// import UserChip from "../UserChip";
-// import useAppChannel from "./AppChannelContext";
-// import AppChannelSelect from "./AppChannelSelect";
-import { appLoaderHeight } from "./consts";
 import createMenuStructure from "./menuStructure";
-import { isMenuActive } from "./utils";
 
 const useStyles = makeStyles(
   theme => ({
@@ -171,7 +159,6 @@ interface AppLayoutProps {
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const classes = useStyles({});
-  // const { themeType, setTheme } = useTheme();
   const { anchor: appActionAnchor, docked } = useActionBar();
   const { logout, user } = useUser();
   const navigate = useNavigator();
@@ -206,36 +193,16 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       type: "displayError"
     });
   };
-
-  // const toggleTheme = () => setTheme(isDarkTheme(themeType) ? "light" : "dark");
   return (
     <>
-      {/* <Navigator
-        visible={isNavigatorVisible}
-        setVisibility={setNavigatorVisibility}
-      /> */}
-      {/* <div className={classes.root} data-test="ecomm-app-layout"> */}
-      {/* {isMdUp && (
-          <Sidebar
-            active={activeMenu}
-            menuItems={menuStructure}
-            onMenuItemClick={navigate}
-          />
-        )} */}
-
-      {/* {appState.loading ? (
-        <Box sx={{ position: "fixed", top: 0 }}>
-          <LinearProgress className={classes.appLoader} color="primary" />
-        </Box>
-      ) : (
-        <div className={classes.appLoaderPlaceholder} />
-      )} */}
+     
       <IonPage>
-        {/* <div> */}
         {(location.pathname.split("/").length - 1 < 2 ||
           location.pathname.includes("configuration") ||
           location.pathname.includes("attributes") ||
           location.pathname === "/orders" ||
+          location.pathname === "/products/" ||
+          location.pathname === "/customers/" ||
           location.pathname === "/orders/drafts" ||
           location.pathname.includes("shipping") ||
           location.pathname.includes("warehouses") ||
@@ -243,15 +210,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           location.pathname === "/") && (
           <IonHeader translucent collapse="condense">
             <IonToolbar>
-              {/* <div className={classes.header}> */}
-              {/* //hidden for mobile views, might be good for desktop */}
-              {/* <div className={classes.headerAnchor} ref={appHeaderAnchor} /> */}
-              {/* <div className={classes.headerToolbar}> */}
-              {/* {!isMdUp && ( */}
-
-              {/* )} */}
-              {/* <div className={classes.spacer} /> */}
-              {/* <div className={classes.userBar}> */}
+          
               {(location.pathname.includes("configuration") ||
                 location.pathname.includes("attributes") ||
                 location.pathname.includes("warehouses") ||
@@ -290,15 +249,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                       <IonIcon slot="icon-only" icon={settingsOutline} />
                     </IonButton>
 
-                    {/* <NavigatorButton
-                  isMac={navigator.platform.toLowerCase().includes("mac")}
-                  onClick={() => setNavigatorVisibility(true)}
-                /> */}
                   </IonButtons>
                 )}
-              {/* </div> */}
-              {/* </div> */}
-              {/* </div> */}
+          
               {!location.pathname.includes("shipping") &&
                 !location.pathname.includes("configuration") &&
                 !location.pathname.includes("site-settings") && (
@@ -327,6 +280,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           location.pathname === "/" ||
           location.pathname.includes("/orders") ||
           location.pathname.includes("/customers") ||
+          
           location.pathname.includes("/home")) && (
           <SidebarDrawer menuItems={menuStructure} onMenuItemClick={navigate} />
         )}
@@ -351,15 +305,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             </IonSegment>
           </div>
         )}
-        {/* </Container> */}
-        {/* </div> */}
-        {/* <main className={classes.view}> */}
-        {appState.error
-          ? appState.error.type === "unhandled" && (
-              <ErrorPage id={appState.error.id} onBack={handleErrorBack} />
-            )
-          : children}
-        {/* </main> */}
+    
+        {children}
         <Portal container={document.getElementsByTagName("ion-app")[0]}>
           <div
             className={classNames(classes.appAction, {
@@ -369,8 +316,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           />
         </Portal>
       </IonPage>
-
-      {/* </div> */}
     </>
   );
 };

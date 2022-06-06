@@ -9,6 +9,7 @@ const useStyles = makeStyles(
       width: '90%',
       margin: 'auto',
       marginTop: '10px',
+      marginBottom: '8px',
     },
     containerSubMenu: {
       "&$container": {

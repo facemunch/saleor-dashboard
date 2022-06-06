@@ -2,7 +2,7 @@ import { sectionNames } from "@saleor/intl";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Routes, Route, useParams } from "react-router-dom";
+import { Route, useParams, Switch } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
@@ -102,36 +102,41 @@ export const ShippingRouter: React.FC = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.shipping)} />
-      <Routes>
+      <Switch>
+        <Route exact path={"/shipping"} render={() => <ShippingZonesList />} />
         <Route
-          path=""
-          element={<ShippingZonesList />}
+          exact
+          path={"/shipping/" + "add"}
+          render={() => <ShippingZoneCreate />}
         />
         <Route
-          path="add"
-          element={<ShippingZoneCreate />}
+          
+          path={"/shipping/" + shippingZonePath(":id", "")}
+          render={() => <ShippingZoneDetails />}
         />
         <Route
-          path={shippingZonePath(":id", "")}
-          element={<ShippingZoneDetails />}
+          
+          path={"/shipping/" + shippingPriceRatesPath(":id", "")}
+          render={() => <PriceRatesCreate />}
         />
         <Route
-          path={shippingPriceRatesPath(":id", "")}
-          element={<PriceRatesCreate />}
+          
+          path={"/shipping/" + shippingWeightRatesPath(":id", "")}
+          render={() => <WeightRatesCreate />}
         />
         <Route
-          path={shippingWeightRatesPath(":id", "")}
-          element={<WeightRatesCreate />}
+          
+          path={
+            "/shipping/" + shippingWeightRatesEditPath(":id", ":rateId", "")
+          }
+          render={() => <WeightRatesUpdate />}
         />
         <Route
-          path={shippingWeightRatesEditPath(":id", ":rateId", "")}
-          element={<WeightRatesUpdate />}
-        />
-        <Route
-          path={shippingPriceRatesEditPath(":id", ":rateId", "")}
-          element={<PriceRatesUpdate />}
-        />
-      </Routes>
+          
+          path={"/shipping/" + shippingPriceRatesEditPath(":id", ":rateId", "")}
+          render={() => <PriceRatesUpdate />}
+        /> 
+      </Switch>
     </>
   );
 };

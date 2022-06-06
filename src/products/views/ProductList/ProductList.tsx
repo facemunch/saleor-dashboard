@@ -181,6 +181,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
   const selectedChannel = availableChannels.find(
     channel => channel.slug === "usd"
   );
+  console.log("availableChannels", { availableChannels, selectedChannel });
 
   const [openModal, closeModal] = createDialogActionHandlers<
     ProductListUrlDialog,

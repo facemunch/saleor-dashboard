@@ -111,7 +111,7 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
   // const isSmUp = true; // TODO RA MIGRATION useMediaQuery(theme.breakpoints.up("sm"));
 
   const intl = useIntl();
-
+  console.log("menus", menus);
   return (
     <IonPage>
       <IonContent>

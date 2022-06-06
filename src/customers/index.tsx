@@ -3,7 +3,7 @@ import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Route, Routes, useParams } from "react-router-dom";
+import { Route, Switch, useParams } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
 import {
@@ -61,15 +61,24 @@ export const CustomerSection: React.FC<{}> = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.customers)} />
-      <Routes>
-        <Route path="" element={<CustomerListView />} />
-        <Route path="add" element={<CustomerCreateView />} />
+      <Switch>
+        <Route exact path="/customers" render={() => <CustomerListView />} />
         <Route
-          path={customerAddressesPath(":id", "")}
-          element={<CustomerAddressesView />}
+          exact
+          path="/customers/add"
+          render={() => <CustomerCreateView />}
         />
-        <Route path={customerPath(":id", "")} element={<CustomerDetailsView />} />
-      </Routes>
+        <Route
+          exact
+          path={"/customers/" + customerAddressesPath(":id", "")}
+          render={() => <CustomerAddressesView />}
+        />
+        <Route
+          exact
+          path={"/customers/" + customerPath(":id", "")}
+          render={() => <CustomerDetailsView />}
+        />
+      </Switch>
     </>
   );
 };

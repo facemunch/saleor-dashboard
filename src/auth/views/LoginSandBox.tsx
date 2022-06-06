@@ -53,7 +53,7 @@ const LoginView: React.FC<LoginViewProps> = ({
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("auth")
+    const token = localStorage.getItem("auth");
     loginByToken(token, "", {
       __typename: "User",
       id: "",
@@ -63,24 +63,24 @@ const LoginView: React.FC<LoginViewProps> = ({
       isStaff: true,
       userPermissions: [],
       avatar: undefined
-    })
+    });
     // handleSubmit({ email: "alex@facemunch.com", password: "facemunch" });
   }, []);
-
-  return !isError && !isExternalError && channelLoaded ? (
-    children
-  ) : (
-    <Box
-      sx={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center"
-      }}
-    >
-      one sec, just getting your data
-    </Box>
-  );
+  return channelLoaded ? children : children;
+  // return !isError && !isExternalError && channelLoaded ? (
+  //   children
+  // ) : (
+  //   <Box
+  //     sx={{
+  //       height: "100vh",
+  //       display: "flex",
+  //       justifyContent: "center",
+  //       alignItems: "center"
+  //     }}
+  //   >
+  //     one sec, just getting your data
+  //   </Box>
+  // );
 };
 LoginView.displayName = "LoginView";
 export default LoginView;

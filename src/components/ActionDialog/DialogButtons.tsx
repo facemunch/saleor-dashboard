@@ -5,6 +5,8 @@ import classNames from "classnames";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { IonButton } from "@ionic/react";
+
 import ConfirmButton, { ConfirmButtonTransitionState } from "../ConfirmButton";
 import { ActionDialogVariant } from "./types";
 
@@ -51,9 +53,14 @@ const DialogButtons: React.FC<DialogButtonsProps> = props => {
     <DialogActions>
       {children}
       {showBackButton && (
-        <Button data-test="back" onClick={onClose} color="secondary">
+        <IonButton
+          fill="outline"
+          data-test="back"
+          onClick={onClose}
+          // color="secondary"
+        >
           <FormattedMessage {...buttonMessages.back} />
-        </Button>
+        </IonButton>
       )}
       {variant !== "info" && (
         <ConfirmButton

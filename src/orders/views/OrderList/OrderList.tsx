@@ -201,7 +201,7 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
         onSubmit={handleFilterTabDelete}
         tabName={getStringOrPlaceholder(tabs[currentTab - 1]?.name)}
       />
-      {!noChannel && (
+      {/* {!noChannel && (
         <ChannelPickerDialog
           channelsChoices={mapNodeToChoice(availableChannels)}
           confirmButtonState="success"
@@ -216,7 +216,7 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
             })
           }
         />
-      )}
+      )} */}
     </>
   );
 };

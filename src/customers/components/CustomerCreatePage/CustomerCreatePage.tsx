@@ -1,9 +1,7 @@
 import { CardSpacer } from "@saleor/components/CardSpacer";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
-import Container from "@saleor/components/Container";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
-import PageHeader from "@saleor/components/PageHeader";
 import Savebar from "@saleor/components/Savebar";
 import { AccountErrorFragment } from "@saleor/fragments/types/AccountErrorFragment";
 import useAddressValidation from "@saleor/hooks/useAddressValidation";
@@ -21,7 +19,7 @@ import CustomerCreateAddress from "../CustomerCreateAddress/CustomerCreateAddres
 import CustomerCreateDetails from "../CustomerCreateDetails";
 import CustomerCreateNote from "../CustomerCreateNote/CustomerCreateNote";
 
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent } from "@ionic/react";
 
 export interface CustomerCreatePageFormData {
   customerFirstName: string;
@@ -141,7 +139,7 @@ const CustomerCreatePage: React.FC<CustomerCreatePageProps> = ({
         );
 
         return (
-          <IonPage>
+          <>
             <IonContent>
               <Backlink onClick={onBack}>
                 <FormattedMessage {...sectionNames.customers} />
@@ -187,7 +185,7 @@ const CustomerCreatePage: React.FC<CustomerCreatePageProps> = ({
                 onCancel={onBack}
               />
             </IonContent>
-          </IonPage>
+          </>
         );
       }}
     </Form>

@@ -6,7 +6,7 @@ import { BaseSidebarProps, SidebarMenuItem } from "../Sidebar/types";
 import { SquareButton } from "../SquareButton";
 import { MenuItemBtn } from "./MenuItemBtn";
 import useStyles from "./styles";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { IonSegment } from "@ionic/react";
 
@@ -15,7 +15,8 @@ export type SideBarDrawerProps = BaseSidebarProps;
 export const SidebarDrawer: React.FC<SideBarDrawerProps> = props => {
   const { menuItems, onMenuItemClick } = props;
   let { pathname } = useLocation();
-  const nav = useNavigate();
+  const history = useHistory();
+  const nav = history.push
   const [isOpened, setOpened] = React.useState(pathname === "/ecommerce");
   const classes = useStyles({});
 

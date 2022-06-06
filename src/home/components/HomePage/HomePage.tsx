@@ -92,63 +92,62 @@ const HomePage: React.FC<HomePageProps> = props => {
   const classes = useStyles(props);
 
   return (
-    <IonContent>
-      {/* <div
-      style={{
-        width: "92vw",
-        margin: "4vw",
-        // marginTop: "10vw",
-        overflow: "hidden"
-      }}
-    > */}
-      <CardSpacer />
-      <Grid>
+    <>
+      <IonContent
+      // forceOverscroll
+      // style={{ height: "90vh", overflow: "scroll", margin: "12px" }}
+      >
+        {/* <div style={{ margin: "12px" }}> */}
+        {/* <CardSpacer /> */}
+        {/* <Grid> */}
         <IonCard>
-          <RequirePermissions
+          {/* <RequirePermissions
             userPermissions={userPermissions}
             requiredPermissions={[PermissionEnum.MANAGE_ORDERS]}
-          >
-            <div className={classes.cardContainer}>
-              <HomeAnalyticsCard
-                title={"Sales"}
-                testId="sales-analytics"
-                icon={
-                  <Sales
-                    className={classes.icon}
-                    fontSize={"inherit"}
-                    viewBox="0 0 64 64"
-                  />
-                }
-              >
-                {noChannel ? (
-                  0
-                ) : sales ? (
-                  <Money money={sales} />
-                ) : (
-                  <Skeleton style={{ width: "5em" }} />
-                )}
-              </HomeAnalyticsCard>
-              <HomeAnalyticsCard
-                title={"Orders"}
-                testId="orders-analytics"
-                icon={
-                  <Orders
-                    className={classes.icon}
-                    fontSize={"inherit"}
-                    viewBox="0 0 64 64"
-                  />
-                }
-              >
-                {noChannel ? (
-                  0
-                ) : orders !== undefined ? (
-                  orders
-                ) : (
-                  <Skeleton style={{ width: "5em" }} />
-                )}
-              </HomeAnalyticsCard>
-            </div>
-          </RequirePermissions>
+          > */}
+          <div className={classes.cardContainer}>
+            <HomeAnalyticsCard
+              title={"Sales"}
+              testId="sales-analytics"
+              icon={
+                <Sales
+                  className={classes.icon}
+                  fontSize={"inherit"}
+                  viewBox="0 0 64 64"
+                />
+              }
+            >
+              {noChannel ? (
+                0
+              ) : sales ? (
+                <Money money={sales} />
+              ) : (
+                <Skeleton style={{ width: "5em" }} />
+              )}
+            </HomeAnalyticsCard>
+            <HomeAnalyticsCard
+              title={"Orders"}
+              testId="orders-analytics"
+              icon={
+                <Orders
+                  className={classes.icon}
+                  fontSize={"inherit"}
+                  viewBox="0 0 64 64"
+                />
+              }
+            >
+              {noChannel ? (
+                0
+              ) : orders !== undefined ? (
+                orders
+              ) : (
+                <Skeleton style={{ width: "5em" }} />
+              )}
+            </HomeAnalyticsCard>
+          </div>
+        </IonCard>
+        {/* </RequirePermissions> */}
+        <IonCard>
           <HomeNotificationTable
             onCreateNewChannelClick={onCreateNewChannelClick}
             onOrdersToCaptureClick={onOrdersToCaptureClick}
@@ -160,59 +159,58 @@ const HomePage: React.FC<HomePageProps> = props => {
             userPermissions={userPermissions}
             noChannel={noChannel}
           />
-          <CardSpacer />
+        </IonCard>
+        <CardSpacer />
+        <IonCard>
           {topProducts && (
-            <RequirePermissions
-              userPermissions={userPermissions}
-              requiredPermissions={[
-                PermissionEnum.MANAGE_ORDERS,
-                PermissionEnum.MANAGE_PRODUCTS
-              ]}
-            >
+            <>
               <HomeProductListCard
                 testId="top-products"
                 onRowClick={onProductClick}
                 topProducts={topProducts}
               />
               <CardSpacer />
-            </RequirePermissions>
+            </>
           )}
         </IonCard>
-        {/* {activities && (
-          <div>
-            <RequirePermissions
-              userPermissions={userPermissions}
-              requiredPermissions={[PermissionEnum.MANAGE_ORDERS]}
-            >
-              <HomeActivityCard
-                activities={activities}
-                testId="activity-card"
-              />
-            </RequirePermissions>
-          </div>
-        )} */}
-      </Grid>
-      <IonFab
-        vertical="bottom"
-        horizontal="end"
-        slot="fixed"
-        style={{
-          marginBottom: "50px"
-        }}
-        data-test-id="create-order-button"
-      >
-        <IonButton
-          onClick={() => {
-            navigate("/products/add");
+        <IonCard>
+          {activities && (
+            <div>
+              <>
+                <HomeActivityCard
+                  activities={activities}
+                  testId="activity-card"
+                />
+              </>
+            </div>
+          )}
+         
+        </IonCard>
+        <div style={{ height: "100px" }} />
+        {/* </Grid> */}
+        {/* </div> */}
+        <IonFab
+          vertical="bottom"
+          horizontal="end"
+          slot="fixed"
+          style={{
+            marginBottom: "50px"
           }}
-          shape="round"
+          data-test-id="create-order-button"
         >
-          <IonIcon slot="start" icon={add} />
-          New Product
-        </IonButton>
-      </IonFab>
-      {/* </div> */}
-    </IonContent>
+          <IonButton
+            onClick={() => {
+              navigate("/products/add");
+            }}
+            shape="round"
+          >
+            <IonIcon slot="start" icon={add} />
+            New Product
+          </IonButton>
+        </IonFab>
+        {/* </div> */}
+      </IonContent>
+    </>
   );
 };
 HomePage.displayName = "HomePage";

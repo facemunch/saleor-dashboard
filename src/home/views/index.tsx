@@ -16,13 +16,12 @@ const HomeSection = () => {
   const navigate = useNavigator();
   const { user } = useUser();
   const { channel } = useAppChannel();
-
   const noChannel = !channel && typeof channel !== "undefined";
 
   const { data } = useHomePage({
     displayLoader: true,
     skip: noChannel,
-    variables: { channel: channel?.slug, datePeriod: getDatePeriod(1) }
+    variables: { channel: "usd", datePeriod: getDatePeriod(1) }
   });
 
   return (
