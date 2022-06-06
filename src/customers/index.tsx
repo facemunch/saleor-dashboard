@@ -21,10 +21,11 @@ import CustomerListViewComponent from "./views/CustomerList";
 
 const CustomerListView: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
-  const params: CustomerListUrlQueryParams = asSortParams(
-    qs,
-    CustomerListUrlSortField
-  );
+  const params: CustomerListUrlQueryParams = location.pathname.includes(
+    "/customers"
+  )
+    ? asSortParams(qs, CustomerListUrlSortField)
+    : {};
 
   return <CustomerListViewComponent params={params} />;
 };

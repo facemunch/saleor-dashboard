@@ -31,17 +31,21 @@ import ProductVariantCreatorComponent from "./views/ProductVariantCreator";
 
 const ProductList: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
-  const params: ProductListUrlQueryParams = asSortParams(
-    {
-      ...qs,
-      categories: getArrayQueryParam(qs.categories),
-      collections: getArrayQueryParam(qs.collections),
-      ids: getArrayQueryParam(qs.ids),
-      productTypes: getArrayQueryParam(qs.productTypes),
-      channel: "USD"
-    },
-    ProductListUrlSortField
-  );
+  const params: ProductListUrlQueryParams = location.pathname.includes(
+    "/products"
+  )
+    ? asSortParams(
+        {
+          ...qs,
+          categories: getArrayQueryParam(qs.categories),
+          collections: getArrayQueryParam(qs.collections),
+          ids: getArrayQueryParam(qs.ids),
+          productTypes: getArrayQueryParam(qs.productTypes),
+          channel: "USD"
+        },
+        ProductListUrlSortField
+      )
+    : {};
 
   return <ProductListComponent params={params} />;
 };

@@ -27,12 +27,14 @@ import OrderSettings from "./views/OrderSettings";
 
 const OrderList: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
-  const params: OrderListUrlQueryParams = asSortParams(
-    qs,
-    OrderListUrlSortField,
-    OrderListUrlSortField.number,
-    false
-  );
+  const params: OrderListUrlQueryParams = location.pathname.includes("/orders")
+    ? asSortParams(
+        qs,
+        OrderListUrlSortField,
+        OrderListUrlSortField.number,
+        false
+      )
+    : {};
   return <OrderListComponent params={params} />;
 };
 const OrderDraftList: React.FC = () => {

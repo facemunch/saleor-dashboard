@@ -16,9 +16,7 @@ import { ExternalAppProvider } from "../apps/components/ExternalAppContext";
 import AuthProvider from "../auth/AuthProvider";
 import SectionRoute from "../auth/components/SectionRoute";
 import authLink from "../auth/link";
-
 import AppLayout from "../components/AppLayout";
-// import AuthSandbox from "../auth/views/LoginSandBox";
 import { AppChannelProvider } from "../components/AppLayout/AppChannelContext";
 import { DateProvider } from "../components/Date";
 import { LocaleProvider } from "../components/Locale";
