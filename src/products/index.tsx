@@ -50,7 +50,7 @@ const ProductList: React.FC = () => {
   return <ProductListComponent params={params} />;
 };
 
-const ProductUpdate: React.FC = () => {
+export const ProductUpdate: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ProductUrlQueryParams = qs;
 
@@ -67,7 +67,7 @@ const ProductUpdate: React.FC = () => {
   );
 };
 
-const ProductCreate: React.FC = () => {
+export const ProductCreate: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ProductCreateUrlQueryParams = qs;
 
@@ -134,11 +134,11 @@ const Component = () => {
           path={"/products/" + productVariantCreatorPath(":id", "")}
           render={() => <ProductVariantCreator />}
         />
-        <Route
+        {/* <Route
           exact
           path={"/products/" + productPath(":id", "")}
           render={() => <ProductUpdate />}
-        />
+        /> */}
         <Route
           exact
           path={
@@ -158,6 +158,7 @@ const Component = () => {
           path={"/products/" + productImagePath(":productId", ":imageId", "")}
           render={() => <ProductImage />}
         />
+        <Route path="/" render={() => <ProductList />} />
       </Switch>
     </>
   );

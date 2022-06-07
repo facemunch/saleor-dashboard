@@ -1,14 +1,9 @@
 import CardSpacer from "@saleor/components/CardSpacer";
-import Container from "@saleor/components/Container";
-import Grid from "@saleor/components/Grid";
 import Money from "@saleor/components/Money";
-import RequirePermissions from "@saleor/components/RequirePermissions";
 import Skeleton from "@saleor/components/Skeleton";
 import { makeStyles } from "@saleor/macaw-ui";
 import { UserPermissionProps } from "@saleor/types";
-import { PermissionEnum } from "@saleor/types/globalTypes";
-import React from "react";
-import { add } from "ionicons/icons";
+import React, { memo } from "react";
 import useNavigator from "@saleor/hooks/useNavigator";
 import Orders from "../../../icons/Orders";
 import Sales from "../../../icons/Sales";
@@ -21,14 +16,7 @@ import HomeActivityCard from "../HomeActivityCard";
 import HomeAnalyticsCard from "../HomeAnalyticsCard";
 import HomeNotificationTable from "../HomeNotificationTable/HomeNotificationTable";
 import HomeProductListCard from "../HomeProductListCard";
-import {
-  IonContent,
-  IonPage,
-  IonCard,
-  IonButton,
-  IonFab,
-  IonIcon
-} from "@ionic/react";
+import { IonContent, IonCard } from "@ionic/react";
 const useStyles = makeStyles(
   theme => ({
     cardContainer: {
@@ -100,6 +88,7 @@ const HomePage: React.FC<HomePageProps> = props => {
         {/* <div style={{ margin: "12px" }}> */}
         {/* <CardSpacer /> */}
         {/* <Grid> */}
+        <div style={{ height: "20px" }} />
         <IonCard>
           {/* <RequirePermissions
             userPermissions={userPermissions}
@@ -189,7 +178,7 @@ const HomePage: React.FC<HomePageProps> = props => {
         <div style={{ height: "100px" }} />
         {/* </Grid> */}
         {/* </div> */}
-        <IonFab
+        {/* <IonFab
           vertical="bottom"
           horizontal="end"
           slot="fixed"
@@ -207,11 +196,11 @@ const HomePage: React.FC<HomePageProps> = props => {
             <IonIcon slot="start" icon={add} />
             New Product
           </IonButton>
-        </IonFab>
+        </IonFab> */}
         {/* </div> */}
       </IonContent>
     </>
   );
 };
 HomePage.displayName = "HomePage";
-export default HomePage;
+export default memo(HomePage);

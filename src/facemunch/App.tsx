@@ -5,17 +5,42 @@ import { ApolloClient } from "apollo-client";
 import { ApolloLink } from "apollo-link";
 import { BatchHttpLink } from "apollo-link-batch-http";
 import { createUploadLink } from "apollo-upload-client";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { ApolloProvider } from "react-apollo";
 import useUser from "@saleor/hooks/useUser";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, History } from "swiper";
+import { Route, useLocation, Switch } from "react-router-dom";
+import { IonicSlides } from "@ionic/react";
+import { productPath } from "../products/urls";
 
-import { Route, useLocation } from "react-router-dom";
+import { ProductUpdate, ProductCreate } from "../products";
+
+import { CustomerDetailsView, CustomerAddressesView } from "../customers";
+
+import { customerAddressesPath, customerPath } from "../customers/urls";
+
+import {
+  // OrderSettings,
+  OrderFulfill,
+  OrderReturn,
+  OrderDetails
+} from "../orders";
+import { orderFulfillPath, orderReturnPath, orderPath } from "../orders/urls";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/free-mode";
+
+import "@ionic/react/css/ionic-swiper.css";
+
 import introspectionQueryResultData from "../../fragmentTypes.json";
 
 import { ExternalAppProvider } from "../apps/components/ExternalAppContext";
 
 import AuthProvider from "../auth/AuthProvider";
-import SectionRoute from "../auth/components/SectionRoute";
 import authLink from "../auth/link";
 import AppLayout from "../components/AppLayout";
 import { AppChannelProvider } from "../components/AppLayout/AppChannelContext";
@@ -24,23 +49,16 @@ import { LocaleProvider } from "../components/Locale";
 import MessageManagerProvider from "../components/messages";
 import { ShopProvider } from "../components/Shop";
 
-import ConfigurationSection from "../configuration";
-
 import AppStateProvider from "../containers/AppState";
 import BackgroundTasksProvider from "../containers/BackgroundTasks";
 import ServiceWorker from "../containers/ServiceWorker/ServiceWorker";
 import { CustomerSection } from "../customers";
 
 import HomePage from "../home";
-
 import OrdersSection from "../orders";
-
-import ProductSection from "../products";
-
+import ConfigurationSection from "../configuration";
 import ShippingSection from "../shipping";
-import SiteSettingsSection from "../siteSettings";
-
-import "swiper/css";
+import ProductSection from "../products";
 
 import { BrowserRouter } from "react-router-dom";
 import { PermissionEnum } from "@saleor/types/globalTypes";
@@ -87,7 +105,7 @@ const App: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken, ecomAPI }) => {
 
   return (
     <ApolloProvider client={apolloClient}>
-      <BrowserRouter basename={"/c"}>
+      <BrowserRouter basename={"/c/"}>
         <ThemeProvider>
           <DateProvider>
             <LocaleProvider>
@@ -118,16 +136,31 @@ const App: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken, ecomAPI }) => {
   );
 };
 
+const menu = {
+  0: "Home",
+  1: "Products",
+  2: "Orders",
+  3: "Customers"
+};
+
 const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
-  const location = useLocation();
   const { loginByToken, user } = useUser();
-  useEffect(() => {
-    setTimeout(() => onRouteUpdate(window.location.pathname), 0);
-  }, [location]);
+  // const swiperRef = useRef();
+
+  const { pathname } = useLocation();
+
+  const onSlideChange = e => {
+    // onRouteUpdate(window.location.pathname);
+    // // console.log("onSlideChange", { window, e });
+    e.activeIndex === 0 && onRouteUpdate("/c/home");
+    e.activeIndex === 1 && onRouteUpdate("/c/products");
+    e.activeIndex === 2 && onRouteUpdate("/c/orders");
+    e.activeIndex === 3 && onRouteUpdate("/c/customers");
+  };
 
   useEffect(() => {
     if (!ecomAccessToken) return;
-    const loginByTokenResult = loginByToken(ecomAccessToken, "", {
+    loginByToken(ecomAccessToken, "", {
       __typename: "User",
       id: "",
       email: "",
@@ -160,28 +193,148 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
     });
   }, [ecomAccessToken]);
 
+  const isScrollable =
+    pathname.includes("/products/") ||
+    pathname.includes("/orders/") ||
+    pathname.includes("/customers/");
   return (
     <>
       <AppLayout>
-        <Route
+        <>
+          <Route
+            render={({ location }) =>
+              ["/home", "/products", "/orders", "/customers"].includes(
+                location.pathname
+              ) ? (
+                <Swiper
+                  cssMode={"freeMode"}
+                  freeMode={{
+                    enabled: true
+                    // sticky: true
+                  }}
+                  onSlideChangeTransitionEnd={onSlideChange}
+                  // // onInit={e => {
+                  // //   swiperRef.current = e;
+                  // // }}
+                  style={{
+                    height: "100vh",
+                    width: "100vw"
+                  }}
+                  spaceBetween={0}
+                  slidesPerView={1}
+                  history={{
+                    enabled: true,
+                    root: "/",
+                    // replaceState: true,
+                    key: "c"
+                  }}
+                  pagination={
+                    !isScrollable
+                      ? {
+                          enabled: true,
+                          clickable: true,
+                          renderBullet: function(index, className) {
+                            return (
+                              "<ion-segment-button class='ios in-segment segment-button-has-label segment-button-has-label-only segment-button-checked segment-button-layout-icon-top ion-activatable ion-activatable-instant ion-focusable SideBarDrawer-menuItemBtn-150 " +
+                              className +
+                              "'>" +
+                              menu[index] +
+                              "</ion-segment-button>"
+                            );
+                          }
+                          // el: function() {
+                          //   return "<ion-segment></ion-segment>";
+                          // }
+                        }
+                      : { enabled: true }
+                  }
+                  modules={[Pagination, Navigation, History, IonicSlides]}
+                  className="mySwiper"
+                >
+                  <SwiperSlide data-history="home">
+                    <HomePage />
+                  </SwiperSlide>
+                  <SwiperSlide data-history="products">
+                    <ProductSection />
+                  </SwiperSlide>
+                  <SwiperSlide data-history="orders">
+                    <OrdersSection />
+                  </SwiperSlide>
+                  <SwiperSlide data-history="customers">
+                    <CustomerSection />
+                  </SwiperSlide>
+                </Swiper>
+              ) : null
+            }
+          />
+          <Switch>
+            <Route
+              exact
+              path={"/products/add"}
+              render={() => <ProductCreate />}
+            />
+            <Route
+              exact
+              path={"/products/" + productPath(":id", "")}
+              render={() => <ProductUpdate />}
+            />
+          </Switch>
+          <Switch>
+            <Route
+              exact
+              path={"/orders/" + orderFulfillPath(":id", "")}
+              render={() => <OrderFulfill />}
+            />
+            <Route
+              exact
+              path={"/orders/" + orderReturnPath(":id", "")}
+              render={() => <OrderReturn />}
+            />
+
+            <Route
+              exact
+              path={"/orders/" + orderPath(":id", "")}
+              render={() => <OrderDetails />}
+            />
+          </Switch>
+          <Switch>
+            <Route
+              exact
+              path={"/customers/" + customerAddressesPath(":id", "")}
+              render={() => <CustomerAddressesView />}
+            />
+            <Route
+              exact
+              path={"/customers/" + customerPath(":id", "")}
+              render={() => <CustomerDetailsView />}
+            />
+          </Switch>
+
+          {/* <Route
+          exact
+          path={"/orders/" + productPath(":id", "")}
+          render={() => <ProductUpdate />}
+        /> */}
+
+          {/* <Route
           exact
           path={"/home"}
           render={() => (
             <SectionRoute>
-              <HomePage />
+             
             </SectionRoute>
           )}
-        />
+        /> */}
 
-        <Route
+          {/* <Route
           path={"/products/"}
           render={() => (
             <>
               <ProductSection />
             </>
           )}
-        />
-        <Route
+        /> */}
+          {/* <Route
           path={"/orders/"}
           render={() => (
             <>
@@ -196,32 +349,24 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
               <CustomerSection />
             </>
           )}
-        />
-        <Route
-          exact
-          path={"/configuration"}
-          render={() => (
-            <>
-              <ConfigurationSection />
-            </>
-          )}
-        />
-        <Route
-          path={"/shipping"}
-          render={() => (
-            <SectionRoute>
-              <ShippingSection />
-            </SectionRoute>
-          )}
-        />
-        <Route
+        /> */}
+          <Route
+            exact
+            path={"/configuration"}
+            render={() => (
+              <>
+                <ConfigurationSection />
+              </>
+            )}
+          />
+          <Route path={"/shipping"} render={() => <ShippingSection />} />
+          {/* <Route
           path={"/site-settings"}
           render={() => (
-            <SectionRoute>
               <SiteSettingsSection />
-            </SectionRoute>
           )}
-        />
+        /> */}
+        </>
       </AppLayout>
     </>
   );

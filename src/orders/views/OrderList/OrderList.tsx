@@ -20,7 +20,7 @@ import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
 import createSortHandler from "@saleor/utils/handlers/sortHandler";
 import { mapEdgesToItems, mapNodeToChoice } from "@saleor/utils/maps";
 import { getSortParams } from "@saleor/utils/sort";
-import React from "react";
+import React, { memo } from "react";
 import { useIntl } from "react-intl";
 
 import OrderListPage from "../../components/OrderListPage/OrderListPage";
@@ -221,4 +221,4 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
   );
 };
 
-export default OrderList;
+export default memo(OrderList);

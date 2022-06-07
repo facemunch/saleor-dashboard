@@ -47,7 +47,7 @@ import {
   AppExtensionViewEnum,
   PermissionEnum
 } from "@saleor/types/globalTypes";
-import React from "react";
+import React, { memo } from "react";
 import { useIntl } from "react-intl";
 import { IonPage, IonContent } from "@ionic/react";
 import ChannelsWithVariantsAvailabilityCard from "../../../channels/ChannelsWithVariantsAvailabilityCard/ChannelsWithVariantsAvailabilityCard";
@@ -560,4 +560,4 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   );
 };
 ProductUpdatePage.displayName = "ProductUpdatePage";
-export default ProductUpdatePage;
+export default memo(ProductUpdatePage);

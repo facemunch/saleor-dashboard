@@ -176,7 +176,9 @@ const FilterBar: React.FC<FilterBarProps> = props => {
               <IonItem
                 key={opt.path}
                 onClick={() => {
-                  navigate(opt.path);
+                  navigate(
+                    window.location.pathname.replace("/c", "") + opt.path
+                  );
                   setShowModal(false);
                 }}
                 className="default-panel-bg"

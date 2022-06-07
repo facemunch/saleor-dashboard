@@ -157,22 +157,28 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     params
   });
 
-  // useEffect(() => {
-  //   const sortWithQuery = ProductListUrlSortField.rank;
-  //   const sortWithoutQuery =
-  //     params.sort === ProductListUrlSortField.rank
-  //       ? DEFAULT_SORT_KEY
-  //       : params.sort;
-  //   navigate(
-  //     productListUrl({
-  //       ...params,
-  //       asc: params.query ? undefined : params.asc,
-  //       sort: params.query ? sortWithQuery : sortWithoutQuery
-  //     })
-  //   );
-  // }, [params.query]);
+  useEffect(() => {
+    const sortWithQuery = ProductListUrlSortField.rank;
+    const sortWithoutQuery =
+      params.sort === ProductListUrlSortField.rank
+        ? DEFAULT_SORT_KEY
+        : params.sort;
+    console.log("sortWithoutQuery", { sortWithoutQuery, sortWithQuery });
+    if (!sortWithoutQuery) {
+      return;
+    }
+    navigate(
+      productListUrl({
+        ...params,
+        asc: params.query ? undefined : params.asc,
+        sort: params.query ? sortWithQuery : sortWithoutQuery
+      })
+    );
+  }, [params.query]);
 
   // useEffect(() => {
+  //   console.log("params", params);
+
   //   if (!canBeSorted(params.sort, !!selectedChannel)) {
   //     navigate(
   //       productListUrl({

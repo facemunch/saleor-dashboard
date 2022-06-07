@@ -14,7 +14,7 @@ import {
   SortPage
 } from "@saleor/types";
 import { isLimitReached } from "@saleor/utils/limits";
-import React from "react";
+import React, { memo } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { ProductListUrlSortField } from "../../urls";
@@ -25,8 +25,7 @@ import {
   ProductListFilterOpts
 } from "./filters";
 
-import { IonFab, IonContent, IonIcon, IonButton, IonCard } from "@ionic/react";
-import { add } from "ionicons/icons";
+import { IonContent, IonCard } from "@ionic/react";
 
 const options = [
   { label: "Product name A-Z", path: "?asc=true&sort=name" },
@@ -92,7 +91,7 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
   return (
     <>
       <IonContent>
-        <IonFab
+        {/* <IonFab
           vertical="bottom"
           horizontal="end"
           slot="fixed"
@@ -110,8 +109,9 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
             <IonIcon slot="start" icon={add} />
             New Product
           </IonButton>
-        </IonFab>
+        </IonFab> */}
         {/* </PageHeader> */}
+        <div style={{ height: "20px" }} />
         {limitReached && (
           <LimitReachedAlert
             title={intl.formatMessage({

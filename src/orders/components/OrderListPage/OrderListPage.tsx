@@ -4,13 +4,11 @@ import { makeStyles } from "@saleor/macaw-ui";
 import { OrderListUrlSortField } from "@saleor/orders/urls";
 import { FilterPageProps, PageListProps, SortPage } from "@saleor/types";
 import { isLimitReached } from "@saleor/utils/limits";
-import React from "react";
+import React, { memo } from "react";
 import { useIntl } from "react-intl";
 import useNavigator from "@saleor/hooks/useNavigator";
 
-import { IonContent, IonCard, IonFab, IonButton, IonIcon } from "@ionic/react";
-
-import { add } from "ionicons/icons";
+import { IonContent, IonCard } from "@ionic/react";
 
 import { OrderList_orders_edges_node } from "../../types/OrderList";
 import OrderLimitReached from "../OrderLimitReached";
@@ -76,7 +74,7 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
 
   return (
     <IonContent>
-      <IonFab
+      {/* <IonFab
         vertical="bottom"
         horizontal="end"
         slot="fixed"
@@ -94,7 +92,7 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
           <IonIcon slot="start" icon={add} />
           New Product
         </IonButton>
-      </IonFab>
+      </IonFab> */}
 
       {/* {!!onSettingsOpen && (
         <CardMenu
@@ -112,6 +110,7 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
       )} */}
 
       {limitsReached && <OrderLimitReached />}
+      <div style={{ height: "20px" }} />
       <IonCard>
         {/* <IonSegment
           value={"live"}
@@ -155,4 +154,4 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
   );
 };
 OrderListPage.displayName = "OrderListPage";
-export default OrderListPage;
+export default memo(OrderListPage);

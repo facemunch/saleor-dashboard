@@ -1,11 +1,10 @@
-import { sectionNames } from "@saleor/intl";
 import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React from "react";
 import { useIntl } from "react-intl";
 import { Route, Switch, useParams } from "react-router-dom";
 
-import { WindowTitle } from "../components/WindowTitle";
+// import { WindowTitle } from "..components/WindowTitle";
 import {
   OrderDraftListUrlQueryParams,
   OrderDraftListUrlSortField,
@@ -25,7 +24,7 @@ import OrderRefundComponent from "./views/OrderRefund";
 import OrderReturnComponent from "./views/OrderReturn";
 import OrderSettings from "./views/OrderSettings";
 
-const OrderList: React.FC = () => {
+export const OrderList: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: OrderListUrlQueryParams = location.pathname.includes("/orders")
     ? asSortParams(
@@ -37,7 +36,7 @@ const OrderList: React.FC = () => {
     : {};
   return <OrderListComponent params={params} />;
 };
-const OrderDraftList: React.FC = () => {
+export const OrderDraftList: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: OrderDraftListUrlQueryParams = asSortParams(
     qs,
@@ -49,7 +48,7 @@ const OrderDraftList: React.FC = () => {
   return <OrderDraftListComponent params={params} />;
 };
 
-const OrderDetails: React.FC = () => {
+export const OrderDetails: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: OrderUrlQueryParams = qs;
   const id = useParams().id;
@@ -57,15 +56,15 @@ const OrderDetails: React.FC = () => {
   return <OrderDetailsComponent id={decodeURIComponent(id)} params={params} />;
 };
 
-const OrderFulfill: React.FC = () => (
+export  const OrderFulfill: React.FC = () => (
   <OrderFulfillComponent orderId={decodeURIComponent(useParams().id)} />
 );
 
-const OrderRefund: React.FC = () => (
+export const OrderRefund: React.FC = () => (
   <OrderRefundComponent orderId={decodeURIComponent(useParams().id)} />
 );
 
-const OrderReturn: React.FC = () => (
+export const OrderReturn: React.FC = () => (
   <OrderReturnComponent orderId={decodeURIComponent(useParams().id)} />
 );
 
@@ -74,7 +73,7 @@ const Component = () => {
 
   return (
     <>
-      <WindowTitle title={intl.formatMessage(sectionNames.orders)} />
+      {/* <WindowTitle title={intl.formatMessage(sectionNames.orders)} /> */}
       <Switch>
         <Route exact path="/orders" render={() => <OrderList />} />
         <Route
@@ -107,6 +106,7 @@ const Component = () => {
           path={"/orders/" + orderPath(":id", "")}
           render={() => <OrderDetails />}
         />
+         <Route path="/" render={() => <OrderList />} />
       </Switch>
     </>
   );
