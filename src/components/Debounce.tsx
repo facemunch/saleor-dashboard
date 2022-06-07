@@ -14,7 +14,7 @@ export class Debounce<T> extends React.Component<DebounceProps<T>> {
     if (this.timer) {
       clearTimeout(this.timer);
     }
-    this.timer = setTimeout(() => debounceFn(...args), time || 200);
+    this.timer = setTimeout(() => debounceFn(...args), time || 1000);
   };
 
   componentWillUnmount() {
