@@ -57,8 +57,9 @@ const HomeActivityCard: React.FC<HomeActivityCardProps> = props => {
             <ListItem key={activityId}>
               {activity ? (
                 <ListItemText
+                  
                   primary={
-                    <Typography>
+                    <Typography style={{fontSize: "1em"}}>
                       {getActivityMessage(activity, intl)}
                     </Typography>
                   }

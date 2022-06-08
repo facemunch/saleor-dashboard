@@ -5,7 +5,7 @@ import { ApolloClient } from "apollo-client";
 import { ApolloLink } from "apollo-link";
 import { BatchHttpLink } from "apollo-link-batch-http";
 import { createUploadLink } from "apollo-upload-client";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { ApolloProvider } from "react-apollo";
 import useUser from "@saleor/hooks/useUser";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -147,7 +147,9 @@ const menu = {
 const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
   const { loginByToken } = useUser();
 
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
+
+  const swiperRef = useRef();
 
   const getActiveIndex = useMemo(() => {
     if (pathname.includes("home")) {
@@ -161,11 +163,26 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
     }
   }, [pathname]);
 
+  useEffect(() => {
+    console.log("pathname, RoutesApp", { pathname, swiperRef, search });
+    if (!swiperRef.current) return;
+
+    if (pathname.includes("home")) {
+      swiperRef.current.slideTo(0);
+    } else if (pathname.includes("products")) {
+      swiperRef.current.slideTo(1);
+    } else if (pathname.includes("orders")) {
+      swiperRef.current.slideTo(2);
+    } else if (pathname.includes("customers")) {
+      swiperRef.current.slideTo(3);
+    }
+  }, [pathname, search]);
+
   const onSlideChange = e => {
     e.activeIndex === 0 && onRouteUpdate("/c/home");
-    e.activeIndex === 1 && onRouteUpdate("/c/products");
-    e.activeIndex === 2 && onRouteUpdate("/c/orders");
-    e.activeIndex === 3 && onRouteUpdate("/c/customers");
+    e.activeIndex === 1 && onRouteUpdate("/c/products" + search);
+    e.activeIndex === 2 && onRouteUpdate("/c/orders" + search);
+    e.activeIndex === 3 && onRouteUpdate("/c/customers" + search);
   };
 
   useEffect(() => {
@@ -222,6 +239,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
                 onSlideChangeTransitionEnd={onSlideChange}
                 onInit={e => {
                   e.updateActiveIndex(getActiveIndex);
+                  swiperRef.current = e;
                 }}
                 spaceBetween={0}
                 slidesPerView={1}

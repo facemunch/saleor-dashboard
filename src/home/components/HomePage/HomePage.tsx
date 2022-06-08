@@ -4,7 +4,6 @@ import Skeleton from "@saleor/components/Skeleton";
 import { makeStyles } from "@saleor/macaw-ui";
 import { UserPermissionProps } from "@saleor/types";
 import React, { memo } from "react";
-import useNavigator from "@saleor/hooks/useNavigator";
 import Orders from "../../../icons/Orders";
 import Sales from "../../../icons/Sales";
 import {
@@ -14,7 +13,6 @@ import {
 } from "../../types/Home";
 import HomeActivityCard from "../HomeActivityCard";
 import HomeAnalyticsCard from "../HomeAnalyticsCard";
-import HomeNotificationTable from "../HomeNotificationTable/HomeNotificationTable";
 import HomeProductListCard from "../HomeProductListCard";
 import { IonContent, IonCard } from "@ionic/react";
 const useStyles = makeStyles(
@@ -59,41 +57,21 @@ export interface HomePageProps extends UserPermissionProps {
 
 const HomePage: React.FC<HomePageProps> = props => {
   const {
-    userName,
     orders,
     sales,
     topProducts,
     onProductClick,
     activities,
-    onCreateNewChannelClick,
-    onOrdersToCaptureClick,
-    onOrdersToFulfillClick,
-    onProductsOutOfStockClick,
-    ordersToCapture = 0,
-    ordersToFulfill = 0,
-    productsOutOfStock = 0,
-    userPermissions = [],
     noChannel
   } = props;
-  const navigate = useNavigator();
 
   const classes = useStyles(props);
 
   return (
     <>
-      <IonContent
-      // forceOverscroll
-      // style={{ height: "90vh", overflow: "scroll", margin: "12px" }}
-      >
-        {/* <div style={{ margin: "12px" }}> */}
-        {/* <CardSpacer /> */}
-        {/* <Grid> */}
+      <IonContent>
         <div style={{ height: "20px" }} />
         <IonCard>
-          {/* <RequirePermissions
-            userPermissions={userPermissions}
-            requiredPermissions={[PermissionEnum.MANAGE_ORDERS]}
-          > */}
           <div className={classes.cardContainer}>
             <HomeAnalyticsCard
               title={"Sales"}
@@ -135,20 +113,7 @@ const HomePage: React.FC<HomePageProps> = props => {
             </HomeAnalyticsCard>
           </div>
         </IonCard>
-        {/* </RequirePermissions> */}
-        <IonCard>
-          <HomeNotificationTable
-            onCreateNewChannelClick={onCreateNewChannelClick}
-            onOrdersToCaptureClick={onOrdersToCaptureClick}
-            onOrdersToFulfillClick={onOrdersToFulfillClick}
-            onProductsOutOfStockClick={onProductsOutOfStockClick}
-            ordersToCapture={ordersToCapture}
-            ordersToFulfill={ordersToFulfill}
-            productsOutOfStock={productsOutOfStock}
-            userPermissions={userPermissions}
-            noChannel={noChannel}
-          />
-        </IonCard>
+
         <CardSpacer />
         <IonCard>
           {topProducts && (
@@ -173,31 +138,8 @@ const HomePage: React.FC<HomePageProps> = props => {
               </>
             </div>
           )}
-         
         </IonCard>
         <div style={{ height: "100px" }} />
-        {/* </Grid> */}
-        {/* </div> */}
-        {/* <IonFab
-          vertical="bottom"
-          horizontal="end"
-          slot="fixed"
-          style={{
-            marginBottom: "50px"
-          }}
-          data-test-id="create-order-button"
-        >
-          <IonButton
-            onClick={() => {
-              navigate("/products/add");
-            }}
-            shape="round"
-          >
-            <IonIcon slot="start" icon={add} />
-            New Product
-          </IonButton>
-        </IonFab> */}
-        {/* </div> */}
       </IonContent>
     </>
   );
