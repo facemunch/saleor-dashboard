@@ -1,24 +1,13 @@
-import {
-  Button,
-  Card,
-  IconButton,
-  TableBody,
-  TableCell,
-  TableFooter,
-  TableRow
-} from "@mui/material";
+import { Button, IconButton, TableBody, TableCell, TableRow } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CardTitle from "@saleor/components/CardTitle";
-import Checkbox from "@saleor/components/Checkbox";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import TableHead from "@saleor/components/TableHead";
-import TablePagination from "@saleor/components/TablePagination";
 import { ShippingZoneFragment } from "@saleor/fragments/types/ShippingZoneFragment";
 import { makeStyles } from "@saleor/macaw-ui";
 import { maybe, renderCollection } from "@saleor/misc";
 import { ListActions, ListProps } from "@saleor/types";
-import { getFooterColSpanWithBulkActions } from "@saleor/utils/tables";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -56,18 +45,12 @@ const numberOfColumns = 3;
 const ShippingZonesList: React.FC<ShippingZonesListProps> = props => {
   const {
     disabled,
-    settings,
     onAdd,
-    onNextPage,
-    onPreviousPage,
     onRemove,
-    onUpdateListSettings,
     onRowClick,
-    pageInfo,
     shippingZones,
     isChecked,
     selected,
-    toggle,
     toggleAll,
     toolbar
   } = props;
@@ -116,24 +99,7 @@ const ShippingZonesList: React.FC<ShippingZonesListProps> = props => {
           </TableCell>
           <TableCell className={classes.colAction} />
         </TableHead>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              colSpan={getFooterColSpanWithBulkActions(
-                shippingZones,
-                numberOfColumns
-              )}
-              settings={settings}
-              hasNextPage={pageInfo && !disabled ? pageInfo.hasNextPage : false}
-              onNextPage={onNextPage}
-              onUpdateListSettings={onUpdateListSettings}
-              hasPreviousPage={
-                pageInfo && !disabled ? pageInfo.hasPreviousPage : false
-              }
-              onPreviousPage={onPreviousPage}
-            />
-          </TableRow>
-        </TableFooter>
+
         <TableBody>
           {renderCollection(
             shippingZones,
