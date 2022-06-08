@@ -33,7 +33,7 @@ export const Money: React.FC<MoneyProps> = ({ money, ...rest }) => {
   return (
     <div className={classes.container}>
       <Typography variant="caption" {...rest}>
-        {money.currency}
+        {/* {money.currency} */}$
       </Typography>
       <HorizontalSpacer spacing={0.5} />
       <Typography {...rest}>{money.amount.toFixed(2)}</Typography>

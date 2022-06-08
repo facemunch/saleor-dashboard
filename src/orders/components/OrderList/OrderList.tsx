@@ -1,14 +1,12 @@
-import { TableBody, TableCell, TableFooter, TableRow } from "@mui/material";
+import { IonItem, IonLabel, IonList, IonNote } from "@ionic/react";
+import { TableCell, TableRow } from "@mui/material";
 import { DateTime } from "@saleor/components/Date";
 import Money from "@saleor/components/Money";
-import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import StatusLabel from "@saleor/components/StatusLabel";
-import TablePagination from "@saleor/components/TablePagination";
 import { makeStyles } from "@saleor/macaw-ui";
 import {
   maybe,
-  renderCollection,
   transformOrderStatus,
   transformPaymentStatus
 } from "@saleor/misc";
@@ -44,7 +42,9 @@ const useStyles = makeStyles(
         colPayment: {
           width: 220
         },
-        colTotal: {}
+        colTotal: {
+          color: "white"
+        }
       },
       colCustomer: overflowing,
       colDate: {
@@ -54,6 +54,7 @@ const useStyles = makeStyles(
       colNumber: {},
       colPayment: overflowing,
       colTotal: {
+        color: "white",
         textAlign: "right"
       },
       link: {
@@ -64,6 +65,27 @@ const useStyles = makeStyles(
   { name: "OrderList" }
 );
 
+const orderDetails = {
+  fontFamily: "Inter",
+  fontStyle: "normal",
+  fontWeight: "400",
+  fontSize: "12px",
+  lineHeight: "18px",
+  color: "#CDCECF",
+  display: "flex",
+  whiteSpace: "nowrap"
+};
+
+const nameStyle = {
+  fontFamily: "Inter",
+  fontStyle: "normal",
+  fontWeight: "400",
+  fontSize: "16px",
+  lineHeight: "24px",
+  display: "flex",
+  color: "#FFFFFF",
+  textTransform: "capitalize" as TextTransform
+};
 interface OrderListProps extends ListProps, SortPage<OrderListUrlSortField> {
   orders: OrderList_orders_edges_node[];
 }
@@ -71,16 +93,7 @@ interface OrderListProps extends ListProps, SortPage<OrderListUrlSortField> {
 const numberOfColumns = 6;
 
 export const OrderList: React.FC<OrderListProps> = props => {
-  const {
-    disabled,
-    settings,
-    orders,
-    pageInfo,
-    onPreviousPage,
-    onNextPage,
-    onUpdateListSettings,
-    onRowClick
-  } = props;
+  const { orders, onRowClick } = props;
   const classes = useStyles(props);
 
   const intl = useIntl();
@@ -93,67 +106,44 @@ export const OrderList: React.FC<OrderListProps> = props => {
       }))
     : undefined;
   return (
-    <ResponsiveTable>
-      <TableFooter>
-        <TableRow>
-          <TablePagination
-            colSpan={numberOfColumns}
-            settings={settings}
-            hasNextPage={pageInfo && !disabled ? pageInfo.hasNextPage : false}
-            onNextPage={onNextPage}
-            onUpdateListSettings={onUpdateListSettings}
-            hasPreviousPage={
-              pageInfo && !disabled ? pageInfo.hasPreviousPage : false
-            }
-            onPreviousPage={onPreviousPage}
-          />
-        </TableRow>
-      </TableFooter>
-      <TableBody>
-        {renderCollection(
-          orderList,
-          order => (
-            <TableRow
-              data-test-id="order-table-row"
-              hover={!!order}
-              className={!!order ? classes.link : undefined}
-              onClick={order ? onRowClick(order.id) : undefined}
-              key={order ? order.id : "skeleton"}
-            >
-              <TableCell>
-                <div className="flex">
-                  <div className={classes.colNumber}>
-                    {maybe(() => order.number) ? (
-                      "#" + order.number
+    <IonList style={{ "--ion-item-background": "#313131" }}>
+      <div>
+        {orderList &&
+          orderList.map(
+            order => (
+              <IonItem
+                data-test-id="order-table-row"
+                hover={!!order}
+                className={!!order ? classes.link : undefined}
+                onClick={order ? onRowClick(order.id) : undefined}
+                key={order ? order.id : "skeleton"}
+              >
+                <IonLabel>
+                  <h4 style={orderDetails}>
+                    #{order.number} •
+                    <span style={{ marginLeft: "4px" }}>
+                      {maybe(() => order.created) ? (
+                        <DateTime date={order.created} />
+                      ) : (
+                        <Skeleton />
+                      )}
+                    </span>
+                  </h4>
+                  <h2 style={nameStyle}>
+                    {maybe(() => order.billingAddress) ? (
+                      <>
+                        {order.billingAddress.firstName}
+                        &nbsp;
+                        {order.billingAddress.lastName}
+                      </>
+                    ) : maybe(() => order.userEmail) !== undefined ? (
+                      order.userEmail
                     ) : (
                       <Skeleton />
                     )}
-                  </div>
-                  {` `}•{` `}
-                  <div className={classes.colDate}>
-                    {maybe(() => order.created) ? (
-                      <DateTime date={order.created} />
-                    ) : (
-                      <Skeleton />
-                    )}
-                  </div>
-                </div>
+                  </h2>
 
-                <div className={classes.colCustomer}>
-                  {maybe(() => order.billingAddress) ? (
-                    <>
-                      {order.billingAddress.firstName}
-                      &nbsp;
-                      {order.billingAddress.lastName}
-                    </>
-                  ) : maybe(() => order.userEmail) !== undefined ? (
-                    order.userEmail
-                  ) : (
-                    <Skeleton />
-                  )}
-                </div>
-                <div className="flex">
-                  <div className={classes.colPayment}>
+                  <div className="flex">
                     {maybe(() => order.paymentStatus.status) !== undefined ? (
                       order.paymentStatus.status === null ? null : (
                         <StatusLabel
@@ -164,8 +154,7 @@ export const OrderList: React.FC<OrderListProps> = props => {
                     ) : (
                       <Skeleton />
                     )}
-                  </div>
-                  <div className={classes.colFulfillment}>
+
                     {maybe(() => order.status) ? (
                       <StatusLabel
                         status={order.status.status}
@@ -175,29 +164,33 @@ export const OrderList: React.FC<OrderListProps> = props => {
                       <Skeleton />
                     )}
                   </div>
-                </div>
-              </TableCell>
-              <TableCell>
-                <div className={classes.colTotal}>
-                  {maybe(() => order.total.gross) ? (
-                    <Money money={order.total.gross} />
-                  ) : (
-                    <Skeleton />
-                  )}
-                </div>
-              </TableCell>
-            </TableRow>
-          ),
-          () => (
-            <TableRow>
-              <TableCell colSpan={numberOfColumns}>
-                <FormattedMessage defaultMessage="No orders found" />
-              </TableCell>
-            </TableRow>
-          )
-        )}
-      </TableBody>
-    </ResponsiveTable>
+                </IonLabel>
+                <IonNote slot="end">
+                  <div className={classes.colTotal}>
+                    {order?.total ? (
+                      <>${order.total.gross.amount}</>
+                    ) : (
+                      <Skeleton />
+                    )}
+                    {/* {maybe(() => order.total.gross) ? (
+                      <Money money={order.total.gross} />
+                    ) : (
+                      <Skeleton />
+                    )} */}
+                  </div>
+                </IonNote>
+              </IonItem>
+            ),
+            () => (
+              <TableRow>
+                <TableCell colSpan={numberOfColumns}>
+                  <FormattedMessage defaultMessage="No orders found" />
+                </TableCell>
+              </TableRow>
+            )
+          )}
+      </div>
+    </IonList>
   );
 };
 OrderList.displayName = "OrderList";

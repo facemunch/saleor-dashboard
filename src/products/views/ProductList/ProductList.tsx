@@ -45,7 +45,7 @@ import { mapEdgesToItems, mapNodeToChoice } from "@saleor/utils/maps";
 import { getSortUrlVariables } from "@saleor/utils/sort";
 import React, { useEffect, useState } from "react";
 
-import ProductListPage from "../../components/ProductListPageIonic_";
+import ProductListPage from "../../components/ProductListPage";
 import {
   getFilterOpts,
   getFilterQueryParam,
@@ -53,7 +53,7 @@ import {
   getFilterTabs,
   getFilterVariables
 } from "./filters";
-import { canBeSorted, DEFAULT_SORT_KEY, getSortQueryVariables } from "./sort";
+import { DEFAULT_SORT_KEY, getSortQueryVariables } from "./sort";
 
 interface ProductListProps {
   params: ProductListUrlQueryParams;
@@ -126,7 +126,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     variables: {
       id: focusedAttribute,
       ...DEFAULT_INITIAL_SEARCH_DATA,
-      first: 10
+      first: 100
     },
     skip: !focusedAttribute
   });
@@ -163,7 +163,6 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
       params.sort === ProductListUrlSortField.rank
         ? DEFAULT_SORT_KEY
         : params.sort;
-    console.log("sortWithoutQuery", { sortWithoutQuery, sortWithQuery });
     if (!sortWithoutQuery) {
       return;
     }

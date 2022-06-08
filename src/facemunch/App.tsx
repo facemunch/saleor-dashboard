@@ -5,12 +5,12 @@ import { ApolloClient } from "apollo-client";
 import { ApolloLink } from "apollo-link";
 import { BatchHttpLink } from "apollo-link-batch-http";
 import { createUploadLink } from "apollo-upload-client";
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo } from "react";
 import { ApolloProvider } from "react-apollo";
 import useUser from "@saleor/hooks/useUser";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, History } from "swiper";
-import { Route, useLocation, Switch } from "react-router-dom";
+import { Route, useLocation } from "react-router-dom";
 import { IonicSlides } from "@ionic/react";
 import { productPath } from "../products/urls";
 
@@ -33,6 +33,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
+import "swiper/css/history";
 
 import "@ionic/react/css/ionic-swiper.css";
 
@@ -52,13 +53,13 @@ import { ShopProvider } from "../components/Shop";
 import AppStateProvider from "../containers/AppState";
 import BackgroundTasksProvider from "../containers/BackgroundTasks";
 import ServiceWorker from "../containers/ServiceWorker/ServiceWorker";
-import { CustomerSection } from "../customers";
+import { CustomerListView } from "../customers";
 
 import HomePage from "../home";
-import OrdersSection from "../orders";
+import { OrderList } from "../orders";
 import ConfigurationSection from "../configuration";
 import ShippingSection from "../shipping";
-import ProductSection from "../products";
+import { ProductList } from "../products";
 
 import { BrowserRouter } from "react-router-dom";
 import { PermissionEnum } from "@saleor/types/globalTypes";
@@ -144,14 +145,23 @@ const menu = {
 };
 
 const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
-  const { loginByToken, user } = useUser();
-  // const swiperRef = useRef();
+  const { loginByToken } = useUser();
 
   const { pathname } = useLocation();
 
+  const getActiveIndex = useMemo(() => {
+    if (pathname.includes("home")) {
+      return 0;
+    } else if (pathname.includes("products")) {
+      return 1;
+    } else if (pathname.includes("orders")) {
+      return 2;
+    } else if (pathname.includes("customers")) {
+      return 3;
+    }
+  }, [pathname]);
+
   const onSlideChange = e => {
-    // onRouteUpdate(window.location.pathname);
-    // // console.log("onSlideChange", { window, e });
     e.activeIndex === 0 && onRouteUpdate("/c/home");
     e.activeIndex === 1 && onRouteUpdate("/c/products");
     e.activeIndex === 2 && onRouteUpdate("/c/orders");
@@ -193,122 +203,100 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
     });
   }, [ecomAccessToken]);
 
-  const isScrollable =
-    pathname.includes("/products/") ||
-    pathname.includes("/orders/") ||
-    pathname.includes("/customers/");
+  const isTopRoute = location =>
+    ["/home", "/products", "/orders", "/customers"].includes(location.pathname);
   return (
     <>
       <AppLayout>
         <>
           <Route
-            render={({ location }) =>
-              ["/home", "/products", "/orders", "/customers"].includes(
-                location.pathname
-              ) ? (
-                <Swiper
-                  cssMode={"freeMode"}
-                  freeMode={{
-                    enabled: true
-                    // sticky: true
-                  }}
-                  onSlideChangeTransitionEnd={onSlideChange}
-                  // // onInit={e => {
-                  // //   swiperRef.current = e;
-                  // // }}
-                  style={{
-                    height: "100vh",
-                    width: "100vw"
-                  }}
-                  spaceBetween={0}
-                  slidesPerView={1}
-                  history={{
-                    enabled: true,
-                    root: "/",
-                    // replaceState: true,
-                    key: "c"
-                  }}
-                  pagination={
-                    !isScrollable
-                      ? {
-                          enabled: true,
-                          clickable: true,
-                          renderBullet: function(index, className) {
-                            return (
-                              "<ion-segment-button class='ios in-segment segment-button-has-label segment-button-has-label-only segment-button-checked segment-button-layout-icon-top ion-activatable ion-activatable-instant ion-focusable SideBarDrawer-menuItemBtn-150 " +
-                              className +
-                              "'>" +
-                              menu[index] +
-                              "</ion-segment-button>"
-                            );
-                          }
-                          // el: function() {
-                          //   return "<ion-segment></ion-segment>";
-                          // }
-                        }
-                      : { enabled: true }
+            render={({ location }) => (
+              <Swiper
+                cssMode={true}
+                style={{
+                  opacity: isTopRoute(location) ? 1 : 0,
+                  zIndex: isTopRoute(location) ? 0 : -1,
+                  height: "100vh",
+                  width: "100vw"
+                }}
+                onSlideChangeTransitionEnd={onSlideChange}
+                onInit={e => {
+                  e.updateActiveIndex(getActiveIndex);
+                }}
+                spaceBetween={0}
+                slidesPerView={1}
+                history={{
+                  enabled: true,
+                  root: "/",
+                  key: "c"
+                }}
+                pagination={{
+                  enabled: true,
+                  clickable: true,
+                  renderBullet: function(index, className) {
+                    return (
+                      "<ion-segment-button class='ios in-segment segment-button-has-label segment-button-has-label-only segment-button-checked segment-button-layout-icon-top ion-activatable ion-activatable-instant ion-focusable SideBarDrawer-menuItemBtn-150 " +
+                      className +
+                      "'>" +
+                      menu[index] +
+                      "</ion-segment-button>"
+                    );
                   }
-                  modules={[Pagination, Navigation, History, IonicSlides]}
-                  className="mySwiper"
-                >
-                  <SwiperSlide data-history="home">
-                    <HomePage />
-                  </SwiperSlide>
-                  <SwiperSlide data-history="products">
-                    <ProductSection />
-                  </SwiperSlide>
-                  <SwiperSlide data-history="orders">
-                    <OrdersSection />
-                  </SwiperSlide>
-                  <SwiperSlide data-history="customers">
-                    <CustomerSection />
-                  </SwiperSlide>
-                </Swiper>
-              ) : null
-            }
+                }}
+                modules={[Pagination, Navigation, History, IonicSlides]}
+                className="mySwiper"
+              >
+                <SwiperSlide data-history="home">
+                  <HomePage />
+                </SwiperSlide>
+                <SwiperSlide data-history="products">
+                  <ProductList />
+                </SwiperSlide>
+                <SwiperSlide data-history="orders">
+                  <OrderList />
+                </SwiperSlide>
+                <SwiperSlide data-history="customers">
+                  <CustomerListView />
+                </SwiperSlide>
+              </Swiper>
+            )}
           />
-          <Switch>
-            <Route
-              exact
-              path={"/products/add"}
-              render={() => <ProductCreate />}
-            />
-            <Route
-              exact
-              path={"/products/" + productPath(":id", "")}
-              render={() => <ProductUpdate />}
-            />
-          </Switch>
-          <Switch>
-            <Route
-              exact
-              path={"/orders/" + orderFulfillPath(":id", "")}
-              render={() => <OrderFulfill />}
-            />
-            <Route
-              exact
-              path={"/orders/" + orderReturnPath(":id", "")}
-              render={() => <OrderReturn />}
-            />
+          <Route
+            exact
+            path={"/products/add"}
+            render={() => <ProductCreate />}
+          />
+          <Route
+            exact
+            path={"/products/" + productPath(":id", "")}
+            render={() => <ProductUpdate />}
+          />
+          <Route
+            exact
+            path={"/orders/" + orderFulfillPath(":id", "")}
+            render={() => <OrderFulfill />}
+          />
+          <Route
+            exact
+            path={"/orders/" + orderReturnPath(":id", "")}
+            render={() => <OrderReturn />}
+          />
 
-            <Route
-              exact
-              path={"/orders/" + orderPath(":id", "")}
-              render={() => <OrderDetails />}
-            />
-          </Switch>
-          <Switch>
-            <Route
-              exact
-              path={"/customers/" + customerAddressesPath(":id", "")}
-              render={() => <CustomerAddressesView />}
-            />
-            <Route
-              exact
-              path={"/customers/" + customerPath(":id", "")}
-              render={() => <CustomerDetailsView />}
-            />
-          </Switch>
+          <Route
+            exact
+            path={"/orders/" + orderPath(":id", "")}
+            render={() => <OrderDetails />}
+          />
+          <Route
+            exact
+            path={"/customers/" + customerAddressesPath(":id", "")}
+            render={() => <CustomerAddressesView />}
+          />
+          <Route
+            exact
+            path={"/customers/" + customerPath(":id", "")}
+            render={() => <CustomerDetailsView />}
+          />
 
           {/* <Route
           exact

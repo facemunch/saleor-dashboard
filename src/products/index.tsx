@@ -29,7 +29,7 @@ import ProductVariantComponent from "./views/ProductVariant";
 import ProductVariantCreateComponent from "./views/ProductVariantCreate";
 import ProductVariantCreatorComponent from "./views/ProductVariantCreator";
 
-const ProductList: React.FC = () => {
+export const ProductList: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: ProductListUrlQueryParams = location.pathname.includes(
     "/products"
@@ -126,40 +126,40 @@ const Component = () => {
   return (
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.products)} />
-      <Switch>
-        <Route exact path="/products" render={() => <ProductList />} />
-        <Route exact path="/products/add" render={() => <ProductCreate />} />
+      {/* <Switch> */}
+      <Route exact path="/products" render={() => <ProductList />} />
+      {/* <Route exact path="/products/add" render={() => <ProductCreate />} />
         <Route
           exact
           path={"/products/" + productVariantCreatorPath(":id", "")}
           render={() => <ProductVariantCreator />}
-        />
-        {/* <Route
+        /> */}
+      {/* <Route
           exact
           path={"/products/" + productPath(":id", "")}
           render={() => <ProductUpdate />}
         /> */}
-        <Route
+      {/* <Route
           exact
           path={
             "/products/" +
             productVariantEditPath(":productId", ":variantId", "")
           }
           render={() => <ProductVariant />}
-        />
+        /> */}
 
-        <Route
+      {/* <Route
           exact
           path={"/products/" + productVariantAddPath(":id", "")}
           render={() => <ProductVariantCreate />}
-        />
-        <Route
+        /> */}
+      {/* <Route
           exact
           path={"/products/" + productImagePath(":productId", ":imageId", "")}
           render={() => <ProductImage />}
         />
-        <Route path="/" render={() => <ProductList />} />
-      </Switch>
+        <Route path="/" render={() => <ProductList />} /> */}
+      {/* </Switch> */}
     </>
   );
 };

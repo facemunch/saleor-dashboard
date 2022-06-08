@@ -1,5 +1,6 @@
-import { Typography, } from "@mui/material";
-import grey from "@mui/material/colors/grey"
+import { IonChip, IonIcon, IonLabel } from "@ionic/react";
+import { Typography } from "@mui/material";
+import grey from "@mui/material/colors/grey";
 import yellow from "@mui/material/colors/yellow";
 import { makeStyles } from "@saleor/macaw-ui";
 import Label from "@saleor/orders/components/OrderHistory/Label";
@@ -59,6 +60,12 @@ export const useStyles = makeStyles(
   { name: "StatusLabel" }
 );
 
+const chipStyle = {
+  fontSize: '11px',
+  margin: 0,
+  height: "24px"
+}
+
 export interface StatusLabelProps {
   label: string | React.ReactNode;
   status: "success" | "alert" | "neutral" | "error" | undefined;
@@ -75,13 +82,8 @@ const StatusLabel: React.FC<StatusLabelProps> = ({
   const classes = useStyles({});
 
   return (
-    <div
-      className={classNames({
-        [classes.container]: true,
-        [classes.containerVertical]: !!subtitle
-      })}
-    >
-      <div
+    <IonChip color={'dark'} style={chipStyle}>
+      <IonIcon
         className={classNames({
           [className]: true,
           [classes.dotVertical]: !!subtitle,
@@ -90,12 +92,12 @@ const StatusLabel: React.FC<StatusLabelProps> = ({
           [classes.neutralDot]: status === "neutral",
           [classes.errorDot]: status === "error"
         })}
-      ></div>
-      <div className={classes.textContainer}>
-        <Typography>{label}</Typography>
+      ></IonIcon>
+      <IonLabel>
+        {label}
         {subtitle && <Label text={subtitle} />}
-      </div>
-    </div>
+      </IonLabel>
+    </IonChip>
   );
 };
 

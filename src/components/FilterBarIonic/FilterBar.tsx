@@ -24,7 +24,7 @@ export interface FilterBarProps<TKeys extends string = string>
     SearchBarProps {
   errorMessages?: FilterErrorMessages<TKeys>;
   filterStructure: IFilter<TKeys>;
-  options?: [unknown];
+  options?: { label: string; path: string; }[];
 }
 
 const useStyles = makeStyles(
@@ -33,7 +33,8 @@ const useStyles = makeStyles(
       borderBottom: `1px solid rgba(255, 255, 255, 0.06)`,
       display: "flex",
       flexWrap: "wrap",
-      padding: theme.spacing(2)
+      // background: "black"
+      // padding: theme.spacing(2)
     },
     tabActionButton: {
       marginLeft: theme.spacing(2),

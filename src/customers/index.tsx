@@ -15,7 +15,7 @@ import CustomerCreateView from "./views/CustomerCreate";
 import CustomerDetailsViewComponent from "./views/CustomerDetails";
 import CustomerListViewComponent from "./views/CustomerList";
 
-const CustomerListView: React.FC = () => {
+export const CustomerListView: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: CustomerListUrlQueryParams = location.pathname.includes(
     "/customers"

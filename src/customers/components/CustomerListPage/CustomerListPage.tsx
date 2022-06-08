@@ -17,7 +17,6 @@ import {
   CustomerFilterKeys,
   CustomerListFilterOpts
 } from "./filters";
-import useNavigator from "@saleor/hooks/useNavigator";
 
 export interface CustomerListPageProps
   extends PageListProps,
@@ -51,31 +50,11 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
   ...customerListProps
 }) => {
   const intl = useIntl();
-  const navigate = useNavigator();
 
   const structure = createFilterStructure(intl, filterOpts);
 
   return (
     <IonContent>
-      {/* <IonFab
-        vertical="bottom"
-        horizontal="end"
-        slot="fixed"
-        style={{
-          marginBottom: "50px"
-        }}
-        data-test-id="create-order-button"
-      >
-        <IonButton
-          onClick={() => {
-            navigate("/products/add");
-          }}
-          shape="round"
-        >
-          <IonIcon slot="start" icon={add} />
-          New Product
-        </IonButton>
-      </IonFab> */}
       <div style={{ height: "20px" }} />
       <IonCard>
         <FilterBar
