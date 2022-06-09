@@ -1,12 +1,10 @@
 import FilterBar from "@saleor/components/FilterBarIonic";
 import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
-import { makeStyles } from "@saleor/macaw-ui";
 import { OrderListUrlSortField } from "@saleor/orders/urls";
 import { FilterPageProps, PageListProps, SortPage } from "@saleor/types";
 import { isLimitReached } from "@saleor/utils/limits";
 import React, { memo } from "react";
 import { useIntl } from "react-intl";
-import useNavigator from "@saleor/hooks/useNavigator";
 
 import { IonContent, IonCard } from "@ionic/react";
 
@@ -28,14 +26,7 @@ export interface OrderListPageProps
   onSettingsOpen: () => void;
 }
 
-const useStyles = makeStyles(
-  theme => ({
-    settings: {
-      marginRight: theme.spacing(2)
-    }
-  }),
-  { name: "OrderListPage" }
-);
+
 
 const options = [
   { label: "Order no. (highest first)", path: "?asc=true&sort=number" },
@@ -67,62 +58,14 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
   ...listProps
 }) => {
   const intl = useIntl();
-  const classes = useStyles({});
   const filterStructure = createFilterStructure(intl, filterOpts);
   const limitsReached = isLimitReached(limits, "orders");
-  const navigate = useNavigator();
 
   return (
     <IonContent>
-      {/* <IonFab
-        vertical="bottom"
-        horizontal="end"
-        slot="fixed"
-        style={{
-          marginBottom: "50px"
-        }}
-        data-test-id="create-order-button"
-      >
-        <IonButton
-          onClick={() => {
-            navigate("/products/add");
-          }}
-          shape="round"
-        >
-          <IonIcon slot="start" icon={add} />
-          New Product
-        </IonButton>
-      </IonFab> */}
-
-      {/* {!!onSettingsOpen && (
-        <CardMenu
-          className={classes.settings}
-          menuItems={[
-            {
-              label: intl.formatMessage({
-                defaultMessage: "Order Settings",
-                description: "button"
-              }),
-              onSelect: onSettingsOpen
-            }
-          ]}
-        />
-      )} */}
-
       {limitsReached && <OrderLimitReached />}
       <div style={{ height: "20px" }} />
       <IonCard>
-        {/* <IonSegment
-          value={"live"}
-          onIonChange={e => console.log("Segment selected", e.detail.value)}
-        >
-          <IonSegmentButton value="live">
-            <IonLabel>Live</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="drafts">
-            <IonLabel>Drafts</IonLabel>
-          </IonSegmentButton>
-        </IonSegment> */}
         <FilterBar
           options={options}
           currentTab={currentTab}

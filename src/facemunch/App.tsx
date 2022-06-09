@@ -13,6 +13,8 @@ import { Navigation, Pagination, History } from "swiper";
 import { Route, useLocation } from "react-router-dom";
 import { IonicSlides } from "@ionic/react";
 import { productPath } from "../products/urls";
+import { userDataQuery } from "./queries";
+import { User } from "@saleor/fragments/types/User";
 
 import { ProductUpdate, ProductCreate } from "../products";
 
@@ -42,7 +44,7 @@ import introspectionQueryResultData from "../../fragmentTypes.json";
 import { ExternalAppProvider } from "../apps/components/ExternalAppContext";
 
 import AuthProvider from "../auth/AuthProvider";
-import authLink from "../auth/link";
+// import authLink from "../auth/link";
 import AppLayout from "../components/AppLayout";
 import { AppChannelProvider } from "../components/AppLayout/AppChannelContext";
 import { DateProvider } from "../components/Date";
@@ -62,7 +64,20 @@ import ShippingSection from "../shipping";
 import { ProductList } from "../products";
 
 import { BrowserRouter } from "react-router-dom";
-import { PermissionEnum } from "@saleor/types/globalTypes";
+
+import { setContext } from "apollo-link-context";
+import { ErrorResponse } from "apollo-link-error";
+
+// import { removeTokens } from "../auth";
+// import { isJwtError, JWTError } from "../auth/errors";
+
+// interface ResponseError extends ErrorResponse {
+//   networkError?: Error & {
+//     statusCode?: number;
+//     bodyText?: string;
+//   };
+// }
+
 interface IProps {
   onRouteUpdate: (route: string) => void;
   ecomAccessToken?: string | null;
@@ -90,6 +105,34 @@ const App: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken, ecomAPI }) => {
       introspectionQueryResultData
     });
 
+    // const invalidateTokenLink = onError((error: ResponseError) => {
+    //   if (
+    //     (error.networkError && error.networkError.statusCode === 401) ||
+    //     error.graphQLErrors?.some(isJwtError)
+    //   ) {
+    //     if (error.graphQLErrors[0].extensions.code !== JWTError.expired) {
+    //       removeTokens();
+    //     }
+    //   }
+    // });
+
+    const tokenLink = setContext((_, context) => {
+      // const { ecomAccessToken } = useAuth();
+      // console.log("tokenLink from ecomAccessToken", ecomAccessToken);
+
+      const authToken = ecomAccessToken;
+      console.log("tokenLink from authToken", authToken);
+      return {
+        ...context,
+        headers: {
+          ...context.headers,
+          "Authorization-Bearer": authToken || null
+        }
+      };
+    });
+
+    const authLink = tokenLink;
+
     return new ApolloClient({
       cache: new InMemoryCache({
         fragmentMatcher,
@@ -102,7 +145,8 @@ const App: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken, ecomAPI }) => {
       }),
       link: authLink.concat(link)
     });
-  }, [ecomAPI]);
+  }, [ecomAPI, ecomAccessToken]);
+  console.log("tokenLink from outside", ecomAccessToken);
 
   return (
     <ApolloProvider client={apolloClient}>
@@ -146,6 +190,7 @@ const menu = {
 
 const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
   const { loginByToken } = useUser();
+  const { data, loading } = userDataQuery();
 
   const { pathname, search } = useLocation();
 
@@ -186,39 +231,9 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
   };
 
   useEffect(() => {
-    if (!ecomAccessToken) return;
-    loginByToken(ecomAccessToken, "", {
-      __typename: "User",
-      id: "",
-      email: "",
-      firstName: "",
-      lastName: "",
-      isStaff: true,
-      userPermissions: [
-        {
-          code: "MANAGE_ORDERS" as PermissionEnum,
-          name: "Manage orders.",
-          __typename: "UserPermission"
-        },
-        {
-          code: "MANAGE_USERS" as PermissionEnum,
-          name: "Manage users.",
-          __typename: "UserPermission"
-        },
-        {
-          code: "MANAGE_PRODUCTS" as PermissionEnum,
-          name: "Manage products.",
-          __typename: "UserPermission"
-        },
-        {
-          code: "MANAGE_SHIPPING" as PermissionEnum,
-          name: "Manage shipping.",
-          __typename: "UserPermission"
-        }
-      ],
-      avatar: undefined
-    });
-  }, [ecomAccessToken]);
+    if (!ecomAccessToken || loading || !data) return;
+    loginByToken(ecomAccessToken, "", data.me);
+  }, [ecomAccessToken, data, loading]);
 
   const isTopRoute = location =>
     ["/home", "/products", "/orders", "/customers"].includes(location.pathname);
@@ -246,7 +261,8 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
                 history={{
                   enabled: true,
                   root: "/",
-                  key: "c"
+                  key: "c",
+                  keepQuery: true
                 }}
                 pagination={{
                   enabled: true,

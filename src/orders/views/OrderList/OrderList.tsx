@@ -77,6 +77,7 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
       orders: true
     }
   });
+  console.log("limitOpts",limitOpts)
 
   const channelOpts = availableChannels
     ? mapNodeToChoice(availableChannels)

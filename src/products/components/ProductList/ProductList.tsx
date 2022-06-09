@@ -104,10 +104,15 @@ export const ProductList: React.FC<ProductListProps> = props => {
   return (
     <IonList style={{ "--ion-item-background": "#313131", paddingBottom: 4 }}>
       {products &&
+        products.length > 0 &&
         products.map(product => {
-          const channel = product?.channelListings.find(
-            listing => listing.channel.name === "USD"
-          );
+          let channel;
+          if (product?.channelListings) {
+            channel = product?.channelListings.find(
+              listing => listing.channel.name === "USD"
+            );
+          }
+
           return (
             <IonItem
               key={product ? product.id : "skeleton"}
@@ -139,8 +144,12 @@ export const ProductList: React.FC<ProductListProps> = props => {
                   )}
                 </h2>
                 <h4 style={{ color: "#B3B3B3", textTransform: "capitalize" }}>
-                  {product.productType.name.replace(" product", "")} •{" "}
-                  {product.channelListings[0].isPublished
+                  {product?.productType?.name &&
+                    product.productType.name.replace(" product", "")}{" "}
+                  •{" "}
+                  {product.channelListings &&
+                  product.channelListings.length > 0 &&
+                  product.channelListings[0].isPublished
                     ? "published"
                     : "draft"}
                 </h4>

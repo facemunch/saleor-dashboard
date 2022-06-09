@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { closeOutline, checkmarkOutline } from "ionicons/icons";
 import { FilterProps } from "../../types";
-import Filter from "../Filter";
 import { FilterErrorMessages, IFilter } from "../Filter/types";
 import { SearchBarProps } from "../SearchBar";
 import SearchInput from "../SearchBar/SearchInput";
@@ -23,7 +22,7 @@ export interface FilterBarProps<TKeys extends string = string>
   extends FilterProps<TKeys>,
     SearchBarProps {
   errorMessages?: FilterErrorMessages<TKeys>;
-  filterStructure: IFilter<TKeys>;
+  // filterStructure: IFilter<TKeys>;
   options?: { label: string; path: string; }[];
 }
 
@@ -86,14 +85,9 @@ const badgeStyle = {
 
 const FilterBar: React.FC<FilterBarProps> = props => {
   const {
-    currencySymbol,
-    filterStructure,
     initialSearch,
     searchPlaceholder,
     onSearchChange,
-    onFilterChange,
-    onFilterAttributeFocus,
-    errorMessages,
     options = []
   } = props;
   const navigate = useNavigator();
@@ -104,13 +98,6 @@ const FilterBar: React.FC<FilterBarProps> = props => {
   return (
     <>
       <div className={classes.root}>
-        <Filter
-          errorMessages={errorMessages}
-          menu={filterStructure}
-          currencySymbol={currencySymbol}
-          onFilterAdd={onFilterChange}
-          onFilterAttributeFocus={onFilterAttributeFocus}
-        />
         <SearchInput
           initialSearch={initialSearch}
           placeholder={searchPlaceholder}
