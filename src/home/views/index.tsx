@@ -18,7 +18,7 @@ const HomeSection = () => {
   const { channel } = useAppChannel();
   const noChannel = !channel && typeof channel !== "undefined";
 
-  const { data } = useHomePage({
+  const { data, loading } = useHomePage({
     displayLoader: true,
     skip: noChannel,
     variables: { channel: "usd", datePeriod: getDatePeriod(1) }
@@ -26,6 +26,7 @@ const HomeSection = () => {
 
   return (
     <HomePage
+      loading={loading}
       activities={mapEdgesToItems(data?.activities)?.reverse()}
       orders={data?.ordersToday?.totalCount}
       sales={data?.salesToday?.gross}

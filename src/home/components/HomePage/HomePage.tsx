@@ -15,6 +15,7 @@ import HomeActivityCard from "../HomeActivityCard";
 import HomeAnalyticsCard from "../HomeAnalyticsCard";
 import HomeProductListCard from "../HomeProductListCard";
 import { IonContent, IonCard } from "@ionic/react";
+import { Loader } from "frontend/ui/loader";
 const useStyles = makeStyles(
   theme => ({
     cardContainer: {
@@ -41,6 +42,7 @@ const useStyles = makeStyles(
 export interface HomePageProps extends UserPermissionProps {
   activities: Home_activities_edges_node[];
   orders: number | null;
+  loading: boolean;
   ordersToCapture: number | null;
   ordersToFulfill: number | null;
   productsOutOfStock: number;
@@ -62,7 +64,8 @@ const HomePage: React.FC<HomePageProps> = props => {
     topProducts,
     onProductClick,
     activities,
-    noChannel
+    noChannel, 
+    loading
   } = props;
 
   const classes = useStyles(props);
@@ -71,6 +74,7 @@ const HomePage: React.FC<HomePageProps> = props => {
     <>
       <IonContent data-test-id="commerce-home-tab">
         <div style={{ height: "20px" }} />
+        {loading && <Loader/>}
         <IonCard>
           <div className={classes.cardContainer}>
             <HomeAnalyticsCard
