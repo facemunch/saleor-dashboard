@@ -37,7 +37,7 @@ const ShippingZonesListPage: React.FC<ShippingZonesListPageProps> = ({
 
   return (
     <IonPage>
-      <IonContent>
+      <IonContent data-test-id="shipping-zone-list">
         <Backlink onClick={onBack}>
           {intl.formatMessage(sectionNames.configuration)}
         </Backlink>

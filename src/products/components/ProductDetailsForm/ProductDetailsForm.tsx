@@ -45,6 +45,7 @@ export const ProductDetailsForm: React.FC<ProductDetailsFormProps> = ({
       />
       <CardContent>
         <TextField
+          inputProps={{"data-test-id":"product-name-input"}}
           error={!!formErrors.name}
           helperText={getProductErrorMessage(formErrors.name, intl)}
           disabled={disabled}

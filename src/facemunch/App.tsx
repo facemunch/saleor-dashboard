@@ -10,7 +10,7 @@ import { ApolloProvider } from "react-apollo";
 import useUser from "@saleor/hooks/useUser";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, History } from "swiper";
-import { Route, useLocation } from "react-router-dom";
+import { Route, useLocation, Switch } from "react-router-dom";
 import { IonicSlides } from "@ionic/react";
 import { productPath } from "../products/urls";
 import { userDataQuery } from "./queries";
@@ -115,13 +115,14 @@ const App: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken, ecomAPI }) => {
     //     }
     //   }
     // });
+    // console.log("tokenLink from authToken above");
 
     const tokenLink = setContext((_, context) => {
       // const { ecomAccessToken } = useAuth();
       // console.log("tokenLink from ecomAccessToken", ecomAccessToken);
 
       const authToken = ecomAccessToken;
-      console.log("tokenLink from authToken", authToken);
+      // console.log("tokenLink from authToken", authToken);
       return {
         ...context,
         headers: {
@@ -146,7 +147,7 @@ const App: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken, ecomAPI }) => {
       link: authLink.concat(link)
     });
   }, [ecomAPI, ecomAccessToken]);
-  console.log("tokenLink from outside", ecomAccessToken);
+  // console.log("tokenLink from outside", ecomAccessToken);
 
   return (
     <ApolloProvider client={apolloClient}>
@@ -297,16 +298,17 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
               </Swiper>
             )}
           />
-          <Route
-            exact
-            path={"/products/add"}
-            render={() => <ProductCreate />}
-          />
-          <Route
-            exact
-            path={"/products/" + productPath(":id", "")}
-            render={() => <ProductUpdate />}
-          />
+          <Switch>
+            <Route
+              exact
+              path={"/products/add"}
+              render={() => <ProductCreate />}
+            />
+            <Route
+              path={"/products/" + productPath(":id", "")}
+              render={() => <ProductUpdate />}
+            />
+          </Switch>
           <Route
             exact
             path={"/orders/" + orderFulfillPath(":id", "")}

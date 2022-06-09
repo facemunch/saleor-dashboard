@@ -266,6 +266,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
               data-test-id="create-order-button"
             >
               <IonButton
+                data-test-id="add-product"
                 onClick={() => {
                   navigate("/products/add");
                 }}

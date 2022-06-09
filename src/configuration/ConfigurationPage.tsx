@@ -124,8 +124,6 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
                     onClick={() => onSectionClick(item.url)}
                     key={itemIndex}
                     style={{ display: "flex" }}
-                    data-test="settingsSubsection"
-                    data-testid={item.title.toLowerCase()}
                     data-test-id={item.testId}
                   >
                     {/* <IonCardContent className={classes.cardContent}> */}

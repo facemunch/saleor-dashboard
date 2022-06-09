@@ -76,12 +76,10 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
   const intl = useIntl();
 
   // const filterStructure = createFilterStructure(intl, filterOpts);
-
   return (
     <>
       <IonContent data-test-id="commerce-products-tab">
         <div style={{ height: "20px" }} />
-
         <IonCard>
           <FilterBar
             options={options}

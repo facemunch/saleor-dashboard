@@ -226,7 +226,7 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
 
         return (
           <IonPage>
-            <IonContent>
+            <IonContent data-test-id="add-product-view">
               <IonHeader collapse="condense">
                 <IonToolbar>
                   <IonTitle className={"mt-1"} size="large">

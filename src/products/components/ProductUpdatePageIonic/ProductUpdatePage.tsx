@@ -297,7 +297,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
         submit
       }) => (
         <IonPage>
-          <IonContent>
+          <IonContent data-test-id="update-product-view">
             <Backlink onClick={onBack}>
               {intl.formatMessage(sectionNames.products)}
             </Backlink>

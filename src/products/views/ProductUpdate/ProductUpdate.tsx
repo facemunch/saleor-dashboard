@@ -211,6 +211,7 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
   ] = useProductMediaReorder({});
 
   const [deleteProduct, deleteProductOpts] = useProductDeleteMutation({
+    refetchQueries: ["ProductList"],
     onCompleted: () => {
       notify({
         status: "success",

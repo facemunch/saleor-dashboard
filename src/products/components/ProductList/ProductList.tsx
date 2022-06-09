@@ -102,7 +102,10 @@ export const ProductList: React.FC<ProductListProps> = props => {
 
   const classes = useStyles(props);
   return (
-    <IonList style={{ "--ion-item-background": "#313131", paddingBottom: 4 }}>
+    <IonList
+      style={{ "--ion-item-background": "#313131", paddingBottom: 4 }}
+      data-test-id="product-list"
+    >
       {products &&
         products.length > 0 &&
         products.map(product => {
@@ -126,8 +129,8 @@ export const ProductList: React.FC<ProductListProps> = props => {
                 )
               }
               className={classes.link}
-              data-test="id"
-              data-test-id={product ? product?.id : "skeleton"}
+              data-test-id="product-item"
+              // data-test-id={product ? product?.id : "skeleton"}
             >
               <IonThumbnail
                 style={{ borderRadius: "8px", overflow: "hidden" }}
