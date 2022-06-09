@@ -1,7 +1,4 @@
-import {
-Typography,
-IconProps
-} from "@mui/material";
+import { Typography, IconProps } from "@mui/material";
 import { User } from "@saleor/fragments/types/User";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
@@ -77,7 +74,7 @@ const useStyles = makeStyles(
     },
     icon: {
       "& path": {
-        fill: '#ffffff4f',        
+        fill: "#ffffff4f"
       },
       fontSize: 38,
       marginRight: "8px"
@@ -87,7 +84,7 @@ const useStyles = makeStyles(
       fontSize: 20,
       fontWeight: 600 as 600,
       marginTop: "8px !important",
-      marginBottom: '-4px !important'
+      marginBottom: "-4px !important"
     }
   }),
   { name: "ConfigurationPage" }
@@ -107,7 +104,7 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
   console.log("menus", menus);
   return (
     <IonPage>
-      <IonContent>
+      <IonContent data-test-id="commerce-configuration-view">
         <div style={{ height: "50px" }} />
         {menus
           .filter(menu =>

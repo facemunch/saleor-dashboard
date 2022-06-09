@@ -1,23 +1,15 @@
-import { useMediaQuery } from "@mui/material";
-import useAppState from "@saleor/hooks/useAppState";
 import useNavigator from "@saleor/hooks/useNavigator";
-import useUser from "@saleor/hooks/useUser";
 import Portal from "@mui/material/Portal";
 import { settingsOutline, chevronBackOutline } from "ionicons/icons";
 import {
-  makeStyles,
-  SaleorTheme,
-  // Sidebar,
-  SidebarDrawer,
-  // useBacklink,
-  useActionBar
+  makeStyles, // useBacklink,
   // useTheme
+  useActionBar
 } from "@saleor/macaw-ui";
 // import { isDarkTheme } from "@saleor/misc";
 import classNames from "classnames";
 import React from "react";
-import { useIntl } from "react-intl";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   IonPage,
   IonToolbar,
@@ -26,12 +18,10 @@ import {
   IonButton,
   IonButtons,
   IonTitle,
-  IonFab,
-  IonContent
+  IonFab
 } from "@ionic/react";
 
 import { add } from "ionicons/icons";
-import createMenuStructure from "./menuStructure";
 
 const useStyles = makeStyles(
   theme => ({
@@ -161,39 +151,9 @@ interface AppLayoutProps {
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const classes = useStyles({});
   const { anchor: appActionAnchor, docked } = useActionBar();
-  const { logout, user } = useUser();
   const navigate = useNavigator();
-
-  const intl = useIntl();
-  const [appState, dispatchAppState] = useAppState();
   const location = useLocation();
-  const history = useHistory();
 
-  const [isNavigatorVisible, setNavigatorVisibility] = React.useState(false);
-  const isMdUp = useMediaQuery((theme: SaleorTheme) =>
-    theme.breakpoints.up("md")
-  );
-
-  const menuStructure = createMenuStructure(intl, user)
-    .map(e => {
-      if (e.children) {
-        return e.children;
-      } else {
-        return e;
-      }
-    })
-    .flat()
-    .filter(e => e.label !== "Drafts");
-
-  const handleErrorBack = () => {
-    navigate("/");
-    dispatchAppState({
-      payload: {
-        error: null
-      },
-      type: "displayError"
-    });
-  };
   return (
     <>
       <IonPage>
@@ -242,6 +202,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                   !location.pathname.includes("product-ss") && (
                     <IonButtons slot="primary">
                       <IonButton
+                        data-test-id="commerce-configuration-trigger"
                         color="dark"
                         onClick={() => {
                           navigate("/configuration");
