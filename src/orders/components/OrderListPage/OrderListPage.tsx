@@ -26,8 +26,6 @@ export interface OrderListPageProps
   onSettingsOpen: () => void;
 }
 
-
-
 const options = [
   { label: "Order no. (highest first)", path: "?asc=true&sort=number" },
   { label: "Order no. (lowest first)", path: "?asc=false&sort=number" },
@@ -62,7 +60,7 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
   const limitsReached = isLimitReached(limits, "orders");
 
   return (
-    <IonContent>
+    <IonContent data-test-id="commerce-orders-tab">
       {limitsReached && <OrderLimitReached />}
       <div style={{ height: "20px" }} />
       <IonCard>

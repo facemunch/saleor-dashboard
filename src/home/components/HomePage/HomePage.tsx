@@ -69,7 +69,7 @@ const HomePage: React.FC<HomePageProps> = props => {
 
   return (
     <>
-      <IonContent>
+      <IonContent data-test-id="commerce-home-tab">
         <div style={{ height: "20px" }} />
         <IonCard>
           <div className={classes.cardContainer}>

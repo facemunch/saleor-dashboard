@@ -54,7 +54,7 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
   const structure = createFilterStructure(intl, filterOpts);
 
   return (
-    <IonContent>
+    <IonContent data-test-id="commerce-customers-tab">
       <div style={{ height: "20px" }} />
       <IonCard>
         <FilterBar

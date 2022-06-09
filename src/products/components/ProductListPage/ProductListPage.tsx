@@ -16,10 +16,7 @@ import { useIntl } from "react-intl";
 
 import { ProductListUrlSortField } from "../../urls";
 import ProductList from "../ProductList";
-import {
-  ProductFilterKeys,
-  ProductListFilterOpts
-} from "./filters";
+import { ProductFilterKeys, ProductListFilterOpts } from "./filters";
 
 import { IonContent, IonCard } from "@ionic/react";
 
@@ -82,9 +79,9 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
 
   return (
     <>
-      <IonContent>
+      <IonContent data-test-id="commerce-products-tab">
         <div style={{ height: "20px" }} />
-        
+
         <IonCard>
           <FilterBar
             options={options}
