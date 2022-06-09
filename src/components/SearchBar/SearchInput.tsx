@@ -58,6 +58,7 @@ const SearchInput: React.FC<SearchInputProps> = props => {
               className: classes.input,
               placeholder
             }}
+            style={{ textAlign: "left" }}
             value={search}
             onIonChange={handleSearchChange}
           />

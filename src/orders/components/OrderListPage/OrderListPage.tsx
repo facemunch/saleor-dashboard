@@ -23,6 +23,7 @@ export interface OrderListPageProps
     SortPage<OrderListUrlSortField> {
   limits: RefreshLimits_shop_limits;
   orders: OrderList_orders_edges_node[];
+  loading?: boolean;
   onSettingsOpen: () => void;
 }
 
@@ -57,11 +58,11 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
 }) => {
   const intl = useIntl();
   const filterStructure = createFilterStructure(intl, filterOpts);
-  const limitsReached = isLimitReached(limits, "orders");
+  // const limitsReached = isLimitReached(limits, "orders");
 
   return (
     <IonContent data-test-id="commerce-orders-tab">
-      {limitsReached && <OrderLimitReached />}
+      {/* {limitsReached && <OrderLimitReached />} */}
       <div style={{ height: "20px" }} />
       <IonCard>
         <FilterBar

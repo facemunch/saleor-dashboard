@@ -272,7 +272,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
                     return (
                       "<ion-segment-button data-test-id='commerce-tab-" +
                       menu[index].toLowerCase() +
-                      "-trigger' class='ios in-segment segment-button-has-label segment-button-has-label-only segment-button-checked segment-button-layout-icon-top ion-activatable ion-activatable-instant ion-focusable SideBarDrawer-menuItemBtn-150 " +
+                      "-trigger' class='ios in-segment segment-button-has-label segment-button-has-label-only segment-button-layout-icon-top ion-activatable ion-activatable-instant ion-focusable SideBarDrawer-menuItemBtn-150 " +
                       className +
                       "'>" +
                       menu[index] +

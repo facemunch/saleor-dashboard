@@ -1,5 +1,9 @@
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
-import { DEFAULT_INITIAL_PAGINATION_DATA, defaultListSettings, ProductListColumns } from "@saleor/config";
+import {
+  DEFAULT_INITIAL_PAGINATION_DATA,
+  defaultListSettings,
+  ProductListColumns
+} from "@saleor/config";
 import useBulkActions from "@saleor/hooks/useBulkActions";
 import useListSettings from "@saleor/hooks/useListSettings";
 import useNavigator from "@saleor/hooks/useNavigator";
@@ -26,7 +30,7 @@ import {
   getFilterQueryParam,
   getFiltersCurrentTab,
   getFilterTabs,
-  getFilterVariables,
+  getFilterVariables
 } from "./filters";
 import { DEFAULT_SORT_KEY, getSortQueryVariables } from "./sort";
 
@@ -45,7 +49,6 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
   );
 
   const { availableChannels } = useAppChannel(false);
-
 
   const selectedChannel = availableChannels.find(
     channel => channel.slug === "usd"
@@ -127,7 +130,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     paginationState,
     params
   );
-
+    
   return (
     <>
       <ProductListPage
@@ -137,15 +140,12 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
           sort: params.sort
         }}
         onSort={handleSort}
-  
         currencySymbol={selectedChannel?.currencyCode || ""}
         currentTab={currentTab}
         defaultSettings={defaultListSettings[ListViews.PRODUCT_LIST]}
         gridAttributes={[]}
- 
         settings={settings}
-        // loading={availableInGridAttributes.loading || gridAttributes.loading}
-
+        loading={loading}
         onAdd={params => navigate(productAddUrl(params))}
         disabled={loading}
         products={mapEdgesToItems(data?.products)}

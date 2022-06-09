@@ -18,7 +18,8 @@ import {
   IonButton,
   IonButtons,
   IonTitle,
-  IonFab
+  IonFab,
+  IonContent
 } from "@ionic/react";
 
 import { add } from "ionicons/icons";
@@ -33,7 +34,8 @@ const useStyles = makeStyles(
       bottom: 0,
       gridColumn: 2,
       position: "fixed",
-      zIndex: 100000
+      zIndex: 100000,
+      width: "100vw",
     },
     appActionDocked: {
       bottom: "env(safe-area-inset-bottom, 10px)",

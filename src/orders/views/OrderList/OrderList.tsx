@@ -141,6 +141,7 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
         settings={settings}
         currentTab={currentTab}
         disabled={loading}
+        loading={loading}
         filterOpts={getFilterOpts(params, channelOpts)}
         limits={limitOpts.data?.shop.limits}
         orders={mapEdgesToItems(data?.orders)}

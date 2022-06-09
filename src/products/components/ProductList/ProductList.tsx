@@ -1,4 +1,5 @@
 import {
+  IonCardContent,
   IonImg,
   IonItem,
   IonLabel,
@@ -16,6 +17,7 @@ import { ProductListUrlSortField } from "@saleor/products/urls";
 import { ChannelProps, ListActions, ListProps, SortPage } from "@saleor/types";
 import React from "react";
 import { FormattedMessage } from "react-intl";
+import { Loader } from "frontend/ui/loader";
 
 const useStyles = makeStyles(
   theme => ({
@@ -98,15 +100,17 @@ interface ProductListProps
 }
 
 export const ProductList: React.FC<ProductListProps> = props => {
-  const { products, onRowClick } = props;
-
+  const { products, onRowClick, loading } = props;
+  console.log("ProductList", { props, loading: props.loading });
   const classes = useStyles(props);
   return (
     <IonList
       style={{ "--ion-item-background": "#313131", paddingBottom: 4 }}
       data-test-id="product-list"
     >
-      {products &&
+      {loading && <Loader />}
+      {!loading &&
+        products &&
         products.length > 0 &&
         products.map(product => {
           let channel;
@@ -172,12 +176,10 @@ export const ProductList: React.FC<ProductListProps> = props => {
           );
         })}
 
-      {products && products.length === 0 && (
-        <div>
-          <div>
-            <FormattedMessage defaultMessage="No products found" />
-          </div>
-        </div>
+      {!loading && products && products.length === 0 && (
+        <IonCardContent style={{ textAlign: "center" }}>
+          <FormattedMessage defaultMessage="No products found" />
+        </IonCardContent>
       )}
     </IonList>
   );

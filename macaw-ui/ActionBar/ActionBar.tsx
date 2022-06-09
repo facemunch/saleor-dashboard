@@ -33,7 +33,7 @@ export const ActionBar: React.FC<ActionBarProps> = ({
 
   return (
     <Portal container={anchor.current}>
-      <IonFooter style={{ width: "100vw" }}>
+      <IonFooter>
         <IonToolbar
           style={{ "--background": "#404040", borderRadius: "16px 16px 0 0" }}
         >
