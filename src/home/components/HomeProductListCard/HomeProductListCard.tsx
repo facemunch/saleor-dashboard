@@ -25,9 +25,6 @@ const useStyles = makeStyles(
       width: "80 !important"
     },
     colAvatar: {
-      // paddingBottom: theme.spacing(2),
-      // paddingRight: theme.spacing(),
-      // paddingTop: theme.spacing(2),
       paddingLeft: theme.spacing(2),
       width: 112
     },

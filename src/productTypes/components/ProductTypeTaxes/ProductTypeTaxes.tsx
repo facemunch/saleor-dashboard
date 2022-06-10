@@ -6,6 +6,7 @@ import { ProductTypeDetails_taxTypes } from "@saleor/productTypes/types/ProductT
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { IonCard } from "@ionic/react";
 import { maybe } from "../../../misc";
 import { ProductTypeForm } from "../ProductTypeDetailsPage/ProductTypeDetailsPage";
 
@@ -35,7 +36,7 @@ const ProductTypeTaxes: React.FC<ProductTypeTaxesProps> = props => {
   const intl = useIntl();
 
   return (
-    <Card className={classes.root}>
+    <IonCard className={classes.root}>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Taxes",
@@ -64,7 +65,7 @@ const ProductTypeTaxes: React.FC<ProductTypeTaxesProps> = props => {
           }}
         />
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 ProductTypeTaxes.displayName = "ProductTypeTaxes";

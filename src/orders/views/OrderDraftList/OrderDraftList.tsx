@@ -208,7 +208,13 @@ export const OrderDraftList: React.FC<OrderDraftListProps> = ({ params }) => {
                 settings={settings}
                 orders={mapEdgesToItems(data?.draftOrders)}
                 pageInfo={pageInfo}
-                onAdd={() => openModal("create-order")}
+                onAdd={() => {
+                  createOrder({
+                    variables: {
+                      input: { channelId: channel?.id }
+                    }
+                  });
+                }}
                 onNextPage={loadNextPage}
                 onPreviousPage={loadPreviousPage}
                 onRowClick={id => () => navigate(orderUrl(id))}
@@ -269,7 +275,7 @@ export const OrderDraftList: React.FC<OrderDraftListProps> = ({ params }) => {
                 onSubmit={handleTabDelete}
                 tabName={maybe(() => tabs[currentTab - 1].name, "...")}
               />
-              <ChannelPickerDialog
+              {/* <ChannelPickerDialog
                 channelsChoices={mapNodeToChoice(availableChannels)}
                 confirmButtonState="success"
                 defaultChoice={channel?.id}
@@ -282,7 +288,7 @@ export const OrderDraftList: React.FC<OrderDraftListProps> = ({ params }) => {
                     }
                   })
                 }
-              />
+              /> */}
             </>
           );
         }}

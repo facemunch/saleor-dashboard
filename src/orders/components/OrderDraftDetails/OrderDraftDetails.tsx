@@ -7,6 +7,8 @@ import {
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { IonCard } from "@ionic/react";
+
 import { maybe } from "../../../misc";
 import { OrderDetails_order } from "../../types/OrderDetails";
 import OrderDraftDetailsProducts, {
@@ -35,7 +37,7 @@ const OrderDraftDetails: React.FC<OrderDraftDetailsProps> = ({
   const intl = useIntl();
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Order Details",
@@ -75,7 +77,7 @@ const OrderDraftDetails: React.FC<OrderDraftDetailsProps> = ({
           </OrderDiscountContext.Consumer>
         </CardContent>
       )}
-    </Card>
+    </IonCard>
   );
 };
 OrderDraftDetails.displayName = "OrderDraftDetails";

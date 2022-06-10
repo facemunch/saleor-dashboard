@@ -3,6 +3,8 @@ import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
 
+import { IonCardContent, IonCard } from "@ionic/react";
+
 import CardTitle from "../CardTitle";
 import CompanyAddressForm, {
   CompanyAddressFormProps
@@ -27,12 +29,12 @@ const CompanyAddressInput: React.FC<CompanyAddressInputProps> = props => {
   const classes = useStyles(props);
 
   return (
-    <Card className={classNames(classes.root, className)}>
+    <IonCard className={classNames(classes.root, className)}>
       <CardTitle title={header} />
-      <CardContent>
+      <IonCardContent>
         <CompanyAddressForm {...formProps} />
-      </CardContent>
-    </Card>
+      </IonCardContent>
+    </IonCard>
   );
 };
 CompanyAddressInput.displayName = "CompanyAddressInput";

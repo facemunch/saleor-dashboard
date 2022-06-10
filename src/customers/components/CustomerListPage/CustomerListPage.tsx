@@ -1,9 +1,5 @@
-import { Button, Card } from "@mui/material";
-import Container from "@saleor/components/Container";
-import FilterBar from "@saleor/components/FilterBar";
-import PageHeader from "@saleor/components/PageHeader";
+import FilterBar from "@saleor/components/FilterBarIonic";
 import { CustomerListUrlSortField } from "@saleor/customers/urls";
-import { sectionNames } from "@saleor/intl";
 import {
   FilterPageProps,
   ListActions,
@@ -11,9 +7,9 @@ import {
   SortPage,
   TabPageProps
 } from "@saleor/types";
-import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
-
+import React, { memo } from "react";
+import { useIntl } from "react-intl";
+import { IonContent, IonCard } from "@ionic/react";
 import { ListCustomers_customers_edges_node } from "../../types/ListCustomers";
 import CustomerList from "../CustomerList/CustomerList";
 import {
@@ -30,6 +26,14 @@ export interface CustomerListPageProps
     TabPageProps {
   customers: ListCustomers_customers_edges_node[];
 }
+const options = [
+  { label: "Customer name A-Z", path: "?asc=true&sort=name" },
+  { label: "Customer name Z-A", path: "?asc=false&sort=name" },
+  { label: "Email A-Z ", path: "?asc=true&sort=email" },
+  { label: "Email Z-A", path: "?asc=false&sort=email" },
+  { label: "No. of order (most first)", path: "?asc=true&sort=orders" },
+  { label: "No. of order (least first)", path: "?asc=false&sort=orders" }
+];
 
 const CustomerListPage: React.FC<CustomerListPageProps> = ({
   currentTab,
@@ -50,22 +54,11 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
   const structure = createFilterStructure(intl, filterOpts);
 
   return (
-    <Container>
-      <PageHeader title={intl.formatMessage(sectionNames.customers)}>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={onAdd}
-          data-test-id="createCustomer"
-        >
-          <FormattedMessage
-            defaultMessage="Create customer"
-            description="button"
-          />
-        </Button>
-      </PageHeader>
-      <Card>
+    <IonContent data-test-id="commerce-customers-tab">
+      <div style={{ height: "20px" }} />
+      <IonCard>
         <FilterBar
+          options={options}
           allTabLabel={intl.formatMessage({
             defaultMessage: "All Customers",
             description: "tab name"
@@ -85,9 +78,14 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
           onTabSave={onTabSave}
         />
         <CustomerList {...customerListProps} />
-      </Card>
-    </Container>
+      </IonCard>
+      <div
+        style={{
+          height: "100px"
+        }}
+      />
+    </IonContent>
   );
 };
 CustomerListPage.displayName = "CustomerListPage";
-export default CustomerListPage;
+export default memo(CustomerListPage);

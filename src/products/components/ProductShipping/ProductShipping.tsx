@@ -11,6 +11,7 @@ import { getFormErrors, getProductErrorMessage } from "@saleor/utils/errors";
 import createNonNegativeValueChangeHandler from "@saleor/utils/handlers/nonNegativeValueChangeHandler";
 import React from "react";
 import { useIntl } from "react-intl";
+import { IonCard } from '@ionic/react'
 
 interface ProductShippingProps {
   data: {
@@ -31,7 +32,7 @@ const ProductShipping: React.FC<ProductShippingProps> = props => {
   const handleChange = createNonNegativeValueChangeHandler(onChange);
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Shipping",
@@ -64,7 +65,7 @@ const ProductShipping: React.FC<ProductShippingProps> = props => {
           />
         </Grid>
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 ProductShipping.displayName = "ProductShipping";

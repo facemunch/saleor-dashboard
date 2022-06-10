@@ -12,6 +12,7 @@ import { getFormErrors } from "@saleor/utils/errors";
 import getShippingErrorMessage from "@saleor/utils/errors/shipping";
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
+import { IonCard } from "@ionic/react";
 
 const messages = defineMessages({
   maxDays: {
@@ -75,7 +76,7 @@ const ShippingRateInfo: React.FC<ShippingRateInfoProps> = props => {
   );
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage(commonMessages.generalInformations)}
       />
@@ -136,7 +137,7 @@ const ShippingRateInfo: React.FC<ShippingRateInfoProps> = props => {
           />
         </div>
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 ShippingRateInfo.displayName = "ShippingRateInfo";

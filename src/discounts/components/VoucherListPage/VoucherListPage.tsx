@@ -15,6 +15,8 @@ import {
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { IonContent, IonCard } from "@ionic/react";
+
 import { VoucherList_vouchers_edges_node } from "../../types/VoucherList";
 import VoucherList from "../VoucherList";
 import {
@@ -50,7 +52,7 @@ const VoucherListPage: React.FC<VoucherListPageProps> = ({
   const structure = createFilterStructure(intl, filterOpts);
 
   return (
-    <Container>
+    <IonContent>
       <PageHeader title={intl.formatMessage(sectionNames.vouchers)}>
         <Button
           onClick={onAdd}
@@ -64,7 +66,7 @@ const VoucherListPage: React.FC<VoucherListPageProps> = ({
           />
         </Button>
       </PageHeader>
-      <Card>
+      <IonCard>
         <FilterBar
           allTabLabel={intl.formatMessage({
             defaultMessage: "All Vouchers",
@@ -85,8 +87,8 @@ const VoucherListPage: React.FC<VoucherListPageProps> = ({
           onTabSave={onTabSave}
         />
         <VoucherList {...listProps} />
-      </Card>
-    </Container>
+      </IonCard>
+    </IonContent>
   );
 };
 VoucherListPage.displayName = "VoucherListPage";

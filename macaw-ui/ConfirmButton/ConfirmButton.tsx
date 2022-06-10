@@ -2,6 +2,7 @@ import { Button, ButtonProps, CircularProgress } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import clsx from "clsx";
 import React from "react";
+import { IonButton } from "@ionic/react";
 
 import useStyles from "./styles";
 
@@ -34,7 +35,7 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
   const classes = useStyles();
   const [
     displayCompletedActionState,
-    setDisplayCompletedActionState,
+    setDisplayCompletedActionState
   ] = React.useState(false);
   const timeout = React.useRef<number>();
 
@@ -73,14 +74,16 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
     : displayCompletedActionState;
 
   return (
-    <Button
-      variant="contained"
+    <IonButton
+      slot="primary"
+      // variant="contained"
       onClick={transitionState === "loading" ? undefined : onClick}
-      color="primary"
-      className={clsx(className, {
-        [classes.error]: transitionState === "error" && isCompleted,
-        [classes.success]: transitionState === "success" && isCompleted,
-      })}
+      // color="dark"
+      fill="solid"
+      // className={clsx(className, {
+      //   [classes.error]: transitionState === "error" && isCompleted,
+      //   [classes.success]: transitionState === "success" && isCompleted
+      // })}
       disabled={!isCompleted && disabled}
       data-test-state={isCompleted ? transitionState : "default"}
       {...props}
@@ -90,13 +93,13 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
         color="inherit"
         className={clsx({
           [classes.progress]: true,
-          [classes.invisible]: transitionState !== "loading",
+          [classes.invisible]: transitionState !== "loading"
         })}
       />
       <CheckIcon
         className={clsx({
           [classes.icon]: true,
-          [classes.invisible]: !(transitionState === "success" && isCompleted),
+          [classes.invisible]: !(transitionState === "success" && isCompleted)
         })}
       />
       <span
@@ -104,14 +107,14 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
           [classes.label]: true,
           [classes.invisible]:
             (transitionState === "loading" || transitionState === "success") &&
-            isCompleted,
+            isCompleted
         })}
       >
         {transitionState === "error" && isCompleted
           ? labels.error
           : children || labels.confirm}
       </span>
-    </Button>
+    </IonButton>
   );
 };
 

@@ -1,6 +1,15 @@
 import { TextField } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonSearchbar,
+  IonFooter
+} from "@ionic/react";
 
 import { SearchPageProps } from "../../types";
 import Debounce from "../Debounce";
@@ -40,15 +49,18 @@ const SearchInput: React.FC<SearchInputProps> = props => {
         };
 
         return (
-          <TextField
+          // <IonSearchbar value={searchText} onIonChange={e => setSearchText(e.detail.value!)}></IonSearchbar>
+
+          <IonSearchbar
             data-test-id="searchInput"
             className={classes.root}
             inputProps={{
               className: classes.input,
               placeholder
             }}
+            style={{ textAlign: "left" }}
             value={search}
-            onChange={handleSearchChange}
+            onIonChange={handleSearchChange}
           />
         );
       }}

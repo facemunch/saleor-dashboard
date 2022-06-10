@@ -10,6 +10,8 @@ import getAccountErrorMessage from "@saleor/utils/errors/account";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { IonCard } from "@ionic/react";
+
 const useStyles = makeStyles(
   theme => ({
     content: {
@@ -45,7 +47,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = props => {
   const formErrors = getFormErrors(["firstName", "lastName", "email"], errors);
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={
           <FormattedMessage
@@ -55,7 +57,10 @@ const CustomerInfo: React.FC<CustomerInfoProps> = props => {
         }
       />
       <CardContent className={classes.content}>
-        <Typography sx={{ marginBottom: '16px' }} className={classes.sectionHeader}>
+        <Typography
+          sx={{ marginBottom: "16px" }}
+          className={classes.sectionHeader}
+        >
           <FormattedMessage {...commonMessages.generalInformations} />
         </Typography>
         <Grid variant="uniform">
@@ -83,7 +88,10 @@ const CustomerInfo: React.FC<CustomerInfoProps> = props => {
           />
         </Grid>
         <Hr className={classes.hr} />
-        <Typography sx={{ marginBottom: '16px' }} className={classes.sectionHeader}>
+        <Typography
+          sx={{ marginBottom: "16px" }}
+          className={classes.sectionHeader}
+        >
           <FormattedMessage
             defaultMessage="Contact Informations"
             description="customer contact section, header"
@@ -101,7 +109,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = props => {
           onChange={onChange}
         />
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 CustomerInfo.displayName = "CustomerInfo";

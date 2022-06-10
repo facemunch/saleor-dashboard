@@ -7,7 +7,7 @@ import StatusLabel from "@saleor/components/StatusLabel";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-
+import { IonCard } from "@ionic/react";
 import { maybe, transformPaymentStatus } from "../../../misc";
 import {
   OrderAction,
@@ -90,7 +90,7 @@ const OrderPayment: React.FC<OrderPaymentProps> = props => {
   const usedGiftCardAmount = extractOrderGiftCardUsedAmount(order);
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={
           maybe(() => order.paymentStatus) === undefined ? (
@@ -359,7 +359,7 @@ const OrderPayment: React.FC<OrderPaymentProps> = props => {
             </CardActions>
           </>
         )}
-    </Card>
+    </IonCard>
   );
 };
 OrderPayment.displayName = "OrderPayment";

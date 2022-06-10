@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { IonButton } from "@ionic/react";
 import { buttonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
@@ -32,15 +32,15 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({
   const intl = useIntl();
 
   return (
-    <Button
+    <IonButton
       variant="contained"
       onClick={onClick}
-      className={classes.button}
+      // className={classes.button}
       data-test="button-bar-delete"
       disabled={disabled}
     >
       {label || intl.formatMessage(buttonMessages.delete)}
-    </Button>
+    </IonButton>
   );
 };
 

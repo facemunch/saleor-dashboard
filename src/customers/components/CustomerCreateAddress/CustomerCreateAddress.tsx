@@ -7,6 +7,7 @@ import { AccountErrorFragment } from "@saleor/fragments/types/AccountErrorFragme
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { IonCard, IonCardContent } from "@ionic/react";
 
 import { AddressTypeInput } from "../../types";
 
@@ -44,14 +45,14 @@ const CustomerCreateAddress: React.FC<CustomerCreateAddressProps> = props => {
   const intl = useIntl();
 
   return (
-    <Card className={classes.overflow}>
+    <IonCard className={classes.overflow}>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Primary Address",
           description: "page header"
         })}
       />
-      <CardContent className={classes.overflow}>
+      <IonCardContent className={classes.overflow}>
         <Typography>
           <FormattedMessage defaultMessage="The primary address of this customer." />
         </Typography>
@@ -65,8 +66,8 @@ const CustomerCreateAddress: React.FC<CustomerCreateAddressProps> = props => {
           onChange={onChange}
           onCountryChange={onCountryChange}
         />
-      </CardContent>
-    </Card>
+      </IonCardContent>
+    </IonCard>
   );
 };
 CustomerCreateAddress.displayName = "CustomerCreateAddress";

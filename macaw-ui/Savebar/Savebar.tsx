@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import React from "react";
 
 import { useActionBar } from "../ActionBar";
@@ -6,10 +5,12 @@ import { ActionBar } from "../ActionBar/ActionBar";
 import {
   ConfirmButton,
   ConfirmButtonLabels,
-  ConfirmButtonTransitionState,
+  ConfirmButtonTransitionState
 } from "../ConfirmButton";
 import { ButtonTooltipDecorator } from "./ButtonTooltipDecorator";
 import useStyles from "./styles";
+
+import { IonButton } from "@ionic/react";
 
 export type SavebarLabels = ConfirmButtonLabels &
   Record<"delete" | "cancel", string>;
@@ -33,7 +34,7 @@ export const Savebar: React.FC<SavebarProps> = ({
   state,
   onCancel,
   onDelete,
-  onSubmit,
+  onSubmit
 }) => {
   const classes = useStyles();
   const { setDocked } = useActionBar();
@@ -42,26 +43,28 @@ export const Savebar: React.FC<SavebarProps> = ({
     <ActionBar state={state} disabled={disabled}>
       {!!onDelete && (
         <ButtonTooltipDecorator tooltip={tooltips?.delete}>
-          <Button
-            variant="contained"
+          <IonButton
+            fill="clear"
+            color="danger"
             onClick={onDelete}
-            className={classes.deleteButton}
+            // className={classes.deleteButton}
             data-test="button-bar-delete"
           >
             {labels.delete}
-          </Button>
+          </IonButton>
         </ButtonTooltipDecorator>
       )}
       <div className={classes.spacer} />
       <ButtonTooltipDecorator tooltip={tooltips?.cancel}>
-        <Button
+        <IonButton
+          slot="start"
           className={classes.cancelButton}
-          variant="text"
+          fill="clear"
           onClick={onCancel}
           data-test="button-bar-cancel"
         >
           {labels.cancel}
-        </Button>
+        </IonButton>
       </ButtonTooltipDecorator>
       <ButtonTooltipDecorator tooltip={tooltips?.confirm}>
         <ConfirmButton

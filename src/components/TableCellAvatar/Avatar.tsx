@@ -16,10 +16,13 @@ const useStyles = makeStyles(
     avatar: {
       background: "none",
       border: `1px solid ${theme.palette.divider}`,
-      borderRadius: 2,
+      // borderRadius: 2,
       color: "#bdbdbd",
       display: "inline-flex",
-      padding: theme.spacing(0.5)
+      padding: theme.spacing(0.5),
+      height: "60px !important",
+      width: "60px !important",
+      borderRadius: "18px !important"
     },
     children: {
       alignSelf: "center",

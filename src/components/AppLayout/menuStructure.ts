@@ -64,14 +64,14 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
           url: productListUrl(),
           permissions: [PermissionEnum.MANAGE_PRODUCTS]
         },
-        {
-          ariaLabel: "categories",
-          iconSvg: ellipse,
-          label: intl.formatMessage(sectionNames.categories),
-          id: "categories",
-          url: categoryListUrl(),
-          permissions: [PermissionEnum.MANAGE_PRODUCTS]
-        },
+        // {
+        //   ariaLabel: "categories",
+        //   iconSvg: ellipse,
+        //   label: intl.formatMessage(sectionNames.categories),
+        //   id: "categories",
+        //   url: categoryListUrl(),
+        //   permissions: [PermissionEnum.MANAGE_PRODUCTS]
+        // },
         // {
         //   ariaLabel: "collections",
         //   iconSvg: ellipse,
@@ -80,14 +80,14 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
         //   url: collectionListUrl(),
         //   permissions: [PermissionEnum.MANAGE_PRODUCTS]
         // },
-        {
-          ariaLabel: "giftCards",
-          iconSvg: ellipse,
-          label: intl.formatMessage(sectionNames.giftCards),
-          id: "giftCards",
-          url: giftCardListUrl(),
-          permissions: [PermissionEnum.MANAGE_GIFT_CARD]
-        }
+        // {
+        //   ariaLabel: "giftCards",
+        //   iconSvg: ellipse,
+        //   label: intl.formatMessage(sectionNames.giftCards),
+        //   id: "giftCards",
+        //   url: giftCardListUrl(),
+        //   permissions: [PermissionEnum.MANAGE_GIFT_CARD]
+        // }
       ],
       iconSrc: catalogIcon,
       label: intl.formatMessage(commonMessages.catalog),
@@ -128,28 +128,28 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
       url: customerListUrl()
     },
 
-    {
-      ariaLabel: "discounts",
-      children: [
-        {
-          ariaLabel: "sales",
-          label: intl.formatMessage(sectionNames.sales),
-          id: "sales",
-          iconSvg: ellipse,
-          url: saleListUrl()
-        },
-        {
-          ariaLabel: "vouchers",
-          label: intl.formatMessage(sectionNames.vouchers),
-          id: "vouchers",
-          iconSvg: ellipse,
-          url: voucherListUrl()
-        }
-      ],
-      label: intl.formatMessage(commonMessages.discounts),
-      permissions: [PermissionEnum.MANAGE_DISCOUNTS],
-      id: "discounts"
-    },
+    // {
+    //   ariaLabel: "discounts",
+    //   children: [
+    //     {
+    //       ariaLabel: "sales",
+    //       label: intl.formatMessage(sectionNames.sales),
+    //       id: "sales",
+    //       iconSvg: ellipse,
+    //       url: saleListUrl()
+    //     },
+    //     {
+    //       ariaLabel: "vouchers",
+    //       label: intl.formatMessage(sectionNames.vouchers),
+    //       id: "vouchers",
+    //       iconSvg: ellipse,
+    //       url: voucherListUrl()
+    //     }
+    //   ],
+    //   label: intl.formatMessage(commonMessages.discounts),
+    //   permissions: [PermissionEnum.MANAGE_DISCOUNTS],
+    //   id: "discounts"
+    // },
     // {
     //   ariaLabel: "apps",
     //   iconSrc: appsIcon,
@@ -166,14 +166,14 @@ function createMenuStructure(intl: IntlShape, user: User): SidebarMenuItem[] {
     //   id: "translations",
     //   url: languageListUrl
     // },
-    {
-      ariaLabel: "configure",
-      iconSvg: ellipse,
-      label: intl.formatMessage(sectionNames.configuration),
-      permissions: getConfigMenuItemsPermissions(intl),
-      id: "configure",
-      url: configurationMenuUrl
-    }
+    // {
+    //   ariaLabel: "configure",
+    //   iconSvg: ellipse,
+    //   label: intl.formatMessage(sectionNames.configuration),
+    //   permissions: getConfigMenuItemsPermissions(intl),
+    //   id: "configure",
+    //   url: configurationMenuUrl
+    // }
   ];
 
   const isMenuItemPermitted = (menuItem: FilterableMenuItem) =>

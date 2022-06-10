@@ -8,7 +8,7 @@ import { sectionNames } from "@saleor/intl";
 import { Backlink } from "@saleor/macaw-ui";
 import React from "react";
 import { useIntl } from "react-intl";
-
+import { IonContent, IonPage } from "@ionic/react";
 import { maybe } from "../../../misc";
 import { CountryList_shop } from "../../types/CountryList";
 import CountryList from "../CountryList";
@@ -48,8 +48,8 @@ const CountryListPage: React.FC<CountryListPageProps> = ({
   return (
     <Form initial={initialForm} onSubmit={onSubmit}>
       {({ change, data, hasChanged, submit }) => (
-        <>
-          <Container>
+        <IonPage>
+          <IonContent>
             <Backlink onClick={onBack}>
               {intl.formatMessage(sectionNames.configuration)}
             </Backlink>
@@ -75,14 +75,14 @@ const CountryListPage: React.FC<CountryListPageProps> = ({
                 />
               </div>
             </Grid>
-          </Container>
+          </IonContent>
           <Savebar
             disabled={disabled || !hasChanged}
             state={saveButtonBarState}
             onCancel={onBack}
             onSubmit={submit}
           />
-        </>
+        </IonPage>
       )}
     </Form>
   );

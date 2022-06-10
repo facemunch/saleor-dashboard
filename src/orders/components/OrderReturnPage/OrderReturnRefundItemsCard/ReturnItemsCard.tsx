@@ -22,7 +22,7 @@ import {
 } from "@saleor/orders/types/OrderDetails";
 import React from "react";
 import { defineMessages, FormattedMessage, useIntl } from "react-intl";
-
+import { IonCard } from "@ionic/react";
 import { FormsetQuantityData, FormsetReplacementData } from "../form";
 import { getById } from "../utils";
 import CardTitle from "./CardTitle";
@@ -117,7 +117,7 @@ const ItemsCard: React.FC<OrderReturnRefundLinesCardProps> = ({
   const fulfillment = order?.fulfillments.find(getById(fulfilmentId));
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         orderNumber={order?.number}
         lines={lines}
@@ -127,7 +127,12 @@ const ItemsCard: React.FC<OrderReturnRefundLinesCardProps> = ({
       <CardContent className={classes.cartContent}>
         <MaximalButton onClick={onSetMaxQuantity} />
       </CardContent>
-      <Table>
+      <div
+        style={{
+          width: "92vw",
+          overflow: "scroll"
+        }}
+      >
         <TableHead>
           <TableRow>
             <TableCell>
@@ -253,8 +258,8 @@ const ItemsCard: React.FC<OrderReturnRefundLinesCardProps> = ({
             )
           )}
         </TableBody>
-      </Table>
-    </Card>
+      </div>
+    </IonCard>
   );
 };
 

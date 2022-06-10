@@ -19,6 +19,7 @@ import {
 import getShippingErrorMessage from "@saleor/utils/errors/shipping";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { IonCard } from "@ionic/react";
 
 import { useStyles } from "./styles";
 
@@ -48,7 +49,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({
   const formErrors = getFormChannelErrors(["price"], errors);
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Pricing",
@@ -65,14 +66,14 @@ export const PricingCard: React.FC<PricingCardProps> = ({
         </Typography> */}
         <ResponsiveTable className={classes.table}>
           <TableHead colSpan={numberOfColumns} disabled={disabled} items={[]}>
-            <TableCell className={classes.colName}>
+            {/* <TableCell className={classes.colName}>
               <span>
                 <FormattedMessage
                   defaultMessage="Channel name"
                   description="column title"
                 />
               </span>
-            </TableCell>
+            </TableCell> */}
             <TableCell className={classes.colType}>
               <span>
                 <FormattedMessage
@@ -88,9 +89,9 @@ export const PricingCard: React.FC<PricingCardProps> = ({
 
               return (
                 <TableRow key={channel.id}>
-                  <TableCell>
+                  {/* <TableCell>
                     <Typography>{channel.name}</Typography>
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell>
                     <PriceField
                       disabled={disabled}
@@ -118,7 +119,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({
           </TableBody>
         </ResponsiveTable>
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 

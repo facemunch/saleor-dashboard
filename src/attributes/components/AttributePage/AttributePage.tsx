@@ -27,7 +27,7 @@ import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTr
 import React from "react";
 import { useIntl } from "react-intl";
 import slugify from "slugify";
-
+import { IonContent, IonPage } from "@ionic/react";
 import AttributeDetails from "../AttributeDetails";
 import AttributeOrganization from "../AttributeOrganization";
 import AttributeProperties from "../AttributeProperties";
@@ -170,8 +170,8 @@ const AttributePage: React.FC<AttributePageProps> = ({
         const changeMetadata = makeMetadataChangeHandler(change);
 
         return (
-          <>
-            <Container>
+          <IonPage>
+            <IonContent>
               <Backlink onClick={onBack}>
                 {intl.formatMessage(sectionNames.attributes)}
               </Backlink>
@@ -245,9 +245,9 @@ const AttributePage: React.FC<AttributePageProps> = ({
                 onSubmit={submit}
                 onDelete={attribute === null ? undefined : onDelete}
               />
-            </Container>
+            </IonContent>
             {children(data)}
-          </>
+          </IonPage>
         );
       }}
     </Form>

@@ -18,6 +18,8 @@ import { WarehouseListUrlSortField } from "@saleor/warehouses/urls";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { IonContent } from "@ionic/react";
+
 import WarehouseList from "../WarehouseList";
 
 export interface WarehouseListPageProps
@@ -59,7 +61,7 @@ export const WarehouseListPage: React.FC<WarehouseListPageProps> = ({
   const limitReached = isLimitReached(limits, "warehouses");
 
   return (
-    <Container>
+    <IonContent>
       <Backlink onClick={onBack}>
         <FormattedMessage {...sectionNames.configuration} />
       </Backlink>
@@ -134,7 +136,7 @@ export const WarehouseListPage: React.FC<WarehouseListPageProps> = ({
           {...listProps}
         />
       </Card>
-    </Container>
+    </IonContent>
   );
 };
 WarehouseListPage.displayName = "WarehouseListPage";

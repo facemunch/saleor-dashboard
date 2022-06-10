@@ -16,8 +16,10 @@ const useStyles = makeStyles(
       width: "100%"
     },
     date: {
-      color: theme.typography.caption.color,
-      paddingLeft: 24
+      // color: theme.typography.caption.color,
+      paddingLeft: 24,
+      color: 'white',
+      fontSize: 12
     },
     elementsContainer: {
       alignItems: "center",
@@ -31,7 +33,8 @@ const useStyles = makeStyles(
       marginTop: theme.spacing(2)
     },
     titleElement: {
-      marginRight: theme.spacing(0.5)
+      marginRight: theme.spacing(0.5),
+    
     }
   }),
   { name: "TimelineEventHeader" }

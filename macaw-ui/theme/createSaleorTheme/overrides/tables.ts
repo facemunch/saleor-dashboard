@@ -41,7 +41,8 @@ export const tableOverrides = (
             textAlign: "left" as "left"
           }
         },
-        borderBottomColor: colors.paperBorder
+        borderBottomColor: colors.paperBorder,
+        background: "black"
         // padding: "0px !important",
       }
     }
@@ -72,6 +73,7 @@ export const tableOverrides = (
         }
       },
       root: {
+        background: "black",
         "&$selected": {
           backgroundColor: alpha(colors.primary, 0.05)
         }

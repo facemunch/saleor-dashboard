@@ -26,7 +26,7 @@ import {
 import getProductErrorMessage from "@saleor/utils/errors/product";
 import React from "react";
 import { FormattedMessage, MessageDescriptor, useIntl } from "react-intl";
-
+import { IonCard } from "@ionic/react";
 const useStyles = makeStyles(
   theme => ({
     caption: {
@@ -70,6 +70,7 @@ interface ProductVariantPriceProps {
   errors?: ProductChannelListingErrorFragment[];
   loading?: boolean;
   disabled?: boolean;
+  isDigitalProduct?: boolean;
   onChange?: (
     id: string,
     data: ChannelPriceArgs | ChannelPriceAndPreorderArgs
@@ -86,6 +87,7 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
     ProductVariantChannelListings = [],
     loading,
     onChange,
+    isDigitalProduct = false,
     disabledMessage
   } = props;
   const classes = useStyles(props);
@@ -117,7 +119,7 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
   }
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Pricing",
@@ -133,28 +135,28 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
           })}
         </Typography> */}
         <ResponsiveTable className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell>
+          {/* <TableHead> */}
+          {/* <TableRow> */}
+          {/* <TableCell>
                 <FormattedMessage
                   defaultMessage="Channel Name"
                   description="tabel column header"
                 />
-              </TableCell>
-              <TableCell className={classes.colType}>
+              </TableCell> */}
+          {/* <TableCell className={classes.colType}>
                 <FormattedMessage
                   defaultMessage="Selling Price"
                   description="tabel column header"
-                />
-              </TableCell>
-              <TableCell className={classes.colType}>
+                /> */}
+          {/* </TableCell> */}
+          {/* <TableCell className={classes.colType}>
                 <FormattedMessage
                   defaultMessage="Cost Price"
                   description="tabel column header"
                 />
-              </TableCell>
-            </TableRow>
-          </TableHead>
+              </TableCell> */}
+          {/* </TableRow> */}
+          {/* </TableHead> */}
           <TableBody>
             {renderCollection(
               ProductVariantChannelListings,
@@ -170,7 +172,7 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
 
                 return (
                   <TableRow key={listing?.id || `skeleton-${index}`}>
-                    <TableCell>{listing?.name || <Skeleton />}</TableCell>
+                    {/* <TableCell>{listing?.name || <Skeleton />}</TableCell> */}
                     <TableCell className={classes.colPrice}>
                       {listing ? (
                         <PriceField
@@ -200,7 +202,7 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
                         <Skeleton />
                       )}
                     </TableCell>
-                    <TableCell className={classes.colPrice}>
+                    {/* <TableCell className={classes.colPrice}>
                       {listing ? (
                         <PriceField
                           className={classes.input}
@@ -229,7 +231,7 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
                       ) : (
                         <Skeleton />
                       )}
-                    </TableCell>
+                    </TableCell> */}
                   </TableRow>
                 );
               },
@@ -244,7 +246,7 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
           </TableBody>
         </ResponsiveTable>
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 ProductVariantPrice.displayName = "ProductVariantPrice";

@@ -1,7 +1,6 @@
 import { parse as parseQs } from "qs";
 import React from "react";
-import { Route, Routes } from "react-router-dom";
-
+import { Route } from "react-router-dom";
 
 import { SiteSettingsUrlQueryParams } from "./urls";
 import SiteSettingsComponent from "./views/";
@@ -14,8 +13,8 @@ const SiteSettings: React.FC = () => {
 };
 
 export const SiteSettingsSection: React.FC = () => (
-  <Routes>
-    <Route path="" element={<SiteSettings />} />
-  </Routes>
+  <>
+    <Route path="/site-settings" render={() => <SiteSettings />} />
+  </>
 );
 export default SiteSettingsSection;

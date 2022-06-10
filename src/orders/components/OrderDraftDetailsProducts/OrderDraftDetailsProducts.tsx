@@ -1,5 +1,4 @@
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import { AVATAR_MARGIN } from "@saleor/components/TableCellAvatar/Avatar";
 import { makeStyles } from "@saleor/macaw-ui";
 import {
@@ -69,7 +68,7 @@ const OrderDraftDetailsProducts: React.FC<OrderDraftDetailsProductsProps> = prop
   const classes = useStyles(props);
 
   return (
-    <ResponsiveTable className={classes.table}>
+    <div id="helloooo" style={{width: '92vw', overflow: 'scroll'}}>
       {maybe(() => !!lines.length) && (
         <TableHead>
           <TableRow>
@@ -124,7 +123,7 @@ const OrderDraftDetailsProducts: React.FC<OrderDraftDetailsProductsProps> = prop
           </TableRow>
         )}
       </TableBody>
-    </ResponsiveTable>
+    </div>
   );
 };
 OrderDraftDetailsProducts.displayName = "OrderDraftDetailsProducts";

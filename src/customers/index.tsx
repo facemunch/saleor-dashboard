@@ -1,11 +1,7 @@
-import { sectionNames } from "@saleor/intl";
 import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React from "react";
-import { useIntl } from "react-intl";
-import { Route, Routes, useParams } from "react-router-dom";
-
-import { WindowTitle } from "../components/WindowTitle";
+import { Route, Switch, useParams } from "react-router-dom";
 import {
   customerAddressesPath,
   CustomerAddressesUrlQueryParams,
@@ -19,17 +15,18 @@ import CustomerCreateView from "./views/CustomerCreate";
 import CustomerDetailsViewComponent from "./views/CustomerDetails";
 import CustomerListViewComponent from "./views/CustomerList";
 
-const CustomerListView: React.FC = () => {
+export const CustomerListView: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
-  const params: CustomerListUrlQueryParams = asSortParams(
-    qs,
-    CustomerListUrlSortField
-  );
+  const params: CustomerListUrlQueryParams = location.pathname.includes(
+    "/customers"
+  )
+    ? asSortParams(qs, CustomerListUrlSortField)
+    : {};
 
   return <CustomerListViewComponent params={params} />;
 };
 
-const CustomerDetailsView: React.FC = () => {
+export const CustomerDetailsView: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: CustomerUrlQueryParams = qs;
   const match = useParams();
@@ -42,7 +39,7 @@ const CustomerDetailsView: React.FC = () => {
   );
 };
 
-const CustomerAddressesView: React.FC = () => {
+export const CustomerAddressesView: React.FC = () => {
   const qs = parseQs(location.search.substr(1));
   const params: CustomerAddressesUrlQueryParams = qs;
   const match = useParams();
@@ -56,20 +53,27 @@ const CustomerAddressesView: React.FC = () => {
 };
 
 export const CustomerSection: React.FC<{}> = () => {
-  const intl = useIntl();
 
   return (
     <>
-      <WindowTitle title={intl.formatMessage(sectionNames.customers)} />
-      <Routes>
-        <Route path="" element={<CustomerListView />} />
-        <Route path="add" element={<CustomerCreateView />} />
+      <Switch>
+        <Route exact path="/customers" render={() => <CustomerListView />} />
         <Route
-          path={customerAddressesPath(":id", "")}
-          element={<CustomerAddressesView />}
+          exact
+          path="/customers/add"
+          render={() => <CustomerCreateView />}
         />
-        <Route path={customerPath(":id", "")} element={<CustomerDetailsView />} />
-      </Routes>
+        <Route
+          path={"/customers/" + customerAddressesPath(":id", "")}
+          render={() => <CustomerAddressesView />}
+        />
+        <Route
+          path={"/customers/" + customerPath(":id", "")}
+          render={() => <CustomerDetailsView />}
+        />
+        <Route path="/" render={() => <CustomerListView />} />
+
+      </Switch>
     </>
   );
 };

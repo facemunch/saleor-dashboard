@@ -6,7 +6,7 @@ import useUser from "@saleor/hooks/useUser";
 import { PermissionEnum } from "@saleor/types/globalTypes";
 import React from "react";
 import { useIntl } from "react-intl";
-
+import { IonCard } from "@ionic/react";
 import { useStyles } from "./styles";
 
 export interface ChannelsAvailabilityWrapperProps {
@@ -43,7 +43,7 @@ export const ChannelsAvailabilityWrapper: React.FC<ChannelsAvailabilityWrapperPr
 
   return (
     <>
-      <Card>
+      <IonCard>
         <CardTitle
           title={intl.formatMessage({
             defaultMessage: "Availability",
@@ -78,7 +78,7 @@ export const ChannelsAvailabilityWrapper: React.FC<ChannelsAvailabilityWrapperPr
           )}
           {children}
         </CardContent>
-      </Card>
+      </IonCard>
     </>
   );
 };

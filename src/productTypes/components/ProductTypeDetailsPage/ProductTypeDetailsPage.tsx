@@ -19,6 +19,8 @@ import {
   ProductTypeKindEnum,
   WeightUnitsEnum
 } from "@saleor/types/globalTypes";
+import { IonContent, IonPage } from "@ionic/react";
+
 import { mapMetadataItemToInput } from "@saleor/utils/maps";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
 import React from "react";
@@ -165,105 +167,110 @@ const ProductTypeDetailsPage: React.FC<ProductTypeDetailsPageProps> = ({
         const changeMetadata = makeMetadataChangeHandler(change);
 
         return (
-          <Container>
-            <Backlink onClick={onBack}>
-              {intl.formatMessage(sectionNames.productTypes)}
-            </Backlink>
-            <PageHeader title={pageTitle} />
-            <Grid>
-              <div>
-                <ProductTypeDetails
-                  data={data}
-                  disabled={disabled}
-                  errors={errors}
-                  onChange={change}
-                  onKindChange={change}
-                />
-                <CardSpacer />
-                <ProductTypeTaxes
-                  disabled={disabled}
-                  data={data}
-                  taxTypes={taxTypes}
-                  taxTypeDisplayName={taxTypeDisplayName}
-                  onChange={event =>
-                    handleTaxTypeChange(
-                      event,
-                      taxTypes,
-                      change,
-                      setTaxTypeDisplayName
-                    )
-                  }
-                />
-                <CardSpacer />
-                <ProductTypeAttributes
-                  testId="assignProductsAttributes"
-                  attributes={maybe(() => productType.productAttributes)}
-                  disabled={disabled}
-                  type={ProductAttributeType.PRODUCT}
-                  onAttributeAssign={onAttributeAdd}
-                  onAttributeClick={onAttributeClick}
-                  onAttributeReorder={(event: ReorderEvent) =>
-                    onAttributeReorder(event, ProductAttributeType.PRODUCT)
-                  }
-                  onAttributeUnassign={onAttributeUnassign}
-                  {...productAttributeList}
-                />
-                <CardSpacer />
-                <ControlledSwitch
-                  checked={data.hasVariants}
-                  disabled={disabled}
-                  label={intl.formatMessage({
-                    defaultMessage: "Product type uses Variant Attributes",
-                    description: "switch button"
-                  })}
-                  name="hasVariants"
-                  onChange={event => onHasVariantsToggle(event.target.value)}
-                />
-                {data.hasVariants && (
-                  <>
-                    <CardSpacer />
-                    <ProductTypeVariantAttributes
-                      testId="assignVariantsAttributes"
-                      assignedVariantAttributes={
-                        productType?.assignedVariantAttributes
-                      }
-                      disabled={disabled}
-                      type={ProductAttributeType.VARIANT}
-                      onAttributeAssign={onAttributeAdd}
-                      onAttributeClick={onAttributeClick}
-                      onAttributeReorder={(event: ReorderEvent) =>
-                        onAttributeReorder(event, ProductAttributeType.VARIANT)
-                      }
-                      onAttributeUnassign={onAttributeUnassign}
-                      onAttributeVariantSelection={setChanged}
-                      setSelectedVariantAttributes={
-                        setSelectedVariantAttributes
-                      }
-                      selectedVariantAttributes={selectedVariantAttributes}
-                      {...variantAttributeList}
-                    />
-                  </>
-                )}
-                <CardSpacer />
-                <Metadata data={data} onChange={changeMetadata} />
-              </div>
-              <div>
-                <ProductTypeShipping
-                  disabled={disabled}
-                  data={data}
-                  weightUnit={productType?.weight?.unit || defaultWeightUnit}
-                  onChange={change}
-                />
-              </div>
-            </Grid>
-            <Savebar
-              onCancel={onBack}
-              onDelete={onDelete}
-              onSubmit={submit}
-              disabled={disabled || !hasChanged}
-              state={saveButtonBarState}
-            />
-          </Container>
+          <IonPage>
+            <IonContent>
+              <Backlink onClick={onBack}>
+                {intl.formatMessage(sectionNames.productTypes)}
+              </Backlink>
+              <PageHeader title={pageTitle} />
+              <Grid>
+                <div>
+                  <ProductTypeDetails
+                    data={data}
+                    disabled={disabled}
+                    errors={errors}
+                    onChange={change}
+                    onKindChange={change}
+                  />
+                  <CardSpacer />
+                  <ProductTypeTaxes
+                    disabled={disabled}
+                    data={data}
+                    taxTypes={taxTypes}
+                    taxTypeDisplayName={taxTypeDisplayName}
+                    onChange={event =>
+                      handleTaxTypeChange(
+                        event,
+                        taxTypes,
+                        change,
+                        setTaxTypeDisplayName
+                      )
+                    }
+                  />
+                  <CardSpacer />
+                  <ProductTypeAttributes
+                    testId="assignProductsAttributes"
+                    attributes={maybe(() => productType.productAttributes)}
+                    disabled={disabled}
+                    type={ProductAttributeType.PRODUCT}
+                    onAttributeAssign={onAttributeAdd}
+                    onAttributeClick={onAttributeClick}
+                    onAttributeReorder={(event: ReorderEvent) =>
+                      onAttributeReorder(event, ProductAttributeType.PRODUCT)
+                    }
+                    onAttributeUnassign={onAttributeUnassign}
+                    {...productAttributeList}
+                  />
+                  <CardSpacer />
+                  <ControlledSwitch
+                    checked={data.hasVariants}
+                    disabled={disabled}
+                    label={intl.formatMessage({
+                      defaultMessage: "Product type uses Variant Attributes",
+                      description: "switch button"
+                    })}
+                    name="hasVariants"
+                    onChange={event => onHasVariantsToggle(event.target.value)}
+                  />
+                  {data.hasVariants && (
+                    <>
+                      <CardSpacer />
+                      <ProductTypeVariantAttributes
+                        testId="assignVariantsAttributes"
+                        assignedVariantAttributes={
+                          productType?.assignedVariantAttributes
+                        }
+                        disabled={disabled}
+                        type={ProductAttributeType.VARIANT}
+                        onAttributeAssign={onAttributeAdd}
+                        onAttributeClick={onAttributeClick}
+                        onAttributeReorder={(event: ReorderEvent) =>
+                          onAttributeReorder(
+                            event,
+                            ProductAttributeType.VARIANT
+                          )
+                        }
+                        onAttributeUnassign={onAttributeUnassign}
+                        onAttributeVariantSelection={setChanged}
+                        setSelectedVariantAttributes={
+                          setSelectedVariantAttributes
+                        }
+                        selectedVariantAttributes={selectedVariantAttributes}
+                        {...variantAttributeList}
+                      />
+                    </>
+                  )}
+                  <CardSpacer />
+                  <Metadata data={data} onChange={changeMetadata} />
+                </div>
+                <div>
+                  <ProductTypeShipping
+                    disabled={disabled}
+                    data={data}
+                    weightUnit={productType?.weight?.unit || defaultWeightUnit}
+                    onChange={change}
+                  />
+                </div>
+              </Grid>
+              <Savebar
+                onCancel={onBack}
+                onDelete={onDelete}
+                onSubmit={submit}
+                disabled={disabled || !hasChanged}
+                state={saveButtonBarState}
+              />
+            </IonContent>
+          </IonPage>
         );
       }}
     </Form>

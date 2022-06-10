@@ -27,7 +27,7 @@ import { useIntl } from "react-intl";
 import TypeDeleteWarningDialog from "../../../components/TypeDeleteWarningDialog/TypeDeleteWarningDialog";
 import { configurationMenuUrl } from "../../../configuration";
 import { maybe } from "../../../misc";
-import ProductTypeListPage from "../../components/ProductTypeListPage";
+import ProductTypeListPage from "../../components/ProductTypeListPageIonic";
 import { TypedProductTypeBulkDeleteMutation } from "../../mutations";
 import { useProductTypeListQuery } from "../../queries";
 import { ProductTypeBulkDelete } from "../../types/ProductTypeBulkDelete";

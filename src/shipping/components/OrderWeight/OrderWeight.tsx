@@ -15,6 +15,7 @@ import { getShippingWeightRateErrorMessage } from "@saleor/shipping/errors";
 import { getFormErrors } from "@saleor/utils/errors";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { IonCard } from "@ionic/react";
 
 import { useStyles } from "./styles";
 
@@ -43,7 +44,7 @@ export const OrderWeight: React.FC<OrderWeightProps> = ({
   const formErrors = getFormErrors(formFields, errors);
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage({
           defaultMessage: "Order Weight",
@@ -131,7 +132,7 @@ export const OrderWeight: React.FC<OrderWeightProps> = ({
           </>
         )}
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 

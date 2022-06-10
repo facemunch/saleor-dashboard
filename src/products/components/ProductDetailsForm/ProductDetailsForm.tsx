@@ -13,6 +13,7 @@ import { getFormErrors, getProductErrorMessage } from "@saleor/utils/errors";
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { IonCard } from "@ionic/react";
 interface ProductDetailsFormProps {
   data: {
     description: OutputData;
@@ -38,12 +39,13 @@ export const ProductDetailsForm: React.FC<ProductDetailsFormProps> = ({
   const formErrors = getFormErrors(["name", "description", "rating"], errors);
 
   return (
-    <Card>
+    <IonCard>
       <CardTitle
         title={intl.formatMessage(commonMessages.generalInformations)}
       />
       <CardContent>
         <TextField
+          inputProps={{"data-test-id":"product-name-input"}}
           error={!!formErrors.name}
           helperText={getProductErrorMessage(formErrors.name, intl)}
           disabled={disabled}
@@ -66,10 +68,10 @@ export const ProductDetailsForm: React.FC<ProductDetailsFormProps> = ({
           name="description"
           onChange={onDescriptionChange}
         />
-        <FormSpacer />
-        <Hr />
-        <FormSpacer />
-        <Grid variant="uniform">
+        {/* <FormSpacer /> */}
+        {/* <Hr /> */}
+        {/* <FormSpacer /> */}
+        {/* <Grid variant="uniform">
           <TextField
             type="number"
             error={!!formErrors.rating}
@@ -83,9 +85,9 @@ export const ProductDetailsForm: React.FC<ProductDetailsFormProps> = ({
             value={data.rating || ""}
             onChange={onChange}
           />
-        </Grid>
+        </Grid> */}
       </CardContent>
-    </Card>
+    </IonCard>
   );
 };
 export default ProductDetailsForm;

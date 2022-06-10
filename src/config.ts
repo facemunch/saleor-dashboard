@@ -2,7 +2,8 @@ import packageInfo from "../package.json";
 import { SearchVariables } from "./hooks/makeSearch";
 import { ListSettings, ListViews, Pagination } from "./types";
 
-export const APP_MOUNT_URI = process.env.APP_MOUNT_URI || window.location.origin;
+export const APP_MOUNT_URI =
+  process.env.APP_MOUNT_URI || window.location.origin;
 export const APP_DEFAULT_URI = "/";
 export const API_URI = process.env.API_URI;
 export const SW_INTERVAL = parseInt(process.env.SW_INTERVAL, 0);
@@ -10,7 +11,7 @@ export const IS_CLOUD_INSTANCE = process.env.IS_CLOUD_INSTANCE === "true";
 
 export const DEFAULT_INITIAL_SEARCH_DATA: SearchVariables = {
   after: null,
-  first: 20,
+  first: 100,
   query: ""
 };
 
@@ -19,7 +20,7 @@ export const DEFAULT_INITIAL_PAGINATION_DATA: Pagination = {
   before: undefined
 };
 
-export const PAGINATE_BY = 20;
+export const PAGINATE_BY = 100;
 export const VALUES_PAGINATE_BY = 10;
 
 export type ProductListColumns = "productType" | "availability" | "price";

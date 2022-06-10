@@ -20,6 +20,8 @@ import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTr
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { IonContent, IonPage } from "@ionic/react";
+
 import { PermissionEnum, VoucherTypeEnum } from "../../../types/globalTypes";
 import { DiscountTypeEnum, RequirementsPicker } from "../../types";
 import VoucherDates from "../VoucherDates";
@@ -123,92 +125,96 @@ const VoucherCreatePage: React.FC<VoucherCreatePageProps> = ({
         const changeMetadata = makeMetadataChangeHandler(change);
 
         return (
-          <Container>
-            <Backlink onClick={onBack}>
-              {intl.formatMessage(sectionNames.vouchers)}
-            </Backlink>
-            <PageHeader
-              title={intl.formatMessage({
-                defaultMessage: "Create Voucher",
-                description: "page header"
-              })}
-            />
-            <Grid>
-              <div>
-                <VoucherInfo
-                  data={data}
-                  errors={errors}
-                  disabled={disabled}
-                  onChange={event => handleDiscountTypeChange(data, event)}
-                  variant="create"
-                />
-                <CardSpacer />
-                <VoucherTypes
-                  data={data}
-                  disabled={disabled}
-                  errors={errors}
-                  onChange={change}
-                />
-                {data.discountType.toString() !== "SHIPPING" ? (
-                  <>
-                    <CardSpacer />
-                    <VoucherValue
-                      data={data}
-                      disabled={disabled}
-                      errors={errors}
-                      onChannelChange={handleChannelChange}
-                      onChange={change}
-                      variant="create"
-                    />
-                  </>
-                ) : null}
-                <CardSpacer />
-                <VoucherRequirements
-                  data={data}
-                  disabled={disabled}
-                  errors={errors}
-                  onChannelChange={handleChannelChange}
-                  onChange={change}
-                />
-                <CardSpacer />
-                <VoucherLimits
-                  data={data}
-                  disabled={disabled}
-                  errors={errors}
-                  onChange={change}
-                />
-                <CardSpacer />
-                <VoucherDates
-                  data={data}
-                  disabled={disabled}
-                  errors={errors}
-                  onChange={change}
-                />
-              </div>
-              <div>
-                <ChannelsAvailabilityCard
-                  managePermissions={[PermissionEnum.MANAGE_DISCOUNTS]}
-                  selectedChannelsCount={data.channelListings.length}
-                  allChannelsCount={allChannelsCount}
-                  channelsList={data.channelListings.map(channel => ({
-                    id: channel.id,
-                    name: channel.name
-                  }))}
-                  disabled={disabled}
-                  openModal={openChannelsModal}
-                />
-              </div>
-              <Metadata data={data} onChange={changeMetadata} />
-            </Grid>
-            <Savebar
-              disabled={
-                disabled || formDisabled || (!hasChanged && !hasChannelChanged)
-              }
-              onCancel={onBack}
-              onSubmit={submit}
-              state={saveButtonBarState}
-            />
-          </Container>
+          <IonPage>
+            <IonContent>
+              <Backlink onClick={onBack}>
+                {intl.formatMessage(sectionNames.vouchers)}
+              </Backlink>
+              <PageHeader
+                title={intl.formatMessage({
+                  defaultMessage: "Create Voucher",
+                  description: "page header"
+                })}
+              />
+              <Grid>
+                <div>
+                  <VoucherInfo
+                    data={data}
+                    errors={errors}
+                    disabled={disabled}
+                    onChange={event => handleDiscountTypeChange(data, event)}
+                    variant="create"
+                  />
+                  <CardSpacer />
+                  <VoucherTypes
+                    data={data}
+                    disabled={disabled}
+                    errors={errors}
+                    onChange={change}
+                  />
+                  {data.discountType.toString() !== "SHIPPING" ? (
+                    <>
+                      <CardSpacer />
+                      <VoucherValue
+                        data={data}
+                        disabled={disabled}
+                        errors={errors}
+                        onChannelChange={handleChannelChange}
+                        onChange={change}
+                        variant="create"
+                      />
+                    </>
+                  ) : null}
+                  <CardSpacer />
+                  <VoucherRequirements
+                    data={data}
+                    disabled={disabled}
+                    errors={errors}
+                    onChannelChange={handleChannelChange}
+                    onChange={change}
+                  />
+                  <CardSpacer />
+                  <VoucherLimits
+                    data={data}
+                    disabled={disabled}
+                    errors={errors}
+                    onChange={change}
+                  />
+                  <CardSpacer />
+                  <VoucherDates
+                    data={data}
+                    disabled={disabled}
+                    errors={errors}
+                    onChange={change}
+                  />
+                </div>
+                <div>
+                  <ChannelsAvailabilityCard
+                    managePermissions={[PermissionEnum.MANAGE_DISCOUNTS]}
+                    selectedChannelsCount={data.channelListings.length}
+                    allChannelsCount={allChannelsCount}
+                    channelsList={data.channelListings.map(channel => ({
+                      id: channel.id,
+                      name: channel.name
+                    }))}
+                    disabled={disabled}
+                    openModal={openChannelsModal}
+                  />
+                </div>
+                <Metadata data={data} onChange={changeMetadata} />
+              </Grid>
+              <Savebar
+                disabled={
+                  disabled ||
+                  formDisabled ||
+                  (!hasChanged && !hasChannelChanged)
+                }
+                onCancel={onBack}
+                onSubmit={submit}
+                state={saveButtonBarState}
+              />
+            </IonContent>
+          </IonPage>
         );
       }}
     </Form>

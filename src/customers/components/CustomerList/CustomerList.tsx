@@ -1,35 +1,38 @@
-import { TableBody, TableCell, TableFooter, TableRow } from "@mui/material";
-import Checkbox from "@saleor/components/Checkbox";
-import ResponsiveTable from "@saleor/components/ResponsiveTable";
+import {
+  IonList,
+  IonItem,
+  IonNote,
+  IonLabel,
+  IonCardContent
+} from "@ionic/react";
+import { Typography } from "@mui/material";
 import Skeleton from "@saleor/components/Skeleton";
-import TableCellHeader from "@saleor/components/TableCellHeader";
-import TableHead from "@saleor/components/TableHead";
-import TablePagination from "@saleor/components/TablePagination";
 import { CustomerListUrlSortField } from "@saleor/customers/urls";
 import { makeStyles } from "@saleor/macaw-ui";
-import { getUserName, maybe, renderCollection } from "@saleor/misc";
+import { getUserName, maybe } from "@saleor/misc";
 import { ListActions, ListProps, SortPage } from "@saleor/types";
-import { getArrowDirection } from "@saleor/utils/sort";
+import { Loader } from "frontend/ui/loader";
 import React from "react";
 import { FormattedMessage } from "react-intl";
-
 import { ListCustomers_customers_edges_node } from "../../types/ListCustomers";
 
 const useStyles = makeStyles(
   theme => ({
-    [theme.breakpoints.up("lg")]: {
-      colEmail: {},
-      colName: {},
-      colOrders: {
-        width: 200
-      }
-    },
     colEmail: {},
     colName: {
-      paddingLeft: 0
+      paddingLeft: 0,
+      textTransform: "capitalize"
     },
     colOrders: {
-      textAlign: "center"
+      color: "white",
+      fontFamily: "Inter",
+      fontStyle: "normal",
+      fontWeight: "400",
+      fontSize: "16px",
+      lineHeight: "24px",
+      display: "flex",
+      alignItems: "flex-end",
+      textAlign: "right"
     },
     tableRow: {
       cursor: "pointer"
@@ -43,139 +46,55 @@ export interface CustomerListProps
     ListActions,
     SortPage<CustomerListUrlSortField> {
   customers: ListCustomers_customers_edges_node[];
+  loading?: boolean;
 }
 
-const numberOfColumns = 4;
-
 const CustomerList: React.FC<CustomerListProps> = props => {
-  const {
-    settings,
-    disabled,
-    customers,
-    pageInfo,
-    onNextPage,
-    onPreviousPage,
-    onUpdateListSettings,
-    onRowClick,
-    onSort,
-    toolbar,
-    toggle,
-    toggleAll,
-    selected,
-    sort,
-    isChecked
-  } = props;
+  const { customers, onRowClick, loading } = props;
 
   const classes = useStyles(props);
 
   return (
-    <ResponsiveTable>
-      <TableHead
-        colSpan={numberOfColumns}
-        selected={selected}
-        disabled={disabled}
-        items={customers}
-        toggleAll={toggleAll}
-        toolbar={toolbar}
-      >
-        <TableCellHeader
-          direction={
-            sort.sort === CustomerListUrlSortField.name
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          arrowPosition="right"
-          onClick={() => onSort(CustomerListUrlSortField.name)}
-          className={classes.colName}
-        >
-          <FormattedMessage defaultMessage="Customer Name" />
-        </TableCellHeader>
-        <TableCellHeader
-          direction={
-            sort.sort === CustomerListUrlSortField.email
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          onClick={() => onSort(CustomerListUrlSortField.email)}
-          className={classes.colEmail}
-        >
-          <FormattedMessage defaultMessage="Customer Email" />
-        </TableCellHeader>
-        <TableCellHeader
-          direction={
-            sort.sort === CustomerListUrlSortField.orders
-              ? getArrowDirection(sort.asc)
-              : undefined
-          }
-          textAlign="center"
-          onClick={() => onSort(CustomerListUrlSortField.orders)}
-          className={classes.colOrders}
-        >
-          <FormattedMessage defaultMessage="No. of Orders" />
-        </TableCellHeader>
-      </TableHead>
-      <TableFooter>
-        <TableRow>
-          <TablePagination
-            colSpan={numberOfColumns}
-            settings={settings}
-            hasNextPage={pageInfo && !disabled ? pageInfo.hasNextPage : false}
-            onNextPage={onNextPage}
-            onUpdateListSettings={onUpdateListSettings}
-            hasPreviousPage={
-              pageInfo && !disabled ? pageInfo.hasPreviousPage : false
-            }
-            onPreviousPage={onPreviousPage}
-          />
-        </TableRow>
-      </TableFooter>
-      <TableBody>
-        {renderCollection(
-          customers,
-          customer => {
-            const isSelected = customer ? isChecked(customer.id) : false;
+    <IonList style={{ "--ion-item-background": "#313131" }}>
+      <div>
+        {loading && <Loader />}
 
+        {customers &&
+          customers.map(customer => {
             return (
-              <TableRow
+              <IonItem
                 className={!!customer ? classes.tableRow : undefined}
-                hover={!!customer}
                 key={customer ? customer.id : "skeleton"}
-                selected={isSelected}
                 onClick={customer ? onRowClick(customer.id) : undefined}
               >
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={isSelected}
-                    disabled={disabled}
-                    disableClickPropagation
-                    onChange={() => toggle(customer.id)}
-                  />
-                </TableCell>
-                <TableCell className={classes.colName}>
+                <IonLabel className={classes.colName}>
                   {getUserName(customer)}
-                </TableCell>
-                <TableCell className={classes.colEmail}>
-                  {maybe<React.ReactNode>(() => customer.email, <Skeleton />)}
-                </TableCell>
-                <TableCell className={classes.colOrders}>
+                  <br />
+                  <Typography variant="caption">
+                    {maybe<React.ReactNode>(() => customer.email, <Skeleton />)}
+                  </Typography>
+                </IonLabel>
+
+                <IonNote className={classes.colOrders}>
                   {maybe<React.ReactNode>(
-                    () => customer.orders.totalCount,
+                    () => customer.orders.totalCount + " orders",
                     <Skeleton />
                   )}
-                </TableCell>
-              </TableRow>
+                </IonNote>
+              </IonItem>
             );
-          },
-          () => (
-            <TableRow>
-              <TableCell colSpan={numberOfColumns}>
-                <FormattedMessage defaultMessage="No customers found" />
-              </TableCell>
-            </TableRow>
-          )
+          })}
+
+        {!loading && customers?.length === 0 && (
+          <IonCardContent style={{ textAlign: "center" }}>
+            {/* <IonLabel> */}
+            <FormattedMessage defaultMessage="No customers found" />
+
+            {/* </IonLabel> */}
+          </IonCardContent>
         )}
-      </TableBody>
-    </ResponsiveTable>
+      </div>
+    </IonList>
   );
 };
 CustomerList.displayName = "CustomerList";

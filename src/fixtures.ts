@@ -24,7 +24,7 @@ export const pageListProps: { [key: string]: PageListProps } = {
     onPreviousPage: undefined,
     onRowClick: () => undefined,
     pageInfo,
-    settings: { rowNumber: 20 }
+    settings: { rowNumber: 100 }
   },
   loading: {
     disabled: true,

@@ -15,6 +15,8 @@ import {
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { IonContent, IonCard } from "@ionic/react";
+
 import { SaleList_sales_edges_node } from "../../types/SaleList";
 import SaleList from "../SaleList";
 import {
@@ -51,7 +53,7 @@ const SaleListPage: React.FC<SaleListPageProps> = ({
   const structure = createFilterStructure(intl, filterOpts);
 
   return (
-    <Container>
+    <IonContent>
       <PageHeader title={intl.formatMessage(sectionNames.sales)}>
         <Button
           onClick={onAdd}
@@ -62,7 +64,7 @@ const SaleListPage: React.FC<SaleListPageProps> = ({
           <FormattedMessage defaultMessage="Create Sale" description="button" />
         </Button>
       </PageHeader>
-      <Card>
+      <IonCard>
         <FilterBar
           allTabLabel={intl.formatMessage({
             defaultMessage: "All Sales",
@@ -83,8 +85,8 @@ const SaleListPage: React.FC<SaleListPageProps> = ({
           onTabSave={onTabSave}
         />
         <SaleList {...listProps} />
-      </Card>
-    </Container>
+      </IonCard>
+    </IonContent>
   );
 };
 SaleListPage.displayName = "SaleListPage";
