@@ -86,6 +86,7 @@ import {
   createVariantReorderHandler
 } from "./handlers";
 import useChannelVariantListings from "./useChannelVariantListings";
+import { useHistory } from "react-router-dom";
 
 const messages = defineMessages({
   deleteProductDialogTitle: {
@@ -114,6 +115,8 @@ interface ProductUpdateProps {
 
 export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
   const navigate = useNavigator();
+
+  const { goBack } = useHistory();
   const notify = useNotifier();
   const { isSelected, listElements, reset, toggle, toggleAll } = useBulkActions(
     params.ids
@@ -368,7 +371,7 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
     deleteAttributeValueOpts
   ] = useAttributeValueDeleteMutation({});
 
-  const handleBack = () => navigate(productListUrl());
+  const handleBack = () => goBack();
 
   if (product === null) {
     return <NotFoundPage onBack={handleBack} />;

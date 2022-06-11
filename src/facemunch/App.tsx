@@ -210,7 +210,6 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
   }, [pathname]);
 
   useEffect(() => {
-    console.log("pathname, RoutesApp", { pathname, swiperRef, search });
     if (!swiperRef.current) return;
 
     if (pathname.includes("home")) {
@@ -222,7 +221,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
     } else if (pathname.includes("customers")) {
       swiperRef.current.slideTo(3);
     }
-  }, [pathname, search]);
+  }, [pathname]);
 
   const onSlideChange = e => {
     e.activeIndex === 0 && onRouteUpdate("/c/home");
