@@ -90,8 +90,6 @@ const App: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken, ecomAPI }) => {
       link: authLink.concat(link)
     });
   }, [ecomAPI, ecomAccessToken]);
-  // console.log("tokenLink from outside", ecomAccessToken);
-
   return (
     <ApolloProvider client={apolloClient}>
       <IonReactRouter basename={"/c/"}>

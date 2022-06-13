@@ -4,7 +4,6 @@ import { SaleorPaletteOptions, SaleorThemeColors } from "./types";
 export const createPalette = (
   colors: SaleorThemeColors
 ): SaleorPaletteOptions => {
-  // console.log("colors", colors);
   return {
     action: {
       active: colors.checkbox.default

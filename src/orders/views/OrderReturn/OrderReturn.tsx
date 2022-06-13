@@ -34,8 +34,6 @@ interface OrderReturnProps {
 }
 
 const OrderReturn: React.FC<OrderReturnProps> = ({ orderId }) => {
-  console.log("hello orderId", orderId);
-
   const navigate = useNavigator();
   const notify = useNotifier();
   const intl = useIntl();

@@ -33,7 +33,6 @@ export const languageEntitiesUrl = (
   params: LanguageEntitiesUrlQueryParams,
   section = translationsSection
 ) => { 
-  console.log(section)
   return languageEntitiesPath(code, section) + "?" + stringifyQs(params);
 }
 
@@ -51,7 +50,6 @@ export const languageEntityUrl = (
   section = translationsSection,
   ...args: string[]
 ) => {
-  console.log(section)
   return languageEntityPath(section, code, entity, encodeURIComponent(id), ...args);
 }
 

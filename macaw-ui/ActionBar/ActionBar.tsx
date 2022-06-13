@@ -24,12 +24,7 @@ export const ActionBar: React.FC<ActionBarProps> = ({
     }
   }, [disabled, state, setDocked]);
   React.useEffect(() => () => setDocked(true), [setDocked]);
-  console.log("state", {
-    state,
-    disabled,
-    anchor: anchor.current,
-    "!!anchor": !!anchor
-  });
+
   if (!anchor.current) {
     return null;
   }

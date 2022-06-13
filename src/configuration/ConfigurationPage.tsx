@@ -95,7 +95,6 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
   const { menu: menus, user, onSectionClick } = props;
   const classes = useStyles(props);
 
-  console.log("menus", menus);
   return (
     <IonPage>
       <IonContent data-test-id="commerce-configuration-view">

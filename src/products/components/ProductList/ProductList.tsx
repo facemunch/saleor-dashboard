@@ -174,7 +174,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
                   <Skeleton />
                 )}
               </IonNote>
-              <IonRippleEffect></IonRippleEffect>
+              <IonRippleEffect type="unbounded"></IonRippleEffect>
             </IonItem>
           );
         })}

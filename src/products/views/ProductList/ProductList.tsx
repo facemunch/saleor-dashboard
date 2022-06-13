@@ -87,7 +87,6 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
       })
     );
   }, [params.query]);
-
   const handleTabChange = (tab: number) => {
     reset();
     navigate(

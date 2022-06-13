@@ -43,7 +43,8 @@ export const OrderList: React.FC = memo(() => {
 });
 
 export const OrderDetails: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
+  const { search } = useLocation()
+  const qs = parseQs(search.substr(1));
   const params: OrderUrlQueryParams = qs;
   const id = useParams().id;
 

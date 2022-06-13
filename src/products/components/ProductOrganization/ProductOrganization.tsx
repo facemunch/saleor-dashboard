@@ -175,7 +175,6 @@ const ProductOrganization: React.FC<ProductOrganizationProps> = props => {
           name="category"
           value={data.category}
           onChange={e => {
-            console.log("onCategoryChange", e);
             onCategoryChange(e);
           }}
           fetchChoices={fetchCategories}

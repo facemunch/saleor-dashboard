@@ -1,25 +1,42 @@
+import { asSortParams } from "@saleor/utils/sort";
+import { getArrayQueryParam } from "@saleor/utils/urls";
 import { Loader } from "frontend/ui/loader";
 import { parse as parseQs } from "qs";
 import React, { memo, Suspense, lazy } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
-import { ProductCreateUrlQueryParams, ProductUrlQueryParams } from "./urls";
+import { ProductCreateUrlQueryParams, ProductListUrlQueryParams, ProductListUrlSortField, ProductUrlQueryParams } from "./urls";
 const ProductUpdateComponent = lazy(() => import("./views/ProductUpdate"));
 const ProductCreateComponent = lazy(() => import("./views/ProductCreate"));
 const ProductListComponent = lazy(() => import("./views/ProductList"));
 
-export const ProductList: React.FC = memo(() => {
-  const qs = parseQs(location.search.substr(1));
-
+export const ProductList: React.FC = () => {
+  const { search } = useLocation()
+  const qs = parseQs(search.substr(1));
+  const params: ProductListUrlQueryParams = location.pathname.includes(
+    "/products"
+  )
+    ? asSortParams(
+        {
+          ...qs,
+          categories: getArrayQueryParam(qs.categories),
+          collections: getArrayQueryParam(qs.collections),
+          ids: getArrayQueryParam(qs.ids),
+          productTypes: getArrayQueryParam(qs.productTypes)
+        },
+        ProductListUrlSortField
+      )
+    : {};
   return (
     <Suspense fallback={<Loader />}>
-      <ProductListComponent params={{ ...qs, asc: qs.asc === "true" }} />
+      <ProductListComponent params={params} />
     </Suspense>
   );
-});
+};
 
 export const ProductUpdate: React.FC = memo(() => {
-  const qs = parseQs(location.search.substr(1));
+  const { search } = useLocation()
+  const qs = parseQs(search.substr(1));
   const params: ProductUrlQueryParams = qs;
 
   const match = useParams();
@@ -36,7 +53,8 @@ export const ProductUpdate: React.FC = memo(() => {
 });
 
 export const ProductCreate: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
+  const { search } = useLocation()
+  const qs = parseQs(search.substr(1));
   const params: ProductCreateUrlQueryParams = qs;
 
   return (

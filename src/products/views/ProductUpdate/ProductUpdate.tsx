@@ -167,7 +167,6 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
       firstValues: VALUES_PAGINATE_BY
     }
   });
-  console.log("data ProductUpdate", data);
   const handleBack = () => navigate(productListUrl());
 
   const product = data?.product;
@@ -472,11 +471,8 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
   if (product === null) {
     return <NotFoundPage onBack={handleBack} />;
   }
-  console.log("params.action", params.action);
   return (
     <>
-      {/* <WindowTitle title={data?.product?.name} /> */}
-
       <ProductUpdatePage
         hasChannelChanged={
           hasChannelVariantListingChanged ||

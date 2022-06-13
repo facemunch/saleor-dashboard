@@ -33,7 +33,8 @@ export const CustomerListView: React.FC = memo(() => {
 });
 
 export const CustomerDetailsView: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
+  const { search } = useLocation()
+  const qs = parseQs(search.substr(1));
   const params: CustomerUrlQueryParams = qs;
   const match = useParams();
 
@@ -46,7 +47,8 @@ export const CustomerDetailsView: React.FC = () => {
 };
 
 export const CustomerAddressesView: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
+  const { search } = useLocation()
+  const qs = parseQs(search.substr(1));
   const params: CustomerAddressesUrlQueryParams = qs;
   const match = useParams();
 
