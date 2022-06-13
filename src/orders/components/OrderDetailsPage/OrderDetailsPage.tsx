@@ -263,23 +263,22 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                     </>
                   )}
                   {order?.fulfillments?.map(fulfillment => (
-                    <React.Fragment key={fulfillment.id}>
-                      <OrderFulfilledProductsCard
-                        fulfillment={fulfillment}
-                        fulfillmentAllowUnpaid={shop?.fulfillmentAllowUnpaid}
-                        order={order}
-                        onOrderFulfillmentCancel={() =>
-                          onFulfillmentCancel(fulfillment.id)
-                        }
-                        onTrackingCodeAdd={() =>
-                          onFulfillmentTrackingNumberUpdate(fulfillment.id)
-                        }
-                        onRefund={onPaymentRefund}
-                        onOrderFulfillmentApprove={() =>
-                          onFulfillmentApprove(fulfillment.id)
-                        }
-                      />
-                    </React.Fragment>
+                    <OrderFulfilledProductsCard
+                      fulfillment={fulfillment}
+                      fulfillmentAllowUnpaid={shop?.fulfillmentAllowUnpaid}
+                      order={order}
+                      onOrderFulfillmentCancel={() =>
+                        onFulfillmentCancel(fulfillment.id)
+                      }
+                      onTrackingCodeAdd={() =>
+                        onFulfillmentTrackingNumberUpdate(fulfillment.id)
+                      }
+                      onRefund={onPaymentRefund}
+                      onOrderFulfillmentApprove={() =>
+                        onFulfillmentApprove(fulfillment.id)
+                      }
+                      id={fulfillment.id}
+                    />
                   ))}
                   {!isOrderUnconfirmed && (
                     <>

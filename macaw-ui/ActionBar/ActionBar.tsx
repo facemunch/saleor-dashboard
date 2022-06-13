@@ -1,10 +1,10 @@
 import Portal from "@mui/material/Portal";
-import React from "react";
+import React, { useRef } from "react";
 
 import { ConfirmButtonTransitionState } from "../ConfirmButton";
-import useWindowScroll from "../tools/useWindowScroll";
 import { useActionBar } from "./context";
 import { IonFooter, IonToolbar } from "@ionic/react";
+import { Slide } from "@mui/material";
 
 export interface ActionBarProps {
   disabled: boolean;
@@ -18,28 +18,34 @@ export const ActionBar: React.FC<ActionBarProps> = ({
   state
 }) => {
   const { anchor, setDocked } = useActionBar();
-  const scrollPosition = useWindowScroll();
-
+  // const containerRef = useRef();
   React.useEffect(() => {
     if (!disabled && state !== "loading") {
       setDocked(false);
     }
   }, [disabled, state, setDocked]);
   React.useEffect(() => () => setDocked(true), [setDocked]);
-
-  if (!anchor.current) {
-    return null;
-  }
+  console.log("state", {
+    state,
+    disabled,
+    anchor: anchor.current,
+    "!!anchor": !!anchor
+  });
+  // if (!anchor.current) {
+  //   return null;
+  // }
 
   return (
     <Portal container={anchor.current}>
-      <IonFooter>
-        <IonToolbar
-          style={{ "--background": "#404040", borderRadius: "16px 16px 0 0" }}
-        >
-          {children}
-        </IonToolbar>
-      </IonFooter>
+      <Slide direction="up" in={!!anchor} container={anchor.current}>
+        <IonFooter>
+          <IonToolbar
+            style={{ "--background": "#404040", borderRadius: "16px 16px 0 0" }}
+          >
+            {children}
+          </IonToolbar>
+        </IonFooter>
+      </Slide>
     </Portal>
   );
 };

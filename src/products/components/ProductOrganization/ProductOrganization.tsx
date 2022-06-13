@@ -49,7 +49,7 @@ interface ProductOrganizationProps {
   collectionsInputDisplayValue: MultiAutocompleteChoiceType[];
   data: {
     category: string;
-    collections: string[];
+    collections?: string[];
     productType?: ProductType;
   };
   disabled: boolean;

@@ -1,7 +1,12 @@
-import { IonCard, IonCardContent, IonItem, IonLabel, IonList, IonNote } from "@ionic/react";
-import { TableCell, TableRow } from "@mui/material";
+import {
+  IonCardContent,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonNote,
+  IonRippleEffect
+} from "@ionic/react";
 import { DateTime } from "@saleor/components/Date";
-import Money from "@saleor/components/Money";
 import Skeleton from "@saleor/components/Skeleton";
 import StatusLabel from "@saleor/components/StatusLabel";
 import { makeStyles } from "@saleor/macaw-ui";
@@ -91,8 +96,6 @@ interface OrderListProps extends ListProps, SortPage<OrderListUrlSortField> {
   orders: OrderList_orders_edges_node[];
 }
 
-const numberOfColumns = 6;
-
 export const OrderList: React.FC<OrderListProps> = props => {
   const { orders, onRowClick, loading } = props;
   const classes = useStyles(props);
@@ -114,12 +117,15 @@ export const OrderList: React.FC<OrderListProps> = props => {
           orderList &&
           orderList.map(order => (
             <IonItem
+              button
+              detail={false}
               data-test-id="order-table-row"
-              // hover={!!order}
               className={!!order ? classes.link : undefined}
               onClick={order ? onRowClick(order.id) : undefined}
               key={order ? order.id : "skeleton"}
             >
+              <IonRippleEffect></IonRippleEffect>
+
               <IonLabel>
                 <h4 style={orderDetails}>
                   #{order.number} •

@@ -38,8 +38,6 @@ import {
   validateCostPrice,
   validatePrice
 } from "@saleor/products/utils/validation";
-import { SearchPages_search_edges_node } from "@saleor/searches/types/SearchPages";
-import { SearchProducts_search_edges_node } from "@saleor/searches/types/SearchProducts";
 import { SearchProductTypes_search_edges_node } from "@saleor/searches/types/SearchProductTypes";
 import { SearchWarehouses_search_edges_node } from "@saleor/searches/types/SearchWarehouses";
 import { FetchMoreProps, ReorderEvent } from "@saleor/types";
@@ -58,7 +56,7 @@ export interface ProductCreateFormData extends MetadataFormData {
   changeTaxCode: boolean;
   channelListings: ChannelData[];
   chargeTaxes: boolean;
-  collections: string[];
+  // collections: string[];
   description: OutputData;
   isAvailable: boolean;
   name: string;
@@ -133,18 +131,12 @@ export interface UseProductCreateFormOpts
   setSelectedCollections: React.Dispatch<
     React.SetStateAction<MultiAutocompleteChoiceType[]>
   >;
-  setSelectedTaxType: React.Dispatch<React.SetStateAction<string>>;
   setChannels: (channels: ChannelData[]) => void;
   selectedCollections: MultiAutocompleteChoiceType[];
   productTypes: SearchProductTypes_search_edges_node[];
   warehouses: SearchWarehouses_search_edges_node[];
   currentChannels: ChannelData[];
-  referencePages: SearchPages_search_edges_node[];
-  referenceProducts: SearchProducts_search_edges_node[];
-  fetchReferencePages?: (data: string) => void;
-  fetchMoreReferencePages?: FetchMoreProps;
-  fetchReferenceProducts?: (data: string) => void;
-  fetchMoreReferenceProducts?: FetchMoreProps;
+
   assignReferencesAttributeId?: string;
   selectedProductType?: ProductType_productType;
   onSelectProductType: (productTypeId: string) => void;
@@ -168,7 +160,7 @@ function useProductCreateForm(
     changeTaxCode: false,
     channelListings: opts.currentChannels,
     chargeTaxes: false,
-    collections: [],
+    // collections: [],
     description: null,
     isAvailable: false,
     metadata: [],

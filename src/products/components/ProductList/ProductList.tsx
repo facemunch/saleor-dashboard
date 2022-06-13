@@ -5,7 +5,9 @@ import {
   IonLabel,
   IonList,
   IonNote,
-  IonThumbnail
+  IonThumbnail,
+  IonRippleEffect,
+  IonButton
 } from "@ionic/react";
 import Skeleton from "@saleor/components/Skeleton";
 import { ProductListColumns } from "@saleor/config";
@@ -101,7 +103,6 @@ interface ProductListProps
 
 export const ProductList: React.FC<ProductListProps> = props => {
   const { products, onRowClick, loading } = props;
-  console.log("ProductList", { props, loading: props.loading });
   const classes = useStyles(props);
   return (
     <IonList
@@ -122,6 +123,8 @@ export const ProductList: React.FC<ProductListProps> = props => {
 
           return (
             <IonItem
+              button
+              detail={false}
               key={product ? product.id : "skeleton"}
               onClick={
                 product &&
@@ -134,7 +137,6 @@ export const ProductList: React.FC<ProductListProps> = props => {
               }
               className={classes.link}
               data-test-id="product-item"
-              // data-test-id={product ? product?.id : "skeleton"}
             >
               <IonThumbnail
                 style={{ borderRadius: "8px", overflow: "hidden" }}
@@ -172,6 +174,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
                   <Skeleton />
                 )}
               </IonNote>
+              <IonRippleEffect></IonRippleEffect>
             </IonItem>
           );
         })}

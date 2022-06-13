@@ -1,8 +1,7 @@
 import { Typography, IconProps } from "@mui/material";
 import { User } from "@saleor/fragments/types/User";
 import { makeStyles } from "@saleor/macaw-ui";
-import React from "react";
-import { useIntl } from "react-intl";
+import React, { memo } from "react";
 
 import { IonContent, IonCard, IonPage, IonCardContent } from "@ionic/react";
 
@@ -100,7 +99,6 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
   const { menu: menus, user, onSectionClick } = props;
   const classes = useStyles(props);
 
-  const intl = useIntl();
   console.log("menus", menus);
   return (
     <IonPage>
@@ -154,4 +152,4 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
   );
 };
 ConfigurationPage.displayName = "ConfigurationPage";
-export default ConfigurationPage;
+export default memo(ConfigurationPage);

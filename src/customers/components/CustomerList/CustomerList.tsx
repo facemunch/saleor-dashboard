@@ -3,7 +3,8 @@ import {
   IonItem,
   IonNote,
   IonLabel,
-  IonCardContent
+  IonCardContent,
+  IonRippleEffect
 } from "@ionic/react";
 import { Typography } from "@mui/material";
 import Skeleton from "@saleor/components/Skeleton";
@@ -59,14 +60,18 @@ const CustomerList: React.FC<CustomerListProps> = props => {
       <div>
         {loading && <Loader />}
 
-        {customers &&
+        {!loading && customers &&
           customers.map(customer => {
             return (
               <IonItem
+                button
+                detail={false}
                 className={!!customer ? classes.tableRow : undefined}
                 key={customer ? customer.id : "skeleton"}
                 onClick={customer ? onRowClick(customer.id) : undefined}
               >
+                <IonRippleEffect></IonRippleEffect>
+
                 <IonLabel className={classes.colName}>
                   {getUserName(customer)}
                   <br />

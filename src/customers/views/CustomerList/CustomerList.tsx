@@ -31,7 +31,7 @@ import {
   getFilterQueryParam,
   getFiltersCurrentTab,
   getFilterTabs,
-  getFilterVariables,
+  getFilterVariables
 } from "./filters";
 import { getSortQueryVariables } from "./sort";
 
@@ -41,7 +41,6 @@ interface CustomerListProps {
 
 export const CustomerList: React.FC<CustomerListProps> = ({ params }) => {
   const navigate = useNavigator();
-  const notify = useNotifier();
   const paginate = usePaginator();
   const { isSelected, listElements, reset, toggle, toggleAll } = useBulkActions(
     params.ids
@@ -49,16 +48,6 @@ export const CustomerList: React.FC<CustomerListProps> = ({ params }) => {
   const { updateListSettings, settings } = useListSettings(
     ListViews.CUSTOMER_LIST
   );
-
-  
-  
-  
-  
-  
-  
-  
-
-  const intl = useIntl();
 
   const paginationState = createPaginationState(settings.rowNumber, params);
   const queryVariables = React.useMemo(
@@ -105,58 +94,55 @@ export const CustomerList: React.FC<CustomerListProps> = ({ params }) => {
     );
   };
 
-
   const { loadNextPage, loadPreviousPage, pageInfo } = paginate(
     maybe(() => data.customers.pageInfo),
     paginationState,
     params
   );
 
-
-
   const handleSort = createSortHandler(navigate, customerListUrl, params);
 
   return (
-        <CustomerListPage
-          currentTab={currentTab}
-          filterOpts={getFilterOpts(params)}
-          initialSearch={params.query || ""}
-          onSearchChange={handleSearchChange}
-          onFilterChange={changeFilters}
-          onAll={resetFilters}
-          onTabChange={handleTabChange}
-          onTabDelete={() => openModal("delete-search")}
-          onTabSave={() => openModal("save-search")}
-          tabs={tabs.map(tab => tab.name)}
-          customers={mapEdgesToItems(data?.customers)}
-          settings={settings}
-          disabled={loading}
-          loading={loading}
-          pageInfo={pageInfo}
-          onAdd={() => navigate(customerAddUrl)}
-          onNextPage={loadNextPage}
-          onPreviousPage={loadPreviousPage}
-          onUpdateListSettings={updateListSettings}
-          onRowClick={id => () => navigate(customerUrl(id))}
-          onSort={handleSort}
-          toolbar={
-            <IconButton
-              color="primary"
-              onClick={() =>
-                openModal("remove", {
-                  ids: listElements
-                })
-              }
-            >
-              <DeleteIcon />
-            </IconButton>
+    <CustomerListPage
+      currentTab={currentTab}
+      filterOpts={getFilterOpts(params)}
+      initialSearch={params.query || ""}
+      onSearchChange={handleSearchChange}
+      onFilterChange={changeFilters}
+      onAll={resetFilters}
+      onTabChange={handleTabChange}
+      onTabDelete={() => openModal("delete-search")}
+      onTabSave={() => openModal("save-search")}
+      tabs={tabs.map(tab => tab.name)}
+      customers={mapEdgesToItems(data?.customers)}
+      settings={settings}
+      disabled={loading}
+      loading={loading}
+      pageInfo={pageInfo}
+      onAdd={() => navigate(customerAddUrl)}
+      onNextPage={loadNextPage}
+      onPreviousPage={loadPreviousPage}
+      onUpdateListSettings={updateListSettings}
+      onRowClick={id => () => navigate(customerUrl(id))}
+      onSort={handleSort}
+      toolbar={
+        <IconButton
+          color="primary"
+          onClick={() =>
+            openModal("remove", {
+              ids: listElements
+            })
           }
-          isChecked={isSelected}
-          selected={listElements.length}
-          sort={getSortParams(params)}
-          toggle={toggle}
-          toggleAll={toggleAll}
-        />
+        >
+          <DeleteIcon />
+        </IconButton>
+      }
+      isChecked={isSelected}
+      selected={listElements.length}
+      sort={getSortParams(params)}
+      toggle={toggle}
+      toggleAll={toggleAll}
+    />
   );
 };
 export default CustomerList;

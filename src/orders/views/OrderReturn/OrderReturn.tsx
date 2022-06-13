@@ -34,6 +34,8 @@ interface OrderReturnProps {
 }
 
 const OrderReturn: React.FC<OrderReturnProps> = ({ orderId }) => {
+  console.log("hello orderId", orderId);
+
   const navigate = useNavigator();
   const notify = useNotifier();
   const intl = useIntl();
@@ -97,7 +99,7 @@ const OrderReturn: React.FC<OrderReturnProps> = ({ orderId }) => {
   };
 
   const navigateToOrder = (id?: string) => navigate(orderUrl(id || orderId));
-
+  console.log("hello navigateToOrder", navigateToOrder);
   return (
     <OrderReturnPage
       errors={returnCreateOpts.data?.orderFulfillmentReturnProducts.errors}

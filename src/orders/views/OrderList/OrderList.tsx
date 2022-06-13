@@ -31,7 +31,7 @@ import {
   getFilterQueryParam,
   getFiltersCurrentTab,
   getFilterTabs,
-  getFilterVariables,
+  getFilterVariables
 } from "./filters";
 import { getSortQueryVariables } from "./sort";
 
@@ -110,8 +110,6 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
       })
     );
 
-
-
   const paginationState = createPaginationState(settings.rowNumber, params);
 
   const queryVariables = React.useMemo(
@@ -173,4 +171,4 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
   );
 };
 
-export default memo(OrderList);
+export default OrderList;

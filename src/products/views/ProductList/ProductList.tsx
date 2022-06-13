@@ -130,7 +130,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     paginationState,
     params
   );
-    
+
   return (
     <>
       <ProductListPage
