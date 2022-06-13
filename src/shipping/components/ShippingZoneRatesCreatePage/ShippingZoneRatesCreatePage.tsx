@@ -166,15 +166,6 @@ export const ShippingZoneRatesCreatePage: React.FC<ShippingZoneRatesCreatePagePr
                     postalCodes={postalCodes}
                   />
                 </div>
-                {/* <div>
-                  <ChannelsAvailabilityCard
-                    managePermissions={[PermissionEnum.MANAGE_SHIPPING]}
-                    allChannelsCount={allChannelsCount}
-                    selectedChannelsCount={shippingChannels?.length}
-                    channelsList={data.channelListings}
-                    openModal={openChannelsModal}
-                  />
-                </div> */}
                 <div style={{ height: "100px" }} />
               </Grid>
               <Savebar

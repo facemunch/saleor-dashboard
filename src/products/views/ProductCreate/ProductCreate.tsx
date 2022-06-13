@@ -1,8 +1,6 @@
 import { ChannelData, createSortedChannelsData } from "@saleor/channels/utils";
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
 import { AttributeInput } from "@saleor/components/Attributes";
-import ChannelsAvailabilityDialog from "@saleor/components/ChannelsAvailabilityDialog";
-import { WindowTitle } from "@saleor/components/WindowTitle";
 import {
   DEFAULT_INITIAL_SEARCH_DATA,
   VALUES_PAGINATE_BY
@@ -25,7 +23,6 @@ import {
   productAddUrl,
   ProductCreateUrlDialog,
   ProductCreateUrlQueryParams,
-  productListUrl,
   productUrl
 } from "@saleor/products/urls";
 import useCategorySearch from "@saleor/searches/useCategorySearch";
@@ -47,22 +44,25 @@ import { useWarehouseList } from "@saleor/warehouses/queries";
 import { warehouseAddPath } from "@saleor/warehouses/urls";
 import React from "react";
 import { useIntl } from "react-intl";
+import { useHistory } from "react-router-dom";
 
 import { createHandler } from "./handlers";
 
 interface ProductCreateProps {
   params: ProductCreateUrlQueryParams;
+  defaultProductTypeId?: string;
 }
 
 export const ProductCreateView: React.FC<ProductCreateProps> = ({
   params,
-  // defaultProductTypeId = "UHJvZHVjdFR5cGU6NA==",
   defaultProductTypeId = ""
-
 }) => {
   const navigate = useNavigator();
   const notify = useNotifier();
   const shop = useShop();
+
+  const { goBack } = useHistory();
+
   const intl = useIntl();
   const [productCreateComplete, setProductCreateComplete] = React.useState(
     false
@@ -143,17 +143,9 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
   );
 
   const {
-    channelListElements,
-    channelsToggle,
     currentChannels,
-    handleChannelsConfirm,
-    handleChannelsModalClose,
     handleChannelsModalOpen,
-    isChannelSelected,
-    isChannelsModalOpen,
-    setCurrentChannels,
-    toggleAllChannels
-  } = useChannels(allChannels, params?.action, {
+    setCurrentChannels  } = useChannels(allChannels, params?.action, {
     closeModal,
     openModal
   });
@@ -178,10 +170,14 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
     updateVariantChannelsOpts
   ] = useProductVariantChannelListingUpdate({});
 
-  const handleBack = () => navigate(productListUrl());
+  const handleBack = () => goBack();
 
-  const [productCreate, productCreateOpts] = useProductCreateMutation({});
-  const [deleteProduct] = useProductDeleteMutation({});
+  const [productCreate, productCreateOpts] = useProductCreateMutation({
+    refetchQueries: ["ProductList"]
+  });
+  const [deleteProduct] = useProductDeleteMutation({
+    refetchQueries: ["ProductList"]
+  });
   const [
     productVariantCreate,
     productVariantCreateOpts
@@ -196,7 +192,8 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
           })
         );
       }
-    }
+    },
+    refetchQueries: ["ProductList"]
   });
 
   const handleSubmit = async data => {
@@ -276,29 +273,6 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
 
   return (
     <>
-      <WindowTitle
-        title={intl.formatMessage({
-          defaultMessage: "Create Product",
-          description: "window title"
-        })}
-      />
-      {!!allChannels?.length && (
-        <ChannelsAvailabilityDialog
-          isSelected={isChannelSelected}
-          disabled={!channelListElements.length}
-          channels={allChannels}
-          onChange={channelsToggle}
-          onClose={handleChannelsModalClose}
-          open={isChannelsModalOpen}
-          title={intl.formatMessage({
-            defaultMessage: "Manage Products Channel Availability"
-          })}
-          confirmButtonState="default"
-          selected={channelListElements.length}
-          onConfirm={handleChannelsConfirm}
-          toggleAll={toggleAllChannels}
-        />
-      )}
       <ProductCreatePage
         allChannelsCount={allChannels?.length}
         currentChannels={currentChannels}

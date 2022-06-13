@@ -1,11 +1,7 @@
-import { sectionNames } from "@saleor/intl";
 import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
-import React from "react";
-import { useIntl } from "react-intl";
-import { Route, Switch, useParams } from "react-router-dom";
-
-import { WindowTitle } from "../components/WindowTitle";
+import React, { memo, useMemo, useRef } from "react";
+import { Route, Switch, useLocation, useParams } from "react-router-dom";
 import {
   customerAddressesPath,
   CustomerAddressesUrlQueryParams,
@@ -19,19 +15,26 @@ import CustomerCreateView from "./views/CustomerCreate";
 import CustomerDetailsViewComponent from "./views/CustomerDetails";
 import CustomerListViewComponent from "./views/CustomerList";
 
-const CustomerListView: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
-  const params: CustomerListUrlQueryParams = location.pathname.includes(
-    "/customers"
-  )
-    ? asSortParams(qs, CustomerListUrlSortField)
-    : {};
+export const CustomerListView: React.FC = memo(() => {
+  const { search } = useLocation();
+  const oldQs = useRef();
 
-  return <CustomerListViewComponent params={params} />;
-};
+  const params: CustomerListUrlQueryParams = useMemo(() => {
+    const qs = parseQs(search.substr(1));
 
-const CustomerDetailsView: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
+    if (search.length > 0) {
+      oldQs.current = asSortParams(qs, CustomerListUrlSortField);
+    }
+
+    return oldQs.current;
+  }, [search]);
+
+  return <CustomerListViewComponent params={params || {}} />;
+});
+
+export const CustomerDetailsView: React.FC = () => {
+  const { search } = useLocation()
+  const qs = parseQs(search.substr(1));
   const params: CustomerUrlQueryParams = qs;
   const match = useParams();
 
@@ -43,8 +46,9 @@ const CustomerDetailsView: React.FC = () => {
   );
 };
 
-const CustomerAddressesView: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
+export const CustomerAddressesView: React.FC = () => {
+  const { search } = useLocation()
+  const qs = parseQs(search.substr(1));
   const params: CustomerAddressesUrlQueryParams = qs;
   const match = useParams();
 
@@ -57,11 +61,8 @@ const CustomerAddressesView: React.FC = () => {
 };
 
 export const CustomerSection: React.FC<{}> = () => {
-  const intl = useIntl();
-
   return (
     <>
-      <WindowTitle title={intl.formatMessage(sectionNames.customers)} />
       <Switch>
         <Route exact path="/customers" render={() => <CustomerListView />} />
         <Route
@@ -77,6 +78,7 @@ export const CustomerSection: React.FC<{}> = () => {
           path={"/customers/" + customerPath(":id", "")}
           render={() => <CustomerDetailsView />}
         />
+        <Route path="/" render={() => <CustomerListView />} />
       </Switch>
     </>
   );

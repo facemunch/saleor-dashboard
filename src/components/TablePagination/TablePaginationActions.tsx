@@ -5,6 +5,7 @@ import { makeStyles, useTheme } from "@saleor/macaw-ui";
 import { isDarkTheme } from "@saleor/misc";
 import classNames from "classnames";
 import React from "react";
+import { IonButtons } from "@ionic/react";
 
 const useStyles = makeStyles(
   theme => ({
@@ -79,7 +80,7 @@ export const TablePaginationActions: React.FC<TablePaginationActionsProps> = pro
   const isDark = isDarkTheme(themeType);
 
   return (
-    <div className={classNames(classes.root, className)} {...other}>
+    <IonButtons slot="end">
       <IconButton
         className={classNames(classes.iconButton, {
           [classes.dark]: isDark,
@@ -104,7 +105,7 @@ export const TablePaginationActions: React.FC<TablePaginationActionsProps> = pro
       >
         {direction === "rtl" ? <ArrowLeft /> : <ArrowRight />}
       </IconButton>
-    </div>
+    </IonButtons>
   );
 };
 

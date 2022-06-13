@@ -1,4 +1,5 @@
-import { TableCell, Toolbar, IconButtonProps } from "@mui/material";
+import { IonFooter, IonToolbar } from "@ionic/react";
+import { TableCell, IconButtonProps } from "@mui/material";
 import RowNumberSelect from "@saleor/components/RowNumberSelect";
 import { makeStyles } from "@saleor/macaw-ui";
 import { maybe } from "@saleor/misc";
@@ -80,29 +81,21 @@ const TablePagination: React.FC<TablePaginationProps> = props => {
     nextIconButtonProps,
     onNextPage,
     onPreviousPage,
-    onUpdateListSettings,
-    ...other
-  } = props;
-  const classes = useStyles(props);
+    onUpdateListSettings  } = props;
 
-  let colSpan;
 
-  if (Component === TableCell || Component === "td") {
-    colSpan = colSpanProp || 1000;
-  }
 
   return (
-    <Component className={classes.root} colSpan={colSpan} {...other}>
-      <Toolbar className={classes.toolbar}>
-        <div className={classes.spacer}>
-          {maybe(() => settings.rowNumber) && (
-            <RowNumberSelect
-              choices={[10, 20, 30, 50, 100]}
-              rowNumber={settings.rowNumber}
-              onChange={value => onUpdateListSettings("rowNumber", value)}
-            />
-          )}
-        </div>
+    <IonFooter>
+      <IonToolbar>
+        {maybe(() => settings.rowNumber) && (
+          <RowNumberSelect
+            choices={[10, 20, 30, 50, 100]}
+            rowNumber={settings.rowNumber}
+            onChange={value => onUpdateListSettings("rowNumber", value)}
+          />
+        )}
+
         <TablePaginationActions
           backIconButtonProps={backIconButtonProps}
           hasNextPage={hasNextPage}
@@ -111,8 +104,8 @@ const TablePagination: React.FC<TablePaginationProps> = props => {
           onNextPage={onNextPage}
           onPreviousPage={onPreviousPage}
         />
-      </Toolbar>
-    </Component>
+      </IonToolbar>
+    </IonFooter>
   );
 };
 TablePagination.defaultProps = {

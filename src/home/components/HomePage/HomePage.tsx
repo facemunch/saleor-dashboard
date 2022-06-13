@@ -1,15 +1,9 @@
 import CardSpacer from "@saleor/components/CardSpacer";
-import Container from "@saleor/components/Container";
-import Grid from "@saleor/components/Grid";
 import Money from "@saleor/components/Money";
-import RequirePermissions from "@saleor/components/RequirePermissions";
 import Skeleton from "@saleor/components/Skeleton";
 import { makeStyles } from "@saleor/macaw-ui";
 import { UserPermissionProps } from "@saleor/types";
-import { PermissionEnum } from "@saleor/types/globalTypes";
-import React from "react";
-import { add } from "ionicons/icons";
-import useNavigator from "@saleor/hooks/useNavigator";
+import React, { memo } from "react";
 import Orders from "../../../icons/Orders";
 import Sales from "../../../icons/Sales";
 import {
@@ -19,16 +13,9 @@ import {
 } from "../../types/Home";
 import HomeActivityCard from "../HomeActivityCard";
 import HomeAnalyticsCard from "../HomeAnalyticsCard";
-import HomeNotificationTable from "../HomeNotificationTable/HomeNotificationTable";
 import HomeProductListCard from "../HomeProductListCard";
-import {
-  IonContent,
-  IonPage,
-  IonCard,
-  IonButton,
-  IonFab,
-  IonIcon
-} from "@ionic/react";
+import { IonContent, IonCard } from "@ionic/react";
+import { Loader } from "frontend/ui/loader";
 const useStyles = makeStyles(
   theme => ({
     cardContainer: {
@@ -55,6 +42,7 @@ const useStyles = makeStyles(
 export interface HomePageProps extends UserPermissionProps {
   activities: Home_activities_edges_node[];
   orders: number | null;
+  loading: boolean;
   ordersToCapture: number | null;
   ordersToFulfill: number | null;
   productsOutOfStock: number;
@@ -71,40 +59,23 @@ export interface HomePageProps extends UserPermissionProps {
 
 const HomePage: React.FC<HomePageProps> = props => {
   const {
-    userName,
     orders,
     sales,
     topProducts,
     onProductClick,
     activities,
-    onCreateNewChannelClick,
-    onOrdersToCaptureClick,
-    onOrdersToFulfillClick,
-    onProductsOutOfStockClick,
-    ordersToCapture = 0,
-    ordersToFulfill = 0,
-    productsOutOfStock = 0,
-    userPermissions = [],
-    noChannel
+    noChannel, 
+    loading
   } = props;
-  const navigate = useNavigator();
 
   const classes = useStyles(props);
 
   return (
     <>
-      <IonContent
-      // forceOverscroll
-      // style={{ height: "90vh", overflow: "scroll", margin: "12px" }}
-      >
-        {/* <div style={{ margin: "12px" }}> */}
-        {/* <CardSpacer /> */}
-        {/* <Grid> */}
+      <IonContent data-test-id="commerce-home-tab">
+        <div style={{ height: "20px" }} />
+        {loading && <Loader/>}
         <IonCard>
-          {/* <RequirePermissions
-            userPermissions={userPermissions}
-            requiredPermissions={[PermissionEnum.MANAGE_ORDERS]}
-          > */}
           <div className={classes.cardContainer}>
             <HomeAnalyticsCard
               title={"Sales"}
@@ -146,20 +117,7 @@ const HomePage: React.FC<HomePageProps> = props => {
             </HomeAnalyticsCard>
           </div>
         </IonCard>
-        {/* </RequirePermissions> */}
-        <IonCard>
-          <HomeNotificationTable
-            onCreateNewChannelClick={onCreateNewChannelClick}
-            onOrdersToCaptureClick={onOrdersToCaptureClick}
-            onOrdersToFulfillClick={onOrdersToFulfillClick}
-            onProductsOutOfStockClick={onProductsOutOfStockClick}
-            ordersToCapture={ordersToCapture}
-            ordersToFulfill={ordersToFulfill}
-            productsOutOfStock={productsOutOfStock}
-            userPermissions={userPermissions}
-            noChannel={noChannel}
-          />
-        </IonCard>
+
         <CardSpacer />
         <IonCard>
           {topProducts && (
@@ -184,34 +142,11 @@ const HomePage: React.FC<HomePageProps> = props => {
               </>
             </div>
           )}
-         
         </IonCard>
         <div style={{ height: "100px" }} />
-        {/* </Grid> */}
-        {/* </div> */}
-        <IonFab
-          vertical="bottom"
-          horizontal="end"
-          slot="fixed"
-          style={{
-            marginBottom: "50px"
-          }}
-          data-test-id="create-order-button"
-        >
-          <IonButton
-            onClick={() => {
-              navigate("/products/add");
-            }}
-            shape="round"
-          >
-            <IonIcon slot="start" icon={add} />
-            New Product
-          </IonButton>
-        </IonFab>
-        {/* </div> */}
       </IonContent>
     </>
   );
 };
 HomePage.displayName = "HomePage";
-export default HomePage;
+export default memo(HomePage);

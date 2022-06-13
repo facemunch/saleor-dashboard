@@ -61,7 +61,9 @@ export const ChannelsAvailability: React.FC<ChannelsAvailabilityCardProps> = pro
     localizeDate
   });
   useEffect(() => {
-    if (!isAutoPresentToPublished) return;
+    if (!isAutoPresentToPublished || channels.length === 0) {
+      return;
+    }
     onChange(channels[0].id, {
       availableForPurchase: null,
       isAvailableForPurchase: true,

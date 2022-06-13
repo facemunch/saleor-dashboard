@@ -1,25 +1,25 @@
 import {
-  TableBody,
-  TableCell,
-  TableFooter,
-  TableRow,
-  Typography
-} from "@mui/material";
+  IonCardContent,
+  IonImg,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonNote,
+  IonThumbnail,
+  IonRippleEffect,
+  IonButton
+} from "@ionic/react";
 import Skeleton from "@saleor/components/Skeleton";
-import TableCellAvatar from "@saleor/components/TableCellAvatar";
-import TablePagination from "@saleor/components/TablePagination";
 import { ProductListColumns } from "@saleor/config";
 import { makeStyles } from "@saleor/macaw-ui";
-import { maybe, renderCollection } from "@saleor/misc";
+import { maybe } from "@saleor/misc";
 import { GridAttributes_grid_edges_node } from "@saleor/products/types/GridAttributes";
 import { ProductList_products_edges_node } from "@saleor/products/types/ProductList";
 import { ProductListUrlSortField } from "@saleor/products/urls";
 import { ChannelProps, ListActions, ListProps, SortPage } from "@saleor/types";
-import TDisplayColumn, {
-  DisplayColumnProps
-} from "@saleor/utils/columns/DisplayColumn";
 import React from "react";
 import { FormattedMessage } from "react-intl";
+import { Loader } from "frontend/ui/loader";
 
 const useStyles = makeStyles(
   theme => ({
@@ -62,6 +62,7 @@ const useStyles = makeStyles(
     colPublished: {},
     colType: {},
     link: {
+      width: "100%",
       cursor: "pointer"
     },
     table: {
@@ -79,10 +80,14 @@ const useStyles = makeStyles(
   }),
   { name: "ProductList" }
 );
-
-const DisplayColumn = TDisplayColumn as React.FunctionComponent<
-  DisplayColumnProps<ProductListColumns>
->;
+const styleH2 = {
+  fontFamily: "Inter",
+  fontStyle: "normal",
+  fontWeight: "400",
+  fontSize: "14px",
+  lineHeight: "20px",
+  color: "#FFFFFF"
+};
 
 interface ProductListProps
   extends ListProps<ProductListColumns>,
@@ -97,121 +102,89 @@ interface ProductListProps
 }
 
 export const ProductList: React.FC<ProductListProps> = props => {
-  const {
-    settings,
-    disabled,
-    isChecked,
-    pageInfo,
-    products,
-    onNextPage,
-    onPreviousPage,
-    onUpdateListSettings,
-    onRowClick,
-    selectedChannelId
-  } = props;
-
+  const { products, onRowClick, loading } = props;
   const classes = useStyles(props);
-  const numberOfColumns = 2 + settings.columns.length;
   return (
-    <div className={classes.tableContainer}>
-      <TableFooter>
-        <TableRow>
-          <TablePagination
-            colSpan={numberOfColumns}
-            settings={settings}
-            hasNextPage={pageInfo && !disabled ? pageInfo.hasNextPage : false}
-            onNextPage={onNextPage}
-            onUpdateListSettings={onUpdateListSettings}
-            hasPreviousPage={
-              pageInfo && !disabled ? pageInfo.hasPreviousPage : false
-            }
-            onPreviousPage={onPreviousPage}
-          />
-        </TableRow>
-      </TableFooter>
-      <TableBody>
-        {renderCollection(
-          products,
-          product => {
-            const isSelected = product ? isChecked(product.id) : false;
-            const channel = product?.channelListings.find(
-              listing => listing.channel.id === selectedChannelId
+    <IonList
+      style={{ "--ion-item-background": "#313131", paddingBottom: 4 }}
+      data-test-id="product-list"
+    >
+      {loading && <Loader />}
+      {!loading &&
+        products &&
+        products.length > 0 &&
+        products.map(product => {
+          let channel;
+          if (product?.channelListings) {
+            channel = product?.channelListings.find(
+              listing => listing.channel.name === "USD"
             );
+          }
 
-            return (
-              <TableRow
-                selected={isSelected}
-                hover={!!product}
-                key={product ? product.id : "skeleton"}
-                onClick={
-                  product &&
-                  onRowClick(
-                    product.id,
-                    product.productType.name === "Digital product"
-                      ? "?isDigitalProduct=true"
-                      : ""
-                  )
-                }
-                className={classes.link}
-                data-test="id"
-                data-test-id={product ? product?.id : "skeleton"}
+          return (
+            <IonItem
+              button
+              detail={false}
+              key={product ? product.id : "skeleton"}
+              onClick={
+                product &&
+                onRowClick(
+                  product.id,
+                  product.productType.name === "Digital product"
+                    ? "?isDigitalProduct=true"
+                    : ""
+                )
+              }
+              className={classes.link}
+              data-test-id="product-item"
+            >
+              <IonThumbnail
+                style={{ borderRadius: "8px", overflow: "hidden" }}
+                slot="start"
               >
-             
-                <TableCellAvatar thumbnail={maybe(() => product.thumbnail.url)}>
+                <IonImg src={maybe(() => product.thumbnail.url)} />
+              </IonThumbnail>
+              <IonLabel>
+                <h2 style={styleH2}>
                   {product?.productType ? (
-                    // <div className={classes.colNameWrapper}>
                     <span data-test="name">{product.name}</span>
                   ) : (
-                    // </div>
                     <Skeleton />
                   )}
-                </TableCellAvatar>
-                <DisplayColumn
-                  column="productType"
-                  displayColumns={settings.columns}
-                >
-                  <TableCell
-                    className={classes.colType}
-                    data-test="product-type"
-                  >
-                    {product?.productType && (
-                      <Typography variant="caption">
-                        {product?.productType?.name || <Skeleton />}{" "}
-                      </Typography>
-                    )}
-                  </TableCell>
-                </DisplayColumn>
+                </h2>
+                <h4 style={{ color: "#B3B3B3", textTransform: "capitalize" }}>
+                  {product?.productType?.name &&
+                    product.productType.name.replace(" product", "")}{" "}
+                  •{" "}
+                  {product.channelListings &&
+                  product.channelListings.length > 0 &&
+                  product.channelListings[0].isPublished
+                    ? "published"
+                    : "draft"}
+                </h4>
+              </IonLabel>
 
-           
-                <DisplayColumn column="price" displayColumns={settings.columns}>
-                  <TableCell className={classes.colPrice} data-test="price">
-                    {product?.channelListings ? (
-                      <>
-                        $ {channel?.pricing?.priceRange?.stop?.net?.amount}
-                        {/* <MoneyRange
-                        from={channel?.pricing?.priceRange?.start?.net}
-                        to={channel?.pricing?.priceRange?.stop?.net}
-                      /> */}
-                      </>
-                    ) : (
-                      <Skeleton />
-                    )}
-                  </TableCell>
-                </DisplayColumn>
-              </TableRow>
-            );
-          },
-          () => (
-            <TableRow>
-              <TableCell colSpan={numberOfColumns}>
-                <FormattedMessage defaultMessage="No products found" />
-              </TableCell>
-            </TableRow>
-          )
-        )}
-      </TableBody>
-      {/* </ResponsiveTable> */}
-    </div>
+              <IonNote
+                style={{ color: "White", textTransform: "capitalize" }}
+                slot="end"
+              >
+                {product?.channelListings ? (
+                  <>${channel?.pricing?.priceRange?.stop?.net?.amount}</>
+                ) : (
+                  <Skeleton />
+                )}
+              </IonNote>
+              <IonRippleEffect type="unbounded"></IonRippleEffect>
+            </IonItem>
+          );
+        })}
+
+      {!loading && products && products.length === 0 && (
+        <IonCardContent style={{ textAlign: "center" }}>
+          <FormattedMessage defaultMessage="No products found" />
+        </IonCardContent>
+      )}
+    </IonList>
   );
 };
 ProductList.displayName = "ProductList";

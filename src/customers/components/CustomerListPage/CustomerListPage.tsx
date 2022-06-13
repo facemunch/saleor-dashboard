@@ -1,9 +1,5 @@
-import { Button, Card } from "@mui/material";
-import Container from "@saleor/components/Container";
 import FilterBar from "@saleor/components/FilterBarIonic";
-import PageHeader from "@saleor/components/PageHeader";
 import { CustomerListUrlSortField } from "@saleor/customers/urls";
-import { sectionNames } from "@saleor/intl";
 import {
   FilterPageProps,
   ListActions,
@@ -11,17 +7,9 @@ import {
   SortPage,
   TabPageProps
 } from "@saleor/types";
-import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
-import {
-  IonContent,
-  IonCard,
-  IonFab,
-  IonFabButton,
-  IonIcon,
-  IonButton
-} from "@ionic/react";
-import { add } from "ionicons/icons";
+import React, { memo } from "react";
+import { useIntl } from "react-intl";
+import { IonContent, IonCard } from "@ionic/react";
 import { ListCustomers_customers_edges_node } from "../../types/ListCustomers";
 import CustomerList from "../CustomerList/CustomerList";
 import {
@@ -29,7 +17,6 @@ import {
   CustomerFilterKeys,
   CustomerListFilterOpts
 } from "./filters";
-import useNavigator from "@saleor/hooks/useNavigator";
 
 export interface CustomerListPageProps
   extends PageListProps,
@@ -63,31 +50,12 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
   ...customerListProps
 }) => {
   const intl = useIntl();
-  const navigate = useNavigator();
 
   const structure = createFilterStructure(intl, filterOpts);
 
   return (
-    <IonContent>
-      <IonFab
-        vertical="bottom"
-        horizontal="end"
-        slot="fixed"
-        style={{
-          marginBottom: "50px"
-        }}
-        data-test-id="create-order-button"
-      >
-        <IonButton
-          onClick={() => {
-            navigate("/products/add");
-          }}
-          shape="round"
-        >
-          <IonIcon slot="start" icon={add} />
-          New Product
-        </IonButton>
-      </IonFab>
+    <IonContent data-test-id="commerce-customers-tab">
+      <div style={{ height: "20px" }} />
       <IonCard>
         <FilterBar
           options={options}
@@ -120,4 +88,4 @@ const CustomerListPage: React.FC<CustomerListPageProps> = ({
   );
 };
 CustomerListPage.displayName = "CustomerListPage";
-export default CustomerListPage;
+export default memo(CustomerListPage);

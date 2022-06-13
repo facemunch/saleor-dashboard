@@ -1,26 +1,18 @@
-import ChannelPickerDialog from "@saleor/channels/components/ChannelPickerDialog";
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
-import DeleteFilterTabDialog from "@saleor/components/DeleteFilterTabDialog";
-import SaveFilterTabDialog, {
-  SaveFilterTabDialogFormData
-} from "@saleor/components/SaveFilterTabDialog";
 import { useShopLimitsQuery } from "@saleor/components/Shop/query";
-import { DEFAULT_INITIAL_PAGINATION_DATA } from "@saleor/config";
 import useListSettings from "@saleor/hooks/useListSettings";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
-import { usePaginationReset } from "@saleor/hooks/usePaginationReset";
 import usePaginator, {
   createPaginationState
 } from "@saleor/hooks/usePaginator";
-import { getStringOrPlaceholder } from "@saleor/misc";
 import { ListViews } from "@saleor/types";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
 import createSortHandler from "@saleor/utils/handlers/sortHandler";
 import { mapEdgesToItems, mapNodeToChoice } from "@saleor/utils/maps";
 import { getSortParams } from "@saleor/utils/sort";
-import React from "react";
+import React, { memo } from "react";
 import { useIntl } from "react-intl";
 
 import OrderListPage from "../../components/OrderListPage/OrderListPage";
@@ -35,14 +27,11 @@ import {
   orderUrl
 } from "../../urls";
 import {
-  deleteFilterTab,
-  getActiveFilters,
   getFilterOpts,
   getFilterQueryParam,
   getFiltersCurrentTab,
   getFilterTabs,
-  getFilterVariables,
-  saveFilterTab
+  getFilterVariables
 } from "./filters";
 import { getSortQueryVariables } from "./sort";
 
@@ -57,14 +46,6 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
   const { updateListSettings, settings } = useListSettings(
     ListViews.ORDER_LIST
   );
-
-  // usePaginationReset(
-  //   orderListUrl({
-  //     ...params,
-  //     ...DEFAULT_INITIAL_PAGINATION_DATA
-  //   }),
-  //   settings.rowNumber
-  // );
 
   const intl = useIntl();
 
@@ -89,7 +70,6 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
     }
   });
 
-  const noChannel = !channel && typeof channel !== "undefined";
   const channelOpts = availableChannels
     ? mapNodeToChoice(availableChannels)
     : null;
@@ -122,16 +102,6 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
       })
     );
 
-  const handleFilterTabDelete = () => {
-    deleteFilterTab(currentTab);
-    navigate(orderListUrl());
-  };
-
-  const handleFilterTabSave = (data: SaveFilterTabDialogFormData) => {
-    saveFilterTab(data.name, getActiveFilters(params));
-    handleTabChange(tabs.length + 1);
-  };
-
   const paginationState = createPaginationState(settings.rowNumber, params);
 
   const queryVariables = React.useMemo(
@@ -161,6 +131,7 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
         settings={settings}
         currentTab={currentTab}
         disabled={loading}
+        loading={loading}
         filterOpts={getFilterOpts(params, channelOpts)}
         limits={limitOpts.data?.shop.limits}
         orders={mapEdgesToItems(data?.orders)}
@@ -188,35 +159,6 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
         onAll={resetFilters}
         onSettingsOpen={() => navigate(orderSettingsPath)}
       />
-      <SaveFilterTabDialog
-        open={params.action === "save-search"}
-        confirmButtonState="default"
-        onClose={closeModal}
-        onSubmit={handleFilterTabSave}
-      />
-      <DeleteFilterTabDialog
-        open={params.action === "delete-search"}
-        confirmButtonState="default"
-        onClose={closeModal}
-        onSubmit={handleFilterTabDelete}
-        tabName={getStringOrPlaceholder(tabs[currentTab - 1]?.name)}
-      />
-      {/* {!noChannel && (
-        <ChannelPickerDialog
-          channelsChoices={mapNodeToChoice(availableChannels)}
-          confirmButtonState="success"
-          defaultChoice={channel.id}
-          open={params.action === "create-order"}
-          onClose={closeModal}
-          onConfirm={channelId =>
-            createOrder({
-              variables: {
-                input: { channelId }
-              }
-            })
-          }
-        />
-      )} */}
     </>
   );
 };

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { closeOutline, checkmarkOutline } from "ionicons/icons";
 import { FilterProps } from "../../types";
-import Filter from "../Filter";
 import { FilterErrorMessages, IFilter } from "../Filter/types";
 import { SearchBarProps } from "../SearchBar";
 import SearchInput from "../SearchBar/SearchInput";
@@ -23,8 +22,7 @@ export interface FilterBarProps<TKeys extends string = string>
   extends FilterProps<TKeys>,
     SearchBarProps {
   errorMessages?: FilterErrorMessages<TKeys>;
-  filterStructure: IFilter<TKeys>;
-  options?: [unknown];
+  options?: { label: string; path: string; }[];
 }
 
 const useStyles = makeStyles(
@@ -32,8 +30,7 @@ const useStyles = makeStyles(
     root: {
       borderBottom: `1px solid rgba(255, 255, 255, 0.06)`,
       display: "flex",
-      flexWrap: "wrap",
-      padding: theme.spacing(2)
+      flexWrap: "wrap"
     },
     tabActionButton: {
       marginLeft: theme.spacing(2),
@@ -85,14 +82,9 @@ const badgeStyle = {
 
 const FilterBar: React.FC<FilterBarProps> = props => {
   const {
-    currencySymbol,
-    filterStructure,
     initialSearch,
     searchPlaceholder,
     onSearchChange,
-    onFilterChange,
-    onFilterAttributeFocus,
-    errorMessages,
     options = []
   } = props;
   const navigate = useNavigator();
@@ -103,13 +95,6 @@ const FilterBar: React.FC<FilterBarProps> = props => {
   return (
     <>
       <div className={classes.root}>
-        <Filter
-          errorMessages={errorMessages}
-          menu={filterStructure}
-          currencySymbol={currencySymbol}
-          onFilterAdd={onFilterChange}
-          onFilterAttributeFocus={onFilterAttributeFocus}
-        />
         <SearchInput
           initialSearch={initialSearch}
           placeholder={searchPlaceholder}
@@ -176,7 +161,9 @@ const FilterBar: React.FC<FilterBarProps> = props => {
               <IonItem
                 key={opt.path}
                 onClick={() => {
-                  navigate(opt.path);
+                  navigate(
+                    window.location.pathname.replace("/c", "") + opt.path
+                  );
                   setShowModal(false);
                 }}
                 className="default-panel-bg"

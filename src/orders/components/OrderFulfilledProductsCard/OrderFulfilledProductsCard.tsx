@@ -36,6 +36,7 @@ const useStyles = makeStyles(
 interface OrderFulfilledProductsCardProps {
   fulfillment: OrderDetails_order_fulfillments;
   fulfillmentAllowUnpaid: boolean;
+  id?: string;
   order?: OrderDetailsFragment;
   onOrderFulfillmentApprove: () => void;
   onOrderFulfillmentCancel: () => void;
@@ -62,7 +63,8 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
     onOrderFulfillmentApprove,
     onOrderFulfillmentCancel,
     onTrackingCodeAdd,
-    onRefund
+    onRefund,
+    id
   } = props;
   const classes = useStyles(props);
 
@@ -79,53 +81,50 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
   };
 
   return (
-    <>
-      <IonCard>
-        <CardTitle
-          withStatus
-          lines={fulfillment?.lines}
-          fulfillmentOrder={fulfillment?.fulfillmentOrder}
-          status={fulfillment?.status}
-          warehouseName={fulfillment?.warehouse?.name}
-          orderNumber={order?.number}
-          toolbar={
-            cancelableStatuses.includes(fulfillment?.status) && (
-              <IconButton
-                className={classes.deleteIcon}
-                onClick={onOrderFulfillmentCancel}
-                data-test-id="cancelFulfillmentButton"
-              >
-                <TrashIcon />
-              </IconButton>
-            )
-          }
-        />
-        <IonCardContent
-          style={{
-            overflow: "scroll",
-            width: "92vw"
-          }}
-        >
-          <TableHeader />
-          <TableBody>
-            {renderCollection(getLines(), line => (
-              <TableLine line={line} />
-            ))}
-          </TableBody>
-          <ExtraInfoLines fulfillment={fulfillment} />
-        </IonCardContent>
-        <ActionButtons
-          status={fulfillment?.status}
-          trackingNumber={fulfillment?.trackingNumber}
-          orderIsPaid={order?.isPaid}
-          fulfillmentAllowUnpaid={fulfillmentAllowUnpaid}
-          onTrackingCodeAdd={onTrackingCodeAdd}
-          onRefund={onRefund}
-          onApprove={onOrderFulfillmentApprove}
-        />
-      </IonCard>
-      <CardSpacer />
-    </>
+    <IonCard key={id}>
+      <CardTitle
+        withStatus
+        lines={fulfillment?.lines}
+        fulfillmentOrder={fulfillment?.fulfillmentOrder}
+        status={fulfillment?.status}
+        warehouseName={fulfillment?.warehouse?.name}
+        orderNumber={order?.number}
+        toolbar={
+          cancelableStatuses.includes(fulfillment?.status) && (
+            <IconButton
+              className={classes.deleteIcon}
+              onClick={onOrderFulfillmentCancel}
+              data-test-id="cancelFulfillmentButton"
+            >
+              <TrashIcon />
+            </IconButton>
+          )
+        }
+      />
+      <IonCardContent
+        style={{
+          overflow: "scroll",
+          width: "92vw"
+        }}
+      >
+        <TableHeader />
+        <TableBody>
+          {renderCollection(getLines(), line => (
+            <TableLine line={line} />
+          ))}
+        </TableBody>
+        <ExtraInfoLines fulfillment={fulfillment} />
+      </IonCardContent>
+      <ActionButtons
+        status={fulfillment?.status}
+        trackingNumber={fulfillment?.trackingNumber}
+        orderIsPaid={order?.isPaid}
+        fulfillmentAllowUnpaid={fulfillmentAllowUnpaid}
+        onTrackingCodeAdd={onTrackingCodeAdd}
+        onRefund={onRefund}
+        onApprove={onOrderFulfillmentApprove}
+      />
+    </IonCard>
   );
 };
 

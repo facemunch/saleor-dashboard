@@ -1,8 +1,7 @@
-import notFoundImage from "@assets/images/not-found-404.svg";
 import { Button, Typography } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
-import SVG from "react-inlinesvg";
+import {IonContent} from "@ionic/react";
 import { FormattedMessage } from "react-intl";
 
 const useStyles = makeStyles(
@@ -58,7 +57,7 @@ const NotFoundPage: React.FC<NotFoundPageProps> = props => {
   const classes = useStyles(props);
 
   return (
-    <div className={classes.root}>
+    <IonContent className={classes.root}>
       <div className={classes.container}>
         <div className={classes.innerContainer}>
           <div>
@@ -69,7 +68,7 @@ const NotFoundPage: React.FC<NotFoundPageProps> = props => {
               <FormattedMessage defaultMessage="Something's missing" />
             </Typography>
             <Typography>
-              <FormattedMessage defaultMessage="Sorry, the page was not found" />
+              <FormattedMessage defaultMessage="Sorry, the data was not found" />
             </Typography>
           </div>
           <div>
@@ -86,11 +85,9 @@ const NotFoundPage: React.FC<NotFoundPageProps> = props => {
             </Button>
           </div>
         </div>
-        <div>
-          <SVG className={classes.notFoundImage} src={notFoundImage} />
-        </div>
+    
       </div>
-    </div>
+    </IonContent>
   );
 };
 NotFoundPage.displayName = "NotFoundPage";

@@ -170,7 +170,7 @@ export function useSaleorAuthProvider({
     setUserContext(user);
     setTokens(auth, refresh, persistToken);
   };
-
+  
   const refreshToken = (): Promise<boolean> => {
     if (!!refreshPromise.current) {
       return refreshPromise.current;

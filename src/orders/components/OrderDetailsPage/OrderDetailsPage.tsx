@@ -1,8 +1,6 @@
-import { Typography } from "@mui/material";
 import CardMenu from "@saleor/components/CardMenu";
 import { CardSpacer } from "@saleor/components/CardSpacer";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
-import { Container } from "@saleor/components/Container";
 import { DateTime } from "@saleor/components/Date";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
@@ -14,7 +12,6 @@ import { SubmitPromise } from "@saleor/hooks/useForm";
 import { sectionNames } from "@saleor/intl";
 import { Backlink } from "@saleor/macaw-ui";
 import { makeStyles } from "@saleor/macaw-ui";
-import OrderChannelSectionCard from "@saleor/orders/components/OrderChannelSectionCard";
 import { UserPermissionProps } from "@saleor/types";
 import { mapMetadataItemToInput } from "@saleor/utils/maps";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
@@ -263,23 +260,22 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                     </>
                   )}
                   {order?.fulfillments?.map(fulfillment => (
-                    <React.Fragment key={fulfillment.id}>
-                      <OrderFulfilledProductsCard
-                        fulfillment={fulfillment}
-                        fulfillmentAllowUnpaid={shop?.fulfillmentAllowUnpaid}
-                        order={order}
-                        onOrderFulfillmentCancel={() =>
-                          onFulfillmentCancel(fulfillment.id)
-                        }
-                        onTrackingCodeAdd={() =>
-                          onFulfillmentTrackingNumberUpdate(fulfillment.id)
-                        }
-                        onRefund={onPaymentRefund}
-                        onOrderFulfillmentApprove={() =>
-                          onFulfillmentApprove(fulfillment.id)
-                        }
-                      />
-                    </React.Fragment>
+                    <OrderFulfilledProductsCard
+                      fulfillment={fulfillment}
+                      fulfillmentAllowUnpaid={shop?.fulfillmentAllowUnpaid}
+                      order={order}
+                      onOrderFulfillmentCancel={() =>
+                        onFulfillmentCancel(fulfillment.id)
+                      }
+                      onTrackingCodeAdd={() =>
+                        onFulfillmentTrackingNumberUpdate(fulfillment.id)
+                      }
+                      onRefund={onPaymentRefund}
+                      onOrderFulfillmentApprove={() =>
+                        onFulfillmentApprove(fulfillment.id)
+                      }
+                      id={fulfillment.id}
+                    />
                   ))}
                   {!isOrderUnconfirmed && (
                     <>

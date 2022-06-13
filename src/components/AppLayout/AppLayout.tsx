@@ -1,23 +1,9 @@
-import { useMediaQuery } from "@mui/material";
-import useAppState from "@saleor/hooks/useAppState";
 import useNavigator from "@saleor/hooks/useNavigator";
-import useUser from "@saleor/hooks/useUser";
 import Portal from "@mui/material/Portal";
-import { settingsOutline, chevronBackOutline } from "ionicons/icons";
-import {
-  makeStyles,
-  SaleorTheme,
-  // Sidebar,
-  SidebarDrawer,
-  // useBacklink,
-  useActionBar
-  // useTheme
-} from "@saleor/macaw-ui";
-// import { isDarkTheme } from "@saleor/misc";
+import { settingsOutline } from "ionicons/icons";
+import { makeStyles, useActionBar } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
-import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
 import {
   IonPage,
   IonToolbar,
@@ -25,9 +11,11 @@ import {
   IonIcon,
   IonButton,
   IonButtons,
-  IonTitle
+  IonTitle,
+  IonFab
 } from "@ionic/react";
-import createMenuStructure from "./menuStructure";
+
+import { add } from "ionicons/icons";
 
 const useStyles = makeStyles(
   theme => ({
@@ -39,23 +27,17 @@ const useStyles = makeStyles(
       bottom: 0,
       gridColumn: 2,
       position: "fixed",
-      zIndex: 100000
+      zIndex: 100000,
+      width: "100vw"
     },
     appActionDocked: {
       bottom: "env(safe-area-inset-bottom, 10px)",
-      zIndex: 10000,
+      zIndex: 100000,
       position: "fixed",
       width: "100vw"
     },
-    appLoader: {
-      // height: appLoaderHeight,
-      // marginBottom: theme.spacing(4),
-      // zIndex: 1201
-    },
-    appLoaderPlaceholder: {
-      // height: appLoaderHeight,
-      // marginBottom: theme.spacing(4)
-    },
+    appLoader: {},
+    appLoaderPlaceholder: {},
 
     content: {
       flex: 1
@@ -67,19 +49,10 @@ const useStyles = makeStyles(
       marginRight: theme.spacing(2)
     },
     header: {
-      // position: "absolute",
       zIndex: "5",
-      // height: "53px",
-      // width: "100%",
-      // left: "0",
 
       display: "grid",
       gridTemplateAreas: `"headerAnchor headerToolbar"`
-      // [theme.breakpoints.down("sm")]: {
-      // gridTemplateAreas: `"headerToolbar"
-      // "headerAnchor"`
-      // }
-      // marginBottom: theme.spacing(3)
     },
     headerAnchor: {
       gridArea: "headerAnchor"
@@ -107,7 +80,6 @@ const useStyles = makeStyles(
       [theme.breakpoints.up("sm")]: {
         paddingBottom: "10vh"
       }
-      // width: `100%`
     },
     spacer: {
       flex: 1
@@ -119,11 +91,11 @@ const useStyles = makeStyles(
 
     view: {
       padding: 16,
-      // padding: 2,
+
       flex: 1,
       flexGrow: 1,
       marginLeft: 0,
-      // paddingBottom: theme.spacing(),
+
       paddingBottom: "6em",
       [theme.breakpoints.up("sm")]: {
         paddingBottom: theme.spacing(3)
@@ -140,9 +112,6 @@ const useStyles = makeStyles(
         margin: "auto",
         marginLeft: 125
       }
-      // WebkitOverflowScrolling: "touch"
-      // minHeight: `calc(var(--vh) * 100)`,
-      // marginTop: "-30px"
     }
   }),
   {
@@ -157,133 +126,75 @@ interface AppLayoutProps {
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const classes = useStyles({});
   const { anchor: appActionAnchor, docked } = useActionBar();
-  const { logout, user } = useUser();
   const navigate = useNavigator();
-  const intl = useIntl();
-  const [appState, dispatchAppState] = useAppState();
-  const location = useLocation();
-  const [isNavigatorVisible, setNavigatorVisibility] = React.useState(false);
-  const isMdUp = useMediaQuery((theme: SaleorTheme) =>
-    theme.breakpoints.up("md")
-  );
 
-  const menuStructure = createMenuStructure(intl, user)
-    .map(e => {
-      if (e.children) {
-        return e.children;
-      } else {
-        return e;
-      }
-    })
-    .flat()
-    .filter(e => e.label !== "Drafts");
-
-  const handleErrorBack = () => {
-    navigate("/");
-    dispatchAppState({
-      payload: {
-        error: null
-      },
-      type: "displayError"
-    });
-  };
   return (
     <>
-      <IonPage>
-        {(location.pathname.split("/").length - 1 < 2 ||
-          location.pathname.includes("configuration") ||
-          location.pathname.includes("attributes") ||
-          location.pathname === "/orders" ||
-          location.pathname === "/products/" ||
-          location.pathname === "/customers/" ||
-          location.pathname.includes("shipping") ||
-          location.pathname.includes("warehouses") ||
-          location.pathname.includes("product-types") ||
-          location.pathname === "/") && (
-          <IonHeader translucent collapse="condense">
-            <IonToolbar>
-              {(location.pathname.includes("configuration") ||
-                location.pathname.includes("attributes") ||
-                location.pathname.includes("warehouses") ||
-                location.pathname.includes("site-settings") ||
-                location.pathname.includes("shipping") ||
-                location.pathname.includes("product-types")) && (
-                <IonButtons slot="secondary">
-                  <IonButton
-                    onClick={() => {
-                      location.pathname.includes("configuration")
-                        ? navigate("/home")
-                        : navigate("/configuration");
-                    }}
-                    fill="clear"
-                  >
-                    <IonIcon slot="icon-only" icon={chevronBackOutline} />
-                  </IonButton>
-                </IonButtons>
-              )}
+      <IonHeader translucent collapse="condense">
+        <IonToolbar>
+          <IonButtons slot="primary">
+            <IonButton
+              data-test-id="commerce-configuration-trigger"
+              color="dark"
+              onClick={() => {
+                navigate("/configuration");
+              }}
+              fill="clear"
+            >
+              <IonIcon slot="icon-only" icon={settingsOutline} />
+            </IonButton>
+          </IonButtons>
 
-              {!location.pathname.includes("configuration") &&
-                !location.pathname.includes("attributes") &&
-                !location.pathname.includes("shipping") &&
-                !location.pathname.includes("warehouses") &&
-                !location.pathname.includes("site-settings") &&
-                !location.pathname.includes("product-types") &&
-                !location.pathname.includes("product-ss") && (
-                  <IonButtons slot="primary">
-                    <IonButton
-                      color="dark"
-                      onClick={() => {
-                        navigate("/configuration");
-                      }}
-                      fill="clear"
-                    >
-                      <IonIcon slot="icon-only" icon={settingsOutline} />
-                    </IonButton>
-                  </IonButtons>
-                )}
+          <IonTitle
+            data-test-id="commerce-title"
+            size="large"
+            style={{
+              marginTop: "8px",
+              fontFamily: '"Inter"',
+              fontStyle: "normal",
+              fontWeight: "900",
+              fontSize: "28px",
 
-              {!location.pathname.includes("shipping") &&
-                !location.pathname.includes("configuration") &&
-                !location.pathname.includes("site-settings") && (
-                  <IonTitle
-                    data-test-id="commerce-title"
-                    size="large"
-                    style={{
-                      marginTop: "8px",
-                      fontFamily: '"Inter"',
-                      fontStyle: "normal",
-                      fontWeight: "900",
-                      fontSize: "28px",
-                      // lineHeight: '36px',
-                      letterSpacing: "-0.02em",
-                      color: "#ffffff",
-                      opacity: "0.95"
-                    }}
-                  >
-                    Commerce
-                  </IonTitle>
-                )}
-            </IonToolbar>
-          </IonHeader>
-        )}
-        {(location.pathname.includes("/products") ||
-          location.pathname === "/" ||
-          location.pathname.includes("/orders") ||
-          location.pathname.includes("/customers") ||
-          location.pathname.includes("/home")) && (
-          <SidebarDrawer menuItems={menuStructure} onMenuItemClick={navigate} />
-        )}
+              letterSpacing: "-0.02em",
+              color: "#ffffff",
+              opacity: "0.95"
+            }}
+          >
+            Commerce
+          </IonTitle>
+        </IonToolbar>
+      </IonHeader>
 
-        {children}
-        <Portal container={document.getElementsByTagName("ion-app")[0]}>
-          <div
-            className={classNames(classes.appAction, {
-              [classes.appActionDocked]: docked
-            })}
-            ref={appActionAnchor}
-          />
-        </Portal>
-      </IonPage>
+      {children}
+      <Portal container={document.getElementsByTagName("ion-app")[0]}>
+        <div
+          className={classNames(classes.appAction, {
+            [classes.appActionDocked]: docked
+          })}
+          ref={appActionAnchor}
+        />
+      </Portal>
+
+      <IonFab
+        vertical="bottom"
+        horizontal="end"
+        slot="fixed"
+        style={{
+          marginBottom: "50px"
+        }}
+        data-test-id="create-order-button"
+      >
+        <IonButton
+          data-test-id="add-product"
+          onClick={() => {
+            navigate("/products/add");
+          }}
+          shape="round"
+        >
+          <IonIcon slot="start" icon={add} />
+          New Product
+        </IonButton>
+      </IonFab>
     </>
   );
 };

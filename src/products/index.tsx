@@ -1,36 +1,18 @@
-import { sectionNames } from "@saleor/intl";
 import { asSortParams } from "@saleor/utils/sort";
 import { getArrayQueryParam } from "@saleor/utils/urls";
+import { Loader } from "frontend/ui/loader";
 import { parse as parseQs } from "qs";
-import React from "react";
-import { useIntl } from "react-intl";
-import { Route, Switch, useParams } from "react-router-dom";
+import React, { memo, Suspense, lazy } from "react";
+import { useLocation, useParams } from "react-router-dom";
 
-import { WindowTitle } from "../components/WindowTitle";
-import {
-  ProductCreateUrlQueryParams,
-  productImagePath,
-  ProductImageUrlQueryParams,
-  ProductListUrlQueryParams,
-  ProductListUrlSortField,
-  productPath,
-  ProductUrlQueryParams,
-  productVariantAddPath,
-  ProductVariantAddUrlQueryParams,
-  productVariantCreatorPath,
-  productVariantEditPath,
-  ProductVariantEditUrlQueryParams
-} from "./urls";
-import ProductCreateComponent from "./views/ProductCreate";
-import ProductImageComponent from "./views/ProductImage";
-import ProductListComponent from "./views/ProductList";
-import ProductUpdateComponent from "./views/ProductUpdate";
-import ProductVariantComponent from "./views/ProductVariant";
-import ProductVariantCreateComponent from "./views/ProductVariantCreate";
-import ProductVariantCreatorComponent from "./views/ProductVariantCreator";
+import { ProductCreateUrlQueryParams, ProductListUrlQueryParams, ProductListUrlSortField, ProductUrlQueryParams } from "./urls";
+const ProductUpdateComponent = lazy(() => import("./views/ProductUpdate"));
+const ProductCreateComponent = lazy(() => import("./views/ProductCreate"));
+const ProductListComponent = lazy(() => import("./views/ProductList"));
 
-const ProductList: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
+export const ProductList: React.FC = () => {
+  const { search } = useLocation()
+  const qs = parseQs(search.substr(1));
   const params: ProductListUrlQueryParams = location.pathname.includes(
     "/products"
   )
@@ -40,127 +22,44 @@ const ProductList: React.FC = () => {
           categories: getArrayQueryParam(qs.categories),
           collections: getArrayQueryParam(qs.collections),
           ids: getArrayQueryParam(qs.ids),
-          productTypes: getArrayQueryParam(qs.productTypes),
-          channel: "USD"
+          productTypes: getArrayQueryParam(qs.productTypes)
         },
         ProductListUrlSortField
       )
     : {};
-
-  return <ProductListComponent params={params} />;
+  return (
+    <Suspense fallback={<Loader />}>
+      <ProductListComponent params={params} />
+    </Suspense>
+  );
 };
 
-const ProductUpdate: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
+export const ProductUpdate: React.FC = memo(() => {
+  const { search } = useLocation()
+  const qs = parseQs(search.substr(1));
   const params: ProductUrlQueryParams = qs;
 
   const match = useParams();
-
   return (
-    <ProductUpdateComponent
-      id={decodeURIComponent(match.id)}
-      params={{
-        ...params,
-        ids: getArrayQueryParam(qs.ids)
-      }}
-    />
+    <Suspense fallback={<Loader />}>
+      <ProductUpdateComponent
+        id={decodeURIComponent(match.id)}
+        params={{
+          ...params
+        }}
+      />
+    </Suspense>
   );
-};
+});
 
-const ProductCreate: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
+export const ProductCreate: React.FC = () => {
+  const { search } = useLocation()
+  const qs = parseQs(search.substr(1));
   const params: ProductCreateUrlQueryParams = qs;
 
-  return <ProductCreateComponent params={params} />;
-};
-
-const ProductVariant: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
-  const params: ProductVariantEditUrlQueryParams = qs;
-  const match = useParams();
-
   return (
-    <ProductVariantComponent
-      variantId={decodeURIComponent(match.variantId)}
-      productId={decodeURIComponent(match.productId)}
-      params={params}
-    />
+    <Suspense fallback={<Loader />}>
+      <ProductCreateComponent params={params} />
+    </Suspense>
   );
 };
-
-const ProductImage: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
-  const params: ProductImageUrlQueryParams = qs;
-  const match = useParams();
-
-  return (
-    <ProductImageComponent
-      mediaId={decodeURIComponent(match.imageId)}
-      productId={decodeURIComponent(match.productId)}
-      params={params}
-    />
-  );
-};
-
-const ProductVariantCreate: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
-  const params: ProductVariantAddUrlQueryParams = qs;
-  const match = useParams();
-
-  return (
-    <ProductVariantCreateComponent
-      productId={decodeURIComponent(match.id)}
-      params={params}
-    />
-  );
-};
-
-const ProductVariantCreator: React.FC = () => {
-  const match = useParams();
-  return <ProductVariantCreatorComponent id={decodeURIComponent(match.id)} />;
-};
-
-const Component = () => {
-  const intl = useIntl();
-
-  return (
-    <>
-      <WindowTitle title={intl.formatMessage(sectionNames.products)} />
-      <Switch>
-        <Route exact path="/products" render={() => <ProductList />} />
-        <Route exact path="/products/add" render={() => <ProductCreate />} />
-        <Route
-          exact
-          path={"/products/" + productVariantCreatorPath(":id", "")}
-          render={() => <ProductVariantCreator />}
-        />
-        <Route
-          exact
-          path={"/products/" + productPath(":id", "")}
-          render={() => <ProductUpdate />}
-        />
-        <Route
-          exact
-          path={
-            "/products/" +
-            productVariantEditPath(":productId", ":variantId", "")
-          }
-          render={() => <ProductVariant />}
-        />
-
-        <Route
-          exact
-          path={"/products/" + productVariantAddPath(":id", "")}
-          render={() => <ProductVariantCreate />}
-        />
-        <Route
-          exact
-          path={"/products/" + productImagePath(":productId", ":imageId", "")}
-          render={() => <ProductImage />}
-        />
-      </Switch>
-    </>
-  );
-};
-
-export default Component;

@@ -1,16 +1,14 @@
 import { OutputData } from "@editorjs/editorjs";
-import { Card, CardContent, TextField } from "@mui/material";
+import { CardContent, TextField } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import FormSpacer from "@saleor/components/FormSpacer";
-import Grid from "@saleor/components/Grid";
-import Hr from "@saleor/components/Hr";
 import RichTextEditor, {
   RichTextEditorChange
 } from "@saleor/components/RichTextEditor";
 import { ProductErrorFragment } from "@saleor/fragments/types/ProductErrorFragment";
 import { commonMessages } from "@saleor/intl";
 import { getFormErrors, getProductErrorMessage } from "@saleor/utils/errors";
-import React from "react";
+import React, { memo } from "react";
 import { useIntl } from "react-intl";
 
 import { IonCard } from "@ionic/react";
@@ -45,6 +43,7 @@ export const ProductDetailsForm: React.FC<ProductDetailsFormProps> = ({
       />
       <CardContent>
         <TextField
+          inputProps={{ "data-test-id": "product-name-input" }}
           error={!!formErrors.name}
           helperText={getProductErrorMessage(formErrors.name, intl)}
           disabled={disabled}
@@ -67,26 +66,8 @@ export const ProductDetailsForm: React.FC<ProductDetailsFormProps> = ({
           name="description"
           onChange={onDescriptionChange}
         />
-        {/* <FormSpacer /> */}
-        {/* <Hr /> */}
-        {/* <FormSpacer /> */}
-        {/* <Grid variant="uniform">
-          <TextField
-            type="number"
-            error={!!formErrors.rating}
-            helperText={getProductErrorMessage(formErrors.rating, intl)}
-            disabled={disabled}
-            label={intl.formatMessage({
-              defaultMessage: "Product Rating",
-              description: "product rating"
-            })}
-            name="rating"
-            value={data.rating || ""}
-            onChange={onChange}
-          />
-        </Grid> */}
       </CardContent>
     </IonCard>
   );
 };
-export default ProductDetailsForm;
+export default memo(ProductDetailsForm);

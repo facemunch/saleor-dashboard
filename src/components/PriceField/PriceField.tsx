@@ -87,7 +87,8 @@ export const PriceField: React.FC<PriceFieldProps> = props => {
         ),
         inputProps: {
           min: 0,
-          ...InputProps?.inputProps
+          ...InputProps?.inputProps,
+          "data-test-id": "price-input-field"
         },
         type: "number"
       }}

@@ -110,32 +110,32 @@ export const ShippingRouter: React.FC = () => {
           render={() => <ShippingZoneCreate />}
         />
         <Route
-          
+          exact
           path={"/shipping/" + shippingZonePath(":id", "")}
           render={() => <ShippingZoneDetails />}
         />
         <Route
-          
+          exact
           path={"/shipping/" + shippingPriceRatesPath(":id", "")}
           render={() => <PriceRatesCreate />}
         />
         <Route
-          
+          exact
           path={"/shipping/" + shippingWeightRatesPath(":id", "")}
           render={() => <WeightRatesCreate />}
         />
         <Route
-          
+          exact
           path={
             "/shipping/" + shippingWeightRatesEditPath(":id", ":rateId", "")
           }
           render={() => <WeightRatesUpdate />}
         />
         <Route
-          
+          exact
           path={"/shipping/" + shippingPriceRatesEditPath(":id", ":rateId", "")}
           render={() => <PriceRatesUpdate />}
-        /> 
+        />
       </Switch>
     </>
   );

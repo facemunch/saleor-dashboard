@@ -1,3 +1,4 @@
+import { IonButtons } from "@ionic/react";
 import { MenuItem, Select } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
@@ -46,7 +47,7 @@ const RowNumberSelect: React.FC<RowNumberSelectProps> = ({
   const classes = useStyles({});
 
   return (
-    <div className={className}>
+    <IonButtons slot="start" >
       <span className={classes.label}>
         <FormattedMessage defaultMessage="No of Rows:" />
       </span>
@@ -68,7 +69,7 @@ const RowNumberSelect: React.FC<RowNumberSelectProps> = ({
             </MenuItem>
           ))}
       </Select>
-    </div>
+    </IonButtons>
   );
 };
 
