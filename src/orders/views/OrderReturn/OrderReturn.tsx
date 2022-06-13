@@ -99,7 +99,6 @@ const OrderReturn: React.FC<OrderReturnProps> = ({ orderId }) => {
   };
 
   const navigateToOrder = (id?: string) => navigate(orderUrl(id || orderId));
-  console.log("hello navigateToOrder", navigateToOrder);
   return (
     <OrderReturnPage
       errors={returnCreateOpts.data?.orderFulfillmentReturnProducts.errors}

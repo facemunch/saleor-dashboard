@@ -56,7 +56,6 @@ export interface ProductCreateFormData extends MetadataFormData {
   changeTaxCode: boolean;
   channelListings: ChannelData[];
   chargeTaxes: boolean;
-  // collections: string[];
   description: OutputData;
   isAvailable: boolean;
   name: string;

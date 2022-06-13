@@ -1,15 +1,9 @@
-// import { getArrayQueryParam } from "@saleor/utils/urls";
-// import { IonContent } from "@ionic/react";
-import { getArrayQueryParam } from "@saleor/utils/urls";
 import { Loader } from "frontend/ui/loader";
 import { parse as parseQs } from "qs";
 import React, { memo, Suspense, lazy } from "react";
 import { useParams } from "react-router-dom";
 
 import { ProductCreateUrlQueryParams, ProductUrlQueryParams } from "./urls";
-// import ProductCreateComponent from "./views/ProductCreate";
-// import ProductListComponent from "./views/ProductList";
-// import ProductUpdateComponent from "./views/ProductUpdate";
 const ProductUpdateComponent = lazy(() => import("./views/ProductUpdate"));
 const ProductCreateComponent = lazy(() => import("./views/ProductCreate"));
 const ProductListComponent = lazy(() => import("./views/ProductList"));

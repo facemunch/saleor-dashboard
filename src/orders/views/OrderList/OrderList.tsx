@@ -47,14 +47,6 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
     ListViews.ORDER_LIST
   );
 
-  // usePaginationReset(
-  //   orderListUrl({
-  //     ...params,
-  //     ...DEFAULT_INITIAL_PAGINATION_DATA
-  //   }),
-  //   settings.rowNumber
-  // );
-
   const intl = useIntl();
 
   const handleCreateOrderCreateSuccess = (data: OrderDraftCreate) => {

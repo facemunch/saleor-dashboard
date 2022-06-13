@@ -228,15 +228,6 @@ const OrderCustomer: React.FC<OrderCustomerProps> = props => {
                 </Link>
               </div>
             </RequirePermissions>
-            {/* TODO: Uncomment it after adding ability to filter
-                    orders by customer */}
-            {/* <div>
-                <Link underline={false} href={}>
-                  <FormattedMessage defaultMessage="View Orders"
-                    description="link"
-                     />
-                </Link>
-              </div> */}
           </>
         )}
       </CardContent>

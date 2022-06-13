@@ -1,5 +1,5 @@
 import Portal from "@mui/material/Portal";
-import React, { useRef } from "react";
+import React from "react";
 
 import { ConfirmButtonTransitionState } from "../ConfirmButton";
 import { useActionBar } from "./context";
@@ -18,7 +18,6 @@ export const ActionBar: React.FC<ActionBarProps> = ({
   state
 }) => {
   const { anchor, setDocked } = useActionBar();
-  // const containerRef = useRef();
   React.useEffect(() => {
     if (!disabled && state !== "loading") {
       setDocked(false);
@@ -31,9 +30,9 @@ export const ActionBar: React.FC<ActionBarProps> = ({
     anchor: anchor.current,
     "!!anchor": !!anchor
   });
-  // if (!anchor.current) {
-  //   return null;
-  // }
+  if (!anchor.current) {
+    return null;
+  }
 
   return (
     <Portal container={anchor.current}>

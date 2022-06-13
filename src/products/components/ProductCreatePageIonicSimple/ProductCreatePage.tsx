@@ -303,23 +303,7 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                       </div>
                     </>
                   )}
-                  {/* <SeoForm
-                    allowEmptySlug={true}
-                    helperText={intl.formatMessage({
-                      defaultMessage:
-                        "Add search engine title and description to make this product easier to find"
-                    })}
-                    title={data.seoTitle}
-                    slug={data.slug}
-                    slugPlaceholder={data.name}
-                    titlePlaceholder={data.name}
-                    description={data.seoDescription}
-                    descriptionPlaceholder={data.seoTitle}
-                    loading={loading}
-                    onChange={change}
-                  />
-                  <CardSpacer /> */}
-                  {/* <Metadata data={data} onChange={handlers.changeMetadata} /> */}
+            
                 </div>
                 <div>
                   <div

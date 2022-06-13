@@ -8,7 +8,8 @@ import {
   OrderListUrlSortField,
   OrderUrlQueryParams
 } from "./urls";
-// const OrderSettings = lazy(() => import("./views/OrderSettings"));
+
+// TODO: const OrderSettings = lazy(() => import("./views/OrderSettings"));
 const OrderReturnComponent = lazy(() => import("./views/OrderReturn"));
 const OrderRefundComponent = lazy(() => import("./views/OrderRefund"));
 const OrderFulfillComponent = lazy(() => import("./views/OrderFulfill"));
@@ -72,47 +73,3 @@ export const OrderReturn: React.FC = () => {
     </Suspense>
   );
 };
-
-// const Component = () => {
-//   return (
-//     <>
-//       {/* <WindowTitle title={intl.formatMessage(sectionNames.orders)} /> */}
-//       <Switch>
-//         <Route exact path="/orders" render={() => <OrderList />} />
-//         <Route
-//           exact
-//           path={"/orders/" + "settings"}
-//           render={() => <OrderSettings />}
-//         />
-//         <Route
-//           exact
-//           path={"/orders/" + "drafts"}
-//           render={() => <OrderDraftList />}
-//         />
-//         {/* <Route
-//           exact
-//           path={"/orders/" + orderFulfillPath(":id", "")}
-//           render={() => <OrderFulfill />}
-//         />
-//         <Route
-//           exact
-//           path={"/orders/" + orderReturnPath(":id", "")}
-//           render={() => <OrderReturn />}
-//         />
-//         <Route
-//           exact
-//           path={"/orders/" + orderRefundPath(":id", "")}
-//           render={() => <OrderRefund />}
-//         />
-//         <Route
-//           exact
-//           path={"/orders/" + orderPath(":id", "")}
-//           render={() => <OrderDetails />}
-//         /> */}
-//         <Route path="/" render={() => <OrderList />} />
-//       </Switch>
-//     </>
-//   );
-// };
-
-// export default Component;

@@ -92,10 +92,7 @@ const CustomerList: React.FC<CustomerListProps> = props => {
 
         {!loading && customers?.length === 0 && (
           <IonCardContent style={{ textAlign: "center" }}>
-            {/* <IonLabel> */}
             <FormattedMessage defaultMessage="No customers found" />
-
-            {/* </IonLabel> */}
           </IonCardContent>
         )}
       </div>

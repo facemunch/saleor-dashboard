@@ -33,10 +33,6 @@ const useStyles = makeStyles(
       transition: theme.transitions.duration.standard + "ms"
     },
     cardContent: {
-      // Overrides Material-UI default theme
-      // "&:last-child": {
-      //   paddingBottom: 16
-      // },
       display: "grid",
       gridColumnGap: theme.spacing(4),
       gridTemplateColumns: "48px 1fr"
@@ -118,13 +114,11 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
                 )
                 .map((item, itemIndex) => (
                   <IonCardContent
-                    // className={item.url ? classes.card : classes.cardDisabled}
                     onClick={() => onSectionClick(item.url)}
                     key={itemIndex}
                     style={{ display: "flex" }}
                     data-test-id={item.testId}
                   >
-                    {/* <IonCardContent className={classes.cardContent}> */}
                     <div className={classes.icon}>{item.icon}</div>
                     <div>
                       <Typography
@@ -140,10 +134,8 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
                         {item.description}
                       </Typography>
                     </div>
-                    {/* </CardContent> */}
                   </IonCardContent>
                 ))}
-              {/* </div> */}
             </IonCard>
           ))}
         <div style={{ height: "100px" }} />

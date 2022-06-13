@@ -85,9 +85,7 @@ const NotFoundPage: React.FC<NotFoundPageProps> = props => {
             </Button>
           </div>
         </div>
-        {/* <div>
-          <SVG className={classes.notFoundImage} src={notFoundImage} />
-        </div> */}
+    
       </div>
     </IonContent>
   );

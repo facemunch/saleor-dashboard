@@ -72,24 +72,6 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
     }
   }, [pathname]);
 
-  // useEffect(() => {
-  //   if (!swiperRef.current) return;
-  //   console.log(" swiperRef.current", swiperRef.current);
-  //   if (pathname.includes("home")) {
-  //     swiperRef.current.updateActiveIndex(0);
-  //     // swiperRef.current.update();
-  //   } else if (pathname.includes("products")) {
-  //     swiperRef.current.updateActiveIndex(1);
-  //     // swiperRef.current.update();
-  //   } else if (pathname.includes("orders")) {
-  //     swiperRef.current.updateActiveIndex(2);
-  //     // swiperRef.current.update();
-  //   } else if (pathname.includes("customers")) {
-  //     swiperRef.current.updateActiveIndex(3);
-  //     // swiperRef.current.update();
-  //   }
-  // }, [pathname]);
-
   const onSlideChange = e => {
     e.activeIndex === 0 && onRouteUpdate("/c/home");
     e.activeIndex === 1 && onRouteUpdate("/c/products" + search);
@@ -226,34 +208,6 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
               render={() => <OrderRefund />}
             />
           </IonModal>
-          {/* <IonModal
-            mode="ios"
-            backdropDismiss={true}
-            isOpen={pathname.includes("/orders/")}
-            canDismiss={true}
-            presentingElement={refto.current || undefined}
-            onWillDismiss={() => pathname.includes("/orders/") && goBack()}
-          >
-            <Switch>
-              <Route
-                exact
-                path={"/orders/" + orderFulfillPath(":id", "")}
-                render={() => <OrderFulfill />}
-              />
-              <Route
-                exact
-                path={"/orders/" + orderReturnPath(":id", "")}
-                render={() => <OrderReturn />}
-              />
-
-              <Route
-                exact
-                path={"/orders/" + orderPath(":id", "")}
-                render={() => <OrderDetails />}
-              />
-            </Switch>
-          </IonModal> */}
-
           <IonModal
             style={{
               "--border-radius": "16px"
@@ -305,13 +259,6 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
           >
             <ShippingSection />
           </IonModal>
-
-          {/* <Route
-          path={"/site-settings"}
-          render={() => (
-              <SiteSettingsSection />
-          )}
-        /> */}
         </>
       </AppLayout>
     </IonPage>

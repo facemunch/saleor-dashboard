@@ -193,9 +193,6 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   onAttributeSelectBlur
 }) => {
   const intl = useIntl();
-  console.log("product",product)
-  // const { search } = useLocation();
-  // const isDigitalProduct = product?.productType?.name === "Digital product";
   const [selectedCategory, setSelectedCategory] = useStateFromProps(
     product?.category?.name || ""
   );
@@ -282,11 +279,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
               <Backlink onClick={onBack}>
                 {intl.formatMessage(sectionNames.products)}
               </Backlink>
-              {/* <PageHeader title={header}>
-              {extensionMenuItems.length > 0 && (
-                <CardMenu menuItems={extensionMenuItems} data-test="menu" />
-              )}
-            </PageHeader> */}
+          
               <Grid>
                 <div>
                   <ProductDetailsForm
@@ -395,46 +388,11 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                     </>
                   )}
                   <CardSpacer />
-                  {/* <SeoForm
-                  errors={errors}
-                  title={data.seoTitle}
-                  titlePlaceholder={data.name}
-                  description={data.seoDescription}
-                  descriptionPlaceholder={""} // TODO: cast description to string
-                  slug={data.slug}
-                  slugPlaceholder={data.name}
-                  loading={disabled}
-                  onClick={onSeoClick}
-                  onChange={change}
-                  helperText={intl.formatMessage({
-                    defaultMessage:
-                      "Add search engine title and description to make this product easier to find"
-                  })}
-                /> */}
+             
                   <CardSpacer />
                   <Metadata data={data} onChange={handlers.changeMetadata} />
                 </div>
                 <div>
-                  {/* {!isDigitalProduct && (
-                  <ProductOrganization
-                    canChangeType={false}
-                    categories={categories}
-                    categoryInputDisplayValue={selectedCategory}
-                    collections={collections}
-                    collectionsInputDisplayValue={selectedCollections}
-                    data={data}
-                    disabled={disabled}
-                    errors={errors}
-                    fetchCategories={fetchCategories}
-                    fetchCollections={fetchCollections}
-                    fetchMoreCategories={fetchMoreCategories}
-                    fetchMoreCollections={fetchMoreCollections}
-                    productType={product?.productType}
-                    onCategoryChange={handlers.selectCategory}
-                    onCollectionChange={handlers.selectCollection}
-                  />
-                )} */}
-
                   {isSimpleProduct ? (
                     <>
                       <CardSpacer />
@@ -484,14 +442,6 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                     />
                   )}
                   <CardSpacer />
-                  {/* <ProductTaxes
-                  data={data}
-                  disabled={disabled}
-                  selectedTaxTypeDisplayName={selectedTaxType}
-                  taxTypes={taxTypes}
-                  onChange={change}
-                  onTaxTypeChange={handlers.selectTaxRate}
-                /> */}
                   <div style={{ height: "100px" }} />
                 </div>
               </Grid>

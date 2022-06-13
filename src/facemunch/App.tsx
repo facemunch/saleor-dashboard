@@ -32,8 +32,6 @@ import AppStateProvider from "../containers/AppState";
 import BackgroundTasksProvider from "../containers/BackgroundTasks";
 import ServiceWorker from "../containers/ServiceWorker/ServiceWorker";
 
-import { BrowserRouter } from "react-router-dom";
-
 import { setContext } from "apollo-link-context";
 import Routes from "./Routes";
 import { IonReactRouter } from "@ionic/react-router";
@@ -65,24 +63,9 @@ const App: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken, ecomAPI }) => {
       introspectionQueryResultData
     });
 
-    // const invalidateTokenLink = onError((error: ResponseError) => {
-    //   if (
-    //     (error.networkError && error.networkError.statusCode === 401) ||
-    //     error.graphQLErrors?.some(isJwtError)
-    //   ) {
-    //     if (error.graphQLErrors[0].extensions.code !== JWTError.expired) {
-    //       removeTokens();
-    //     }
-    //   }
-    // });
-    // console.log("tokenLink from authToken above");
-
     const tokenLink = setContext((_, context) => {
-      // const { ecomAccessToken } = useAuth();
-      // console.log("tokenLink from ecomAccessToken", ecomAccessToken);
 
       const authToken = ecomAccessToken;
-      // console.log("tokenLink from authToken", authToken);
       return {
         ...context,
         headers: {

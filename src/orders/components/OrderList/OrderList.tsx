@@ -180,20 +180,13 @@ export const OrderList: React.FC<OrderListProps> = props => {
                   ) : (
                     <Skeleton />
                   )}
-                  {/* {maybe(() => order.total.gross) ? (
-                      <Money money={order.total.gross} />
-                    ) : (
-                      <Skeleton />
-                    )} */}
                 </div>
               </IonNote>
             </IonItem>
           ))}
         {!loading && orderList?.length === 0 && (
           <IonCardContent style={{ textAlign: "center" }}>
-            {/* <IonLabel> */}
             <FormattedMessage defaultMessage="No orders found" />
-            {/* </IonLabel> */}
           </IonCardContent>
         )}
       </div>

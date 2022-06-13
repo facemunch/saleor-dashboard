@@ -31,11 +31,11 @@ export const DateTime: React.FC<DateTimeProps> = ({ date, plain }) => {
                   getTitle(date, locale, tz)
                 ) : (
                   <Tooltip title={getTitle(date, locale, tz)}>
-                    <time>
+                    <span>
                       <ReactMoment from={currentDate} locale={locale} tz={tz}>
                         {date}
                       </ReactMoment>
-                    </time>
+                    </span>
                   </Tooltip>
                 )
               }

@@ -575,46 +575,6 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
           />
         </DialogContentText>
       </ActionDialog>
-      {/* <ActionDialog
-        open={params.action === "remove-variants"}
-        onClose={closeModal}
-        confirmButtonState={bulkProductVariantDeleteOpts.status}
-        onConfirm={() =>
-          bulkProductVariantDelete({
-            variables: {
-              ids: params.ids
-            }
-          })
-        }
-        variant="delete"
-        title={intl.formatMessage(messages.deleteVariantDialogTitle)}
-      >
-        <DialogContentText>
-          <FormattedMessage
-            {...messages.deleteVariantDialogSubtitle}
-            values={{
-              counter: params?.ids?.length,
-              displayQuantity: <strong>{params?.ids?.length}</strong>
-            }}
-          />
-        </DialogContentText>
-      </ActionDialog> */}
-      {/* <ProductVariantCreateDialog
-        open={params.action === "add-variants"}
-        onClose={closeModal}
-        onConfirm={option =>
-          option === "multiple" ? handleVariantsAdd() : handleVariantAdd()
-        }
-      /> */}
-      {/* {isSimpleProduct && !!product?.variants?.[0].preorder && (
-        <ProductVariantEndPreorderDialog
-          confirmButtonState={deactivatePreoderOpts.status}
-          onClose={() => setIsEndPreorderModalOpened(false)}
-          onConfirm={handleDeactivatePreorder}
-          open={isEndPreorderModalOpened}
-          variantGlobalSoldUnits={product.variants[0].preorder.globalSoldUnits}
-        />
-      )} */}
     </>
   );
 };
