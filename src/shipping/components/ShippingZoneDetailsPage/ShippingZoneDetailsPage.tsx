@@ -129,85 +129,86 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
   } = useMetadataChangeTrigger();
 
   return (
-    <Form initial={initialForm} onSubmit={onSubmit}>
-      {({ change, data, hasChanged, submit, toggleValue }) => {
-        const handleWarehouseChange = createMultiAutocompleteSelectHandler(
-          toggleValue,
-          setWarehouseDisplayValues,
-          warehouseDisplayValues,
-          warehouseChoices
-        );
+    <IonPage>
+      <IonContent>
+        <Form initial={initialForm} onSubmit={onSubmit}>
+          {({ change, data, hasChanged, submit, toggleValue }) => {
+            const handleWarehouseChange = createMultiAutocompleteSelectHandler(
+              toggleValue,
+              setWarehouseDisplayValues,
+              warehouseDisplayValues,
+              warehouseChoices
+            );
 
-        const handleChannelChange = createMultiAutocompleteSelectHandler(
-          toggleValue,
-          setChannelDisplayValues,
-          channelsDisplayValues,
-          channelChoices
-        );
+            const handleChannelChange = createMultiAutocompleteSelectHandler(
+              toggleValue,
+              setChannelDisplayValues,
+              channelsDisplayValues,
+              channelChoices
+            );
 
-        const changeMetadata = makeMetadataChangeHandler(change);
+            const changeMetadata = makeMetadataChangeHandler(change);
 
-        return (
-          <IonPage>
-            <IonContent>
-              <Backlink onClick={onBack}>
-                <FormattedMessage {...messages.shipping} />
-              </Backlink>
-              <PageHeader title={shippingZone?.name} />
-              <Grid>
-                <div>
-                  <ShippingZoneInfo
-                    data={data}
-                    disabled={disabled}
-                    errors={errors}
-                    onChange={change}
-                  />
-                  <CardSpacer />
-                  <CountryList
-                    countries={shippingZone?.countries}
-                    disabled={disabled}
-                    emptyText={getStringOrPlaceholder(
-                      shippingZone?.default === undefined
-                        ? undefined
-                        : shippingZone.default
-                        ? intl.formatMessage(messages.defaultZone)
-                        : intl.formatMessage(messages.noCountriesAssigned)
-                    )}
-                    onCountryAssign={onCountryAdd}
-                    onCountryUnassign={onCountryRemove}
-                    title={intl.formatMessage(messages.countries)}
-                  />
-                  <CardSpacer />
-                  <ShippingZoneRates
-                    disabled={disabled}
-                    onRateAdd={onPriceRateAdd}
-                    onRateEdit={onPriceRateEdit}
-                    onRateRemove={onRateRemove}
-                    rates={shippingZone?.shippingMethods?.filter(
-                      method => method.type === ShippingMethodTypeEnum.PRICE
-                    )}
-                    variant="price"
-                    selectedChannelId={selectedChannelId}
-                    testId="add-price-rate"
-                  />
-                  <CardSpacer />
-                  <ShippingZoneRates
-                    disabled={disabled}
-                    onRateAdd={onWeightRateAdd}
-                    onRateEdit={onWeightRateEdit}
-                    onRateRemove={onRateRemove}
-                    rates={shippingZone?.shippingMethods?.filter(
-                      method => method.type === ShippingMethodTypeEnum.WEIGHT
-                    )}
-                    variant="weight"
-                    selectedChannelId={selectedChannelId}
-                    testId="add-weight-rate"
-                  />
-                  <CardSpacer />
-                  <Metadata data={data} onChange={changeMetadata} />
-                </div>
-                <div>
-                  {/* <ShippingZoneSettingsCard
+            return (
+              <>
+                {/* <Backlink onClick={onBack}>
+                  <FormattedMessage {...messages.shipping} />
+                </Backlink> */}
+                {/* <PageHeader title={shippingZone?.name} /> */}
+                <Grid>
+                  <div>
+                    <ShippingZoneInfo
+                      data={data}
+                      disabled={disabled}
+                      errors={errors}
+                      onChange={change}
+                    />
+                    <CardSpacer />
+                    <CountryList
+                      countries={shippingZone?.countries}
+                      disabled={disabled}
+                      emptyText={getStringOrPlaceholder(
+                        shippingZone?.default === undefined
+                          ? undefined
+                          : shippingZone.default
+                          ? intl.formatMessage(messages.defaultZone)
+                          : intl.formatMessage(messages.noCountriesAssigned)
+                      )}
+                      onCountryAssign={onCountryAdd}
+                      onCountryUnassign={onCountryRemove}
+                      title={intl.formatMessage(messages.countries)}
+                    />
+                    <CardSpacer />
+                    <ShippingZoneRates
+                      disabled={disabled}
+                      onRateAdd={onPriceRateAdd}
+                      onRateEdit={onPriceRateEdit}
+                      onRateRemove={onRateRemove}
+                      rates={shippingZone?.shippingMethods?.filter(
+                        method => method.type === ShippingMethodTypeEnum.PRICE
+                      )}
+                      variant="price"
+                      selectedChannelId={selectedChannelId}
+                      testId="add-price-rate"
+                    />
+                    <CardSpacer />
+                    <ShippingZoneRates
+                      disabled={disabled}
+                      onRateAdd={onWeightRateAdd}
+                      onRateEdit={onWeightRateEdit}
+                      onRateRemove={onRateRemove}
+                      rates={shippingZone?.shippingMethods?.filter(
+                        method => method.type === ShippingMethodTypeEnum.WEIGHT
+                      )}
+                      variant="weight"
+                      selectedChannelId={selectedChannelId}
+                      testId="add-weight-rate"
+                    />
+                    <CardSpacer />
+                    <Metadata data={data} onChange={changeMetadata} />
+                  </div>
+                  <div>
+                    {/* <ShippingZoneSettingsCard
                     formData={data}
                     warehousesDisplayValues={warehouseDisplayValues}
                     hasMoreWarehouses={hasMore}
@@ -221,21 +222,22 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
                     channelsDisplayValues={channelsDisplayValues}
                     onChannelChange={handleChannelChange}
                   /> */}
-                </div>
-                <div style={{ height: "100px" }} />
-              </Grid>
-              <Savebar
-                disabled={disabled || !hasChanged}
-                onCancel={onBack}
-                onDelete={onDelete}
-                onSubmit={submit}
-                state={saveButtonBarState}
-              />
-            </IonContent>
-          </IonPage>
-        );
-      }}
-    </Form>
+                  </div>
+                  <div style={{ height: "100px" }} />
+                </Grid>
+                <Savebar
+                  disabled={disabled || !hasChanged}
+                  onCancel={onBack}
+                  onDelete={onDelete}
+                  onSubmit={submit}
+                  state={saveButtonBarState}
+                />
+              </>
+            );
+          }}
+        </Form>
+      </IonContent>
+    </IonPage>
   );
 };
 ShippingZoneDetailsPage.displayName = "ShippingZoneDetailsPage";

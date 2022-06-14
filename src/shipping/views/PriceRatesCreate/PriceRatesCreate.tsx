@@ -1,3 +1,4 @@
+import { IonContent } from "@ionic/react";
 import { createSortedShippingChannels } from "@saleor/channels/utils";
 import ChannelsAvailabilityDialog from "@saleor/components/ChannelsAvailabilityDialog";
 import { WindowTitle } from "@saleor/components/WindowTitle";
@@ -126,8 +127,8 @@ export const PriceRatesCreate: React.FC<PriceRatesCreateProps> = ({
   };
 
   return (
-    <>
-      <WindowTitle title={intl.formatMessage(sectionNames.shipping)} />
+    <IonContent>
+      {/* <WindowTitle title={intl.formatMessage(sectionNames.shipping)} /> */}
       {!!allChannels?.length && (
         <ChannelsAvailabilityDialog
           isSelected={isChannelSelected}
@@ -169,7 +170,7 @@ export const PriceRatesCreate: React.FC<PriceRatesCreateProps> = ({
         onSubmit={onPostalCodeAssign}
         open={params.action === "add-range"}
       />
-    </>
+    </IonContent>
   );
 };
 

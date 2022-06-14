@@ -9,7 +9,7 @@ import ShippingZoneCreatePage from "../components/ShippingZoneCreatePage";
 import { useShippingZoneCreate } from "../mutations";
 import { shippingZonesListUrl, shippingZoneUrl } from "../urls";
 
-const ShippingZoneCreate: React.FC<{}> = () => {
+const ShippingZoneCreate = () => {
   const navigate = useNavigator();
   const notify = useNotifier();
   const shop = useShop();

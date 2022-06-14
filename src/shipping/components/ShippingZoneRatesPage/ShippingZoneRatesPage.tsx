@@ -174,13 +174,13 @@ export const ShippingZoneRatesPage: React.FC<ShippingZoneRatesPageProps> = ({
                     errors={channelErrors}
                   />
                   <CardSpacer />
-                  <ShippingZonePostalCodes
+                  {/* <ShippingZonePostalCodes
                     disabled={disabled}
                     onPostalCodeDelete={onPostalCodeUnassign}
                     onPostalCodeInclusionChange={onPostalCodeInclusionChange}
                     onPostalCodeRangeAdd={onPostalCodeAssign}
                     postalCodes={postalCodeRules}
-                  />
+                  /> */}
                   <CardSpacer />
                   <ShippingMethodProducts
                     products={mapEdgesToItems(rate?.excludedProducts)}
@@ -191,9 +191,11 @@ export const ShippingZoneRatesPage: React.FC<ShippingZoneRatesPageProps> = ({
                   />
                   <CardSpacer />
                   <Metadata data={data} onChange={changeMetadata} />
+
+                  <div style={{ height: "100px" }} />
                 </div>
-                <div>
-                  <ChannelsAvailabilityCard
+                {/* <div> */}
+                {/* <ChannelsAvailabilityCard
                     managePermissions={[PermissionEnum.MANAGE_SHIPPING]}
                     allChannelsCount={allChannelsCount}
                     selectedChannelsCount={shippingChannels?.length}
@@ -202,8 +204,8 @@ export const ShippingZoneRatesPage: React.FC<ShippingZoneRatesPageProps> = ({
                       name: channel.name
                     }))}
                     openModal={openChannelsModal}
-                  />
-                </div>
+                  /> */}
+                {/* </div> */}
               </Grid>
               <Savebar
                 disabled={disabled || formDisabled || formIsUnchanged}

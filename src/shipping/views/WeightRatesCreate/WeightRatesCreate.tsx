@@ -1,3 +1,4 @@
+import { IonContent } from "@ionic/react";
 import {
   createShippingChannels,
   createSortedShippingChannels
@@ -132,7 +133,7 @@ export const WeightRatesCreate: React.FC<WeightRatesCreateProps> = ({
   };
 
   return (
-    <>
+    <IonContent>
       <WindowTitle title={intl.formatMessage(sectionNames.shipping)} />
       {!!allChannels?.length && (
         <ChannelsAvailabilityDialog
@@ -168,13 +169,13 @@ export const WeightRatesCreate: React.FC<WeightRatesCreateProps> = ({
         onPostalCodeInclusionChange={onPostalCodeInclusionChange}
         variant={ShippingMethodTypeEnum.WEIGHT}
       />
-      <ShippingZonePostalCodeRangeDialog
+      {/* <ShippingZonePostalCodeRangeDialog
         confirmButtonState="default"
         onClose={closeModal}
         onSubmit={onPostalCodeAssign}
         open={params.action === "add-range"}
-      />
-    </>
+      /> */}
+    </IonContent>
   );
 };
 

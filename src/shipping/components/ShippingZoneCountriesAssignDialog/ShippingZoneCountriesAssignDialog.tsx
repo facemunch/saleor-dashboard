@@ -2,7 +2,6 @@ import {
   IonModal,
   IonButton,
   IonIcon,
-  IonSearchbar,
   IonContent,
   IonFooter,
   IonToolbar,
@@ -11,12 +10,7 @@ import {
 import { closeOutline } from "ionicons/icons";
 
 import {
-  Button,
-  Dialog,
-  DialogActions,
   DialogContent,
-  DialogTitle,
-  TableBody,
   TableCell,
   TableRow,
   TextField,
@@ -29,14 +23,11 @@ import ConfirmButton, {
 import Form from "@saleor/components/Form";
 import FormSpacer from "@saleor/components/FormSpacer";
 import Hr from "@saleor/components/Hr";
-import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import { ShopInfo_shop_countries } from "@saleor/components/Shop/types/ShopInfo";
 import { buttonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
-import { variants } from "@saleor/orders/fixtures";
-import { onQueryChange } from "@saleor/utils/handlers/queryChangeHandler";
 import { filter } from "fuzzaldrin";
-import React from "react";
+import React, { useEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 const spanStyle = {
@@ -109,6 +100,22 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
   const classes = useStyles(props);
   const intl = useIntl();
 
+  useEffect(() => {
+    let footer = document.getElementById("action-bar-footer");
+    if (open) {
+      if (footer) {
+        footer.style.display = "none";
+      }
+    } else {
+      if (footer) {
+        footer.style.display = "block";
+      }
+    }
+    return () => {
+      footer = null;
+    };
+  }, [open]);
+
   const initialForm: FormData = {
     countries: initial,
     query: "",
@@ -116,13 +123,17 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
   };
   return (
     <IonModal
+      style={{ "--z-index": "1000000" }}
       isOpen={open}
       initialBreakpoint={0.91}
-      showBackdrop={false}
-      swipeToClose={false}
+      // showBackdrop={false}
+      // swipeToClose={false}
       onDidDismiss={async () => {
         // onClose();
       }}
+      // mode="ios"
+      // backdropDismiss={true}
+      // canDismiss={true}
     >
       <>
         <span style={spanStyle}>

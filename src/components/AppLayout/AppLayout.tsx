@@ -168,6 +168,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       {children}
       <Portal container={document.getElementsByTagName("ion-app")[0]}>
         <div
+          id="action-bar-footer"
           className={classNames(classes.appAction, {
             [classes.appActionDocked]: docked
           })}
@@ -189,6 +190,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           onClick={() => {
             navigate("/products/add");
           }}
+          style={{ color: "#101010" }}
           shape="round"
         >
           <IonIcon slot="start" icon={add} />

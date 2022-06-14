@@ -158,13 +158,13 @@ export const ShippingZoneRatesCreatePage: React.FC<ShippingZoneRatesCreatePagePr
                     errors={channelErrors}
                   />
                   <CardSpacer />
-                  <ShippingZonePostalCodes
+                  {/* <ShippingZonePostalCodes
                     disabled={disabled}
                     onPostalCodeDelete={onPostalCodeUnassign}
                     onPostalCodeInclusionChange={onPostalCodeInclusionChange}
                     onPostalCodeRangeAdd={onPostalCodeAssign}
                     postalCodes={postalCodes}
-                  />
+                  /> */}
                 </div>
                 <div style={{ height: "100px" }} />
               </Grid>

@@ -24,7 +24,7 @@ import { renderCollection } from "@saleor/misc";
 import { SearchProducts_search_edges_node } from "@saleor/searches/types/SearchProducts";
 import { ShippingPriceExcludeProduct } from "@saleor/shipping/types/ShippingPriceExcludeProduct";
 import { FetchMoreProps } from "@saleor/types";
-import React from "react";
+import React, { useEffect } from "react";
 import { MutationFetchResult } from "react-apollo";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -143,6 +143,22 @@ const ShippingMethodProductsAddDialog: React.FC<ShippingMethodProductsAddDialogP
       resetQuery();
     });
   };
+
+  useEffect(() => {
+    let footer = document.getElementById("action-bar-footer");
+    if (open) {
+      if (footer) {
+        footer.style.display = "none";
+      }
+    } else {
+      if (footer) {
+        footer.style.display = "block";
+      }
+    }
+    return () => {
+      footer = null;
+    };
+  }, [open]);
 
   const handleClose = () => {
     onClose();

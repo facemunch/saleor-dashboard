@@ -1,10 +1,8 @@
-import { sectionNames } from "@saleor/intl";
+import { IonModal } from "@ionic/react";
 import { parse as parseQs } from "qs";
-import React from "react";
-import { useIntl } from "react-intl";
-import { Route, useParams, Switch } from "react-router-dom";
+import React, { useRef } from "react";
+import { Route, useParams, useHistory, useLocation } from "react-router-dom";
 
-import { WindowTitle } from "../components/WindowTitle";
 import {
   shippingPriceRatesEditPath,
   shippingPriceRatesPath,
@@ -24,26 +22,169 @@ import ShippingZonesListComponent from "./views/ShippingZonesList";
 import WeightRatesCreateComponent from "./views/WeightRatesCreate";
 import WeightRatesUpdateComponent from "./views/WeightRatesUpdate";
 
-const ShippingZonesList: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
+export const ShippingZonesList = ({ shippingListModalRef }) => {
+  const { pathname, search } = useLocation();
+
+  const qs = parseQs(search.substr(1));
+
+  const shippingDetailModalRef = useRef();
+  const { push } = useHistory();
+
   const params: ShippingZonesListUrlQueryParams = qs;
-  return <ShippingZonesListComponent params={params} />;
+  return (
+    <>
+      <ShippingZonesListComponent params={params} />;
+      <IonModal
+        style={{
+          "--border-radius": "16px"
+        }}
+        mode="ios"
+        ref={shippingDetailModalRef}
+        backdropDismiss={true}
+        isOpen={pathname.includes("/shipping/") && pathname !== "/shipping/add"}
+        canDismiss={true}
+        presentingElement={shippingListModalRef.current || undefined}
+        onWillDismiss={() => push("/shipping")}
+      >
+        <Route
+          path={"/shipping/" + shippingZonePath(":id", "")}
+          render={() => (
+            <ShippingZoneDetails
+              shippingDetailModalRef={shippingDetailModalRef}
+            />
+          )}
+        />
+      </IonModal>
+      <IonModal
+        style={{
+          "--border-radius": "16px"
+        }}
+        mode="ios"
+        backdropDismiss={true}
+        isOpen={pathname === "/shipping/add"}
+        canDismiss={true}
+        presentingElement={shippingListModalRef.current || undefined}
+        onWillDismiss={() => push("/shipping")}
+      >
+        <Route
+          exact
+          path={"/shipping/" + "add"}
+          render={() => (
+            <ShippingZoneCreate
+            />
+          )}
+        />
+      </IonModal>
+    </>
+  );
 };
 
-const ShippingZoneDetails: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
+export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
+  const { pathname, search } = useLocation();
+
+  const qs = parseQs(search.substr(1));
+  const { push } = useHistory();
+
   const params: ShippingZoneUrlQueryParams = qs;
   const match = useParams();
   return (
-    <ShippingZoneDetailsComponent
-      id={decodeURIComponent(match.id)}
-      params={params}
-    />
+    <>
+      <ShippingZoneDetailsComponent
+        id={decodeURIComponent(match.id)}
+        params={params}
+      />
+      <IonModal
+        style={{
+          "--border-radius": "16px"
+        }}
+        mode="ios"
+        backdropDismiss={true}
+        isOpen={pathname.includes("/price/add")}
+        canDismiss={true}
+        presentingElement={shippingDetailModalRef.current || undefined}
+        onWillDismiss={() => {
+          push(`/shipping/${match.id}`);
+        }}
+      >
+        <Route
+          exact
+          path={"/shipping/" + shippingPriceRatesPath(":id", "")}
+          render={() => <PriceRatesCreate />}
+        />
+      </IonModal>
+
+      <IonModal
+        style={{
+          "--border-radius": "16px"
+        }}
+        mode="ios"
+        backdropDismiss={true}
+        isOpen={
+          pathname.includes("/price/") && !pathname.includes("/price/add")
+        }
+        canDismiss={true}
+        presentingElement={shippingDetailModalRef.current || undefined}
+        onWillDismiss={() => {
+          push(`/shipping/${match.id}`);
+        }}
+      >
+        <Route
+          exact
+          path={"/shipping/" + shippingPriceRatesEditPath(":id", ":rateId", "")}
+          render={() => <PriceRatesUpdate />}
+        />
+      </IonModal>
+
+      <IonModal
+        style={{
+          "--border-radius": "16px"
+        }}
+        mode="ios"
+        backdropDismiss={true}
+        isOpen={pathname.includes("/weight/add")}
+        canDismiss={true}
+        presentingElement={shippingDetailModalRef.current || undefined}
+        onWillDismiss={() => {
+          push(`/shipping/${match.id}`);
+        }}
+      >
+        <Route
+          exact
+          path={"/shipping/" + shippingWeightRatesPath(":id", "")}
+          render={() => <WeightRatesCreate />}
+        />
+      </IonModal>
+
+      <IonModal
+        style={{
+          "--border-radius": "16px"
+        }}
+        mode="ios"
+        backdropDismiss={true}
+        isOpen={
+          pathname.includes("/weight/") && !pathname.includes("/weight/add")
+        }
+        canDismiss={true}
+        presentingElement={shippingDetailModalRef.current || undefined}
+        onWillDismiss={() => {
+          push(`/shipping/${match.id}`);
+        }}
+      >
+        <Route
+          exact
+          path={
+            "/shipping/" + shippingWeightRatesEditPath(":id", ":rateId", "")
+          }
+          render={() => <WeightRatesUpdate />}
+        />
+      </IonModal>
+    </>
   );
 };
 
 const PriceRatesCreate: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
+  const { search } = useLocation();
+  const qs = parseQs(search.substr(1));
   const params: ShippingRateCreateUrlQueryParams = qs;
   const match = useParams();
 
@@ -56,7 +197,8 @@ const PriceRatesCreate: React.FC = () => {
 };
 
 const WeightRatesCreate: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
+  const { search } = useLocation();
+  const qs = parseQs(search.substr(1));
   const params: ShippingRateCreateUrlQueryParams = qs;
   const match = useParams();
 
@@ -69,7 +211,8 @@ const WeightRatesCreate: React.FC = () => {
 };
 
 const WeightRatesUpdate: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
+  const { search } = useLocation();
+  const qs = parseQs(search.substr(1));
   const params: ShippingRateUrlQueryParams = qs;
   const match = useParams();
 
@@ -82,8 +225,10 @@ const WeightRatesUpdate: React.FC = () => {
   );
 };
 
-const PriceRatesUpdate: React.FC = () => {
-  const qs = parseQs(location.search.substr(1));
+export const PriceRatesUpdate: React.FC = () => {
+  const { search } = useLocation();
+
+  const qs = parseQs(search.substr(1));
   const params: ShippingRateUrlQueryParams = qs;
   const match = useParams();
 
@@ -95,49 +240,3 @@ const PriceRatesUpdate: React.FC = () => {
     />
   );
 };
-
-export const ShippingRouter: React.FC = () => {
-  const intl = useIntl();
-
-  return (
-    <>
-      <WindowTitle title={intl.formatMessage(sectionNames.shipping)} />
-      <Switch>
-        <Route exact path={"/shipping"} render={() => <ShippingZonesList />} />
-        <Route
-          exact
-          path={"/shipping/" + "add"}
-          render={() => <ShippingZoneCreate />}
-        />
-        <Route
-          exact
-          path={"/shipping/" + shippingZonePath(":id", "")}
-          render={() => <ShippingZoneDetails />}
-        />
-        <Route
-          exact
-          path={"/shipping/" + shippingPriceRatesPath(":id", "")}
-          render={() => <PriceRatesCreate />}
-        />
-        <Route
-          exact
-          path={"/shipping/" + shippingWeightRatesPath(":id", "")}
-          render={() => <WeightRatesCreate />}
-        />
-        <Route
-          exact
-          path={
-            "/shipping/" + shippingWeightRatesEditPath(":id", ":rateId", "")
-          }
-          render={() => <WeightRatesUpdate />}
-        />
-        <Route
-          exact
-          path={"/shipping/" + shippingPriceRatesEditPath(":id", ":rateId", "")}
-          render={() => <PriceRatesUpdate />}
-        />
-      </Switch>
-    </>
-  );
-};
-export default ShippingRouter;

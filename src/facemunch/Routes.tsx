@@ -2,7 +2,7 @@ import React, { memo, useEffect, useMemo, useRef } from "react";
 import useUser from "@saleor/hooks/useUser";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, History } from "swiper";
-import { Route, useLocation, useHistory } from "react-router-dom";
+import { Route, useLocation, useHistory, useParams } from "react-router-dom";
 import { IonicSlides, IonModal, IonPage } from "@ionic/react";
 import { productPath } from "../products/urls";
 import { userDataQuery } from "./queries";
@@ -32,7 +32,7 @@ import { CustomerListView } from "../customers";
 import HomePage from "../home";
 import { OrderList } from "../orders";
 import ConfigurationSection from "../configuration";
-import ShippingSection from "../shipping";
+import { ShippingZonesList } from "../shipping";
 import { ProductList } from "../products";
 
 interface IProps {
@@ -55,9 +55,13 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
 
   const { pathname, search } = useLocation();
   const { goBack, push } = useHistory();
+  const match = useParams();
 
   const refto = useRef();
   const homeModalRef = useRef();
+  const shippingListModalRef = useRef();
+
+
   const orderModalRef = useRef();
 
   const getActiveIndex = useMemo(() => {
@@ -83,6 +87,9 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
     if (!ecomAccessToken || loading || !data) return;
     loginByToken(ecomAccessToken, "", data.me);
   }, [ecomAccessToken, data, loading]);
+
+  console.log("match", match);
+
   return (
     <IonPage ref={refto}>
       <AppLayout>
@@ -251,13 +258,16 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
               "--border-radius": "16px"
             }}
             mode="ios"
+            ref={shippingListModalRef}
             backdropDismiss={true}
             isOpen={pathname.includes("/shipping")}
             canDismiss={true}
             presentingElement={homeModalRef.current || undefined}
             onWillDismiss={() => push("/configuration")}
           >
-            <ShippingSection />
+            <ShippingZonesList
+              shippingListModalRef={shippingListModalRef}
+            />
           </IonModal>
         </>
       </AppLayout>
