@@ -88,8 +88,6 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
     loginByToken(ecomAccessToken, "", data.me);
   }, [ecomAccessToken, data, loading]);
 
-  console.log("match", match);
-
   return (
     <IonPage ref={refto}>
       <AppLayout>
