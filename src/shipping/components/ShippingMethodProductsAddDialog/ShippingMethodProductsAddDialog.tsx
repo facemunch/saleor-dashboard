@@ -106,7 +106,6 @@ const scrollableTargetId = "shippingMethodProductsAddScrollableDialog";
 
 const ShippingMethodProductsAddDialog: React.FC<ShippingMethodProductsAddDialogProps> = props => {
   const {
-    confirmButtonState,
     open,
     loading,
     hasMore,
@@ -116,7 +115,6 @@ const ShippingMethodProductsAddDialog: React.FC<ShippingMethodProductsAddDialogP
     onClose,
     onSubmit
   } = props;
-  const { setDocked } = useActionBar();
 
   const classes = useStyles(props);
   const intl = useIntl();
