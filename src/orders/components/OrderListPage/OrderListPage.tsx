@@ -2,14 +2,12 @@ import FilterBar from "@saleor/components/FilterBarIonic";
 import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
 import { OrderListUrlSortField } from "@saleor/orders/urls";
 import { FilterPageProps, PageListProps, SortPage } from "@saleor/types";
-import { isLimitReached } from "@saleor/utils/limits";
 import React, { memo } from "react";
 import { useIntl } from "react-intl";
 
 import { IonContent, IonCard } from "@ionic/react";
 
 import { OrderList_orders_edges_node } from "../../types/OrderList";
-import OrderLimitReached from "../OrderLimitReached";
 import OrderList from "../OrderList";
 import {
   createFilterStructure,
@@ -58,11 +56,8 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
 }) => {
   const intl = useIntl();
   const filterStructure = createFilterStructure(intl, filterOpts);
-  // const limitsReached = isLimitReached(limits, "orders");
-
   return (
     <IonContent data-test-id="commerce-orders-tab">
-      {/* {limitsReached && <OrderLimitReached />} */}
       <div style={{ height: "20px" }} />
       <IonCard>
         <FilterBar

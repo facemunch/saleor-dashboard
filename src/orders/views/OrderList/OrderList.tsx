@@ -31,7 +31,7 @@ import {
   getFilterQueryParam,
   getFiltersCurrentTab,
   getFilterTabs,
-  getFilterVariables,
+  getFilterVariables
 } from "./filters";
 import { getSortQueryVariables } from "./sort";
 
@@ -46,14 +46,6 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
   const { updateListSettings, settings } = useListSettings(
     ListViews.ORDER_LIST
   );
-
-  // usePaginationReset(
-  //   orderListUrl({
-  //     ...params,
-  //     ...DEFAULT_INITIAL_PAGINATION_DATA
-  //   }),
-  //   settings.rowNumber
-  // );
 
   const intl = useIntl();
 
@@ -109,8 +101,6 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
         ...getFilterTabs()[tab - 1].data
       })
     );
-
-
 
   const paginationState = createPaginationState(settings.rowNumber, params);
 
@@ -173,4 +163,4 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
   );
 };
 
-export default memo(OrderList);
+export default OrderList;

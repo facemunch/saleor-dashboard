@@ -1,5 +1,4 @@
 import { OutputData } from "@editorjs/editorjs";
-import { mapToMenuItems, useExtensions } from "@saleor/apps/useExtensions";
 import {
   getAttributeValuesFromReferences,
   mergeAttributeValues
@@ -7,16 +6,12 @@ import {
 import { ChannelData } from "@saleor/channels/utils";
 import AssignAttributeValueDialog from "@saleor/components/AssignAttributeValueDialog";
 import Attributes, { AttributeInput } from "@saleor/components/Attributes";
-import CardMenu from "@saleor/components/CardMenu";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ChannelsAvailabilityCard from "@saleor/components/ChannelsAvailabilityCard";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
-import Container from "@saleor/components/Container";
 import Grid from "@saleor/components/Grid";
 import Metadata from "@saleor/components/Metadata/Metadata";
-import PageHeader from "@saleor/components/PageHeader";
 import Savebar from "@saleor/components/Savebar";
-import SeoForm from "@saleor/components/SeoForm";
 import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
 import { ProductChannelListingErrorFragment } from "@saleor/fragments/types/ProductChannelListingErrorFragment";
 import { ProductErrorWithAttributesFragment } from "@saleor/fragments/types/ProductErrorWithAttributesFragment";
@@ -42,11 +37,7 @@ import {
   ListActions,
   ReorderAction
 } from "@saleor/types";
-import {
-  AppExtensionTypeEnum,
-  AppExtensionViewEnum,
-  PermissionEnum
-} from "@saleor/types/globalTypes";
+import { PermissionEnum } from "@saleor/types/globalTypes";
 import React, { memo } from "react";
 import { useIntl } from "react-intl";
 import { IonPage, IonContent } from "@ionic/react";
@@ -62,12 +53,12 @@ import ProductMedia from "../ProductMedia";
 // import ProductOrganization from "../ProductOrganization";
 import ProductShipping from "../ProductShipping/ProductShipping";
 import ProductStocks, { ProductStockInput } from "../ProductStocks";
-import ProductTaxes from "../ProductTaxes";
 import ProductVariants from "../ProductVariants";
 import ProductUpdateForm, {
   ProductUpdateData,
   ProductUpdateHandlers
 } from "./form";
+import { Loader } from "frontend/ui/loader";
 // import { useLocation } from "react-router-dom";
 
 export interface ProductUpdatePageProps extends ListActions, ChannelProps {
@@ -150,13 +141,8 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   attributeValues,
   isSimpleProduct,
   errors,
-  fetchCategories,
-  fetchCollections,
-  fetchMoreCategories,
-  fetchMoreCollections,
   media,
   hasChannelChanged,
-  header,
   limits,
   placeholderImage,
   product,
@@ -177,7 +163,6 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   onImageUpload,
   onMediaUrlUpload,
   openChannelsModal,
-  onSeoClick,
   onSubmit,
   onVariantAdd,
   channelsData,
@@ -208,8 +193,6 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   onAttributeSelectBlur
 }) => {
   const intl = useIntl();
-  // const { search } = useLocation();
-  const isDigitalProduct = product?.productType?.name === "Digital product";
   const [selectedCategory, setSelectedCategory] = useStateFromProps(
     product?.category?.name || ""
   );
@@ -253,310 +236,261 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
     onCloseDialog();
   };
 
-  const { moreActions } = useExtensions(
-    AppExtensionViewEnum.PRODUCT,
-    AppExtensionTypeEnum.DETAILS
-  );
-
-  const extensionMenuItems = mapToMenuItems(moreActions);
-
   return (
-    <ProductUpdateForm
-      isSimpleProduct={isSimpleProduct}
-      currentChannels={currentChannels}
-      channelsData={channelsData}
-      setChannelsData={setChannelsData}
-      onSubmit={onSubmit}
-      product={product}
-      categories={categories}
-      collections={collections}
-      channelsWithVariants={channelsWithVariantsData}
-      selectedCollections={selectedCollections}
-      setSelectedCategory={setSelectedCategory}
-      setSelectedCollections={setSelectedCollections}
-      setSelectedTaxType={setSelectedTaxType}
-      setChannels={onChannelsChange}
-      taxTypes={taxTypeChoices}
-      warehouses={warehouses}
-      hasVariants={hasVariants}
-      referencePages={referencePages}
-      referenceProducts={referenceProducts}
-      fetchReferencePages={fetchReferencePages}
-      fetchMoreReferencePages={fetchMoreReferencePages}
-      fetchReferenceProducts={fetchReferenceProducts}
-      fetchMoreReferenceProducts={fetchMoreReferenceProducts}
-      assignReferencesAttributeId={assignReferencesAttributeId}
-    >
-      {({
-        change,
-        data,
-        formErrors,
-        disabled: formDisabled,
-        handlers,
-        hasChanged,
-        submit
-      }) => (
-        <IonPage>
-          <IonContent data-test-id="update-product-view">
-            <Backlink onClick={onBack}>
-              {intl.formatMessage(sectionNames.products)}
-            </Backlink>
-            {/* <PageHeader title={header}>
-              {extensionMenuItems.length > 0 && (
-                <CardMenu menuItems={extensionMenuItems} data-test="menu" />
-              )}
-            </PageHeader> */}
-            <Grid>
-              <div>
-                <ProductDetailsForm
-                  data={data}
-                  disabled={disabled}
-                  errors={errors}
-                  onDescriptionChange={handlers.changeDescription}
-                  onChange={change}
-                />
-                <CardSpacer />
-                <ProductMedia
-                  media={media}
-                  placeholderImage={placeholderImage}
-                  onImageDelete={onImageDelete}
-                  onImageReorder={onImageReorder}
-                  onImageEdit={onImageEdit}
-                  onImageUpload={onImageUpload}
-                  openMediaUrlModal={() => setMediaUrlModalStatus(true)}
-                />
-                <CardSpacer />
-                {data.attributes.length > 0 && (
-                  <Attributes
-                    attributes={data.attributes}
-                    attributeValues={attributeValues}
-                    errors={errors}
-                    loading={disabled}
-                    disabled={disabled}
-                    onChange={handlers.selectAttribute}
-                    onMultiChange={handlers.selectAttributeMultiple}
-                    onFileChange={handlers.selectAttributeFile}
-                    onReferencesRemove={handlers.selectAttributeReference}
-                    onReferencesAddClick={onAssignReferencesClick}
-                    onReferencesReorder={handlers.reorderAttributeValue}
-                    fetchAttributeValues={fetchAttributeValues}
-                    fetchMoreAttributeValues={fetchMoreAttributeValues}
-                    onAttributeSelectBlur={onAttributeSelectBlur}
-                  />
-                )}
-                <CardSpacer />
-                {isSimpleProduct && (
-                  <>
-                    <ProductVariantPrice
-                      ProductVariantChannelListings={data.channelListings}
-                      errors={channelsErrors}
-                      loading={disabled}
-                      onChange={handlers.changeChannelPrice}
-                    />
-                    <CardSpacer />
-                  </>
-                )}
-                {hasVariants ? (
-                  <ProductVariants
-                    disabled={disabled}
-                    limits={limits}
-                    variants={variants}
-                    product={product}
-                    onRowClick={onVariantShow}
-                    onVariantAdd={onVariantAdd}
-                    onVariantsAdd={onVariantsAdd}
-                    onVariantReorder={onVariantReorder}
-                    onSetDefaultVariant={onSetDefaultVariant}
-                    toolbar={toolbar}
-                    isChecked={isChecked}
-                    selected={selected}
-                    selectedChannelId={selectedChannelId}
-                    toggle={toggle}
-                    toggleAll={toggleAll}
-                  />
-                ) : (
-                  <>
-                    <ProductShipping
-                      data={data}
-                      disabled={disabled}
-                      errors={errors}
-                      weightUnit={product?.weight?.unit || defaultWeightUnit}
-                      onChange={change}
-                    />
-
-                    <CardSpacer />
-                    {/* {!isDigitalProduct && ( */}
-                    <ProductStocks
-                      onVariantChannelListingChange={
-                        handlers.changeChannelPreorder
-                      }
-                      productVariantChannelListings={data.channelListings}
-                      onEndPreorderTrigger={
-                        !!variants?.[0]?.preorder
-                          ? () => onVariantEndPreorderDialogOpen()
-                          : null
-                      }
-                      data={data}
-                      disabled={disabled}
-                      hasVariants={false}
-                      errors={errors}
-                      formErrors={formErrors}
-                      stocks={data.stocks}
-                      warehouses={warehouses}
-                      onChange={handlers.changeStock}
-                      onFormDataChange={change}
-                      onChangePreorderEndDate={handlers.changePreorderEndDate}
-                      onWarehouseStockAdd={handlers.addStock}
-                      onWarehouseStockDelete={handlers.deleteStock}
-                      onWarehouseConfigure={onWarehouseConfigure}
-                    />
-                    {/* )} */}
-                  </>
-                )}
-                <CardSpacer />
-                {/* <SeoForm
-                  errors={errors}
-                  title={data.seoTitle}
-                  titlePlaceholder={data.name}
-                  description={data.seoDescription}
-                  descriptionPlaceholder={""} // TODO: cast description to string
-                  slug={data.slug}
-                  slugPlaceholder={data.name}
-                  loading={disabled}
-                  onClick={onSeoClick}
-                  onChange={change}
-                  helperText={intl.formatMessage({
-                    defaultMessage:
-                      "Add search engine title and description to make this product easier to find"
-                  })}
-                /> */}
-                <CardSpacer />
-                <Metadata data={data} onChange={handlers.changeMetadata} />
-              </div>
-              <div>
-                {/* {!isDigitalProduct && (
-                  <ProductOrganization
-                    canChangeType={false}
-                    categories={categories}
-                    categoryInputDisplayValue={selectedCategory}
-                    collections={collections}
-                    collectionsInputDisplayValue={selectedCollections}
+    <IonPage>
+      <IonContent data-test-id="update-product-view">
+        {product === undefined && <Loader/>}
+        <ProductUpdateForm
+          isSimpleProduct={isSimpleProduct}
+          currentChannels={currentChannels}
+          channelsData={channelsData}
+          setChannelsData={setChannelsData}
+          onSubmit={onSubmit}
+          product={product}
+          categories={categories}
+          collections={collections}
+          channelsWithVariants={channelsWithVariantsData}
+          selectedCollections={selectedCollections}
+          setSelectedCategory={setSelectedCategory}
+          setSelectedCollections={setSelectedCollections}
+          setSelectedTaxType={setSelectedTaxType}
+          setChannels={onChannelsChange}
+          taxTypes={taxTypeChoices}
+          warehouses={warehouses}
+          hasVariants={hasVariants}
+          referencePages={referencePages}
+          referenceProducts={referenceProducts}
+          fetchReferencePages={fetchReferencePages}
+          fetchMoreReferencePages={fetchMoreReferencePages}
+          fetchReferenceProducts={fetchReferenceProducts}
+          fetchMoreReferenceProducts={fetchMoreReferenceProducts}
+          assignReferencesAttributeId={assignReferencesAttributeId}
+        >
+          {({
+            change,
+            data,
+            formErrors,
+            disabled: formDisabled,
+            handlers,
+            hasChanged,
+            submit
+          }) => (
+            <>
+              <Backlink onClick={onBack}>
+                {intl.formatMessage(sectionNames.products)}
+              </Backlink>
+          
+              <Grid>
+                <div>
+                  <ProductDetailsForm
                     data={data}
                     disabled={disabled}
                     errors={errors}
-                    fetchCategories={fetchCategories}
-                    fetchCollections={fetchCollections}
-                    fetchMoreCategories={fetchMoreCategories}
-                    fetchMoreCollections={fetchMoreCollections}
-                    productType={product?.productType}
-                    onCategoryChange={handlers.selectCategory}
-                    onCollectionChange={handlers.selectCollection}
+                    onDescriptionChange={handlers.changeDescription}
+                    onChange={change}
                   />
-                )} */}
+                  <CardSpacer />
+                  <ProductMedia
+                    media={media}
+                    placeholderImage={placeholderImage}
+                    onImageDelete={onImageDelete}
+                    onImageReorder={onImageReorder}
+                    onImageEdit={onImageEdit}
+                    onImageUpload={onImageUpload}
+                    openMediaUrlModal={() => setMediaUrlModalStatus(true)}
+                  />
+                  <CardSpacer />
+                  {data.attributes.length > 0 && (
+                    <Attributes
+                      attributes={data.attributes}
+                      attributeValues={attributeValues}
+                      errors={errors}
+                      loading={disabled}
+                      disabled={disabled}
+                      onChange={handlers.selectAttribute}
+                      onMultiChange={handlers.selectAttributeMultiple}
+                      onFileChange={handlers.selectAttributeFile}
+                      onReferencesRemove={handlers.selectAttributeReference}
+                      onReferencesAddClick={onAssignReferencesClick}
+                      onReferencesReorder={handlers.reorderAttributeValue}
+                      fetchAttributeValues={fetchAttributeValues}
+                      fetchMoreAttributeValues={fetchMoreAttributeValues}
+                      onAttributeSelectBlur={onAttributeSelectBlur}
+                    />
+                  )}
+                  <CardSpacer />
+                  {isSimpleProduct && (
+                    <>
+                      <ProductVariantPrice
+                        ProductVariantChannelListings={data.channelListings}
+                        errors={channelsErrors}
+                        loading={disabled}
+                        onChange={handlers.changeChannelPrice}
+                      />
+                      <CardSpacer />
+                    </>
+                  )}
+                  {hasVariants ? (
+                    <ProductVariants
+                      disabled={disabled}
+                      limits={limits}
+                      variants={variants}
+                      product={product}
+                      onRowClick={onVariantShow}
+                      onVariantAdd={onVariantAdd}
+                      onVariantsAdd={onVariantsAdd}
+                      onVariantReorder={onVariantReorder}
+                      onSetDefaultVariant={onSetDefaultVariant}
+                      toolbar={toolbar}
+                      isChecked={isChecked}
+                      selected={selected}
+                      selectedChannelId={selectedChannelId}
+                      toggle={toggle}
+                      toggleAll={toggleAll}
+                    />
+                  ) : (
+                    <>
+                      <ProductShipping
+                        data={data}
+                        disabled={disabled}
+                        errors={errors}
+                        weightUnit={product?.weight?.unit || defaultWeightUnit}
+                        onChange={change}
+                      />
 
-                {isSimpleProduct ? (
-                  <>
-                    <CardSpacer />
-                    <ChannelsAvailabilityCard
-                      managePermissions={[PermissionEnum.MANAGE_PRODUCTS]}
+                      <CardSpacer />
+                      {/* {!isDigitalProduct && ( */}
+                      <ProductStocks
+                        onVariantChannelListingChange={
+                          handlers.changeChannelPreorder
+                        }
+                        productVariantChannelListings={data.channelListings}
+                        onEndPreorderTrigger={
+                          !!variants?.[0]?.preorder
+                            ? () => onVariantEndPreorderDialogOpen()
+                            : null
+                        }
+                        data={data}
+                        disabled={disabled}
+                        hasVariants={false}
+                        errors={errors}
+                        formErrors={formErrors}
+                        stocks={data.stocks}
+                        warehouses={warehouses}
+                        onChange={handlers.changeStock}
+                        onFormDataChange={change}
+                        onChangePreorderEndDate={handlers.changePreorderEndDate}
+                        onWarehouseStockAdd={handlers.addStock}
+                        onWarehouseStockDelete={handlers.deleteStock}
+                        onWarehouseConfigure={onWarehouseConfigure}
+                      />
+                      {/* )} */}
+                    </>
+                  )}
+                  <CardSpacer />
+             
+                  <CardSpacer />
+                  <Metadata data={data} onChange={handlers.changeMetadata} />
+                </div>
+                <div>
+                  {isSimpleProduct ? (
+                    <>
+                      <CardSpacer />
+                      <ChannelsAvailabilityCard
+                        managePermissions={[PermissionEnum.MANAGE_PRODUCTS]}
+                        messages={{
+                          hiddenLabel: intl.formatMessage({
+                            defaultMessage: "Not published",
+                            description: "product label"
+                          }),
+
+                          visibleLabel: intl.formatMessage({
+                            defaultMessage: "Published",
+                            description: "product label"
+                          })
+                        }}
+                        errors={channelsErrors}
+                        selectedChannelsCount={data.channelListings.length}
+                        allChannelsCount={allChannelsCount}
+                        channels={data.channelListings}
+                        disabled={disabled}
+                        onChange={handlers.changeChannels}
+                        openModal={openChannelsModal}
+                      />
+                    </>
+                  ) : (
+                    <ChannelsWithVariantsAvailabilityCard
                       messages={{
                         hiddenLabel: intl.formatMessage({
                           defaultMessage: "Not published",
-                          description: "product label"
+                          description: "product label",
+                          id: "not published channel"
                         }),
 
                         visibleLabel: intl.formatMessage({
                           defaultMessage: "Published",
-                          description: "product label"
+                          description: "product label",
+                          id: "published channel"
                         })
                       }}
                       errors={channelsErrors}
-                      selectedChannelsCount={data.channelListings.length}
-                      allChannelsCount={allChannelsCount}
-                      channels={data.channelListings}
-                      disabled={disabled}
+                      channels={data.channelsData}
+                      channelsWithVariantsData={channelsWithVariantsData}
+                      variants={variants}
                       onChange={handlers.changeChannels}
                       openModal={openChannelsModal}
                     />
-                  </>
-                ) : (
-                  <ChannelsWithVariantsAvailabilityCard
-                    messages={{
-                      hiddenLabel: intl.formatMessage({
-                        defaultMessage: "Not published",
-                        description: "product label",
-                        id: "not published channel"
-                      }),
-
-                      visibleLabel: intl.formatMessage({
-                        defaultMessage: "Published",
-                        description: "product label",
-                        id: "published channel"
-                      })
-                    }}
-                    errors={channelsErrors}
-                    channels={data.channelsData}
-                    channelsWithVariantsData={channelsWithVariantsData}
-                    variants={variants}
-                    onChange={handlers.changeChannels}
-                    openModal={openChannelsModal}
-                  />
-                )}
-                <CardSpacer />
-                {/* <ProductTaxes
-                  data={data}
-                  disabled={disabled}
-                  selectedTaxTypeDisplayName={selectedTaxType}
-                  taxTypes={taxTypes}
-                  onChange={change}
-                  onTaxTypeChange={handlers.selectTaxRate}
-                /> */}
-                <div style={{ height: "100px" }} />
-              </div>
-            </Grid>
-            <Savebar
-              onCancel={onBack}
-              onDelete={onDelete}
-              onSubmit={submit}
-              state={saveButtonBarState}
-              disabled={
-                disabled || formDisabled || (!hasChanged && !hasChannelChanged)
-              }
-            />
-            {canOpenAssignReferencesAttributeDialog && (
-              <AssignAttributeValueDialog
-                attributeValues={getAttributeValuesFromReferences(
-                  assignReferencesAttributeId,
-                  data.attributes,
-                  referencePages,
-                  referenceProducts
-                )}
-                hasMore={handlers.fetchMoreReferences?.hasMore}
-                open={canOpenAssignReferencesAttributeDialog}
-                onFetch={handlers.fetchReferences}
-                onFetchMore={handlers.fetchMoreReferences?.onFetchMore}
-                loading={handlers.fetchMoreReferences?.loading}
-                onClose={onCloseDialog}
-                onSubmit={attributeValues =>
-                  handleAssignReferenceAttribute(
-                    attributeValues,
-                    data,
-                    handlers
-                  )
+                  )}
+                  <CardSpacer />
+                  <div style={{ height: "100px" }} />
+                </div>
+              </Grid>
+              <Savebar
+                onCancel={onBack}
+                onDelete={onDelete}
+                onSubmit={submit}
+                state={saveButtonBarState}
+                disabled={
+                  disabled ||
+                  formDisabled ||
+                  (!hasChanged && !hasChannelChanged)
                 }
               />
-            )}
+              {canOpenAssignReferencesAttributeDialog && (
+                <AssignAttributeValueDialog
+                  attributeValues={getAttributeValuesFromReferences(
+                    assignReferencesAttributeId,
+                    data.attributes,
+                    referencePages,
+                    referenceProducts
+                  )}
+                  hasMore={handlers.fetchMoreReferences?.hasMore}
+                  open={canOpenAssignReferencesAttributeDialog}
+                  onFetch={handlers.fetchReferences}
+                  onFetchMore={handlers.fetchMoreReferences?.onFetchMore}
+                  loading={handlers.fetchMoreReferences?.loading}
+                  onClose={onCloseDialog}
+                  onSubmit={attributeValues =>
+                    handleAssignReferenceAttribute(
+                      attributeValues,
+                      data,
+                      handlers
+                    )
+                  }
+                />
+              )}
 
-            <ProductExternalMediaDialog
-              product={product}
-              onClose={() => setMediaUrlModalStatus(false)}
-              open={mediaUrlModalStatus}
-              onSubmit={onMediaUrlUpload}
-            />
-          </IonContent>
-        </IonPage>
-      )}
-    </ProductUpdateForm>
+              <ProductExternalMediaDialog
+                product={product}
+                onClose={() => setMediaUrlModalStatus(false)}
+                open={mediaUrlModalStatus}
+                onSubmit={onMediaUrlUpload}
+              />
+            </>
+          )}
+        </ProductUpdateForm>
+      </IonContent>
+    </IonPage>
   );
 };
 ProductUpdatePage.displayName = "ProductUpdatePage";

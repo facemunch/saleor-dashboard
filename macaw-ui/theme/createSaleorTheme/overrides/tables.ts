@@ -43,7 +43,6 @@ export const tableOverrides = (
         },
         borderBottomColor: colors.paperBorder,
         background: "black"
-        // padding: "0px !important",
       }
     }
   },

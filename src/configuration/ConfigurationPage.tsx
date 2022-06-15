@@ -1,8 +1,7 @@
 import { Typography, IconProps } from "@mui/material";
 import { User } from "@saleor/fragments/types/User";
 import { makeStyles } from "@saleor/macaw-ui";
-import React from "react";
-import { useIntl } from "react-intl";
+import React, { memo } from "react";
 
 import { IonContent, IonCard, IonPage, IonCardContent } from "@ionic/react";
 
@@ -34,10 +33,6 @@ const useStyles = makeStyles(
       transition: theme.transitions.duration.standard + "ms"
     },
     cardContent: {
-      // Overrides Material-UI default theme
-      // "&:last-child": {
-      //   paddingBottom: 16
-      // },
       display: "grid",
       gridColumnGap: theme.spacing(4),
       gridTemplateColumns: "48px 1fr"
@@ -100,8 +95,6 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
   const { menu: menus, user, onSectionClick } = props;
   const classes = useStyles(props);
 
-  const intl = useIntl();
-  console.log("menus", menus);
   return (
     <IonPage>
       <IonContent data-test-id="commerce-configuration-view">
@@ -120,13 +113,11 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
                 )
                 .map((item, itemIndex) => (
                   <IonCardContent
-                    // className={item.url ? classes.card : classes.cardDisabled}
                     onClick={() => onSectionClick(item.url)}
                     key={itemIndex}
                     style={{ display: "flex" }}
                     data-test-id={item.testId}
                   >
-                    {/* <IonCardContent className={classes.cardContent}> */}
                     <div className={classes.icon}>{item.icon}</div>
                     <div>
                       <Typography
@@ -142,10 +133,8 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
                         {item.description}
                       </Typography>
                     </div>
-                    {/* </CardContent> */}
                   </IonCardContent>
                 ))}
-              {/* </div> */}
             </IonCard>
           ))}
         <div style={{ height: "100px" }} />
@@ -154,4 +143,4 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
   );
 };
 ConfigurationPage.displayName = "ConfigurationPage";
-export default ConfigurationPage;
+export default memo(ConfigurationPage);

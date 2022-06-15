@@ -87,7 +87,6 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
       })
     );
   }, [params.query]);
-
   const handleTabChange = (tab: number) => {
     reset();
     navigate(
@@ -130,7 +129,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     paginationState,
     params
   );
-    
+
   return (
     <>
       <ProductListPage

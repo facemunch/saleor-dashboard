@@ -23,7 +23,6 @@ import {
   productAddUrl,
   ProductCreateUrlDialog,
   ProductCreateUrlQueryParams,
-  productListUrl,
   productUrl
 } from "@saleor/products/urls";
 import useCategorySearch from "@saleor/searches/useCategorySearch";
@@ -45,6 +44,7 @@ import { useWarehouseList } from "@saleor/warehouses/queries";
 import { warehouseAddPath } from "@saleor/warehouses/urls";
 import React from "react";
 import { useIntl } from "react-intl";
+import { useHistory } from "react-router-dom";
 
 import { createHandler } from "./handlers";
 
@@ -60,6 +60,9 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
   const navigate = useNavigator();
   const notify = useNotifier();
   const shop = useShop();
+
+  const { goBack } = useHistory();
+
   const intl = useIntl();
   const [productCreateComplete, setProductCreateComplete] = React.useState(
     false
@@ -140,17 +143,9 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
   );
 
   const {
-    channelListElements,
-    channelsToggle,
     currentChannels,
-    handleChannelsConfirm,
-    handleChannelsModalClose,
     handleChannelsModalOpen,
-    isChannelSelected,
-    isChannelsModalOpen,
-    setCurrentChannels,
-    toggleAllChannels
-  } = useChannels(allChannels, params?.action, {
+    setCurrentChannels  } = useChannels(allChannels, params?.action, {
     closeModal,
     openModal
   });
@@ -175,7 +170,7 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
     updateVariantChannelsOpts
   ] = useProductVariantChannelListingUpdate({});
 
-  const handleBack = () => navigate(productListUrl());
+  const handleBack = () => goBack();
 
   const [productCreate, productCreateOpts] = useProductCreateMutation({
     refetchQueries: ["ProductList"]

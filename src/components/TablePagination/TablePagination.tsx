@@ -1,5 +1,5 @@
 import { IonFooter, IonToolbar } from "@ionic/react";
-import { TableCell, Toolbar, IconButtonProps } from "@mui/material";
+import { TableCell, IconButtonProps } from "@mui/material";
 import RowNumberSelect from "@saleor/components/RowNumberSelect";
 import { makeStyles } from "@saleor/macaw-ui";
 import { maybe } from "@saleor/misc";
@@ -81,16 +81,9 @@ const TablePagination: React.FC<TablePaginationProps> = props => {
     nextIconButtonProps,
     onNextPage,
     onPreviousPage,
-    onUpdateListSettings,
-    ...other
-  } = props;
-  const classes = useStyles(props);
+    onUpdateListSettings  } = props;
 
-  // let colSpan;
 
-  // if (Component === TableCell || Component === "div") {
-  //   colSpan = colSpanProp || 1000;
-  // }
 
   return (
     <IonFooter>
