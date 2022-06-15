@@ -1,25 +1,20 @@
 import {
-  Button,
   CircularProgress,
-  Dialog,
-  DialogActions,
   DialogContent,
-  DialogTitle,
   TableBody,
   TableCell,
   TableRow,
   TextField
 } from "@mui/material";
 import Checkbox from "@saleor/components/Checkbox";
-import ConfirmButton, {
-  ConfirmButtonTransitionState
-} from "@saleor/components/ConfirmButton";
+import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import TableCellAvatar from "@saleor/components/TableCellAvatar";
 import useSearchQuery from "@saleor/hooks/useSearchQuery";
-import { buttonMessages } from "@saleor/intl";
-import { makeStyles } from "@saleor/macaw-ui";
+import { makeStyles, useActionBar } from "@saleor/macaw-ui";
+import Savebar from "@saleor/components/Savebar";
+
 import { renderCollection } from "@saleor/misc";
 import { SearchProducts_search_edges_node } from "@saleor/searches/types/SearchProducts";
 import { ShippingPriceExcludeProduct } from "@saleor/shipping/types/ShippingPriceExcludeProduct";
@@ -30,15 +25,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { FormattedMessage, useIntl } from "react-intl";
 import { closeOutline } from "ionicons/icons";
 
-import {
-  IonModal,
-  IonFooter,
-  IonToolbar,
-  IonContent,
-  IonButton,
-  IonIcon,
-  IonButtons
-} from "@ionic/react";
+import { IonModal, IonContent, IonButton, IonIcon } from "@ionic/react";
 
 const useStyles = makeStyles(
   theme => ({
@@ -119,7 +106,6 @@ const scrollableTargetId = "shippingMethodProductsAddScrollableDialog";
 
 const ShippingMethodProductsAddDialog: React.FC<ShippingMethodProductsAddDialogProps> = props => {
   const {
-    confirmButtonState,
     open,
     loading,
     hasMore,
@@ -273,53 +259,13 @@ const ShippingMethodProductsAddDialog: React.FC<ShippingMethodProductsAddDialogP
               </ResponsiveTable>
             </InfiniteScroll>
           </DialogContent>
-          {/* <DialogActions>
-          
-        </DialogActions> */}
-          <IonFooter
-            style={{
-              // height: "60px",
-              // bottom: "60px",
-              // position: 'fixed',
-              top: "calc(91% - 50px)",
-              position: "fixed"
-            }}
-            // slot="fixed"
-          >
-            <IonToolbar>
-              <IonButtons slot="secondary">
-                <IonButton onClick={handleClose}>
-                  <FormattedMessage {...buttonMessages.back} />
-                </IonButton>
-              </IonButtons>
-              {/* <ConfirmButton
-                transitionState={confirmButtonState}
-                color="primary"
-                variant="contained"
-                type="submit"
-                disabled={loading || !selectedProducts?.length}
-                onClick={handleSubmit}
-              >
-                <FormattedMessage {...buttonMessages.confirm} />
-              </ConfirmButton> */}
-              {/* <IonButtons slot="primary">
-                <IonButton fill="clear" onClick={onClose}>
-                  <FormattedMessage {...buttonMessages.back} />
-                </IonButton>*/}
-              <IonButtons slot="primary">
-                <IonButton
-                  disabled={selectedProducts.length === 0}
-                  // transitionState={confirmButtonState}
-                  color="primary"
-                  fill="solid"
-                  type="submit"
-                  onClick={handleSubmit}
-                >
-                  <FormattedMessage {...buttonMessages.confirm} />
-                </IonButton>
-              </IonButtons>
-            </IonToolbar>
-          </IonFooter>
+
+          <Savebar
+            disabled={false}
+            state={"success"}
+            onCancel={handleClose}
+            onSubmit={handleSubmit}
+          />
         </IonContent>
       </IonModal>
     </>

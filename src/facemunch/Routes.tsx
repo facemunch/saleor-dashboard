@@ -32,7 +32,7 @@ import { CustomerListView } from "../customers";
 import HomePage from "../home";
 import { OrderList } from "../orders";
 import ConfigurationSection from "../configuration";
-import ShippingSection from "../shipping";
+import { ShippingZonesList } from "../shipping";
 import { ProductList } from "../products";
 
 interface IProps {
@@ -58,6 +58,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
 
   const refto = useRef();
   const homeModalRef = useRef();
+  const shippingListModalRef = useRef();
   const orderModalRef = useRef();
 
   const getActiveIndex = useMemo(() => {
@@ -83,6 +84,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
     if (!ecomAccessToken || loading || !data) return;
     loginByToken(ecomAccessToken, "", data.me);
   }, [ecomAccessToken, data, loading]);
+
   return (
     <IonPage ref={refto}>
       <AppLayout>
@@ -147,7 +149,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
               pathname.includes("/products/") && pathname !== "/products/add"
             }
             canDismiss={true}
-            presentingElement={refto.current || undefined}
+            presentingElement={refto.current}
             onWillDismiss={() =>
               pathname.includes("/products/") && push("/products")
             }
@@ -165,7 +167,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
             backdropDismiss={true}
             isOpen={pathname.includes("/products/add")}
             canDismiss={true}
-            presentingElement={refto.current || undefined}
+            presentingElement={refto.current}
             onWillDismiss={() =>
               pathname === "/products/add" && push("/products")
             }
@@ -181,7 +183,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
             backdropDismiss={true}
             isOpen={pathname.includes("/orders/")}
             canDismiss={true}
-            presentingElement={refto.current || undefined}
+            presentingElement={refto.current}
             onWillDismiss={() => pathname.includes("/orders/") && goBack()}
           >
             <Route
@@ -199,7 +201,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
               pathname.includes("/orders/") && pathname.includes("/refund")
             }
             canDismiss={true}
-            presentingElement={orderModalRef.current || undefined}
+            presentingElement={orderModalRef.current}
             // onWillDismiss={() => pathname.includes("/orders/") && goBack()}
           >
             <Route
@@ -216,7 +218,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
             backdropDismiss={true}
             isOpen={pathname.includes("/customers/")}
             canDismiss={true}
-            presentingElement={refto.current || undefined}
+            presentingElement={refto.current}
             onWillDismiss={() => pathname.includes("/customers/") && goBack()}
           >
             <Route
@@ -241,7 +243,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
               pathname === "/configuration" || pathname.includes("/shipping")
             }
             canDismiss={true}
-            presentingElement={refto.current || undefined}
+            presentingElement={refto.current}
             onWillDismiss={() => push("/home")}
           >
             <ConfigurationSection />
@@ -251,13 +253,16 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
               "--border-radius": "16px"
             }}
             mode="ios"
+            ref={shippingListModalRef}
             backdropDismiss={true}
             isOpen={pathname.includes("/shipping")}
             canDismiss={true}
-            presentingElement={homeModalRef.current || undefined}
+            presentingElement={homeModalRef.current}
             onWillDismiss={() => push("/configuration")}
           >
-            <ShippingSection />
+            <ShippingZonesList
+              shippingListModalRef={shippingListModalRef}
+            />
           </IonModal>
         </>
       </AppLayout>

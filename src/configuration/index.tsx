@@ -1,9 +1,6 @@
 import { attributeListUrl } from "@saleor/attributes/urls";
 import { channelsListUrl } from "@saleor/channels/urls";
-import { WindowTitle } from "@saleor/components/WindowTitle";
-import { APP_VERSION as dashboardVersion } from "@saleor/config";
 import useNavigator from "@saleor/hooks/useNavigator";
-import useShop from "@saleor/hooks/useShop";
 import useUser from "@saleor/hooks/useUser";
 import Attributes from "@saleor/icons/Attributes";
 import Channels from "@saleor/icons/Channels";
@@ -16,8 +13,6 @@ import ProductTypes from "@saleor/icons/ProductTypes";
 import ShippingMethods from "@saleor/icons/ShippingMethods";
 import SiteSettings from "@saleor/icons/SiteSettings";
 import StaffMembers from "@saleor/icons/StaffMembers";
-import Taxes from "@saleor/icons/Taxes";
-import Warehouses from "@saleor/icons/Warehouses";
 import { sectionNames } from "@saleor/intl";
 import { maybe } from "@saleor/misc";
 import { menuListUrl } from "@saleor/navigation/urls";
@@ -29,9 +24,7 @@ import { productTypeListUrl } from "@saleor/productTypes/urls";
 import { shippingZonesListUrl } from "@saleor/shipping/urls";
 import { siteSettingsUrl } from "@saleor/siteSettings/urls";
 import { staffListUrl } from "@saleor/staff/urls";
-import { taxSection } from "@saleor/taxes/urls";
 import { PermissionEnum } from "@saleor/types/globalTypes";
-import { warehouseSection } from "@saleor/warehouses/urls";
 import React from "react";
 import { IntlShape, useIntl } from "react-intl";
 
@@ -250,11 +243,7 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
 export const configurationMenuUrl = "/configuration/";
 
 export const ConfigurationSection: React.FC = () => {
-  // const { version: coreVersion } = useShop();
-  // const versions = {
-  //   dashboardVersion,
-  //   coreVersion
-  // };
+
 
   const navigate = useNavigator();
   const user = useUser();
@@ -262,7 +251,6 @@ export const ConfigurationSection: React.FC = () => {
 
   return (
     <>
-      <WindowTitle title={intl.formatMessage(sectionNames.configuration)} />
       <ConfigurationPage
         menu={createConfigurationMenu(intl)}
         user={maybe(() => user.user)}

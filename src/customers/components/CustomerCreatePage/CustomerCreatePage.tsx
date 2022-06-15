@@ -5,13 +5,11 @@ import Grid from "@saleor/components/Grid";
 import Savebar from "@saleor/components/Savebar";
 import { AccountErrorFragment } from "@saleor/fragments/types/AccountErrorFragment";
 import useAddressValidation from "@saleor/hooks/useAddressValidation";
-import { sectionNames } from "@saleor/intl";
-import { Backlink } from "@saleor/macaw-ui";
 import { AddressInput } from "@saleor/types/globalTypes";
 import createSingleAutocompleteSelectHandler from "@saleor/utils/handlers/singleAutocompleteSelectChangeHandler";
 import { mapCountriesToChoices } from "@saleor/utils/maps";
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
 import { AddressTypeInput } from "../../types";
 import { CustomerCreateData_shop_countries } from "../../types/CustomerCreateData";
@@ -20,6 +18,7 @@ import CustomerCreateDetails from "../CustomerCreateDetails";
 import CustomerCreateNote from "../CustomerCreateNote/CustomerCreateNote";
 
 import { IonContent, IonPage } from "@ionic/react";
+import PageHeader from "@saleor/components/PageHeader";
 
 export interface CustomerCreatePageFormData {
   customerFirstName: string;
@@ -141,15 +140,12 @@ const CustomerCreatePage: React.FC<CustomerCreatePageProps> = ({
         return (
           <IonPage>
             <IonContent>
-              <Backlink onClick={onBack}>
-                <FormattedMessage {...sectionNames.customers} />
-              </Backlink>
-              {/* <PageHeader
+              <PageHeader
                 title={intl.formatMessage({
                   defaultMessage: "Create Customer",
                   description: "page header"
                 })}
-              /> */}
+              />
               <Grid>
                 <div>
                   <CustomerCreateDetails

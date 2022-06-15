@@ -36,11 +36,8 @@ const ShippingZonesListPage: React.FC<ShippingZonesListPageProps> = ({
   const intl = useIntl();
 
   return (
-    <IonPage>
+    <>
       <IonContent data-test-id="shipping-zone-list">
-        <Backlink onClick={onBack}>
-          {intl.formatMessage(sectionNames.configuration)}
-        </Backlink>
         <PageHeader
           title={intl.formatMessage({
             defaultMessage: "Shipping",
@@ -65,7 +62,7 @@ const ShippingZonesListPage: React.FC<ShippingZonesListPageProps> = ({
           </div>
         </Grid>
       </IonContent>
-    </IonPage>
+    </>
   );
 };
 ShippingZonesListPage.displayName = "ShippingZonesListPage";

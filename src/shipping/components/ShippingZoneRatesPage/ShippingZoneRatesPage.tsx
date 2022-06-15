@@ -1,9 +1,7 @@
 import { OutputData } from "@editorjs/editorjs";
 import { ChannelShippingData } from "@saleor/channels/utils";
 import CardSpacer from "@saleor/components/CardSpacer";
-import ChannelsAvailabilityCard from "@saleor/components/ChannelsAvailabilityCard";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
-import Container from "@saleor/components/Container";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
 import Metadata from "@saleor/components/Metadata/Metadata";
@@ -26,7 +24,6 @@ import {
 } from "@saleor/shipping/types/ShippingZone";
 import { ListActions, ListProps } from "@saleor/types";
 import {
-  PermissionEnum,
   PostalCodeRuleInclusionTypeEnum,
   ShippingMethodTypeEnum
 } from "@saleor/types/globalTypes";
@@ -35,7 +32,6 @@ import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTr
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import { IonContent, IonPage } from "@ionic/react";
-import ShippingZonePostalCodes from "../ShippingZonePostalCodes";
 import { ShippingZoneRateUpdateFormData } from "./types";
 
 export interface ShippingZoneRatesPageProps
@@ -174,14 +170,6 @@ export const ShippingZoneRatesPage: React.FC<ShippingZoneRatesPageProps> = ({
                     errors={channelErrors}
                   />
                   <CardSpacer />
-                  <ShippingZonePostalCodes
-                    disabled={disabled}
-                    onPostalCodeDelete={onPostalCodeUnassign}
-                    onPostalCodeInclusionChange={onPostalCodeInclusionChange}
-                    onPostalCodeRangeAdd={onPostalCodeAssign}
-                    postalCodes={postalCodeRules}
-                  />
-                  <CardSpacer />
                   <ShippingMethodProducts
                     products={mapEdgesToItems(rate?.excludedProducts)}
                     onProductAssign={onProductAssign}
@@ -191,18 +179,8 @@ export const ShippingZoneRatesPage: React.FC<ShippingZoneRatesPageProps> = ({
                   />
                   <CardSpacer />
                   <Metadata data={data} onChange={changeMetadata} />
-                </div>
-                <div>
-                  <ChannelsAvailabilityCard
-                    managePermissions={[PermissionEnum.MANAGE_SHIPPING]}
-                    allChannelsCount={allChannelsCount}
-                    selectedChannelsCount={shippingChannels?.length}
-                    channelsList={data.channelListings.map(channel => ({
-                      id: channel.id,
-                      name: channel.name
-                    }))}
-                    openModal={openChannelsModal}
-                  />
+
+                  <div style={{ height: "100px" }} />
                 </div>
               </Grid>
               <Savebar

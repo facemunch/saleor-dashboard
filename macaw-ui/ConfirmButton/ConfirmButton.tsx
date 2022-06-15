@@ -1,4 +1,4 @@
-import { Button, ButtonProps, CircularProgress } from "@mui/material";
+import { ButtonProps, CircularProgress } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import clsx from "clsx";
 import React from "react";
@@ -76,15 +76,10 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
   return (
     <IonButton
       slot="primary"
-      // variant="contained"
-      onClick={transitionState === "loading" ? undefined : onClick}
-      // color="dark"
+      onClick={onClick}
       fill="solid"
-      // className={clsx(className, {
-      //   [classes.error]: transitionState === "error" && isCompleted,
-      //   [classes.success]: transitionState === "success" && isCompleted
-      // })}
-      disabled={!isCompleted && disabled}
+      data-test-id={`confirm-selection`}
+      disabled={(!isCompleted && disabled) || transitionState === "loading"}
       data-test-state={isCompleted ? transitionState : "default"}
       {...props}
     >

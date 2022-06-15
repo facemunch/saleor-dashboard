@@ -36,6 +36,7 @@ import {
   ShippingZonesListUrlQueryParams,
   shippingZoneUrl
 } from "../urls";
+import { IonContent } from "@ionic/react";
 
 interface ShippingZonesListProps {
   params: ShippingZonesListUrlQueryParams;
@@ -136,7 +137,7 @@ export const ShippingZonesList: React.FC<ShippingZonesListProps> = ({
   );
 
   return (
-    <>
+    <IonContent data-test-id="shipping-zones-list">
       <ShippingZonesListPage
         defaultWeightUnit={shop?.defaultWeightUnit}
         settings={settings}
@@ -244,7 +245,7 @@ export const ShippingZonesList: React.FC<ShippingZonesListProps> = ({
           />
         </DialogContentText>
       </ActionDialog>
-    </>
+    </IonContent>
   );
 };
 ShippingZonesList.displayName = "ShippingZonesList";

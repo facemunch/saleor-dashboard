@@ -7,6 +7,7 @@ import { IonContent, IonCard, IonPage, IonCardContent } from "@ionic/react";
 
 import { hasAnyPermissions } from "../auth/misc";
 import { PermissionEnum } from "../types/globalTypes";
+import PageHeader from "@saleor/components/PageHeader";
 
 export interface MenuItem {
   description: string;
@@ -96,9 +97,11 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
   const classes = useStyles(props);
 
   return (
-    <IonPage>
+    <IonPage>                
+      
+      <PageHeader title={"Configuration"} />
+
       <IonContent data-test-id="commerce-configuration-view">
-        <div style={{ height: "50px" }} />
         {menus
           .filter(menu =>
             menu.menuItems.some(menuItem =>

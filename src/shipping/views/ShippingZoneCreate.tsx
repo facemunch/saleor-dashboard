@@ -9,7 +9,7 @@ import ShippingZoneCreatePage from "../components/ShippingZoneCreatePage";
 import { useShippingZoneCreate } from "../mutations";
 import { shippingZonesListUrl, shippingZoneUrl } from "../urls";
 
-const ShippingZoneCreate: React.FC<{}> = () => {
+const ShippingZoneCreate = () => {
   const navigate = useNavigator();
   const notify = useNotifier();
   const shop = useShop();
@@ -24,7 +24,8 @@ const ShippingZoneCreate: React.FC<{}> = () => {
         });
         navigate(shippingZoneUrl(data.shippingZoneCreate.shippingZone.id));
       }
-    }
+    },
+    refetchQueries: ['ShippingZones'],
   });
   return (
     <ShippingZoneCreatePage
@@ -32,13 +33,14 @@ const ShippingZoneCreate: React.FC<{}> = () => {
       disabled={createShippingZoneOpts.loading}
       errors={createShippingZoneOpts.data?.shippingZoneCreate.errors || []}
       onBack={() => navigate(shippingZonesListUrl())}
-      onSubmit={formData =>
+      onSubmit={formData => {
         createShippingZone({
           variables: {
             input: formData
           }
-        })
-      }
+        });
+        navigate(shippingZonesListUrl());
+      }}
       saveButtonBarState={createShippingZoneOpts.status}
     />
   );

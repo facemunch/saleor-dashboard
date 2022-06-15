@@ -1,3 +1,4 @@
+import { IonContent } from "@ionic/react";
 import {
   createShippingChannels,
   createSortedShippingChannels
@@ -7,7 +8,6 @@ import { WindowTitle } from "@saleor/components/WindowTitle";
 import useChannels from "@saleor/hooks/useChannels";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { sectionNames } from "@saleor/intl";
-import ShippingZonePostalCodeRangeDialog from "@saleor/shipping/components/ShippingZonePostalCodeRangeDialog";
 import ShippingZoneRatesCreatePage from "@saleor/shipping/components/ShippingZoneRatesCreatePage";
 import { useShippingRateCreator } from "@saleor/shipping/handlers";
 import { useShippingZoneChannels } from "@saleor/shipping/queries";
@@ -18,12 +18,7 @@ import {
   shippingZoneUrl
 } from "@saleor/shipping/urls";
 import postalCodesReducer from "@saleor/shipping/views/reducer";
-import {
-  filterPostalCodes,
-  getPostalCodeRuleByMinMax,
-  getRuleObject
-} from "@saleor/shipping/views/utils";
-import { MinMax } from "@saleor/types";
+import { filterPostalCodes } from "@saleor/shipping/views/utils";
 import {
   PostalCodeRuleInclusionTypeEnum,
   ShippingMethodTypeEnum
@@ -99,22 +94,6 @@ export const WeightRatesCreate: React.FC<WeightRatesCreateProps> = ({
 
   const handleBack = () => navigate(shippingZoneUrl(id));
 
-  const onPostalCodeAssign = (rule: MinMax) => {
-    if (
-      state.postalCodeRules.filter(getPostalCodeRuleByMinMax(rule)).length > 0
-    ) {
-      closeModal();
-      return;
-    }
-
-    const newCode = getRuleObject(rule, state.inclusionType);
-    dispatch({
-      havePostalCodesChanged: true,
-      postalCodeRules: [...state.postalCodeRules, newCode]
-    });
-    closeModal();
-  };
-
   const onPostalCodeInclusionChange = (
     inclusion: PostalCodeRuleInclusionTypeEnum
   ) => {
@@ -132,7 +111,7 @@ export const WeightRatesCreate: React.FC<WeightRatesCreateProps> = ({
   };
 
   return (
-    <>
+    <IonContent>
       <WindowTitle title={intl.formatMessage(sectionNames.shipping)} />
       {!!allChannels?.length && (
         <ChannelsAvailabilityDialog
@@ -168,13 +147,7 @@ export const WeightRatesCreate: React.FC<WeightRatesCreateProps> = ({
         onPostalCodeInclusionChange={onPostalCodeInclusionChange}
         variant={ShippingMethodTypeEnum.WEIGHT}
       />
-      <ShippingZonePostalCodeRangeDialog
-        confirmButtonState="default"
-        onClose={closeModal}
-        onSubmit={onPostalCodeAssign}
-        open={params.action === "add-range"}
-      />
-    </>
+    </IonContent>
   );
 };
 

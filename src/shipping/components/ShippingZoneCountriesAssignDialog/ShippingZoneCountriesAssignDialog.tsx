@@ -1,40 +1,21 @@
-import {
-  IonModal,
-  IonButton,
-  IonIcon,
-  IonSearchbar,
-  IonContent,
-  IonFooter,
-  IonToolbar,
-  IonButtons
-} from "@ionic/react";
+import { IonModal, IonButton, IonIcon, IonContent } from "@ionic/react";
 import { closeOutline } from "ionicons/icons";
+import Savebar from "@saleor/components/Savebar";
 
 import {
-  Button,
-  Dialog,
-  DialogActions,
   DialogContent,
-  DialogTitle,
-  TableBody,
   TableCell,
   TableRow,
   TextField,
   Typography
 } from "@mui/material";
 import Checkbox from "@saleor/components/Checkbox";
-import ConfirmButton, {
-  ConfirmButtonTransitionState
-} from "@saleor/components/ConfirmButton";
+import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Form from "@saleor/components/Form";
 import FormSpacer from "@saleor/components/FormSpacer";
 import Hr from "@saleor/components/Hr";
-import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import { ShopInfo_shop_countries } from "@saleor/components/Shop/types/ShopInfo";
-import { buttonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
-import { variants } from "@saleor/orders/fixtures";
-import { onQueryChange } from "@saleor/utils/handlers/queryChangeHandler";
 import { filter } from "fuzzaldrin";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -97,7 +78,6 @@ const useStyles = makeStyles(
 );
 const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDialogProps> = props => {
   const {
-    confirmButtonState,
     isDefault,
     onClose,
     countries,
@@ -116,13 +96,9 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
   };
   return (
     <IonModal
+      style={{ "--z-index": "1000000" }}
       isOpen={open}
       initialBreakpoint={0.91}
-      showBackdrop={false}
-      swipeToClose={false}
-      onDidDismiss={async () => {
-        // onClose();
-      }}
     >
       <>
         <span style={spanStyle}>
@@ -149,28 +125,7 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
         </IonButton>
       </>
 
-      {/* < data-test-id="searchQuery"> */}
-      {/* <IonSearchbar
-        name="query"
-        value={query}
-        showClearButton={true}
-        onIonChange={onQueryChange}
-        label={intl.formatMessage({
-          defaultMessage: "Search Products"
-        })}
-        placeholder={intl.formatMessage({
-          defaultMessage:
-            "Search by product name, attribute, product type etc..."
-        })}
-        loading={loading}
-        fullWidth
-        // InputProps={{
-        //   autoComplete: "off",
-        //   endAdornment: loading && <CircularProgress size={16} />
-        // }}
-      /> */}
-
-      <IonContent>
+      <IonContent data-test-id="shipping-zone-countries-assign-view">
         <Form initial={initialForm} onSubmit={onConfirm}>
           {({ data, change }) => {
             const countrySelectionMap = countries.reduce((acc, country) => {
@@ -206,9 +161,7 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                   <Typography className={classes.heading} variant="subtitle1">
                     <FormattedMessage defaultMessage="Quick Pick" />
                   </Typography>
-                  {/* <ResponsiveTable className={classes.table}>
-                    <TableBody>
-                      <TableRow> */}
+
                   <TableCell className={classes.wideCell}>
                     <FormattedMessage defaultMessage="Rest of the World" />
                     <Typography variant="caption">
@@ -231,9 +184,6 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                       }
                     />
                   </TableCell>
-                  {/* </TableRow> */}
-                  {/* </TableBody> */}
-                  {/* </ResponsiveTable> */}
                 </DialogContent>
 
                 <DialogContent className={classes.container}>
@@ -245,14 +195,16 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                   </Typography>
                 </DialogContent>
 
-                {/* <DialogContent className={classes.scrollAreaContainer}> */}
                 {filter(countries, data.query, {
                   key: "country"
                 }).map(country => {
                   const isChecked = countrySelectionMap[country.code];
 
                   return (
-                    <TableRow key={country.code}>
+                    <TableRow
+                      data-test-id={`shipping-zone-countries-assign-${country.code}`}
+                      key={country.code}
+                    >
                       <TableCell className={classes.wideCell}>
                         {country.country}
                       </TableCell>
@@ -262,6 +214,7 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                       >
                         <Checkbox
                           checked={isChecked}
+                          data-test-id={`shipping-zone-countries-assign-${country.code}-checkbox`}
                           onChange={() =>
                             isChecked
                               ? change({
@@ -285,67 +238,12 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                     </TableRow>
                   );
                 })}
-                {/* </DialogContent> */}
-                {/* <DialogActions>
-                  <Button onClick={onClose}>
-                    <FormattedMessage {...buttonMessages.back} />
-                  </Button>
-                  <ConfirmButton
-                    transitionState={confirmButtonState}
-                    color="primary"
-                    variant="contained"
-                    type="submit"
-                  >
-                    <FormattedMessage
-                      defaultMessage="Assign countries"
-                      description="button"
-                    />
-                  </ConfirmButton>
-                </DialogActions> */}
-                <IonFooter
-                  style={{
-                    // height: "60px",
-                    // bottom: "60px",
-                    // position: 'fixed',
-                    top: "calc(91% - 50px)",
-                    position: "fixed"
-                  }}
-                  // slot="fixed"
-                >
-                  <IonToolbar>
-                    <IonButtons slot="primary">
-                      <IonButton fill="clear" onClick={onClose}>
-                        <FormattedMessage {...buttonMessages.back} />
-                      </IonButton>
-
-                      <ConfirmButton
-                        transitionState={confirmButtonState}
-                        color="primary"
-                        variant="contained"
-                        type="submit"
-                        onClick={confirmButtonState}
-                      >
-                        <FormattedMessage
-                          defaultMessage="Assign countries"
-                          description="button"
-                        />
-                      </ConfirmButton>
-                      {/* <IonButton
-                disabled={variants.length === 0}
-                // transitionState={confirmButtonState}
-                color="primary"
-                // variant="contained"
-                type="submit"
-                onClick={confirmButtonState}
-              >
-                <FormattedMessage
-                  defaultMessage="Assign countries"
-                  description="button"
+                <Savebar
+                  disabled={false}
+                  state={"success"}
+                  onCancel={onClose}
+                  onSubmit={() => onConfirm(data)}
                 />
-              </IonButton> */}
-                    </IonButtons>
-                  </IonToolbar>
-                </IonFooter>
               </>
             );
           }}

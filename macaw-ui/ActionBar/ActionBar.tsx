@@ -32,7 +32,7 @@ export const ActionBar: React.FC<ActionBarProps> = ({
   return (
     <Portal container={anchor.current}>
       <Slide direction="up" in={!!anchor} container={anchor.current}>
-        <IonFooter>
+        <IonFooter style={{ position: "fixed", bottom: 0 }}>
           <IonToolbar
             style={{ "--background": "#404040", borderRadius: "16px 16px 0 0" }}
           >
