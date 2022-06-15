@@ -43,7 +43,7 @@ export const ShippingZonesList = ({ shippingListModalRef }) => {
         backdropDismiss={true}
         isOpen={pathname.includes("/shipping/") && pathname !== "/shipping/add"}
         canDismiss={true}
-        presentingElement={shippingListModalRef.current || undefined}
+        presentingElement={shippingListModalRef.current}
         onWillDismiss={() => push("/shipping")}
       >
         <Route
@@ -63,7 +63,7 @@ export const ShippingZonesList = ({ shippingListModalRef }) => {
         backdropDismiss={true}
         isOpen={pathname === "/shipping/add"}
         canDismiss={true}
-        presentingElement={shippingListModalRef.current || undefined}
+        presentingElement={shippingListModalRef.current}
         onWillDismiss={() => push("/shipping")}
       >
         <Route
@@ -101,7 +101,7 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
         backdropDismiss={true}
         isOpen={pathname.includes("/price/add")}
         canDismiss={true}
-        presentingElement={shippingDetailModalRef.current || undefined}
+        presentingElement={shippingDetailModalRef.current}
         onWillDismiss={() => {
           push(`/shipping/${match.id}`);
         }}
@@ -123,7 +123,7 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
           pathname.includes("/price/") && !pathname.includes("/price/add")
         }
         canDismiss={true}
-        presentingElement={shippingDetailModalRef.current || undefined}
+        presentingElement={shippingDetailModalRef.current}
         onWillDismiss={() => {
           push(`/shipping/${match.id}`);
         }}
@@ -143,7 +143,7 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
         backdropDismiss={true}
         isOpen={pathname.includes("/weight/add")}
         canDismiss={true}
-        presentingElement={shippingDetailModalRef.current || undefined}
+        presentingElement={shippingDetailModalRef.current}
         onWillDismiss={() => {
           push(`/shipping/${match.id}`);
         }}
@@ -165,7 +165,7 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
           pathname.includes("/weight/") && !pathname.includes("/weight/add")
         }
         canDismiss={true}
-        presentingElement={shippingDetailModalRef.current || undefined}
+        presentingElement={shippingDetailModalRef.current}
         onWillDismiss={() => {
           push(`/shipping/${match.id}`);
         }}

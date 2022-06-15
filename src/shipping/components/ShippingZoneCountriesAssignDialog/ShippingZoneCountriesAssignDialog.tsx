@@ -1,13 +1,6 @@
-import {
-  IonModal,
-  IonButton,
-  IonIcon,
-  IonContent,
-  IonFooter,
-  IonToolbar,
-  IonButtons
-} from "@ionic/react";
+import { IonModal, IonButton, IonIcon, IonContent } from "@ionic/react";
 import { closeOutline } from "ionicons/icons";
+import Savebar from "@saleor/components/Savebar";
 
 import {
   DialogContent,
@@ -17,17 +10,14 @@ import {
   Typography
 } from "@mui/material";
 import Checkbox from "@saleor/components/Checkbox";
-import ConfirmButton, {
-  ConfirmButtonTransitionState
-} from "@saleor/components/ConfirmButton";
+import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Form from "@saleor/components/Form";
 import FormSpacer from "@saleor/components/FormSpacer";
 import Hr from "@saleor/components/Hr";
 import { ShopInfo_shop_countries } from "@saleor/components/Shop/types/ShopInfo";
-import { buttonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
 import { filter } from "fuzzaldrin";
-import React, { useEffect } from "react";
+import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 const spanStyle = {
@@ -88,7 +78,6 @@ const useStyles = makeStyles(
 );
 const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDialogProps> = props => {
   const {
-    confirmButtonState,
     isDefault,
     onClose,
     countries,
@@ -99,22 +88,6 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
 
   const classes = useStyles(props);
   const intl = useIntl();
-
-  useEffect(() => {
-    let footer = document.getElementById("action-bar-footer");
-    if (open) {
-      if (footer) {
-        footer.style.display = "none";
-      }
-    } else {
-      if (footer) {
-        footer.style.display = "block";
-      }
-    }
-    return () => {
-      footer = null;
-    };
-  }, [open]);
 
   const initialForm: FormData = {
     countries: initial,
@@ -265,38 +238,12 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                     </TableRow>
                   );
                 })}
-
-                <IonFooter
-                  style={{
-                    top: "calc(91% - 50px)",
-                    position: "fixed"
-                  }}
-                >
-                  <IonToolbar>
-                    <IonButtons slot="primary">
-                      <IonButton
-                        fill="clear"
-                        data-test-id={`shipping-zone-countries-assign-clear-selection`}
-                        onClick={onClose}
-                      >
-                        <FormattedMessage {...buttonMessages.back} />
-                      </IonButton>
-
-                      <ConfirmButton
-                        transitionState={confirmButtonState}
-                        color="primary"
-                        variant="contained"
-                        type="submit"
-                        onClick={confirmButtonState}
-                      >
-                        <FormattedMessage
-                          defaultMessage="Assign countries"
-                          description="button"
-                        />
-                      </ConfirmButton>
-                    </IonButtons>
-                  </IonToolbar>
-                </IonFooter>
+                <Savebar
+                  disabled={false}
+                  state={"success"}
+                  onCancel={onClose}
+                  onSubmit={() => onConfirm(data)}
+                />
               </>
             );
           }}

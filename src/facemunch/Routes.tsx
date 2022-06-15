@@ -149,7 +149,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
               pathname.includes("/products/") && pathname !== "/products/add"
             }
             canDismiss={true}
-            presentingElement={refto.current || undefined}
+            presentingElement={refto.current}
             onWillDismiss={() =>
               pathname.includes("/products/") && push("/products")
             }
@@ -167,7 +167,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
             backdropDismiss={true}
             isOpen={pathname.includes("/products/add")}
             canDismiss={true}
-            presentingElement={refto.current || undefined}
+            presentingElement={refto.current}
             onWillDismiss={() =>
               pathname === "/products/add" && push("/products")
             }
@@ -183,7 +183,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
             backdropDismiss={true}
             isOpen={pathname.includes("/orders/")}
             canDismiss={true}
-            presentingElement={refto.current || undefined}
+            presentingElement={refto.current}
             onWillDismiss={() => pathname.includes("/orders/") && goBack()}
           >
             <Route
@@ -201,7 +201,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
               pathname.includes("/orders/") && pathname.includes("/refund")
             }
             canDismiss={true}
-            presentingElement={orderModalRef.current || undefined}
+            presentingElement={orderModalRef.current}
             // onWillDismiss={() => pathname.includes("/orders/") && goBack()}
           >
             <Route
@@ -218,7 +218,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
             backdropDismiss={true}
             isOpen={pathname.includes("/customers/")}
             canDismiss={true}
-            presentingElement={refto.current || undefined}
+            presentingElement={refto.current}
             onWillDismiss={() => pathname.includes("/customers/") && goBack()}
           >
             <Route
@@ -243,7 +243,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
               pathname === "/configuration" || pathname.includes("/shipping")
             }
             canDismiss={true}
-            presentingElement={refto.current || undefined}
+            presentingElement={refto.current}
             onWillDismiss={() => push("/home")}
           >
             <ConfigurationSection />
@@ -257,7 +257,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
             backdropDismiss={true}
             isOpen={pathname.includes("/shipping")}
             canDismiss={true}
-            presentingElement={homeModalRef.current || undefined}
+            presentingElement={homeModalRef.current}
             onWillDismiss={() => push("/configuration")}
           >
             <ShippingZonesList
