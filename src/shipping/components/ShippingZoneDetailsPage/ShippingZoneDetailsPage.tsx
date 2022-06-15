@@ -5,15 +5,12 @@ import CountryList from "@saleor/components/CountryList";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
 import Metadata from "@saleor/components/Metadata/Metadata";
-import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
 import PageHeader from "@saleor/components/PageHeader";
 import Savebar from "@saleor/components/Savebar";
 import { ShippingErrorFragment } from "@saleor/fragments/types/ShippingErrorFragment";
 import { ShippingZoneDetailsFragment_warehouses } from "@saleor/fragments/types/ShippingZoneDetailsFragment";
 import { SubmitPromise } from "@saleor/hooks/useForm";
-import useStateFromProps from "@saleor/hooks/useStateFromProps";
 import { ShippingZone_shippingZone } from "@saleor/shipping/types/ShippingZone";
-import { mapNodeToChoice } from "@saleor/utils/maps";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
@@ -70,7 +67,6 @@ export interface ShippingZoneDetailsPageProps
   allChannels?: BaseChannels_channels[];
 }
 
-
 const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
   disabled,
   errors,
@@ -86,20 +82,11 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
   onWeightRateEdit,
   saveButtonBarState,
   selectedChannelId,
-  shippingZone}) => {
+  shippingZone
+}) => {
   const intl = useIntl();
 
   const initialForm = getInitialFormData(shippingZone);
-
-  const [warehouseDisplayValues, setWarehouseDisplayValues] = useStateFromProps<
-    MultiAutocompleteChoiceType[]
-  >(mapNodeToChoice(shippingZone?.warehouses));
-
-
-
-  const [channelsDisplayValues, setChannelDisplayValues] = useStateFromProps<
-    MultiAutocompleteChoiceType[]
-  >(mapNodeToChoice(shippingZone?.channels));
 
   const {
     makeChangeHandler: makeMetadataChangeHandler
@@ -110,8 +97,6 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
       <IonContent data-test-id="shipping-zone-details-page">
         <Form initial={initialForm} onSubmit={onSubmit}>
           {({ change, data, hasChanged, submit }) => {
-
-
             const changeMetadata = makeMetadataChangeHandler(change);
 
             return (
@@ -168,22 +153,6 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
                     />
                     <CardSpacer />
                     <Metadata data={data} onChange={changeMetadata} />
-                  </div>
-                  <div>
-                    {/* <ShippingZoneSettingsCard
-                    formData={data}
-                    warehousesDisplayValues={warehouseDisplayValues}
-                    hasMoreWarehouses={hasMore}
-                    loading={loading}
-                    onWarehouseChange={handleWarehouseChange}
-                    onFetchMoreWarehouses={onFetchMore}
-                    onWarehousesSearchChange={onSearchChange}
-                    onWarehouseAdd={onWarehouseAdd}
-                    warehousesChoices={warehouseChoices}
-                    allChannels={allChannels}
-                    channelsDisplayValues={channelsDisplayValues}
-                    onChannelChange={handleChannelChange}
-                  /> */}
                   </div>
                   <div style={{ height: "100px" }} />
                 </Grid>

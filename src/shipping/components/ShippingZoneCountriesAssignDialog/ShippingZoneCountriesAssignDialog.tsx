@@ -126,14 +126,6 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
       style={{ "--z-index": "1000000" }}
       isOpen={open}
       initialBreakpoint={0.91}
-      // showBackdrop={false}
-      // swipeToClose={false}
-      onDidDismiss={async () => {
-        // onClose();
-      }}
-      // mode="ios"
-      // backdropDismiss={true}
-      // canDismiss={true}
     >
       <>
         <span style={spanStyle}>
@@ -159,27 +151,6 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
           <IonIcon slot="icon-only" color="dark" icon={closeOutline} />
         </IonButton>
       </>
-
-      {/* < data-test-id="searchQuery"> */}
-      {/* <IonSearchbar
-        name="query"
-        value={query}
-        showClearButton={true}
-        onIonChange={onQueryChange}
-        label={intl.formatMessage({
-          defaultMessage: "Search Products"
-        })}
-        placeholder={intl.formatMessage({
-          defaultMessage:
-            "Search by product name, attribute, product type etc..."
-        })}
-        loading={loading}
-        fullWidth
-        // InputProps={{
-        //   autoComplete: "off",
-        //   endAdornment: loading && <CircularProgress size={16} />
-        // }}
-      /> */}
 
       <IonContent data-test-id="shipping-zone-countries-assign-view">
         <Form initial={initialForm} onSubmit={onConfirm}>
@@ -217,9 +188,7 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                   <Typography className={classes.heading} variant="subtitle1">
                     <FormattedMessage defaultMessage="Quick Pick" />
                   </Typography>
-                  {/* <ResponsiveTable className={classes.table}>
-                    <TableBody>
-                      <TableRow> */}
+
                   <TableCell className={classes.wideCell}>
                     <FormattedMessage defaultMessage="Rest of the World" />
                     <Typography variant="caption">
@@ -242,9 +211,6 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                       }
                     />
                   </TableCell>
-                  {/* </TableRow> */}
-                  {/* </TableBody> */}
-                  {/* </ResponsiveTable> */}
                 </DialogContent>
 
                 <DialogContent className={classes.container}>
@@ -256,7 +222,6 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                   </Typography>
                 </DialogContent>
 
-                {/* <DialogContent className={classes.scrollAreaContainer}> */}
                 {filter(countries, data.query, {
                   key: "country"
                 }).map(country => {
@@ -300,36 +265,20 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                     </TableRow>
                   );
                 })}
-                {/* </DialogContent> */}
-                {/* <DialogActions>
-                  <Button onClick={onClose}>
-                    <FormattedMessage {...buttonMessages.back} />
-                  </Button>
-                  <ConfirmButton
-                    transitionState={confirmButtonState}
-                    color="primary"
-                    variant="contained"
-                    type="submit"
-                  >
-                    <FormattedMessage
-                      defaultMessage="Assign countries"
-                      description="button"
-                    />
-                  </ConfirmButton>
-                </DialogActions> */}
+
                 <IonFooter
                   style={{
-                    // height: "60px",
-                    // bottom: "60px",
-                    // position: 'fixed',
                     top: "calc(91% - 50px)",
                     position: "fixed"
                   }}
-                  // slot="fixed"
                 >
                   <IonToolbar>
                     <IonButtons slot="primary">
-                      <IonButton fill="clear" data-test-id={`shipping-zone-countries-assign-clear-selection`} onClick={onClose}>
+                      <IonButton
+                        fill="clear"
+                        data-test-id={`shipping-zone-countries-assign-clear-selection`}
+                        onClick={onClose}
+                      >
                         <FormattedMessage {...buttonMessages.back} />
                       </IonButton>
 
@@ -345,19 +294,6 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                           description="button"
                         />
                       </ConfirmButton>
-                      {/* <IonButton
-                disabled={variants.length === 0}
-                // transitionState={confirmButtonState}
-                color="primary"
-                // variant="contained"
-                type="submit"
-                onClick={confirmButtonState}
-              >
-                <FormattedMessage
-                  defaultMessage="Assign countries"
-                  description="button"
-                />
-              </IonButton> */}
                     </IonButtons>
                   </IonToolbar>
                 </IonFooter>

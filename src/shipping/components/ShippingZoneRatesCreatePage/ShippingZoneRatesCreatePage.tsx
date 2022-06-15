@@ -1,9 +1,7 @@
 import { OutputData } from "@editorjs/editorjs";
 import { ChannelShippingData } from "@saleor/channels/utils";
 import CardSpacer from "@saleor/components/CardSpacer";
-import ChannelsAvailabilityCard from "@saleor/components/ChannelsAvailabilityCard";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
-import Container from "@saleor/components/Container";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
 import PageHeader from "@saleor/components/PageHeader";
@@ -18,17 +16,12 @@ import OrderWeight from "@saleor/shipping/components/OrderWeight";
 import PricingCard from "@saleor/shipping/components/PricingCard";
 import ShippingRateInfo from "@saleor/shipping/components/ShippingRateInfo";
 import { createChannelsChangeHandler } from "@saleor/shipping/handlers";
-import {
-  PermissionEnum,
-  PostalCodeRuleInclusionTypeEnum,
-  ShippingMethodTypeEnum
-} from "@saleor/types/globalTypes";
+import { PostalCodeRuleInclusionTypeEnum, ShippingMethodTypeEnum } from "@saleor/types/globalTypes";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { IonContent, IonPage } from "@ionic/react";
 
-import ShippingZonePostalCodes from "../ShippingZonePostalCodes";
 import { ShippingZoneRateCommonFormData } from "../ShippingZoneRatesPage/types";
 
 export interface ShippingZoneRatesCreatePageProps {
@@ -158,13 +151,6 @@ export const ShippingZoneRatesCreatePage: React.FC<ShippingZoneRatesCreatePagePr
                     errors={channelErrors}
                   />
                   <CardSpacer />
-                  {/* <ShippingZonePostalCodes
-                    disabled={disabled}
-                    onPostalCodeDelete={onPostalCodeUnassign}
-                    onPostalCodeInclusionChange={onPostalCodeInclusionChange}
-                    onPostalCodeRangeAdd={onPostalCodeAssign}
-                    postalCodes={postalCodes}
-                  /> */}
                 </div>
                 <div style={{ height: "100px" }} />
               </Grid>

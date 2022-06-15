@@ -10,10 +10,7 @@ import { useIntl } from "react-intl";
 import { IonCard, IonCardContent } from "@ionic/react";
 
 import ChannelAvailabilityItemContent from "./Channel/ChannelAvailabilityItemContent";
-import ChannelAvailabilityItemWrapper from "./Channel/ChannelAvailabilityItemWrapper";
-import ChannelsAvailabilityCardWrapper, {
-  ChannelsAvailabilityWrapperProps
-} from "./ChannelsAvailabilityCardWrapper";
+import { ChannelsAvailabilityWrapperProps } from "./ChannelsAvailabilityCardWrapper";
 import { useStyles } from "./styles";
 import { ChannelOpts, ChannelsAvailabilityError, Messages } from "./types";
 import { getChannelsAvailabilityMessages } from "./utils";
@@ -40,14 +37,9 @@ export const ChannelsAvailability: React.FC<ChannelsAvailabilityCardProps> = pro
   const {
     channelsList,
     errors = [],
-    selectedChannelsCount = 0,
-    allChannelsCount = 0,
     channels,
     messages,
-    managePermissions,
     onChange,
-    openModal,
-    isDigitalProduct = false,
     isAutoPresentToPublished = false
   } = props;
   const intl = useIntl();
@@ -77,13 +69,6 @@ export const ChannelsAvailability: React.FC<ChannelsAvailabilityCardProps> = pro
   return (
     <IonCard>
       <IonCardContent>
-        {/* <ChannelsAvailabilityCardWrapper
-      selectedChannelsCount={selectedChannelsCount}
-      allChannelsCount={allChannelsCount}
-      managePermissions={managePermissions}
-      openModal={openModal}
-    > */}
-
         {channels
           ? channels.map(data => {
               const channelErrors =

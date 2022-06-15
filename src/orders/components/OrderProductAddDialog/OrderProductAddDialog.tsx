@@ -1,20 +1,12 @@
 import {
-  Button,
   CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
   DialogContentText,
-  DialogTitle,
   TableBody,
   TableCell,
-  TableRow,
-  TextField
+  TableRow
 } from "@mui/material";
 import Checkbox from "@saleor/components/Checkbox";
-import ConfirmButton, {
-  ConfirmButtonTransitionState
-} from "@saleor/components/ConfirmButton";
+import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import FormSpacer from "@saleor/components/FormSpacer";
 import Money from "@saleor/components/Money";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
@@ -32,7 +24,6 @@ import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { FormattedMessage, useIntl } from "react-intl";
 import { closeOutline } from "ionicons/icons";
-import Portal from "@mui/material/Portal";
 
 import {
   IonModal,
@@ -203,7 +194,6 @@ const scrollableTargetId = "orderProductAddScrollableDialog";
 
 const OrderProductAddDialog: React.FC<OrderProductAddDialogProps> = props => {
   const {
-    confirmButtonState,
     errors: apiErrors,
     open,
     loading,
@@ -301,8 +291,6 @@ const OrderProductAddDialog: React.FC<OrderProductAddDialogProps> = props => {
             <IonIcon slot="icon-only" color="dark" icon={closeOutline} />
           </IonButton>
         </>
-
-        {/* < data-test-id="searchQuery"> */}
         <IonSearchbar
           name="query"
           value={query}
@@ -317,15 +305,9 @@ const OrderProductAddDialog: React.FC<OrderProductAddDialogProps> = props => {
           })}
           loading={loading}
           fullWidth
-          // InputProps={{
-          //   autoComplete: "off",
-          //   endAdornment: loading && <CircularProgress size={16} />
-          // }}
         />
 
         <IonContent>
-          {/* </> */}
-          {/* <DialogContent className={classes.content} id={scrollableTargetId}> */}
           <InfiniteScroll
             dataLength={productChoicesWithValidVariants?.length}
             next={onFetchMore}
@@ -446,16 +428,11 @@ const OrderProductAddDialog: React.FC<OrderProductAddDialogProps> = props => {
               ))}
             </>
           )}
-          {/* </DialogContent> */}
           <IonFooter
             style={{
-              // height: "60px",
-              // bottom: "60px",
-              // position: 'fixed',
               top: "calc(91% - 50px)",
               position: "fixed"
             }}
-            // slot="fixed"
           >
             <IonToolbar>
               <IonButtons slot="primary">
@@ -464,9 +441,7 @@ const OrderProductAddDialog: React.FC<OrderProductAddDialogProps> = props => {
                 </IonButton>
                 <IonButton
                   disabled={variants.length === 0}
-                  // transitionState={confirmButtonState}
                   color="primary"
-                  // variant="contained"
                   type="submit"
                   onClick={handleSubmit}
                 >
