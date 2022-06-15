@@ -144,7 +144,7 @@ interface MediaListContainerProps {
 
 const MediaListContainer = SortableContainer<MediaListContainerProps>(
   ({ media, preview, onDelete, onEdit, ...props }) => (
-    <div {...props}>
+    <div data-test-id="media-mooo" {...props}>
       {media.map((mediaObj, index) => (
         <SortableMedia
           key={`item-${index}`}

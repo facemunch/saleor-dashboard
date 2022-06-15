@@ -27,7 +27,7 @@ import "@ionic/react/css/ionic-swiper.css";
 
 // import authLink from "../auth/link";
 import AppLayout from "../components/AppLayout";
-import { CustomerListView } from "../customers";
+// import { CustomerListView } from "../customers";
 
 import HomePage from "../home";
 import { OrderList } from "../orders";
@@ -134,9 +134,9 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
             <SwiperSlide data-history="orders">
               <OrderList />
             </SwiperSlide>
-            <SwiperSlide data-history="customers">
+            {/* <SwiperSlide data-history="customers">
               <CustomerListView />
-            </SwiperSlide>
+            </SwiperSlide> */}
           </Swiper>
 
           <IonModal
@@ -260,9 +260,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
             presentingElement={homeModalRef.current}
             onWillDismiss={() => push("/configuration")}
           >
-            <ShippingZonesList
-              shippingListModalRef={shippingListModalRef}
-            />
+            <ShippingZonesList shippingListModalRef={shippingListModalRef} />
           </IonModal>
         </>
       </AppLayout>
