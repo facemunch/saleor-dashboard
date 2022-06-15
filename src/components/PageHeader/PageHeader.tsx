@@ -54,7 +54,8 @@ const PageHeader: React.FC<PageHeaderProps> = props => {
   const classes = useStyles(props);
 
   return (
-    <ExtendedPageHeader
+    <>
+      {/* <ExtendedPageHeader
       testId="page-header"
       className={className}
       inline={inline}
@@ -64,16 +65,20 @@ const PageHeader: React.FC<PageHeaderProps> = props => {
           {title !== undefined ? title : <Skeleton style={{ width: "10em" }} />}
         </Typography>
       }
-    >
-      <div className={classes.root}>
-        {limitText && (
-          <Typography className={classes.limit} color="textSecondary">
-            {limitText}
-          </Typography>
-        )}
-        {children}
-      </div>
-    </ExtendedPageHeader>
+    > */}
+      <span className={"modalPageHeader"}>
+        {title !== undefined ? title : <Skeleton style={{ width: "10em" }} />}
+      </span>
+      {/* <div className={classes.root}> */}
+      {/* {limitText && (
+        <Typography className={classes.limit} color="textSecondary">
+          {limitText}
+        </Typography>
+      )} */}
+      {children}
+      {/* </div> */}
+      {/* </ExtendedPageHeader> */}
+    </>
   );
 };
 

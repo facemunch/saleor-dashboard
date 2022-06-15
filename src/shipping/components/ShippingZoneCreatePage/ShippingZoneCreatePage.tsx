@@ -13,6 +13,7 @@ import { IonPage, IonContent } from "@ionic/react";
 
 import ShippingZoneCountriesAssignDialog from "../ShippingZoneCountriesAssignDialog";
 import ShippingZoneInfo from "../ShippingZoneInfo";
+import PageHeader from "@saleor/components/PageHeader";
 
 export interface FormData {
   countries: string[];
@@ -71,14 +72,12 @@ const ShippingZoneCreatePage: React.FC<ShippingZoneCreatePageProps> = ({
 
   return (
     <IonPage>
-      <IonContent>
+      <IonContent data-test-id="shipping-zone-create">
         <Form initial={initialForm} onSubmit={onSubmit}>
           {({ change, data, hasChanged, submit }) => (
             <>
-              {/* <Backlink onClick={onBack}>
-              {intl.formatMessage(sectionNames.shipping)}
-            </Backlink> */}
-              {/* <PageHeader title={intl.formatMessage(messages.createZone)} /> */}
+             
+              <PageHeader title={intl.formatMessage(messages.createZone)} />
               <Grid>
                 <div>
                   <ShippingZoneInfo

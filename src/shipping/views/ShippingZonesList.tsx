@@ -137,7 +137,7 @@ export const ShippingZonesList: React.FC<ShippingZonesListProps> = ({
   );
 
   return (
-    <IonContent>
+    <IonContent data-test-id="shipping-zones-list">
       <ShippingZonesListPage
         defaultWeightUnit={shop?.defaultWeightUnit}
         settings={settings}

@@ -20,6 +20,7 @@ import CustomerCreateDetails from "../CustomerCreateDetails";
 import CustomerCreateNote from "../CustomerCreateNote/CustomerCreateNote";
 
 import { IonContent, IonPage } from "@ionic/react";
+import PageHeader from "@saleor/components/PageHeader";
 
 export interface CustomerCreatePageFormData {
   customerFirstName: string;
@@ -141,15 +142,15 @@ const CustomerCreatePage: React.FC<CustomerCreatePageProps> = ({
         return (
           <IonPage>
             <IonContent>
-              <Backlink onClick={onBack}>
+              {/* <Backlink onClick={onBack}>
                 <FormattedMessage {...sectionNames.customers} />
-              </Backlink>
-              {/* <PageHeader
+              </Backlink> */}
+              <PageHeader
                 title={intl.formatMessage({
                   defaultMessage: "Create Customer",
                   description: "page header"
                 })}
-              /> */}
+              />
               <Grid>
                 <div>
                   <CustomerCreateDetails

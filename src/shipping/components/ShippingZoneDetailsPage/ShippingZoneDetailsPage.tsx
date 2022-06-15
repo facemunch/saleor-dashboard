@@ -1,7 +1,6 @@
 import { BaseChannels_channels } from "@saleor/channels/types/BaseChannels";
 import CardSpacer from "@saleor/components/CardSpacer";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
-import Container from "@saleor/components/Container";
 import CountryList from "@saleor/components/CountryList";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
@@ -9,18 +8,15 @@ import Metadata from "@saleor/components/Metadata/Metadata";
 import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
 import PageHeader from "@saleor/components/PageHeader";
 import Savebar from "@saleor/components/Savebar";
-import { SingleAutocompleteChoiceType } from "@saleor/components/SingleAutocompleteSelectField";
 import { ShippingErrorFragment } from "@saleor/fragments/types/ShippingErrorFragment";
 import { ShippingZoneDetailsFragment_warehouses } from "@saleor/fragments/types/ShippingZoneDetailsFragment";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
-import { Backlink } from "@saleor/macaw-ui";
 import { ShippingZone_shippingZone } from "@saleor/shipping/types/ShippingZone";
-import createMultiAutocompleteSelectHandler from "@saleor/utils/handlers/multiAutocompleteSelectChangeHandler";
 import { mapNodeToChoice } from "@saleor/utils/maps";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
 import React from "react";
-import { defineMessages, FormattedMessage, useIntl } from "react-intl";
+import { defineMessages, useIntl } from "react-intl";
 
 import { IonContent, IonPage } from "@ionic/react";
 
@@ -30,7 +26,6 @@ import { ShippingMethodTypeEnum } from "../../../types/globalTypes";
 import { FormData } from "../../components/ShippingZoneDetailsPage/types";
 import ShippingZoneInfo from "../ShippingZoneInfo";
 import ShippingZoneRates from "../ShippingZoneRates";
-import ShippingZoneSettingsCard from "../ShippingZoneSettingsCard";
 import { getInitialFormData } from "./utils";
 
 const messages = defineMessages({
@@ -75,39 +70,23 @@ export interface ShippingZoneDetailsPageProps
   allChannels?: BaseChannels_channels[];
 }
 
-function warehouseToChoice(
-  warehouse: Record<"id" | "name", string>
-): SingleAutocompleteChoiceType {
-  return {
-    label: warehouse.name,
-    value: warehouse.id
-  };
-}
 
 const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
   disabled,
   errors,
-  hasMore,
-  loading,
   onBack,
   onCountryAdd,
   onCountryRemove,
   onDelete,
-  onFetchMore,
   onPriceRateAdd,
   onPriceRateEdit,
   onRateRemove,
-  onSearchChange,
   onSubmit,
-  onWarehouseAdd,
   onWeightRateAdd,
   onWeightRateEdit,
   saveButtonBarState,
   selectedChannelId,
-  shippingZone,
-  warehouses,
-  allChannels
-}) => {
+  shippingZone}) => {
   const intl = useIntl();
 
   const initialForm = getInitialFormData(shippingZone);
@@ -116,9 +95,7 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
     MultiAutocompleteChoiceType[]
   >(mapNodeToChoice(shippingZone?.warehouses));
 
-  const warehouseChoices = warehouses.map(warehouseToChoice);
 
-  const channelChoices = mapNodeToChoice(allChannels);
 
   const [channelsDisplayValues, setChannelDisplayValues] = useStateFromProps<
     MultiAutocompleteChoiceType[]
@@ -130,31 +107,16 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
 
   return (
     <IonPage>
-      <IonContent>
+      <IonContent data-test-id="shipping-zone-details-page">
         <Form initial={initialForm} onSubmit={onSubmit}>
-          {({ change, data, hasChanged, submit, toggleValue }) => {
-            const handleWarehouseChange = createMultiAutocompleteSelectHandler(
-              toggleValue,
-              setWarehouseDisplayValues,
-              warehouseDisplayValues,
-              warehouseChoices
-            );
+          {({ change, data, hasChanged, submit }) => {
 
-            const handleChannelChange = createMultiAutocompleteSelectHandler(
-              toggleValue,
-              setChannelDisplayValues,
-              channelsDisplayValues,
-              channelChoices
-            );
 
             const changeMetadata = makeMetadataChangeHandler(change);
 
             return (
               <>
-                {/* <Backlink onClick={onBack}>
-                  <FormattedMessage {...messages.shipping} />
-                </Backlink> */}
-                {/* <PageHeader title={shippingZone?.name} /> */}
+                <PageHeader title={shippingZone?.name} />
                 <Grid>
                   <div>
                     <ShippingZoneInfo

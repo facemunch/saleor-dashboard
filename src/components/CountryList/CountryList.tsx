@@ -98,7 +98,7 @@ const CountryList: React.FC<CountryListProps> = props => {
   }
 
   return (
-    <IonCard>
+    <IonCard data-test-id="country-list">
       <CardTitle
         title={title}
         toolbar={
@@ -146,7 +146,7 @@ const CountryList: React.FC<CountryListProps> = props => {
               renderCollection(
                 sortCountries(countries),
                 (country, countryIndex) => (
-                  <TableRow key={country ? country.code : "skeleton"}>
+                  <TableRow data-test-id="shipping-zone-country-item" key={country ? country.code : "skeleton"}>
                     <TableCell className={classes.offsetCell}>
                       {maybe<React.ReactNode>(
                         () => (

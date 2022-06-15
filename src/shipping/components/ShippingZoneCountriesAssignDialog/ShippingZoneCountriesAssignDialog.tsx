@@ -181,7 +181,7 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
         // }}
       /> */}
 
-      <IonContent>
+      <IonContent data-test-id="shipping-zone-countries-assign-view">
         <Form initial={initialForm} onSubmit={onConfirm}>
           {({ data, change }) => {
             const countrySelectionMap = countries.reduce((acc, country) => {
@@ -263,7 +263,10 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                   const isChecked = countrySelectionMap[country.code];
 
                   return (
-                    <TableRow key={country.code}>
+                    <TableRow
+                      data-test-id={`shipping-zone-countries-assign-${country.code}`}
+                      key={country.code}
+                    >
                       <TableCell className={classes.wideCell}>
                         {country.country}
                       </TableCell>
@@ -273,6 +276,7 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                       >
                         <Checkbox
                           checked={isChecked}
+                          data-test-id={`shipping-zone-countries-assign-${country.code}-checkbox`}
                           onChange={() =>
                             isChecked
                               ? change({
@@ -325,7 +329,7 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                 >
                   <IonToolbar>
                     <IonButtons slot="primary">
-                      <IonButton fill="clear" onClick={onClose}>
+                      <IonButton fill="clear" data-test-id={`shipping-zone-countries-assign-clear-selection`} onClick={onClose}>
                         <FormattedMessage {...buttonMessages.back} />
                       </IonButton>
 

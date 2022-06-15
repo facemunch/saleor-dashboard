@@ -24,7 +24,8 @@ const ShippingZoneCreate = () => {
         });
         navigate(shippingZoneUrl(data.shippingZoneCreate.shippingZone.id));
       }
-    }
+    },
+    refetchQueries: ['ShippingZones'],
   });
   return (
     <ShippingZoneCreatePage
@@ -32,13 +33,14 @@ const ShippingZoneCreate = () => {
       disabled={createShippingZoneOpts.loading}
       errors={createShippingZoneOpts.data?.shippingZoneCreate.errors || []}
       onBack={() => navigate(shippingZonesListUrl())}
-      onSubmit={formData =>
+      onSubmit={formData => {
         createShippingZone({
           variables: {
             input: formData
           }
-        })
-      }
+        });
+        navigate(shippingZonesListUrl());
+      }}
       saveButtonBarState={createShippingZoneOpts.status}
     />
   );

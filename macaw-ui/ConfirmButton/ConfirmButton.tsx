@@ -77,14 +77,15 @@ export const ConfirmButton: React.FC<ConfirmButtonProps> = ({
     <IonButton
       slot="primary"
       // variant="contained"
-      onClick={transitionState === "loading" ? undefined : onClick}
+      onClick={onClick}
       // color="dark"
       fill="solid"
+      data-test-id={`confirm-selection`}
       // className={clsx(className, {
       //   [classes.error]: transitionState === "error" && isCompleted,
       //   [classes.success]: transitionState === "success" && isCompleted
       // })}
-      disabled={!isCompleted && disabled}
+      disabled={(!isCompleted && disabled) || transitionState === "loading"}
       data-test-state={isCompleted ? transitionState : "default"}
       {...props}
     >

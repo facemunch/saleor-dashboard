@@ -1,4 +1,4 @@
-import { Button, IconButton, TableBody, TableCell, TableRow } from "@mui/material";
+import { IconButton, TableBody, TableCell, TableRow } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CardTitle from "@saleor/components/CardTitle";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
@@ -11,7 +11,7 @@ import { ListActions, ListProps } from "@saleor/types";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { IonCard } from "@ionic/react";
+import { IonButton, IonCard } from "@ionic/react";
 
 export interface ShippingZonesListProps extends ListProps, ListActions {
   shippingZones: ShippingZoneFragment[];
@@ -67,7 +67,8 @@ const ShippingZonesList: React.FC<ShippingZonesListProps> = props => {
           description: "sort shipping methods by zone, section header"
         })}
         toolbar={
-          <Button
+          <IonButton
+            size="small"
             color="primary"
             onClick={onAdd}
             data-test-id="add-shipping-zone"
@@ -76,7 +77,7 @@ const ShippingZonesList: React.FC<ShippingZonesListProps> = props => {
               defaultMessage="Create shipping zone"
               description="button"
             />
-          </Button>
+          </IonButton>
         }
       />
       <ResponsiveTable>
@@ -110,6 +111,7 @@ const ShippingZonesList: React.FC<ShippingZonesListProps> = props => {
 
               return (
                 <TableRow
+                  data-test-id="shipping-zone"
                   className={classes.row}
                   hover={!!shippingZone}
                   key={shippingZone ? shippingZone.id : "skeleton"}
@@ -138,6 +140,7 @@ const ShippingZonesList: React.FC<ShippingZonesListProps> = props => {
                   </TableCell>
                   <TableCell className={classes.colAction}>
                     <IconButton
+                      data-test-id="delete-shipping-zone"
                       color="primary"
                       disabled={disabled}
                       onClick={event => {

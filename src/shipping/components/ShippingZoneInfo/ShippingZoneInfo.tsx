@@ -61,7 +61,7 @@ const ShippingZoneInfo: React.FC<ShippingZoneInfoProps> = ({
   const formErrors = getFormErrors(["name"], errors);
 
   return (
-    <IonCard>
+    <IonCard data-test-id="shipping-zone-info">
       <CardTitle
         title={intl.formatMessage(commonMessages.generalInformations)}
       />
@@ -73,7 +73,8 @@ const ShippingZoneInfo: React.FC<ShippingZoneInfoProps> = ({
           helperText={getShippingErrorMessage(formErrors.name, intl)}
           label={intl.formatMessage(messages.name)}
           inputProps={{
-            "data-test": "name"
+            "data-test": "name",
+            "data-test-id": "shipping-zone-info-name"
           }}
           name="name"
           value={data.name}

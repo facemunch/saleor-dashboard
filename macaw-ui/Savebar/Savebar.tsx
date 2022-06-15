@@ -61,7 +61,7 @@ export const Savebar: React.FC<SavebarProps> = ({
           className={classes.cancelButton}
           fill="clear"
           onClick={onCancel}
-          data-test="button-bar-cancel"
+          data-test-id="button-bar-cancel"
         >
           {labels.cancel}
         </IonButton>

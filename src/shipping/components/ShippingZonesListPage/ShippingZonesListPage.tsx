@@ -38,15 +38,12 @@ const ShippingZonesListPage: React.FC<ShippingZonesListPageProps> = ({
   return (
     <>
       <IonContent data-test-id="shipping-zone-list">
-        <Backlink onClick={onBack}>
-          {intl.formatMessage(sectionNames.configuration)}
-        </Backlink>
-        {/* <PageHeader
+        <PageHeader
           title={intl.formatMessage({
             defaultMessage: "Shipping",
             description: "header"
           })}
-        /> */}
+        />
         <Grid>
           <div>
             <ShippingZonesList disabled={disabled} {...listProps} />
