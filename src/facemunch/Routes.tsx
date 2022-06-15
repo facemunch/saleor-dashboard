@@ -24,10 +24,7 @@ import "swiper/css/free-mode";
 import "swiper/css/history";
 
 import "@ionic/react/css/ionic-swiper.css";
-
-// import authLink from "../auth/link";
 import AppLayout from "../components/AppLayout";
-// import { CustomerListView } from "../customers";
 
 import HomePage from "../home";
 import { OrderList } from "../orders";
@@ -134,9 +131,6 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
             <SwiperSlide data-history="orders">
               <OrderList />
             </SwiperSlide>
-            {/* <SwiperSlide data-history="customers">
-              <CustomerListView />
-            </SwiperSlide> */}
           </Swiper>
 
           <IonModal
@@ -188,7 +182,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
           >
             <Route
               path={"/orders/" + orderPath(":id", "")}
-              render={() => <OrderDetails />}
+              render={() => <OrderDetails orderModalRef={orderModalRef} />}
             />
           </IonModal>
           <IonModal
