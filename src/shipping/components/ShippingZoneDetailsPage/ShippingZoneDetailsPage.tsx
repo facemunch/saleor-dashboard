@@ -101,7 +101,7 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
 
             return (
               <>
-                <PageHeader title={shippingZone?.name} />
+                <PageHeader title={shippingZone?.name + " shipping zone"} />
                 <Grid>
                   <div>
                     <ShippingZoneInfo
