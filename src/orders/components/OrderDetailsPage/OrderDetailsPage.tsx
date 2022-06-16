@@ -20,14 +20,12 @@ import { defineMessages, useIntl } from "react-intl";
 
 import { IonContent, IonPage, IonCardContent } from "@ionic/react";
 
-import { maybe } from "../../../misc";
 import { OrderStatus } from "../../../types/globalTypes";
 import {
   OrderDetails_order,
   OrderDetails_shop
 } from "../../types/OrderDetails";
 import OrderCustomer from "../OrderCustomer";
-import OrderCustomerNote from "../OrderCustomerNote";
 import OrderDraftDetails from "../OrderDraftDetails/OrderDraftDetails";
 import { FormData as OrderDraftDetailsProductsFormData } from "../OrderDraftDetailsProducts";
 import OrderFulfilledProductsCard from "../OrderFulfilledProductsCard";
@@ -322,7 +320,6 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                       <CardSpacer />
                     </>
                   )}
-                  {/* <OrderCustomerNote note={maybe(() => order.customerNote)} /> */}
                 </div>
                 <div style={{ height: "100px" }} />
               </Grid>

@@ -6,6 +6,14 @@ import { useActionBar } from "./context";
 import { IonFooter, IonToolbar } from "@ionic/react";
 import { Slide } from "@mui/material";
 
+const fixedStyle = {
+  position: "fixed",
+  bottom: 0
+};
+const toolBarStyle = {
+  "--background": "#404040",
+  borderRadius: "16px 16px 0 0"
+};
 export interface ActionBarProps {
   disabled: boolean;
   state: ConfirmButtonTransitionState;
@@ -32,12 +40,8 @@ export const ActionBar: React.FC<ActionBarProps> = ({
   return (
     <Portal container={anchor.current}>
       <Slide direction="up" in={!!anchor} container={anchor.current}>
-        <IonFooter style={{ position: "fixed", bottom: 0 }}>
-          <IonToolbar
-            style={{ "--background": "#404040", borderRadius: "16px 16px 0 0" }}
-          >
-            {children}
-          </IonToolbar>
+        <IonFooter style={fixedStyle}>
+          <IonToolbar style={toolBarStyle}>{children}</IonToolbar>
         </IonFooter>
       </Slide>
     </Portal>

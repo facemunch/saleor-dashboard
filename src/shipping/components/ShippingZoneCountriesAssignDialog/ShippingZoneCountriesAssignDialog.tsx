@@ -89,7 +89,6 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
   };
   return (
     <IonModal
-      style={{ "--z-index": "1000000" }}
       isOpen={open}
       initialBreakpoint={0.91}
     >

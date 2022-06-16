@@ -1,35 +1,3 @@
-// import { IonRow } from "@ionic/react";
-// import React from "react";
-
-// import Skeleton from "../Skeleton";
-
-// interface PageHeaderProps {
-//   children?: React.ReactNode;
-//   className?: string;
-//   inline?: boolean;
-//   underline?: boolean;
-//   limitText?: string;
-//   title?: React.ReactNode;
-// }
-
-// const PageHeader: React.FC<PageHeaderProps> = props => {
-//   const { children, title } = props;
-
-//   console.log("title", title);
-//   return (
-//     <IonRow>
-//       <span className={"modalPageHeader"}>
-//         {title !== undefined ? title : <Skeleton style={{ width: "10em" }} />}
-//       </span>
-
-//       {children}
-//     </IonRow>
-//   );
-// };
-
-// PageHeader.displayName = "PageHeader";
-// export default PageHeader;
-
 import { Typography } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
