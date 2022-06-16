@@ -12,8 +12,6 @@ import { ProductChannelListingErrorFragment } from "@saleor/fragments/types/Prod
 import { ProductErrorWithAttributesFragment } from "@saleor/fragments/types/ProductErrorWithAttributesFragment";
 import { TaxTypeFragment } from "@saleor/fragments/types/TaxTypeFragment";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
-import { sectionNames } from "@saleor/intl";
-import { Backlink } from "@saleor/macaw-ui";
 import ProductVariantPrice from "@saleor/products/components/ProductVariantPrice";
 import { ProductType_productType } from "@saleor/products/types/ProductType";
 import { getChoices } from "@saleor/products/utils/data";
@@ -38,13 +36,8 @@ import ProductCreateForm, {
   ProductCreateFormData
 } from "./form";
 
-import {
-  IonPage,
-  IonToolbar,
-  IonHeader,
-  IonContent,
-  IonTitle
-} from "@ionic/react";
+import { IonContent } from "@ionic/react";
+import PageHeader from "@saleor/components/PageHeader";
 
 interface ProductCreatePageProps {
   errors: ProductErrorWithAttributesFragment[];
@@ -126,7 +119,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
   fetchMoreReferenceProducts,
   fetchAttributeValues,
   fetchMoreAttributeValues,
-  onCloseDialog,
   onSelectProductType,
   onAttributeSelectBlur
 }: ProductCreatePageProps) => {
@@ -168,8 +160,9 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
   const randomHash = useMemo(() => generateHash({ length: 4 }), []);
 
   return (
-    <IonPage>
+    <>
       <IonContent data-test-id="add-product-view">
+     
         <ProductCreateForm
           onSubmit={onSubmit}
           initial={initial}
@@ -208,17 +201,7 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
 
             return (
               <>
-                <IonHeader collapse="condense">
-                  <IonToolbar>
-                    <IonTitle className={"mt-1"} size="large">
-                      {header}
-                    </IonTitle>
-                    <Backlink onClick={onBack}>
-                      {intl.formatMessage(sectionNames.products)}
-                    </Backlink>
-                    {/* <PageHeader title={header} /> */}
-                  </IonToolbar>
-                </IonHeader>
+                 <PageHeader title={header}></PageHeader>
 
                 {/* <Grid> */}
                 <div>
@@ -250,17 +233,7 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                   )}
                   <CardSpacer />
                   {isSimpleProduct && (
-                    <>
-                      {/* {!isDigitalProduct && (
-                      <ProductShipping
-                        data={data}
-                        disabled={loading}
-                        errors={errors}
-                        weightUnit={weightUnit}
-                        onChange={change}
-                      />
-                    )} */}
-                      {/* <CardSpacer /> */}
+                    <>                    
                       <ProductVariantPrice
                         isDigitalProduct={isDigitalProduct}
                         ProductVariantChannelListings={data.channelListings}
@@ -272,7 +245,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                       <div
                         id="hide-isDigitalProduct"
                         style={{
-                          // transform: !isDigitalProduct ? "scale(1)" : "scale(0)",
                           height: "0",
                           overflow: "hidden"
                         }}
@@ -309,7 +281,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                   <div
                     id="hide-isDigitalProduct"
                     style={{
-                      // transform: !isDigitalProduct ? "scale(1)" : "scale(0)",
                       height: "0",
                       overflow: "hidden"
                     }}
@@ -371,54 +342,25 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                     )}
                     <CardSpacer />
                   </div>
-                  <div style={{ height: "100px", padding: "24px" }}>
+                  <div style={{ height: "100px", padding: "24px 24px 24px 100px" }}>
                     You can add media and specify more details in the next step.
                   </div>
-                  {/* <ProductTaxes
-                    data={data}
-                    disabled={loading}
-                    onChange={change}
-                    onTaxTypeChange={handlers.selectTaxRate}
-                    selectedTaxTypeDisplayName={selectedTaxType}
-                    taxTypes={taxTypes}
-                  /> */}
+                
                 </div>
-                {/* </Grid> */}
+               
                 <Savebar
                   onCancel={onBack}
                   onSubmit={submit}
                   state={saveButtonBarState}
                   disabled={loading || !onSubmit || formDisabled || !hasChanged}
                 />
-                {/* {canOpenAssignReferencesAttributeDialog && (
-                <AssignAttributeValueDialog
-                  attributeValues={getAttributeValuesFromReferences(
-                    assignReferencesAttributeId,
-                    data.attributes,
-                    referencePages,
-                    referenceProducts
-                  )}
-                  hasMore={handlers.fetchMoreReferences?.hasMore}
-                  open={canOpenAssignReferencesAttributeDialog}
-                  onFetch={handlers.fetchReferences}
-                  onFetchMore={handlers.fetchMoreReferences?.onFetchMore}
-                  loading={handlers.fetchMoreReferences?.loading}
-                  onClose={onCloseDialog}
-                  onSubmit={attributeValues =>
-                    handleAssignReferenceAttribute(
-                      attributeValues,
-                      data,
-                      handlers
-                    )
-                  }
-                />
-              )} */}
+               
               </>
             );
           }}
         </ProductCreateForm>
       </IonContent>
-    </IonPage>
+    </>
   );
 };
 ProductCreatePage.displayName = "ProductCreatePage";
