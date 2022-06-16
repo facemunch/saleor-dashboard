@@ -9,7 +9,7 @@ const useStyles = makeStyles(
       "&:last-child": {
         // padding: theme.spacing(2, 3)
       },
-      width: '42vw',
+      width: "42vw",
       display: "grid",
       gridColumnGap: theme.spacing(3),
       gridTemplateColumns: "1fr 48px"
@@ -45,7 +45,8 @@ const useStyles = makeStyles(
       width: "100%"
     },
     value: {
-      textAlign: "right"
+      textAlign: "left",
+      paddingLeft: "12px"
     }
   }),
   { name: "HomeAnalyticsCard" }
@@ -70,6 +71,14 @@ const HomeAnalyticsCard: React.FC<HomeAnalyticsCardProps> = props => {
           <Typography className={classes.cardTitle} variant="subtitle1">
             {title}
           </Typography>
+
+          <Typography
+            className={classes.value}
+            color="textPrimary"
+            variant="h4"
+          >
+            {children}
+          </Typography>
           <Typography
             className={classes.cardSubtitle}
             variant="caption"
@@ -79,13 +88,6 @@ const HomeAnalyticsCard: React.FC<HomeAnalyticsCardProps> = props => {
               defaultMessage="Today"
               id="homeAnalyticsCardHeader"
             />
-          </Typography>
-          <Typography
-            className={classes.value}
-            color="textPrimary"
-            variant="h4"
-          >
-            {children}
           </Typography>
         </div>
         {/* <div className={classes.iconBackground}>{icon}</div> */}
