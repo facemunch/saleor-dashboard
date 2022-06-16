@@ -101,7 +101,7 @@ const useStyles = makeStyles(
       gridRowGap: theme.spacing(2),
       gridTemplateColumns: "repeat(4, 1fr)",
       [theme.breakpoints.down("sm")]: {
-        gridTemplateColumns: "repeat(3, 1fr)"
+        gridTemplateColumns: "repeat(2, 1fr)"
       },
       [theme.breakpoints.down("xs")]: {
         gridTemplateColumns: "repeat(2, 1fr)"
