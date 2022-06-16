@@ -4,16 +4,7 @@ import { settingsOutline } from "ionicons/icons";
 import { makeStyles, useActionBar } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
-import {
-  IonPage,
-  IonToolbar,
-  IonHeader,
-  IonIcon,
-  IonButton,
-  IonButtons,
-  IonTitle,
-  IonFab
-} from "@ionic/react";
+import { IonToolbar, IonHeader, IonIcon, IonButton, IonButtons, IonTitle, IonFab } from "@ionic/react";
 
 import { add } from "ionicons/icons";
 
@@ -22,19 +13,19 @@ const useStyles = makeStyles(
     appAction: {
       [theme.breakpoints.up("sm")]: {
         left: 0,
-        width: "100%"
+        width: "100vw"
       },
       bottom: 0,
       gridColumn: 2,
       position: "fixed",
       zIndex: 100000,
-      width: "100%"
+      width: "100vw"
     },
     appActionDocked: {
       bottom: "env(safe-area-inset-bottom, 10px)",
       zIndex: 100000,
       position: "fixed",
-      width: "100%"
+      width: "100vw"
     },
     appLoader: {},
     appLoaderPlaceholder: {},
