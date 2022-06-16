@@ -1,4 +1,10 @@
-import { CardContent, IconButton, TableBody, TableCell, TableRow } from "@mui/material";
+import {
+  CardContent,
+  IconButton,
+  TableBody,
+  TableCell,
+  TableRow
+} from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CardTitle from "@saleor/components/CardTitle";
@@ -29,7 +35,11 @@ const useStyles = makeStyles(
       "&:last-child": {
         paddingRight: 0,
         justifyContent: "end",
-        display: "flex"
+        flex: "1 0 auto",
+        display: "flex",
+        flexDirection: "row",
+        textAlign: "right",
+        float: "right"
       },
       width: `calc(48px + ${theme.spacing(2)})`
     },

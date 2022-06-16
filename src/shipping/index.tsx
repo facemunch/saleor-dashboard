@@ -33,7 +33,7 @@ export const ShippingZonesList = ({ shippingListModalRef }) => {
   const params: ShippingZonesListUrlQueryParams = qs;
   return (
     <>
-      <ShippingZonesListComponent params={params} />;
+      <ShippingZonesListComponent params={params} />
       <IonModal
         style={{
           "--border-radius": "16px"
@@ -69,10 +69,7 @@ export const ShippingZonesList = ({ shippingListModalRef }) => {
         <Route
           exact
           path={"/shipping/" + "add"}
-          render={() => (
-            <ShippingZoneCreate
-            />
-          )}
+          render={() => <ShippingZoneCreate />}
         />
       </IonModal>
     </>
