@@ -39,7 +39,7 @@ export const ActionBar: React.FC<ActionBarProps> = ({
 
   return (
     <>
-      <IonFooter style={fixedStyle}>
+      <IonFooter slot="fixed" style={fixedStyle}>
         <IonToolbar style={toolBarStyle}>{children}</IonToolbar>
       </IonFooter>
     </>

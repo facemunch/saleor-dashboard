@@ -70,12 +70,14 @@ export interface WeightRatesUpdateProps {
   id: string;
   rateId: string;
   params: ShippingRateUrlQueryParams;
+  shippingWeightRatesRef: any;
 }
 
 export const WeightRatesUpdate: React.FC<WeightRatesUpdateProps> = ({
   id,
   rateId,
-  params
+  params,
+  shippingWeightRatesRef
 }) => {
   const navigate = useNavigator();
   const notify = useNotifier();
@@ -338,6 +340,7 @@ export const WeightRatesUpdate: React.FC<WeightRatesUpdateProps> = ({
         onConfirm={() => handleProductUnassign(listElements)}
       />
       <ShippingMethodProductsAddDialog
+        shippingPriceRatesEditRef={shippingWeightRatesRef}
         confirmButtonState={assignProductOpts.status}
         loading={productsSearchOpts.loading}
         open={params.action === "assign-product"}

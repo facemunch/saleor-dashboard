@@ -11,7 +11,7 @@ import ShippingZoneCreatePage from "../components/ShippingZoneCreatePage";
 import { useShippingZoneCreate } from "../mutations";
 import { shippingZonesListUrl, shippingZoneUrl } from "../urls";
 
-const ShippingZoneCreate = () => {
+const ShippingZoneCreate = ({ shippingCreateModalRef }) => {
   const navigate = useNavigator();
   const notify = useNotifier();
   const shop = useShop();
@@ -38,6 +38,7 @@ const ShippingZoneCreate = () => {
   });
   return (
     <ShippingZoneCreatePage
+      shippingCreateModalRef={shippingCreateModalRef}
       countries={shop?.countries || []}
       disabled={createShippingZoneOpts.loading}
       errors={createShippingZoneOpts.data?.shippingZoneCreate.errors || []}

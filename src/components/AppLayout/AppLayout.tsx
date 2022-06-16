@@ -1,10 +1,18 @@
 import useNavigator from "@saleor/hooks/useNavigator";
-import Portal from "@mui/material/Portal";
+// import Portal from "@mui/material/Portal";
 import { settingsOutline } from "ionicons/icons";
 import { makeStyles, useActionBar } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
-import { IonToolbar, IonHeader, IonIcon, IonButton, IonButtons, IonTitle, IonFab } from "@ionic/react";
+import {
+  IonToolbar,
+  IonHeader,
+  IonIcon,
+  IonButton,
+  IonButtons,
+  IonTitle,
+  IonFab
+} from "@ionic/react";
 
 import { add } from "ionicons/icons";
 
@@ -157,15 +165,15 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       </IonHeader>
 
       {children}
-      <Portal container={document.getElementsByTagName("ion-app")[0]}>
-        <div
-          id="action-bar-footer"
-          className={classNames(classes.appAction, {
-            [classes.appActionDocked]: docked
-          })}
-          ref={appActionAnchor}
-        />
-      </Portal>
+      {/* <Portal container={document.getElementsByTagName("ion-app")[0]}> */}
+      <div
+        id="action-bar-footer"
+        className={classNames(classes.appAction, {
+          [classes.appActionDocked]: docked
+        })}
+        ref={appActionAnchor}
+      />
+      {/* </Portal> */}
 
       <IonFab
         vertical="bottom"

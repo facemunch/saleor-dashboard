@@ -69,13 +69,15 @@ import { FormattedMessage, useIntl } from "react-intl";
 export interface PriceRatesUpdateProps {
   id: string;
   rateId: string;
+  shippingPriceRatesEditRef?: any;
   params: ShippingRateUrlQueryParams;
 }
 
 export const PriceRatesUpdate: React.FC<PriceRatesUpdateProps> = ({
   id,
   rateId,
-  params
+  params,
+  shippingPriceRatesEditRef
 }) => {
   const navigate = useNavigator();
   const notify = useNotifier();
@@ -339,6 +341,7 @@ export const PriceRatesUpdate: React.FC<PriceRatesUpdateProps> = ({
         onConfirm={() => handleProductUnassign(listElements)}
       />
       <ShippingMethodProductsAddDialog
+        shippingPriceRatesEditRef={shippingPriceRatesEditRef}
         confirmButtonState={assignProductOpts.status}
         loading={productsSearchOpts.loading}
         open={params.action === "assign-product"}

@@ -28,6 +28,8 @@ export const ShippingZonesList = ({ shippingListModalRef }) => {
   const qs = parseQs(search.substr(1));
 
   const shippingDetailModalRef = useRef();
+  const shippingCreateModalRef = useRef();
+
   const { push } = useHistory();
 
   const params: ShippingZonesListUrlQueryParams = qs;
@@ -60,6 +62,7 @@ export const ShippingZonesList = ({ shippingListModalRef }) => {
           "--border-radius": "16px"
         }}
         mode="ios"
+        ref={shippingCreateModalRef}
         backdropDismiss={true}
         isOpen={pathname === "/shipping/add"}
         canDismiss={true}
@@ -69,7 +72,11 @@ export const ShippingZonesList = ({ shippingListModalRef }) => {
         <Route
           exact
           path={"/shipping/" + "add"}
-          render={() => <ShippingZoneCreate />}
+          render={() => (
+            <ShippingZoneCreate
+              shippingCreateModalRef={shippingCreateModalRef}
+            />
+          )}
         />
       </IonModal>
     </>
@@ -81,8 +88,11 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
 
   const qs = parseQs(search.substr(1));
   const { push } = useHistory();
-
   const params: ShippingZoneUrlQueryParams = qs;
+
+  const shippingWeightRatesRef = useRef();
+
+  const shippingPriceRatesEditRef = useRef();
   const match = useParams();
   return (
     <>
@@ -114,6 +124,7 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
         style={{
           "--border-radius": "16px"
         }}
+        ref={shippingPriceRatesEditRef}
         mode="ios"
         backdropDismiss={true}
         isOpen={
@@ -128,7 +139,11 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
         <Route
           exact
           path={"/shipping/" + shippingPriceRatesEditPath(":id", ":rateId", "")}
-          render={() => <PriceRatesUpdate />}
+          render={() => (
+            <PriceRatesUpdate
+              shippingPriceRatesEditRef={shippingPriceRatesEditRef}
+            />
+          )}
         />
       </IonModal>
 
@@ -157,6 +172,7 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
           "--border-radius": "16px"
         }}
         mode="ios"
+        ref={shippingWeightRatesRef}
         backdropDismiss={true}
         isOpen={
           pathname.includes("/weight/") && !pathname.includes("/weight/add")
@@ -172,14 +188,18 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
           path={
             "/shipping/" + shippingWeightRatesEditPath(":id", ":rateId", "")
           }
-          render={() => <WeightRatesUpdate />}
+          render={() => (
+            <WeightRatesUpdate
+              shippingWeightRatesRef={shippingWeightRatesRef}
+            />
+          )}
         />
       </IonModal>
     </>
   );
 };
 
-const PriceRatesCreate: React.FC = () => {
+const PriceRatesCreate = () => {
   const { search } = useLocation();
   const qs = parseQs(search.substr(1));
   const params: ShippingRateCreateUrlQueryParams = qs;
@@ -207,7 +227,7 @@ const WeightRatesCreate: React.FC = () => {
   );
 };
 
-const WeightRatesUpdate: React.FC = () => {
+const WeightRatesUpdate = ({ shippingWeightRatesRef }) => {
   const { search } = useLocation();
   const qs = parseQs(search.substr(1));
   const params: ShippingRateUrlQueryParams = qs;
@@ -218,11 +238,12 @@ const WeightRatesUpdate: React.FC = () => {
       id={decodeURIComponent(match.id)}
       rateId={decodeURIComponent(match.rateId)}
       params={params}
+      shippingWeightRatesRef={shippingWeightRatesRef}
     />
   );
 };
 
-export const PriceRatesUpdate: React.FC = () => {
+export const PriceRatesUpdate = ({ shippingPriceRatesEditRef }) => {
   const { search } = useLocation();
 
   const qs = parseQs(search.substr(1));
@@ -234,6 +255,7 @@ export const PriceRatesUpdate: React.FC = () => {
       id={decodeURIComponent(match.id)}
       rateId={decodeURIComponent(match.rateId)}
       params={params}
+      shippingPriceRatesEditRef={shippingPriceRatesEditRef}
     />
   );
 };
