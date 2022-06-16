@@ -35,7 +35,11 @@ const useStyles = makeStyles(
         padding: "0"
       },
       padding: "0 0.5rem",
-      width: "auto"
+      width: "auto",
+      display: "flex !important",
+      justifyContent: "end !important",
+      margin: "0",
+      paddingRight: "0 !important"
     },
     colNumber: { width: "100%" },
     colNumberClickable: {
@@ -115,6 +119,7 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
                       description="invoice number prefix"
                     />{" "}
                     {invoice.number}
+                    <br />
                     <Typography variant="caption">
                       <FormattedMessage
                         defaultMessage="created"

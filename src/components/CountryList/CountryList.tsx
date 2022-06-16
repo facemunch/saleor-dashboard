@@ -35,7 +35,9 @@ const useStyles = makeStyles(
   theme => ({
     iconCell: {
       "&:last-child": {
-        paddingRight: 0
+        paddingRight: 0,
+        justifyContent: "end",
+        display: "flex"
       },
       width: `calc(48px + ${theme.spacing(2)})`
     },
@@ -65,7 +67,9 @@ const useStyles = makeStyles(
       transform: "rotate(180deg)"
     },
     textRight: {
-      textAlign: "right"
+      textAlign: "right",
+      display: "flex",
+      justifyContent: "end"
     },
     toLeft: {
       "&:first-of-type": {
@@ -146,7 +150,10 @@ const CountryList: React.FC<CountryListProps> = props => {
               renderCollection(
                 sortCountries(countries),
                 (country, countryIndex) => (
-                  <TableRow data-test-id="shipping-zone-country-item" key={country ? country.code : "skeleton"}>
+                  <TableRow
+                    data-test-id="shipping-zone-country-item"
+                    key={country ? country.code : "skeleton"}
+                  >
                     <TableCell className={classes.offsetCell}>
                       {maybe<React.ReactNode>(
                         () => (

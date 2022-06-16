@@ -77,14 +77,7 @@ const useStyles = makeStyles(
   { name: "ShippingZoneCountriesAssignDialog" }
 );
 const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDialogProps> = props => {
-  const {
-    isDefault,
-    onClose,
-    countries,
-    open,
-    initial,
-    onConfirm
-  } = props;
+  const { isDefault, onClose, countries, open, initial, onConfirm } = props;
 
   const classes = useStyles(props);
   const intl = useIntl();
@@ -162,8 +155,9 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                     <FormattedMessage defaultMessage="Quick Pick" />
                   </Typography>
 
-                  <TableCell className={classes.wideCell}>
+                  <TableCell>
                     <FormattedMessage defaultMessage="Rest of the World" />
+                    <br />
                     <Typography variant="caption">
                       <FormattedMessage defaultMessage="If selected, this will add all of the countries not selected to other shipping zones" />
                     </Typography>

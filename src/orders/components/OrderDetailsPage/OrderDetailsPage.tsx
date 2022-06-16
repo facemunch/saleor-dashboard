@@ -322,7 +322,7 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                       <CardSpacer />
                     </>
                   )}
-                  <OrderCustomerNote note={maybe(() => order.customerNote)} />
+                  {/* <OrderCustomerNote note={maybe(() => order.customerNote)} /> */}
                 </div>
                 <div style={{ height: "100px" }} />
               </Grid>
