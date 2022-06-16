@@ -3,7 +3,7 @@ import { ShippingZoneDetails } from "@saleor/shipping";
 import { shippingZonePath } from "@saleor/shipping/urls";
 import { asSortParams } from "@saleor/utils/sort";
 import { Loader } from "frontend/ui/loader";
-import { orderPath, orderRefundPath } from "../orders/urls";
+import { orderPath, orderRefundPath, orderReturnPath } from "../orders/urls";
 
 import { parse as parseQs } from "qs";
 import React, { lazy, memo, Suspense, useMemo, useRef } from "react";
@@ -77,6 +77,24 @@ export const OrderDetails = ({ orderModalRef }) => {
           exact
           path={"/orders/" + orderFulfillPath(":id", "")}
           render={() => <OrderFulfill />}
+        />
+      </IonModal>
+
+      <IonModal
+        style={{
+          "--border-radius": "16px"
+        }}
+        mode="ios"
+        backdropDismiss={true}
+        isOpen={pathname.includes("/return")}
+        canDismiss={true}
+        presentingElement={orderModalRef.current}
+        onWillDismiss={() => push(`/orders/${id}`)}
+      >
+        <Route
+          exact
+          path={"/orders/" + orderReturnPath(":id", "")}
+          render={() => <OrderReturn />}
         />
       </IonModal>
     </>

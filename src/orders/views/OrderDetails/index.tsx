@@ -1,5 +1,7 @@
+import { IonContent, IonPage } from "@ionic/react";
 import { MetadataFormData } from "@saleor/components/Metadata";
 import NotFoundPage from "@saleor/components/NotFoundPage";
+import PageHeader from "@saleor/components/PageHeader";
 import { Task } from "@saleor/containers/BackgroundTasks/types";
 import useBackgroundTask from "@saleor/hooks/useBackgroundTask";
 import useNavigator from "@saleor/hooks/useNavigator";
@@ -70,194 +72,211 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
   });
 
   return (
-    <TypedOrderDetailsQuery displayLoader variables={{ id }}>
-      {({ data, loading }) => {
-        const order = data?.order;
-        if (order === null) {
-          return <NotFoundPage onBack={handleBack} />;
-        }
+    <>
+      <PageHeader title={"Order #" + id}></PageHeader>
+      <IonContent>
+        <TypedOrderDetailsQuery displayLoader variables={{ id }}>
+          {({ data, loading }) => {
+            const order = data?.order;
+            if (order === null) {
+              return <NotFoundPage onBack={handleBack} />;
+            }
 
-        const isOrderUnconfirmed = order?.status === OrderStatus.UNCONFIRMED;
-        const isOrderDraft = order?.status === OrderStatus.DRAFT;
+            const isOrderUnconfirmed =
+              order?.status === OrderStatus.UNCONFIRMED;
+            const isOrderDraft = order?.status === OrderStatus.DRAFT;
 
-        const handleSubmit = async (data: MetadataFormData) => {
-          if (order?.status === OrderStatus.UNCONFIRMED) {
-            await orderConfirm({ variables: { id: order?.id } });
-          }
+            const handleSubmit = async (data: MetadataFormData) => {
+              if (order?.status === OrderStatus.UNCONFIRMED) {
+                await orderConfirm({ variables: { id: order?.id } });
+              }
 
-          const update = createMetadataUpdateHandler(
-            order,
-            () => Promise.resolve([]),
-            variables => updateMetadata({ variables }),
-            variables => updatePrivateMetadata({ variables })
-          );
-          const result = await update(data);
+              const update = createMetadataUpdateHandler(
+                order,
+                () => Promise.resolve([]),
+                variables => updateMetadata({ variables }),
+                variables => updatePrivateMetadata({ variables })
+              );
+              const result = await update(data);
 
-          if (result.length === 0) {
-            notify({
-              status: "success",
-              text: intl.formatMessage(commonMessages.savedChanges)
-            });
-          }
+              if (result.length === 0) {
+                notify({
+                  status: "success",
+                  text: intl.formatMessage(commonMessages.savedChanges)
+                });
+              }
 
-          return result;
-        };
+              return result;
+            };
 
-        return (
-          <OrderDetailsMessages id={id} params={params}>
-            {orderMessages => (
-              <OrderOperations
-                order={id}
-                onNoteAdd={orderMessages.handleNoteAdd}
-                onOrderCancel={orderMessages.handleOrderCancel}
-                onOrderVoid={orderMessages.handleOrderVoid}
-                onPaymentCapture={orderMessages.handlePaymentCapture}
-                onUpdate={orderMessages.handleUpdate}
-                onDraftUpdate={orderMessages.handleDraftUpdate}
-                onShippingMethodUpdate={data => {
-                  orderMessages.handleShippingMethodUpdate(data);
-                  order.total = data.orderUpdateShipping.order.total;
-                }}
-                onOrderLineDelete={orderMessages.handleOrderLineDelete}
-                onOrderLinesAdd={orderMessages.handleOrderLinesAdd}
-                onOrderLineUpdate={orderMessages.handleOrderLineUpdate}
-                onOrderFulfillmentApprove={
-                  orderMessages.handleOrderFulfillmentApprove
-                }
-                onOrderFulfillmentCancel={
-                  orderMessages.handleOrderFulfillmentCancel
-                }
-                onOrderFulfillmentUpdate={
-                  orderMessages.handleOrderFulfillmentUpdate
-                }
-                onDraftFinalize={orderMessages.handleDraftFinalize}
-                onDraftCancel={orderMessages.handleDraftCancel}
-                onOrderMarkAsPaid={orderMessages.handleOrderMarkAsPaid}
-                onInvoiceRequest={(data: InvoiceRequest) => {
-                  if (
-                    data.invoiceRequest.invoice.status === JobStatusEnum.SUCCESS
-                  ) {
-                    orderMessages.handleInvoiceGenerateFinished(data);
-                  } else {
-                    orderMessages.handleInvoiceGeneratePending(data);
-                    queue(Task.INVOICE_GENERATE, {
-                      generateInvoice: {
-                        invoiceId: data.invoiceRequest.invoice.id,
-                        orderId: id
+            return (
+              <>
+                <OrderDetailsMessages id={id} params={params}>
+                  {orderMessages => (
+                    <OrderOperations
+                      order={id}
+                      onNoteAdd={orderMessages.handleNoteAdd}
+                      onOrderCancel={orderMessages.handleOrderCancel}
+                      onOrderVoid={orderMessages.handleOrderVoid}
+                      onPaymentCapture={orderMessages.handlePaymentCapture}
+                      onUpdate={orderMessages.handleUpdate}
+                      onDraftUpdate={orderMessages.handleDraftUpdate}
+                      onShippingMethodUpdate={data => {
+                        orderMessages.handleShippingMethodUpdate(data);
+                        order.total = data.orderUpdateShipping.order.total;
+                      }}
+                      onOrderLineDelete={orderMessages.handleOrderLineDelete}
+                      onOrderLinesAdd={orderMessages.handleOrderLinesAdd}
+                      onOrderLineUpdate={orderMessages.handleOrderLineUpdate}
+                      onOrderFulfillmentApprove={
+                        orderMessages.handleOrderFulfillmentApprove
                       }
-                    });
-                  }
-                }}
-                onInvoiceSend={orderMessages.handleInvoiceSend}
-              >
-                {({
-                  orderAddNote,
-                  orderCancel,
-                  orderDraftUpdate,
-                  orderLinesAdd,
-                  orderLineDelete,
-                  orderLineUpdate,
-                  orderPaymentCapture,
-                  orderVoid,
-                  orderShippingMethodUpdate,
-                  orderUpdate,
-                  orderFulfillmentApprove,
-                  orderFulfillmentCancel,
-                  orderFulfillmentUpdateTracking,
-                  orderDraftCancel,
-                  orderDraftFinalize,
-                  orderPaymentMarkAsPaid,
-                  orderInvoiceRequest,
-                  orderInvoiceSend
-                }) => (
-                  <>
-                    {!isOrderDraft && !isOrderUnconfirmed && (
-                      <OrderNormalDetails
-                        id={id}
-                        params={params}
-                        data={data}
-                        orderAddNote={orderAddNote}
-                        orderInvoiceRequest={orderInvoiceRequest}
-                        handleSubmit={handleSubmit}
-                        orderCancel={orderCancel}
-                        orderPaymentMarkAsPaid={orderPaymentMarkAsPaid}
-                        orderVoid={orderVoid}
-                        orderPaymentCapture={orderPaymentCapture}
-                        orderFulfillmentApprove={orderFulfillmentApprove}
-                        orderFulfillmentCancel={orderFulfillmentCancel}
-                        orderFulfillmentUpdateTracking={
-                          orderFulfillmentUpdateTracking
+                      onOrderFulfillmentCancel={
+                        orderMessages.handleOrderFulfillmentCancel
+                      }
+                      onOrderFulfillmentUpdate={
+                        orderMessages.handleOrderFulfillmentUpdate
+                      }
+                      onDraftFinalize={orderMessages.handleDraftFinalize}
+                      onDraftCancel={orderMessages.handleDraftCancel}
+                      onOrderMarkAsPaid={orderMessages.handleOrderMarkAsPaid}
+                      onInvoiceRequest={(data: InvoiceRequest) => {
+                        if (
+                          data.invoiceRequest.invoice.status ===
+                          JobStatusEnum.SUCCESS
+                        ) {
+                          orderMessages.handleInvoiceGenerateFinished(data);
+                        } else {
+                          orderMessages.handleInvoiceGeneratePending(data);
+                          queue(Task.INVOICE_GENERATE, {
+                            generateInvoice: {
+                              invoiceId: data.invoiceRequest.invoice.id,
+                              orderId: id
+                            }
+                          });
                         }
-                        orderInvoiceSend={orderInvoiceSend}
-                        updateMetadataOpts={updateMetadataOpts}
-                        updatePrivateMetadataOpts={updatePrivateMetadataOpts}
-                        openModal={openModal}
-                        closeModal={closeModal}
-                      />
-                    )}
-                    {isOrderDraft && (
-                      <OrderDraftDetails
-                        id={id}
-                        params={params}
-                        loading={loading}
-                        data={data}
-                        orderAddNote={orderAddNote}
-                        orderLineUpdate={orderLineUpdate}
-                        orderLineDelete={orderLineDelete}
-                        orderShippingMethodUpdate={orderShippingMethodUpdate}
-                        orderLinesAdd={orderLinesAdd}
-                        orderDraftUpdate={orderDraftUpdate}
-                        orderDraftCancel={orderDraftCancel}
-                        orderDraftFinalize={orderDraftFinalize}
-                        openModal={openModal}
-                        closeModal={closeModal}
-                      />
-                    )}
-                    {isOrderUnconfirmed && (
-                      <OrderUnconfirmedDetails
-                        id={id}
-                        params={params}
-                        data={data}
-                        orderAddNote={orderAddNote}
-                        orderLineUpdate={orderLineUpdate}
-                        orderLineDelete={orderLineDelete}
-                        orderInvoiceRequest={orderInvoiceRequest}
-                        handleSubmit={handleSubmit}
-                        orderCancel={orderCancel}
-                        orderShippingMethodUpdate={orderShippingMethodUpdate}
-                        orderLinesAdd={orderLinesAdd}
-                        orderPaymentMarkAsPaid={orderPaymentMarkAsPaid}
-                        orderVoid={orderVoid}
-                        orderPaymentCapture={orderPaymentCapture}
-                        orderFulfillmentApprove={orderFulfillmentApprove}
-                        orderFulfillmentCancel={orderFulfillmentCancel}
-                        orderFulfillmentUpdateTracking={
-                          orderFulfillmentUpdateTracking
-                        }
-                        orderInvoiceSend={orderInvoiceSend}
-                        updateMetadataOpts={updateMetadataOpts}
-                        updatePrivateMetadataOpts={updatePrivateMetadataOpts}
-                        openModal={openModal}
-                        closeModal={closeModal}
-                      />
-                    )}
-                    <OrderAddressFields
-                      isDraft={order?.status === OrderStatus.DRAFT}
-                      orderUpdate={orderUpdate}
-                      orderDraftUpdate={orderDraftUpdate}
-                      data={data}
-                      id={id}
-                      onClose={closeModal}
-                      action={params.action}
-                    />
-                  </>
-                )}
-              </OrderOperations>
-            )}
-          </OrderDetailsMessages>
-        );
-      }}
-    </TypedOrderDetailsQuery>
+                      }}
+                      onInvoiceSend={orderMessages.handleInvoiceSend}
+                    >
+                      {({
+                        orderAddNote,
+                        orderCancel,
+                        orderDraftUpdate,
+                        orderLinesAdd,
+                        orderLineDelete,
+                        orderLineUpdate,
+                        orderPaymentCapture,
+                        orderVoid,
+                        orderShippingMethodUpdate,
+                        orderUpdate,
+                        orderFulfillmentApprove,
+                        orderFulfillmentCancel,
+                        orderFulfillmentUpdateTracking,
+                        orderDraftCancel,
+                        orderDraftFinalize,
+                        orderPaymentMarkAsPaid,
+                        orderInvoiceRequest,
+                        orderInvoiceSend
+                      }) => (
+                        <>
+                          {!isOrderDraft && !isOrderUnconfirmed && (
+                            <OrderNormalDetails
+                              id={id}
+                              params={params}
+                              data={data}
+                              orderAddNote={orderAddNote}
+                              orderInvoiceRequest={orderInvoiceRequest}
+                              handleSubmit={handleSubmit}
+                              orderCancel={orderCancel}
+                              orderPaymentMarkAsPaid={orderPaymentMarkAsPaid}
+                              orderVoid={orderVoid}
+                              orderPaymentCapture={orderPaymentCapture}
+                              orderFulfillmentApprove={orderFulfillmentApprove}
+                              orderFulfillmentCancel={orderFulfillmentCancel}
+                              orderFulfillmentUpdateTracking={
+                                orderFulfillmentUpdateTracking
+                              }
+                              orderInvoiceSend={orderInvoiceSend}
+                              updateMetadataOpts={updateMetadataOpts}
+                              updatePrivateMetadataOpts={
+                                updatePrivateMetadataOpts
+                              }
+                              openModal={openModal}
+                              closeModal={closeModal}
+                            />
+                          )}
+                          {isOrderDraft && (
+                            <OrderDraftDetails
+                              id={id}
+                              params={params}
+                              loading={loading}
+                              data={data}
+                              orderAddNote={orderAddNote}
+                              orderLineUpdate={orderLineUpdate}
+                              orderLineDelete={orderLineDelete}
+                              orderShippingMethodUpdate={
+                                orderShippingMethodUpdate
+                              }
+                              orderLinesAdd={orderLinesAdd}
+                              orderDraftUpdate={orderDraftUpdate}
+                              orderDraftCancel={orderDraftCancel}
+                              orderDraftFinalize={orderDraftFinalize}
+                              openModal={openModal}
+                              closeModal={closeModal}
+                            />
+                          )}
+                          {isOrderUnconfirmed && (
+                            <OrderUnconfirmedDetails
+                              id={id}
+                              params={params}
+                              data={data}
+                              orderAddNote={orderAddNote}
+                              orderLineUpdate={orderLineUpdate}
+                              orderLineDelete={orderLineDelete}
+                              orderInvoiceRequest={orderInvoiceRequest}
+                              handleSubmit={handleSubmit}
+                              orderCancel={orderCancel}
+                              orderShippingMethodUpdate={
+                                orderShippingMethodUpdate
+                              }
+                              orderLinesAdd={orderLinesAdd}
+                              orderPaymentMarkAsPaid={orderPaymentMarkAsPaid}
+                              orderVoid={orderVoid}
+                              orderPaymentCapture={orderPaymentCapture}
+                              orderFulfillmentApprove={orderFulfillmentApprove}
+                              orderFulfillmentCancel={orderFulfillmentCancel}
+                              orderFulfillmentUpdateTracking={
+                                orderFulfillmentUpdateTracking
+                              }
+                              orderInvoiceSend={orderInvoiceSend}
+                              updateMetadataOpts={updateMetadataOpts}
+                              updatePrivateMetadataOpts={
+                                updatePrivateMetadataOpts
+                              }
+                              openModal={openModal}
+                              closeModal={closeModal}
+                            />
+                          )}
+                          <OrderAddressFields
+                            isDraft={order?.status === OrderStatus.DRAFT}
+                            orderUpdate={orderUpdate}
+                            orderDraftUpdate={orderDraftUpdate}
+                            data={data}
+                            id={id}
+                            onClose={closeModal}
+                            action={params.action}
+                          />
+                        </>
+                      )}
+                    </OrderOperations>
+                  )}
+                </OrderDetailsMessages>
+              </>
+            );
+          }}
+        </TypedOrderDetailsQuery>
+      </IonContent>
+    </>
   );
 };
 
