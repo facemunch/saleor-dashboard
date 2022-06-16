@@ -1,11 +1,4 @@
-import {
-  Button,
-  Card,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow
-} from "@mui/material";
+import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CardTitle from "@saleor/components/CardTitle";
@@ -22,7 +15,7 @@ import { ChannelProps } from "@saleor/types";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { IonCard } from "@ionic/react";
+import { IonButton, IonCard } from "@ionic/react";
 
 import { maybe, renderCollection } from "../../../misc";
 
@@ -86,7 +79,8 @@ const ShippingZoneRates: React.FC<ShippingZoneRatesProps> = props => {
               })
         }
         toolbar={
-          <Button
+          <IonButton
+          size="small"
             color="primary"
             disabled={disabled}
             onClick={onRateAdd}
@@ -96,7 +90,7 @@ const ShippingZoneRates: React.FC<ShippingZoneRatesProps> = props => {
               defaultMessage="Create rate"
               description="button"
             />
-          </Button>
+          </IonButton>
         }
       />
       <ResponsiveTable>

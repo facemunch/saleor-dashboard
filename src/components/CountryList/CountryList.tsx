@@ -1,12 +1,4 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  IconButton,
-  TableBody,
-  TableCell,
-  TableRow
-} from "@mui/material";
+import { CardContent, IconButton, TableBody, TableCell, TableRow } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CardTitle from "@saleor/components/CardTitle";
@@ -18,7 +10,7 @@ import classNames from "classnames";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 
-import { IonCard } from "@ionic/react";
+import { IonButton, IonCard } from "@ionic/react";
 
 import { getStringOrPlaceholder, maybe, renderCollection } from "../../misc";
 
@@ -106,7 +98,8 @@ const CountryList: React.FC<CountryListProps> = props => {
       <CardTitle
         title={title}
         toolbar={
-          <Button
+          <IonButton
+            size="small"
             color="primary"
             disabled={disabled}
             onClick={onCountryAssign}
@@ -116,7 +109,7 @@ const CountryList: React.FC<CountryListProps> = props => {
               defaultMessage="Assign countries"
               description="button"
             />
-          </Button>
+          </IonButton>
         }
       />
       <CardContent className={classes.root}>
