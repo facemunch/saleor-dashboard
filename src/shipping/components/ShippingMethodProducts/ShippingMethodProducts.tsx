@@ -1,21 +1,8 @@
-import {
-  Button,
-  Card,
-  IconButton,
-  TableBody,
-  TableCell,
-  TableFooter,
-  TableRow,
-  Typography
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { TableCell, TableRow, Typography } from "@mui/material";
+import { trashOutline } from "ionicons/icons";
+
 import CardTitle from "@saleor/components/CardTitle";
-import Checkbox from "@saleor/components/Checkbox";
-import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
-import TableCellAvatar from "@saleor/components/TableCellAvatar";
-import TableHead from "@saleor/components/TableHead";
-import TablePagination from "@saleor/components/TablePagination";
 import { makeStyles } from "@saleor/macaw-ui";
 import { renderCollection } from "@saleor/misc";
 import { ShippingZone_shippingZone_shippingMethods_excludedProducts_edges_node } from "@saleor/shipping/types/ShippingZone";
@@ -23,7 +10,16 @@ import { ListActions, ListProps } from "@saleor/types";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { IonCard } from "@ionic/react";
+import {
+  IonButton,
+  IonCard,
+  IonIcon,
+  IonImg,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonThumbnail
+} from "@ionic/react";
 
 const useStyles = makeStyles(
   theme => ({
@@ -55,23 +51,8 @@ export interface ShippingMethodProductsProps
   onProductUnassign: (ids: string[]) => void;
 }
 
-const numberOfColumns = 3;
-
 const ShippingMethodProducts: React.FC<ShippingMethodProductsProps> = props => {
-  const {
-    disabled,
-    pageInfo,
-    products,
-    onNextPage,
-    onPreviousPage,
-    onProductAssign,
-    onProductUnassign,
-    isChecked,
-    selected,
-    toggle,
-    toggleAll,
-    toolbar
-  } = props;
+  const { products, onProductAssign, onProductUnassign } = props;
 
   const classes = useStyles(props);
   const intl = useIntl();
@@ -84,90 +65,60 @@ const ShippingMethodProducts: React.FC<ShippingMethodProductsProps> = props => {
           description: "section header"
         })}
         toolbar={
-          <Button color="primary" variant="text" onClick={onProductAssign}>
+          <IonButton
+            size="small"
+            color="primary"
+            variant="text"
+            onClick={onProductAssign}
+          >
             <FormattedMessage
               defaultMessage="Assign products"
               description="button"
             />
-          </Button>
+          </IonButton>
         }
       />
-      <ResponsiveTable className={classes.table}>
-        {!!products?.length && (
-          <>
-            <TableHead
-              colSpan={numberOfColumns}
-              selected={selected}
-              disabled={disabled}
-              items={products}
-              toggleAll={toggleAll}
-              toolbar={toolbar}
-            >
-              <TableCell className={classes.colProductName}>
-                <FormattedMessage defaultMessage="Product Name" />
-              </TableCell>
-              <TableCell className={classes.colAction}>
-                <FormattedMessage defaultMessage="Actions" />
-              </TableCell>
-            </TableHead>
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  colSpan={numberOfColumns}
-                  hasNextPage={
-                    pageInfo && !disabled ? pageInfo.hasNextPage : false
-                  }
-                  onNextPage={onNextPage}
-                  hasPreviousPage={
-                    pageInfo && !disabled ? pageInfo.hasPreviousPage : false
-                  }
-                  onPreviousPage={onPreviousPage}
-                />
-              </TableRow>
-            </TableFooter>
-          </>
-        )}
-        <TableBody>
-          {products?.length === 0 ? (
-            <TableRow>
-              <TableCell colSpan={5}>
-                <FormattedMessage defaultMessage="No Products" />
-              </TableCell>
-            </TableRow>
-          ) : (
-            renderCollection(products, product => {
-              const isSelected = product ? isChecked(product.id) : false;
-              return (
-                <TableRow key={product ? product.id : "skeleton"}>
-                  {/* <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={isSelected}
-                      disabled={disabled}
-                      disableClickPropagation
-                      onChange={() => toggle(product.id)}
-                    />
-                  </TableCell> */}
-                  <TableCellAvatar
-                    className={classes.colName}
-                    thumbnail={product?.thumbnail?.url}
+      <IonList>
+        {products?.length === 0 ? (
+          <TableRow>
+            <TableCell colSpan={5}>
+              <FormattedMessage defaultMessage="No Products" />
+            </TableCell>
+          </TableRow>
+        ) : (
+          renderCollection(products, product => {
+            return (
+              <IonItem
+                style={{ "--background": "#313131" }}
+                key={product ? product.id : "skeleton"}
+              >
+                <IonThumbnail style={{ '--border-radius': "8px" }} slot="start">
+                  <IonImg src={product?.thumbnail?.url} />
+                </IonThumbnail>
+                <IonLabel>
+                  {" "}
+                  {product?.name ? (
+                    <Typography variant="body2">{product.name}</Typography>
+                  ) : (
+                    <Skeleton />
+                  )}
+                </IonLabel>
+
+                <TableCell className={classes.colAction}>
+                  <IonButton
+                    slot="end"
+                    fill="clear"
+                    shape="round"
+                    onClick={() => onProductUnassign([product.id])}
                   >
-                    {product?.name ? (
-                      <Typography variant="body2">{product.name}</Typography>
-                    ) : (
-                      <Skeleton />
-                    )}
-                  </TableCellAvatar>
-                  <TableCell className={classes.colAction}>
-                    <IconButton onClick={() => onProductUnassign([product.id])}>
-                      <DeleteIcon color="primary" />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              );
-            })
-          )}
-        </TableBody>
-      </ResponsiveTable>
+                    <IonIcon icon={trashOutline} slot="icon-only"></IonIcon>
+                  </IonButton>
+                </TableCell>
+              </IonItem>
+            );
+          })
+        )}
+      </IonList>
     </IonCard>
   );
 };

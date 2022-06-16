@@ -15,10 +15,10 @@ const useStyles = makeStyles(
       gridTemplateColumns: "1fr 48px"
     },
     cardSpacing: {
-      [theme.breakpoints.down("sm")]: {
-        marginBottom: theme.spacing(1)
-      },
-      marginBottom: theme.spacing(3)
+      // [theme.breakpoints.down("sm")]: {
+      //   marginBottom: theme.spacing(1)
+      // },
+      // marginBottom: theme.spacing(3)
     },
     cardSubtitle: {
       fontSize: 12,
