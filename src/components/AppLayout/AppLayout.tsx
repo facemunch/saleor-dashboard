@@ -28,13 +28,13 @@ const useStyles = makeStyles(
       gridColumn: 2,
       position: "fixed",
       zIndex: 100000,
-      width: "100vw"
+      width: "100%"
     },
     appActionDocked: {
       bottom: "env(safe-area-inset-bottom, 10px)",
       zIndex: 100000,
       position: "fixed",
-      width: "100vw"
+      width: "100%"
     },
     appLoader: {},
     appLoaderPlaceholder: {},

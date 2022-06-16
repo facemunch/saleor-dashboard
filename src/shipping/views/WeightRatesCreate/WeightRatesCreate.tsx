@@ -111,7 +111,7 @@ export const WeightRatesCreate: React.FC<WeightRatesCreateProps> = ({
   };
 
   return (
-    <IonContent>
+    <>
       <WindowTitle title={intl.formatMessage(sectionNames.shipping)} />
       {!!allChannels?.length && (
         <ChannelsAvailabilityDialog
@@ -147,7 +147,7 @@ export const WeightRatesCreate: React.FC<WeightRatesCreateProps> = ({
         onPostalCodeInclusionChange={onPostalCodeInclusionChange}
         variant={ShippingMethodTypeEnum.WEIGHT}
       />
-    </IonContent>
+    </>
   );
 };
 

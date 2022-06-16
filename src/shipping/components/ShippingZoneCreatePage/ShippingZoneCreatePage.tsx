@@ -71,7 +71,7 @@ const ShippingZoneCreatePage: React.FC<ShippingZoneCreatePageProps> = ({
   };
 
   return (
-    <IonPage>
+    <>
       <IonContent data-test-id="shipping-zone-create">
         <Form initial={initialForm} onSubmit={onSubmit}>
           {({ change, data, hasChanged, submit }) => (
@@ -143,7 +143,7 @@ const ShippingZoneCreatePage: React.FC<ShippingZoneCreatePageProps> = ({
           )}
         </Form>
       </IonContent>
-    </IonPage>
+    </>
   );
 };
 ShippingZoneCreatePage.displayName = "ShippingZoneCreatePage";

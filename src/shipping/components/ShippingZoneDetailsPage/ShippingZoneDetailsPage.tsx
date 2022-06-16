@@ -12,8 +12,9 @@ import { ShippingZoneDetailsFragment_warehouses } from "@saleor/fragments/types/
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import { ShippingZone_shippingZone } from "@saleor/shipping/types/ShippingZone";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
-import React from "react";
+import React, { useEffect } from "react";
 import { defineMessages, useIntl } from "react-intl";
+import ShippingZoneSettingsCard from "../ShippingZoneSettingsCard";
 
 import { IonContent, IonPage } from "@ionic/react";
 
@@ -24,6 +25,11 @@ import { FormData } from "../../components/ShippingZoneDetailsPage/types";
 import ShippingZoneInfo from "../ShippingZoneInfo";
 import ShippingZoneRates from "../ShippingZoneRates";
 import { getInitialFormData } from "./utils";
+import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
+import useStateFromProps from "@saleor/hooks/useStateFromProps";
+import { mapNodeToChoice } from "@saleor/utils/maps";
+import { SingleAutocompleteChoiceType } from "@saleor/components/SingleAutocompleteSelectField";
+import createMultiAutocompleteSelectHandler from "@saleor/utils/handlers/multiAutocompleteSelectChangeHandler";
 
 const messages = defineMessages({
   countries: {
@@ -67,26 +73,53 @@ export interface ShippingZoneDetailsPageProps
   allChannels?: BaseChannels_channels[];
 }
 
+function warehouseToChoice(
+  warehouse: Record<"id" | "name", string>
+): SingleAutocompleteChoiceType {
+  return {
+    label: warehouse.name,
+    value: warehouse.id
+  };
+}
+
 const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
   disabled,
   errors,
+  hasMore,
+  loading,
   onBack,
   onCountryAdd,
   onCountryRemove,
   onDelete,
+  onFetchMore,
   onPriceRateAdd,
   onPriceRateEdit,
   onRateRemove,
+  onSearchChange,
   onSubmit,
+  onWarehouseAdd,
   onWeightRateAdd,
   onWeightRateEdit,
   saveButtonBarState,
   selectedChannelId,
-  shippingZone
+  shippingZone,
+  warehouses,
+  allChannels
 }) => {
   const intl = useIntl();
-
   const initialForm = getInitialFormData(shippingZone);
+
+  const [warehouseDisplayValues, setWarehouseDisplayValues] = useStateFromProps<
+    MultiAutocompleteChoiceType[]
+  >(mapNodeToChoice(shippingZone?.warehouses));
+
+  const warehouseChoices = warehouses.map(warehouseToChoice);
+
+  const channelChoices = mapNodeToChoice(allChannels);
+
+  const [channelsDisplayValues, setChannelDisplayValues] = useStateFromProps<
+    MultiAutocompleteChoiceType[]
+  >(mapNodeToChoice(shippingZone?.channels));
 
   const {
     makeChangeHandler: makeMetadataChangeHandler
@@ -96,8 +129,22 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
     <IonPage>
       <IonContent data-test-id="shipping-zone-details-page">
         <Form initial={initialForm} onSubmit={onSubmit}>
-          {({ change, data, hasChanged, submit }) => {
+          {({ change, data, hasChanged, submit, toggleValue }) => {
             const changeMetadata = makeMetadataChangeHandler(change);
+
+            const handleWarehouseChange = createMultiAutocompleteSelectHandler(
+              toggleValue,
+              setWarehouseDisplayValues,
+              warehouseDisplayValues,
+              warehouseChoices
+            );
+
+            const handleChannelChange = createMultiAutocompleteSelectHandler(
+              toggleValue,
+              setChannelDisplayValues,
+              channelsDisplayValues,
+              channelChoices
+            );
 
             return (
               <>
@@ -153,6 +200,31 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
                     />
                     <CardSpacer />
                     <Metadata data={data} onChange={changeMetadata} />
+                  </div>
+                  <div
+                    id="hide-isDigitalProduct"
+                    style={{
+                      height: "0",
+                      overflow: "hidden"
+                    }}
+                  >
+                    <ShippingZoneSettingsCard
+                      submit={submit}
+                      formData={data}
+                      selectedChannelId={selectedChannelId}
+                      shippingZone={shippingZone}
+                      warehousesDisplayValues={warehouseDisplayValues}
+                      hasMoreWarehouses={hasMore}
+                      loading={loading}
+                      onWarehouseChange={handleWarehouseChange}
+                      onFetchMoreWarehouses={onFetchMore}
+                      onWarehousesSearchChange={onSearchChange}
+                      onWarehouseAdd={onWarehouseAdd}
+                      warehousesChoices={warehouseChoices}
+                      allChannels={allChannels}
+                      channelsDisplayValues={channelsDisplayValues}
+                      onChannelChange={handleChannelChange}
+                    />
                   </div>
                   <div style={{ height: "100px" }} />
                 </Grid>

@@ -62,7 +62,6 @@ const HomePage: React.FC<HomePageProps> = props => {
   } = props;
 
   const classes = useStyles(props);
-  console.log("sales",sales)
   return (
     <>
       <IonContent data-test-id="commerce-home-tab">
