@@ -30,6 +30,7 @@ const useStyles = makeStyles(
       alignItems: "center",
       display: "flex",
       minHeight: 56,
+      textAlign: "left",
       [theme.breakpoints.up('sm')]: {
         paddingLeft: theme.spacing(3),
         paddingRight: theme.spacing(3),
