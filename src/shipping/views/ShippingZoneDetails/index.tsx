@@ -28,6 +28,7 @@ import {
   usePrivateMetadataUpdate
 } from "@saleor/utils/metadata/updateMetadata";
 import { useWarehouseCreate } from "@saleor/warehouses/mutations";
+import { Loader } from "frontend/ui/loader";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -173,42 +174,46 @@ const ShippingZoneDetails: React.FC<ShippingZoneDetailsProps> = ({
 
   return (
     <>
-      <ShippingZoneDetailsPage
-        disabled={loading}
-        errors={updateShippingZoneOpts.data?.shippingZoneUpdate.errors || []}
-        onBack={() => navigate(shippingZonesListUrl())}
-        onCountryAdd={() => openModal("assign-country")}
-        onCountryRemove={code =>
-          openModal("unassign-country", {
-            id: code
-          })
-        }
-        onDelete={() => openModal("remove")}
-        onPriceRateAdd={() => navigate(shippingPriceRatesUrl(id))}
-        onPriceRateEdit={rateId =>
-          navigate(shippingPriceRatesEditUrl(id, rateId))
-        }
-        onRateRemove={rateId =>
-          openModal("remove-rate", {
-            id: rateId
-          })
-        }
-        onSubmit={handleSubmit}
-        allChannels={availableChannels}
-        onWarehouseAdd={() => openModal("add-warehouse")}
-        onWeightRateAdd={() => navigate(shippingWeightRatesUrl(id))}
-        onWeightRateEdit={rateId =>
-          navigate(shippingWeightRatesEditUrl(id, rateId))
-        }
-        saveButtonBarState={updateShippingZoneOpts.status}
-        shippingZone={data?.shippingZone}
-        warehouses={mapEdgesToItems(searchWarehousesOpts?.data?.search) || []}
-        hasMore={searchWarehousesOpts.data?.search?.pageInfo?.hasNextPage}
-        loading={searchWarehousesOpts.loading}
-        onFetchMore={loadMore}
-        onSearchChange={search}
-        selectedChannelId={channel?.id}
-      />
+      {!data ? (
+        <Loader />
+      ) : (
+        <ShippingZoneDetailsPage
+          disabled={loading}
+          errors={updateShippingZoneOpts.data?.shippingZoneUpdate.errors || []}
+          onBack={() => navigate(shippingZonesListUrl())}
+          onCountryAdd={() => openModal("assign-country")}
+          onCountryRemove={code =>
+            openModal("unassign-country", {
+              id: code
+            })
+          }
+          onDelete={() => openModal("remove")}
+          onPriceRateAdd={() => navigate(shippingPriceRatesUrl(id))}
+          onPriceRateEdit={rateId =>
+            navigate(shippingPriceRatesEditUrl(id, rateId))
+          }
+          onRateRemove={rateId =>
+            openModal("remove-rate", {
+              id: rateId
+            })
+          }
+          onSubmit={handleSubmit}
+          allChannels={availableChannels}
+          onWarehouseAdd={() => openModal("add-warehouse")}
+          onWeightRateAdd={() => navigate(shippingWeightRatesUrl(id))}
+          onWeightRateEdit={rateId =>
+            navigate(shippingWeightRatesEditUrl(id, rateId))
+          }
+          saveButtonBarState={updateShippingZoneOpts.status}
+          shippingZone={data?.shippingZone}
+          warehouses={mapEdgesToItems(searchWarehousesOpts?.data?.search) || []}
+          hasMore={searchWarehousesOpts.data?.search?.pageInfo?.hasNextPage}
+          loading={searchWarehousesOpts.loading}
+          onFetchMore={loadMore}
+          onSearchChange={search}
+          selectedChannelId={channel?.id}
+        />
+      )}
       <DeleteShippingRateDialog
         confirmButtonState={deleteShippingRateOpts.status}
         onClose={closeModal}

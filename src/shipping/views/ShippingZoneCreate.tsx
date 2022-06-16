@@ -1,7 +1,9 @@
+import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
 import useShop from "@saleor/hooks/useShop";
 import { commonMessages } from "@saleor/intl";
+import { useWarehouseList } from "@saleor/warehouses/queries";
 import React from "react";
 import { useIntl } from "react-intl";
 
@@ -14,6 +16,13 @@ const ShippingZoneCreate = () => {
   const notify = useNotifier();
   const shop = useShop();
   const intl = useIntl();
+  const { channel } = useAppChannel();
+  const { data } = useWarehouseList({
+    displayLoader: false,
+    variables: {
+      first: 1
+    }
+  });
 
   const [createShippingZone, createShippingZoneOpts] = useShippingZoneCreate({
     onCompleted: data => {
@@ -25,7 +34,7 @@ const ShippingZoneCreate = () => {
         navigate(shippingZoneUrl(data.shippingZoneCreate.shippingZone.id));
       }
     },
-    refetchQueries: ['ShippingZones'],
+    refetchQueries: ["ShippingZones"]
   });
   return (
     <ShippingZoneCreatePage
@@ -36,7 +45,14 @@ const ShippingZoneCreate = () => {
       onSubmit={formData => {
         createShippingZone({
           variables: {
-            input: formData
+            input: {
+              ...formData,
+              addChannels: [channel.id],
+              addWarehouses:
+                data.warehouses?.edges && data.warehouses.edges?.length > 0
+                  ? [data.warehouses.edges[0].node.id]
+                  : []
+            }
           }
         });
         navigate(shippingZonesListUrl());

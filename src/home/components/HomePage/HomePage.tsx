@@ -20,8 +20,8 @@ const useStyles = makeStyles(
   theme => ({
     cardContainer: {
       display: "flex",
-      top: '24px',
-      position: 'relative',
+      top: "24px",
+      position: "relative"
     },
     icon: {
       "& path": {
@@ -84,7 +84,9 @@ const HomePage: React.FC<HomePageProps> = props => {
               {noChannel ? (
                 0
               ) : sales ? (
-                `${sales?.currency === "USD" && "$" } ${sales?.amount}`
+                <span>{`${sales?.currency === "USD" && "$"}${
+                  sales?.amount
+                }`}</span>
               ) : (
                 <Skeleton style={{ width: "5em" }} />
               )}

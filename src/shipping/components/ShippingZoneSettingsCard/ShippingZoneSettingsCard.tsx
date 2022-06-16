@@ -27,7 +27,7 @@ export interface ShippingZoneSettingsCardProps {
   hasMoreWarehouses: boolean;
   selectedChannelId?: string;
   onFetchMoreWarehouses: () => void;
-  submit?: () => void;
+  // submit?: () => void;
   onWarehousesSearchChange: (query: string) => void;
   channelsDisplayValues: MultiAutocompleteChoiceType[];
   onChannelChange: FormChange;
@@ -43,52 +43,17 @@ export const ShippingZoneSettingsCard: React.FC<ShippingZoneSettingsCardProps> =
   loading,
   warehousesChoices,
   onFetchMoreWarehouses,
-  selectedChannelId,
+  // selectedChannelId,
   onWarehousesSearchChange,
   onWarehouseAdd,
-  shippingZone,
+  // shippingZone,
   onWarehouseChange,
   allChannels,
-  submit,
+  // submit,
   onChannelChange,
   channelsDisplayValues
 }) => {
   const intl = useIntl();
-
-  useEffect(() => {
-    if (channelsDisplayValues.length === 0 && allChannels.length > 0 && selectedChannelId) {
-      console.log("onChannelChange", {
-        channelsDisplayValues,
-        allChannels,
-        shippingZone,
-        selectedChannelId
-      });
-      onChannelChange({
-        target: {
-          name: "channels",
-          value: selectedChannelId
-        }
-      });
-    }
-  }, [channelsDisplayValues, shippingZone, selectedChannelId, allChannels]);
-
-  useEffect(() => {
-    if (
-      warehousesDisplayValues.length === 0 &&
-      warehousesChoices.length !== 0
-    ) {
-      console.log("onWarehouseChange", warehousesDisplayValues);
-
-      onWarehouseChange({
-        target: {
-          name: "warehouses",
-          value:
-            warehousesChoices.filter(e => e.label === "Default")[0]?.value ||
-            warehousesChoices[0].value
-        }
-      });
-    }
-  }, [warehousesChoices, warehousesDisplayValues]);
 
   return (
     <Card>

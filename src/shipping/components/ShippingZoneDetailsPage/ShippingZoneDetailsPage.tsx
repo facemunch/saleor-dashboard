@@ -12,9 +12,8 @@ import { ShippingZoneDetailsFragment_warehouses } from "@saleor/fragments/types/
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import { ShippingZone_shippingZone } from "@saleor/shipping/types/ShippingZone";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
-import React, { useEffect } from "react";
+import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import ShippingZoneSettingsCard from "../ShippingZoneSettingsCard";
 
 import { IonContent, IonPage } from "@ionic/react";
 
@@ -85,19 +84,15 @@ function warehouseToChoice(
 const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
   disabled,
   errors,
-  hasMore,
   loading,
   onBack,
   onCountryAdd,
   onCountryRemove,
   onDelete,
-  onFetchMore,
   onPriceRateAdd,
   onPriceRateEdit,
   onRateRemove,
-  onSearchChange,
   onSubmit,
-  onWarehouseAdd,
   onWeightRateAdd,
   onWeightRateEdit,
   saveButtonBarState,
@@ -128,23 +123,17 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
   return (
     <IonPage>
       <IonContent data-test-id="shipping-zone-details-page">
-        <Form initial={initialForm} onSubmit={onSubmit}>
+        <Form
+          initial={initialForm}
+          onSubmit={e => {
+            console.log("onSubmit", e);
+            onSubmit(e);
+          }}
+        >
           {({ change, data, hasChanged, submit, toggleValue }) => {
             const changeMetadata = makeMetadataChangeHandler(change);
 
-            const handleWarehouseChange = createMultiAutocompleteSelectHandler(
-              toggleValue,
-              setWarehouseDisplayValues,
-              warehouseDisplayValues,
-              warehouseChoices
-            );
 
-            const handleChannelChange = createMultiAutocompleteSelectHandler(
-              toggleValue,
-              setChannelDisplayValues,
-              channelsDisplayValues,
-              channelChoices
-            );
 
             return (
               <>
@@ -174,7 +163,7 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
                     />
                     <CardSpacer />
                     <ShippingZoneRates
-                      disabled={disabled}
+                      disabled={shippingZone?.channels.length === 0 || loading}
                       onRateAdd={onPriceRateAdd}
                       onRateEdit={onPriceRateEdit}
                       onRateRemove={onRateRemove}
@@ -187,7 +176,7 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
                     />
                     <CardSpacer />
                     <ShippingZoneRates
-                      disabled={disabled}
+                      disabled={shippingZone?.channels.length === 0 || loading}
                       onRateAdd={onWeightRateAdd}
                       onRateEdit={onWeightRateEdit}
                       onRateRemove={onRateRemove}
@@ -200,31 +189,6 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
                     />
                     <CardSpacer />
                     <Metadata data={data} onChange={changeMetadata} />
-                  </div>
-                  <div
-                    id="hide-isDigitalProduct"
-                    style={{
-                      height: "0",
-                      overflow: "hidden"
-                    }}
-                  >
-                    <ShippingZoneSettingsCard
-                      submit={submit}
-                      formData={data}
-                      selectedChannelId={selectedChannelId}
-                      shippingZone={shippingZone}
-                      warehousesDisplayValues={warehouseDisplayValues}
-                      hasMoreWarehouses={hasMore}
-                      loading={loading}
-                      onWarehouseChange={handleWarehouseChange}
-                      onFetchMoreWarehouses={onFetchMore}
-                      onWarehousesSearchChange={onSearchChange}
-                      onWarehouseAdd={onWarehouseAdd}
-                      warehousesChoices={warehouseChoices}
-                      allChannels={allChannels}
-                      channelsDisplayValues={channelsDisplayValues}
-                      onChannelChange={handleChannelChange}
-                    />
                   </div>
                   <div style={{ height: "100px" }} />
                 </Grid>
