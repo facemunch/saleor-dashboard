@@ -30,7 +30,7 @@ import {
 } from "@saleor/utils/metadata/updateMetadata";
 import { useWarehouseCreate } from "@saleor/warehouses/mutations";
 import { Loader } from "frontend/ui/loader";
-import React from "react";
+import React, { RefObject } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { findValueInEnum, getStringOrPlaceholder } from "../../../misc";
@@ -52,11 +52,13 @@ import {
 export interface ShippingZoneDetailsProps {
   id: string;
   params: ShippingZoneUrlQueryParams;
+  shippingDetailModalRef: RefObject<HTMLIonModalElement>;
 }
 
 const ShippingZoneDetails: React.FC<ShippingZoneDetailsProps> = ({
   id,
-  params
+  params,
+  shippingDetailModalRef
 }) => {
   const navigate = useNavigator();
   const notify = useNotifier();
@@ -266,6 +268,7 @@ const ShippingZoneDetails: React.FC<ShippingZoneDetailsProps> = ({
           </DialogContentText>
         </ActionDialog>
         <ShippingZoneCountriesAssignDialog
+          shippingCreateModalRef={shippingDetailModalRef}
           confirmButtonState={updateShippingZoneOpts.status}
           countries={shop?.countries || []}
           initial={

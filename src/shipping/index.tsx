@@ -90,9 +90,9 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
   const { push } = useHistory();
   const params: ShippingZoneUrlQueryParams = qs;
 
-  const shippingWeightRatesRef = useRef<HTMLIonModalElement>()
+  const shippingWeightRatesRef = useRef<HTMLIonModalElement>();
 
-  const shippingPriceRatesEditRef = useRef<HTMLIonModalElement>()
+  const shippingPriceRatesEditRef = useRef<HTMLIonModalElement>();
 
   const match = useParams();
   return (
@@ -100,6 +100,7 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
       <ShippingZoneDetailsComponent
         id={decodeURIComponent(match.id)}
         params={params}
+        shippingDetailModalRef={shippingDetailModalRef}
       />
       <IonModal
         style={{
