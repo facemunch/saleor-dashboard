@@ -17,7 +17,7 @@ import Hr from "@saleor/components/Hr";
 import { ShopInfo_shop_countries } from "@saleor/components/Shop/types/ShopInfo";
 import { makeStyles } from "@saleor/macaw-ui";
 import { filter } from "fuzzaldrin";
-import React from "react";
+import React, { RefObject } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 const spanStyle = {
@@ -48,7 +48,7 @@ export interface ShippingZoneCountriesAssignDialogProps {
   open: boolean;
   onClose: () => void;
   onConfirm: (data: FormData) => void;
-  shippingCreateModalRef?: any;
+  shippingCreateModalRef?: RefObject<HTMLIonModalElement>;
 }
 
 const useStyles = makeStyles(
@@ -104,7 +104,7 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
       mode="ios"
       backdropDismiss={true}
       isOpen={open}
-      presentingElement={shippingCreateModalRef?.current || undefined}
+      presentingElement={shippingCreateModalRef?.current}
       canDismiss={true}
       onDidDismiss={() => {
         open && onClose();

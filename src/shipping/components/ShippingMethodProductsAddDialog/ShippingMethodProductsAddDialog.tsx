@@ -12,14 +12,14 @@ import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import TableCellAvatar from "@saleor/components/TableCellAvatar";
 import useSearchQuery from "@saleor/hooks/useSearchQuery";
-import { makeStyles, useActionBar } from "@saleor/macaw-ui";
+import { makeStyles } from "@saleor/macaw-ui";
 import Savebar from "@saleor/components/Savebar";
 
 import { renderCollection } from "@saleor/misc";
 import { SearchProducts_search_edges_node } from "@saleor/searches/types/SearchProducts";
 import { ShippingPriceExcludeProduct } from "@saleor/shipping/types/ShippingPriceExcludeProduct";
 import { FetchMoreProps } from "@saleor/types";
-import React from "react";
+import React, { RefObject } from "react";
 import { MutationFetchResult } from "react-apollo";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -77,7 +77,7 @@ const spanStyle = {
 export interface ShippingMethodProductsAddDialogProps extends FetchMoreProps {
   confirmButtonState: ConfirmButtonTransitionState;
   open: boolean;
-  shippingPriceRatesEditRef: any;
+  shippingPriceRatesEditRef: RefObject<HTMLIonModalElement>;
   products: SearchProducts_search_edges_node[];
   onClose: () => void;
   onFetch: (query: string) => void;
@@ -145,7 +145,7 @@ const ShippingMethodProductsAddDialog: React.FC<ShippingMethodProductsAddDialogP
       mode="ios"
       backdropDismiss={true}
       isOpen={open}
-      presentingElement={shippingPriceRatesEditRef?.current || undefined}
+      presentingElement={shippingPriceRatesEditRef?.current}
       canDismiss={true}
       onDidDismiss={() => {
         open && handleClose();

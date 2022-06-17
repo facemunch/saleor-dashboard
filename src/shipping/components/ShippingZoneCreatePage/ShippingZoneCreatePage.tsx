@@ -6,10 +6,10 @@ import Grid from "@saleor/components/Grid";
 import Savebar from "@saleor/components/Savebar";
 import { CountryFragment } from "@saleor/fragments/types/CountryFragment";
 import { ShippingErrorFragment } from "@saleor/fragments/types/ShippingErrorFragment";
-import React, { useRef } from "react";
+import React, { RefObject } from "react";
 import { defineMessages, useIntl } from "react-intl";
 
-import { IonPage, IonContent } from "@ionic/react";
+import { IonContent } from "@ionic/react";
 
 import ShippingZoneCountriesAssignDialog from "../ShippingZoneCountriesAssignDialog";
 import ShippingZoneInfo from "../ShippingZoneInfo";
@@ -48,7 +48,7 @@ export interface ShippingZoneCreatePageProps {
   saveButtonBarState: ConfirmButtonTransitionState;
   onBack: () => void;
   onSubmit: (data: FormData) => void;
-  shippingCreateModalRef: any;
+  shippingCreateModalRef: RefObject<HTMLIonModalElement>;
 }
 
 const ShippingZoneCreatePage: React.FC<ShippingZoneCreatePageProps> = ({

@@ -63,13 +63,13 @@ import {
   useMetadataUpdate,
   usePrivateMetadataUpdate
 } from "@saleor/utils/metadata/updateMetadata";
-import React from "react";
+import React, { RefObject } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 export interface PriceRatesUpdateProps {
   id: string;
   rateId: string;
-  shippingPriceRatesEditRef?: any;
+  shippingPriceRatesEditRef?: RefObject<HTMLIonModalElement>;
   params: ShippingRateUrlQueryParams;
 }
 
