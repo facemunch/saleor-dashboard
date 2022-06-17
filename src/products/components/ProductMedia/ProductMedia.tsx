@@ -1,4 +1,4 @@
-import { Button, Card, CardContent } from "@mui/material";
+import { CardContent } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import ImageUpload from "@saleor/components/ImageUpload";
 import MediaTile from "@saleor/components/MediaTile";
@@ -12,7 +12,7 @@ import classNames from "classnames";
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { SortableContainer, SortableElement } from "react-sortable-hoc";
-import { IonCard } from "@ionic/react";
+import { IonCard, IonButton } from "@ionic/react";
 const messages = defineMessages({
   media: {
     defaultMessage: "Media",
@@ -225,15 +225,15 @@ const ProductMedia: React.FC<ProductMediaProps> = props => {
         title={intl.formatMessage(messages.media)}
         toolbar={
           <>
-            <Button
+            <IonButton
               onClick={() => setPopperOpenStatus(true)}
-              variant="text"
+              size="small"
               color="primary"
               data-test="button-upload-image"
               ref={anchor}
             >
               {intl.formatMessage(messages.upload)}
-            </Button>
+            </IonButton>
 
             <ProductMediaPopper
               anchorRef={anchor.current}

@@ -1,6 +1,4 @@
 import {
-  Button,
-  Card,
   CardContent,
   TableBody,
   TableCell,
@@ -17,7 +15,7 @@ import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { IonCard } from "@ionic/react";
+import { IonCard, IonButton } from "@ionic/react";
 
 const useStyles = makeStyles(
   () => ({
@@ -83,12 +81,12 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
         })}
         toolbar={
           onInvoiceGenerate && (
-            <Button color="primary" onClick={onInvoiceGenerate}>
+            <IonButton size="small" color="primary" onClick={onInvoiceGenerate}>
               <FormattedMessage
                 defaultMessage="Generate"
                 description="generate invoice button"
               />
-            </Button>
+            </IonButton>
           )
         }
       />
@@ -133,9 +131,9 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
                       className={classes.colAction}
                       onClick={() => onInvoiceSend(invoice.id)}
                     >
-                      <Button color="primary">
+                      <IonButton size="small"  color="primary">
                         <FormattedMessage {...buttonMessages.send} />
-                      </Button>
+                      </IonButton>
                     </TableCell>
                   )}
                 </TableRow>

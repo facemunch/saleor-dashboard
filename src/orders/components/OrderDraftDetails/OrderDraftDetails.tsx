@@ -1,4 +1,4 @@
-import { Button, Card, CardContent } from "@mui/material";
+import { CardContent } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import {
   OrderDiscountContext,
@@ -7,7 +7,7 @@ import {
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { IonCard } from "@ionic/react";
+import { IonCard, IonButton } from "@ionic/react";
 
 import { maybe } from "../../../misc";
 import { OrderDetails_order } from "../../types/OrderDetails";
@@ -45,9 +45,9 @@ const OrderDraftDetails: React.FC<OrderDraftDetailsProps> = ({
         })}
         toolbar={
           order?.channel.isActive && (
-            <Button
+            <IonButton
               color="primary"
-              variant="text"
+              size="small"
               onClick={onOrderLineAdd}
               data-test-id="add-products-button"
             >
@@ -55,7 +55,7 @@ const OrderDraftDetails: React.FC<OrderDraftDetailsProps> = ({
                 defaultMessage="Add products"
                 description="button"
               />
-            </Button>
+            </IonButton>
           )
         }
       />

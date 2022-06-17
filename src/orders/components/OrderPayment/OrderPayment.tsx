@@ -1,4 +1,4 @@
-import { Button, Card, CardActions, CardContent } from "@mui/material";
+import { Card, CardActions, CardContent } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import { Hr } from "@saleor/components/Hr";
 import Money, { subtractMoney } from "@saleor/components/Money";
@@ -7,7 +7,7 @@ import StatusLabel from "@saleor/components/StatusLabel";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { IonCard } from "@ionic/react";
+import { IonCard, IonButton } from "@ionic/react";
 import { maybe, transformPaymentStatus } from "../../../misc";
 import {
   OrderAction,
@@ -320,17 +320,17 @@ const OrderPayment: React.FC<OrderPaymentProps> = props => {
             <Hr />
             <CardActions>
               {canCapture && (
-                <Button color="primary" variant="text" onClick={onCapture}>
+                <IonButton size="small" color="primary" onClick={onCapture}>
                   <FormattedMessage
                     defaultMessage="Capture"
                     description="capture payment, button"
                   />
-                </Button>
+                </IonButton>
               )}
               {canRefund && (
-                <Button
+                <IonButton
+                  size="small"
                   color="primary"
-                  variant="text"
                   onClick={onRefund}
                   data-test-id="refund-button"
                 >
@@ -338,23 +338,23 @@ const OrderPayment: React.FC<OrderPaymentProps> = props => {
                     defaultMessage="Refund"
                     description="button"
                   />
-                </Button>
+                </IonButton>
               )}
               {canVoid && (
-                <Button color="primary" variant="text" onClick={onVoid}>
+                <IonButton size="small" color="primary" onClick={onVoid}>
                   <FormattedMessage
                     defaultMessage="Void"
                     description="void payment, button"
                   />
-                </Button>
+                </IonButton>
               )}
               {canMarkAsPaid && (
-                <Button color="primary" variant="text" onClick={onMarkAsPaid}>
+                <IonButton size="small" color="primary" onClick={onMarkAsPaid}>
                   <FormattedMessage
                     defaultMessage="Mark as paid"
                     description="order, button"
                   />
-                </Button>
+                </IonButton>
               )}
             </CardActions>
           </>

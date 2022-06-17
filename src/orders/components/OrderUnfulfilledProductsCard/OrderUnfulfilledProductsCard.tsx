@@ -1,13 +1,5 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  TableBody,
-  Typography,
-  Box
-} from "@mui/material";
+import { CardActions, TableBody, Typography } from "@mui/material";
 import CardSpacer from "@saleor/components/CardSpacer";
-import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import { commonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
 import { renderCollection } from "@saleor/misc";
@@ -19,7 +11,7 @@ import TableHeader from "../OrderProductsCardElements/OrderProductsCardHeader";
 import TableLine from "../OrderProductsCardElements/OrderProductsTableRow";
 import CardTitle from "../OrderReturnPage/OrderReturnRefundItemsCard/CardTitle";
 
-import { IonCard, IonCardContent } from "@ionic/react";
+import { IonCard, IonButton } from "@ionic/react";
 
 const useStyles = makeStyles(
   () => ({
@@ -68,14 +60,14 @@ const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> 
 
         {showFulfillmentAction && (
           <CardActions>
-            <Button
-              variant="text"
+            <IonButton
+              size="small"
               color="primary"
               onClick={onFulfill}
               disabled={notAllowedToFulfillUnpaid}
             >
               <FormattedMessage defaultMessage="Fulfill" description="button" />
-            </Button>
+            </IonButton>
             {notAllowedToFulfillUnpaid && (
               <Typography color="error" variant="caption">
                 <FormattedMessage

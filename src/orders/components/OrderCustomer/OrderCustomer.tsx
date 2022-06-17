@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, Typography } from "@mui/material";
+import { CardContent, Typography } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import ExternalLink from "@saleor/components/ExternalLink";
 import Form from "@saleor/components/Form";
@@ -23,7 +23,7 @@ import { createHref, maybe } from "../../../misc";
 import { OrderDetails_order } from "../../types/OrderDetails";
 import { WarehouseClickAndCollectOptionEnum } from "./../../../types/globalTypes";
 import messages from "./messages";
-import { IonCard } from "@ionic/react";
+import { IonCard, IonButton } from "@ionic/react";
 const useStyles = makeStyles(
   theme => ({
     sectionHeader: {
@@ -132,15 +132,15 @@ const OrderCustomer: React.FC<OrderCustomerProps> = props => {
               userPermissions={userPermissions}
               requiredPermissions={[PermissionEnum.MANAGE_USERS]}
             >
-              <Button
+              <IonButton
                 data-test-id="edit-customer"
                 color="primary"
-                variant="text"
+                size="small"
                 disabled={!onCustomerEdit}
                 onClick={toggleEditMode}
               >
                 {intl.formatMessage(buttonMessages.edit)}
-              </Button>
+              </IonButton>
             </RequirePermissions>
           )
         }
@@ -271,15 +271,15 @@ const OrderCustomer: React.FC<OrderCustomerProps> = props => {
           </Typography>
           {canEditAddresses && (
             <div className={classes.sectionHeaderToolbar}>
-              <Button
+              <IonButton
                 data-test-id="edit-shipping-address"
                 color="primary"
-                variant="text"
+                size="small"
                 onClick={onShippingAddressEdit}
                 disabled={!onShippingAddressEdit && user === undefined}
               >
                 <FormattedMessage {...buttonMessages.edit} />
-              </Button>
+              </IonButton>
             </div>
           )}
         </div>
@@ -330,15 +330,15 @@ const OrderCustomer: React.FC<OrderCustomerProps> = props => {
           </Typography>
           {canEditAddresses && (
             <div className={classes.sectionHeaderToolbar}>
-              <Button
+              <IonButton
                 data-test-id="edit-billing-address"
                 color="primary"
-                variant="text"
+                size="small"
                 onClick={onBillingAddressEdit}
                 disabled={!onBillingAddressEdit && user === undefined}
               >
                 <FormattedMessage {...buttonMessages.edit} />
-              </Button>
+              </IonButton>
             </div>
           )}
         </div>
