@@ -19,16 +19,9 @@ import { Loader } from "frontend/ui/loader";
 const useStyles = makeStyles(
   theme => ({
     cardContainer: {
-      display: "grid",
-      // width: "92vw",
-      gridColumnGap: theme.spacing(4),
-      gridTemplateColumns: "1fr 1fr",
-      [theme.breakpoints.down("sm")]: {
-        gridColumnGap: theme.spacing(1)
-      },
-      [theme.breakpoints.down("xs")]: {
-        gridTemplateColumns: "1fr"
-      }
+      display: "flex",
+      top: "24px",
+      position: "relative"
     },
     icon: {
       "& path": {
@@ -64,19 +57,19 @@ const HomePage: React.FC<HomePageProps> = props => {
     topProducts,
     onProductClick,
     activities,
-    noChannel, 
+    noChannel,
     loading
   } = props;
 
   const classes = useStyles(props);
-
   return (
     <>
       <IonContent data-test-id="commerce-home-tab">
         <div style={{ height: "20px" }} />
-        {loading && <Loader/>}
-        <IonCard>
-          <div className={classes.cardContainer}>
+        {loading && <Loader />}
+
+        <div className={classes.cardContainer}>
+          <IonCard>
             <HomeAnalyticsCard
               title={"Sales"}
               testId="sales-analytics"
@@ -91,11 +84,15 @@ const HomePage: React.FC<HomePageProps> = props => {
               {noChannel ? (
                 0
               ) : sales ? (
-                <Money money={sales} />
+                <span>{`${sales?.currency === "USD" && "$"}${
+                  sales?.amount
+                }`}</span>
               ) : (
                 <Skeleton style={{ width: "5em" }} />
               )}
             </HomeAnalyticsCard>
+          </IonCard>
+          <IonCard>
             <HomeAnalyticsCard
               title={"Orders"}
               testId="orders-analytics"
@@ -115,8 +112,8 @@ const HomePage: React.FC<HomePageProps> = props => {
                 <Skeleton style={{ width: "5em" }} />
               )}
             </HomeAnalyticsCard>
-          </div>
-        </IonCard>
+          </IonCard>
+        </div>
 
         <CardSpacer />
         <IonCard>

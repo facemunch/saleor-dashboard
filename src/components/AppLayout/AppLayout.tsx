@@ -1,11 +1,9 @@
 import useNavigator from "@saleor/hooks/useNavigator";
-import Portal from "@mui/material/Portal";
 import { settingsOutline } from "ionicons/icons";
 import { makeStyles, useActionBar } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
 import {
-  IonPage,
   IonToolbar,
   IonHeader,
   IonIcon,
@@ -22,7 +20,7 @@ const useStyles = makeStyles(
     appAction: {
       [theme.breakpoints.up("sm")]: {
         left: 0,
-        width: "100%"
+        width: "100vw"
       },
       bottom: 0,
       gridColumn: 2,
@@ -166,15 +164,13 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       </IonHeader>
 
       {children}
-      <Portal container={document.getElementsByTagName("ion-app")[0]}>
-        <div
-          id="action-bar-footer"
-          className={classNames(classes.appAction, {
-            [classes.appActionDocked]: docked
-          })}
-          ref={appActionAnchor}
-        />
-      </Portal>
+      <div
+        id="action-bar-footer"
+        className={classNames(classes.appAction, {
+          [classes.appActionDocked]: docked
+        })}
+        ref={appActionAnchor}
+      />
 
       <IonFab
         vertical="bottom"

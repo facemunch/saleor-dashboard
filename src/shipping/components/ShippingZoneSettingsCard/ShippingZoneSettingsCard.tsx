@@ -3,8 +3,9 @@ import { BaseChannels_channels } from "@saleor/channels/types/BaseChannels";
 import CardTitle from "@saleor/components/CardTitle";
 import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
 import { FormChange } from "@saleor/hooks/useForm";
-import React from "react";
+import React, { useEffect } from "react";
 import { defineMessages, useIntl } from "react-intl";
+import { ShippingZone_shippingZone } from "@saleor/shipping/types/ShippingZone";
 
 import { FormData } from "../../components/ShippingZoneDetailsPage/types";
 import ChannelsSection from "./ChannelsSection";
@@ -24,11 +25,14 @@ export interface ShippingZoneSettingsCardProps {
   onWarehouseAdd: () => void;
   onWarehouseChange: FormChange;
   hasMoreWarehouses: boolean;
+  selectedChannelId?: string;
   onFetchMoreWarehouses: () => void;
+  // submit?: () => void;
   onWarehousesSearchChange: (query: string) => void;
   channelsDisplayValues: MultiAutocompleteChoiceType[];
   onChannelChange: FormChange;
   allChannels?: BaseChannels_channels[];
+  shippingZone?: ShippingZone_shippingZone;
   loading: boolean;
 }
 
@@ -39,10 +43,13 @@ export const ShippingZoneSettingsCard: React.FC<ShippingZoneSettingsCardProps> =
   loading,
   warehousesChoices,
   onFetchMoreWarehouses,
+  // selectedChannelId,
   onWarehousesSearchChange,
   onWarehouseAdd,
+  // shippingZone,
   onWarehouseChange,
   allChannels,
+  // submit,
   onChannelChange,
   channelsDisplayValues
 }) => {

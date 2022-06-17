@@ -24,10 +24,7 @@ import "swiper/css/free-mode";
 import "swiper/css/history";
 
 import "@ionic/react/css/ionic-swiper.css";
-
-// import authLink from "../auth/link";
 import AppLayout from "../components/AppLayout";
-import { CustomerListView } from "../customers";
 
 import HomePage from "../home";
 import { OrderList } from "../orders";
@@ -114,7 +111,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
                 return (
                   "<ion-segment-button data-test-id='commerce-tab-" +
                   menu[index].toLowerCase() +
-                  "-trigger' class='ios in-segment segment-button-has-label segment-button-has-label-only segment-button-layout-icon-top ion-activatable ion-activatable-instant ion-focusable SideBarDrawer-menuItemBtn-150 " +
+                  "-trigger' class='ios in-segment segment-button-has-label segment-button-has-label-only segment-button-layout-icon-top ion-activatable ion-activatable-instant SideBarDrawer-menuItemBtn-150 " +
                   className +
                   "'>" +
                   menu[index] +
@@ -133,9 +130,6 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
             </SwiperSlide>
             <SwiperSlide data-history="orders">
               <OrderList />
-            </SwiperSlide>
-            <SwiperSlide data-history="customers">
-              <CustomerListView />
             </SwiperSlide>
           </Swiper>
 
@@ -188,7 +182,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
           >
             <Route
               path={"/orders/" + orderPath(":id", "")}
-              render={() => <OrderDetails />}
+              render={() => <OrderDetails orderModalRef={orderModalRef} />}
             />
           </IonModal>
           <IonModal
@@ -260,9 +254,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
             presentingElement={homeModalRef.current}
             onWillDismiss={() => push("/configuration")}
           >
-            <ShippingZonesList
-              shippingListModalRef={shippingListModalRef}
-            />
+            <ShippingZonesList shippingListModalRef={shippingListModalRef} />
           </IonModal>
         </>
       </AppLayout>

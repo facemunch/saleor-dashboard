@@ -17,7 +17,7 @@ import Hr from "@saleor/components/Hr";
 import { ShopInfo_shop_countries } from "@saleor/components/Shop/types/ShopInfo";
 import { makeStyles } from "@saleor/macaw-ui";
 import { filter } from "fuzzaldrin";
-import React from "react";
+import React, { RefObject } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 const spanStyle = {
@@ -48,6 +48,7 @@ export interface ShippingZoneCountriesAssignDialogProps {
   open: boolean;
   onClose: () => void;
   onConfirm: (data: FormData) => void;
+  shippingCreateModalRef?: RefObject<HTMLIonModalElement>;
 }
 
 const useStyles = makeStyles(
@@ -83,7 +84,8 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
     countries,
     open,
     initial,
-    onConfirm
+    onConfirm,
+    shippingCreateModalRef
   } = props;
 
   const classes = useStyles(props);
@@ -96,36 +98,43 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
   };
   return (
     <IonModal
-      style={{ "--z-index": "1000000" }}
+      style={{
+        "--border-radius": "16px"
+      }}
+      mode="ios"
+      backdropDismiss={true}
       isOpen={open}
-      initialBreakpoint={0.91}
+      presentingElement={shippingCreateModalRef?.current}
+      canDismiss={true}
+      onDidDismiss={() => {
+        open && onClose();
+      }}
     >
-      <>
-        <span style={spanStyle}>
-          <FormattedMessage
-            defaultMessage="Assign countries"
-            description="dialog header"
-          />
-        </span>
-
-        <IonButton
-          data-test={"close-modal"}
-          size="small"
-          style={{
-            position: "absolute",
-            right: "0",
-            top: "4px"
-          }}
-          fill="clear"
-          onClick={() => {
-            onClose();
-          }}
-        >
-          <IonIcon slot="icon-only" color="dark" icon={closeOutline} />
-        </IonButton>
-      </>
-
       <IonContent data-test-id="shipping-zone-countries-assign-view">
+        <>
+          <span style={spanStyle}>
+            <FormattedMessage
+              defaultMessage="Assign countries"
+              description="dialog header"
+            />
+          </span>
+
+          <IonButton
+            data-test={"close-modal"}
+            size="small"
+            style={{
+              position: "absolute",
+              right: "0",
+              top: "4px"
+            }}
+            fill="clear"
+            onClick={() => {
+              onClose();
+            }}
+          >
+            <IonIcon slot="icon-only" color="dark" icon={closeOutline} />
+          </IonButton>
+        </>
         <Form initial={initialForm} onSubmit={onConfirm}>
           {({ data, change }) => {
             const countrySelectionMap = countries.reduce((acc, country) => {
@@ -162,8 +171,9 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                     <FormattedMessage defaultMessage="Quick Pick" />
                   </Typography>
 
-                  <TableCell className={classes.wideCell}>
+                  <TableCell>
                     <FormattedMessage defaultMessage="Rest of the World" />
+                    <br />
                     <Typography variant="caption">
                       <FormattedMessage defaultMessage="If selected, this will add all of the countries not selected to other shipping zones" />
                     </Typography>
@@ -244,11 +254,12 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                   onCancel={onClose}
                   onSubmit={() => onConfirm(data)}
                 />
+
+                {/* </DialogContent> */}
               </>
             );
           }}
         </Form>
-        {/* </DialogContent> */}
       </IonContent>
     </IonModal>
   );

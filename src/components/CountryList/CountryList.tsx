@@ -1,6 +1,4 @@
 import {
-  Button,
-  Card,
   CardContent,
   IconButton,
   TableBody,
@@ -18,7 +16,7 @@ import classNames from "classnames";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 
-import { IonCard } from "@ionic/react";
+import { IonButton, IonCard } from "@ionic/react";
 
 import { getStringOrPlaceholder, maybe, renderCollection } from "../../misc";
 
@@ -35,7 +33,13 @@ const useStyles = makeStyles(
   theme => ({
     iconCell: {
       "&:last-child": {
-        paddingRight: 0
+        paddingRight: 0,
+        justifyContent: "end",
+        flex: "1 0 auto",
+        display: "flex",
+        flexDirection: "row",
+        textAlign: "right",
+        float: "right"
       },
       width: `calc(48px + ${theme.spacing(2)})`
     },
@@ -65,7 +69,9 @@ const useStyles = makeStyles(
       transform: "rotate(180deg)"
     },
     textRight: {
-      textAlign: "right"
+      textAlign: "right",
+      display: "flex",
+      justifyContent: "end"
     },
     toLeft: {
       "&:first-of-type": {
@@ -102,7 +108,8 @@ const CountryList: React.FC<CountryListProps> = props => {
       <CardTitle
         title={title}
         toolbar={
-          <Button
+          <IonButton
+            size="small"
             color="primary"
             disabled={disabled}
             onClick={onCountryAssign}
@@ -112,7 +119,7 @@ const CountryList: React.FC<CountryListProps> = props => {
               defaultMessage="Assign countries"
               description="button"
             />
-          </Button>
+          </IonButton>
         }
       />
       <CardContent className={classes.root}>
@@ -146,7 +153,10 @@ const CountryList: React.FC<CountryListProps> = props => {
               renderCollection(
                 sortCountries(countries),
                 (country, countryIndex) => (
-                  <TableRow data-test-id="shipping-zone-country-item" key={country ? country.code : "skeleton"}>
+                  <TableRow
+                    data-test-id="shipping-zone-country-item"
+                    key={country ? country.code : "skeleton"}
+                  >
                     <TableCell className={classes.offsetCell}>
                       {maybe<React.ReactNode>(
                         () => (

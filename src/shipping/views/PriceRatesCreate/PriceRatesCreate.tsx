@@ -1,4 +1,3 @@
-import { IonContent } from "@ionic/react";
 import { createSortedShippingChannels } from "@saleor/channels/utils";
 import ChannelsAvailabilityDialog from "@saleor/components/ChannelsAvailabilityDialog";
 import useChannels from "@saleor/hooks/useChannels";
@@ -125,7 +124,7 @@ export const PriceRatesCreate: React.FC<PriceRatesCreateProps> = ({
   };
 
   return (
-    <IonContent>
+    <>
       {!!allChannels?.length && (
         <ChannelsAvailabilityDialog
           isSelected={isChannelSelected}
@@ -167,7 +166,7 @@ export const PriceRatesCreate: React.FC<PriceRatesCreateProps> = ({
         onSubmit={onPostalCodeAssign}
         open={params.action === "add-range"}
       />
-    </IonContent>
+    </>
   );
 };
 

@@ -1,6 +1,7 @@
 import { OutputData } from "@editorjs/editorjs";
 import { ChannelShippingData } from "@saleor/channels/utils";
 import CardSpacer from "@saleor/components/CardSpacer";
+
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
@@ -16,6 +17,7 @@ import OrderWeight from "@saleor/shipping/components/OrderWeight";
 import PricingCard from "@saleor/shipping/components/PricingCard";
 import ShippingRateInfo from "@saleor/shipping/components/ShippingRateInfo";
 import { createChannelsChangeHandler } from "@saleor/shipping/handlers";
+
 import { PostalCodeRuleInclusionTypeEnum, ShippingMethodTypeEnum } from "@saleor/types/globalTypes";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -47,7 +49,6 @@ export interface ShippingZoneRatesCreatePageProps {
 }
 
 export const ShippingZoneRatesCreatePage: React.FC<ShippingZoneRatesCreatePageProps> = ({
-  allChannelsCount,
   shippingChannels,
   channelErrors,
   disabled,
@@ -56,15 +57,9 @@ export const ShippingZoneRatesCreatePage: React.FC<ShippingZoneRatesCreatePagePr
   onBack,
   onDelete,
   onSubmit,
-  onPostalCodeInclusionChange,
   onChannelsChange,
-  onPostalCodeAssign,
-  onPostalCodeUnassign,
-  openChannelsModal,
   saveButtonBarState,
-  variant,
-  postalCodes
-}) => {
+  variant}) => {
   const intl = useIntl();
   const isPriceVariant = variant === ShippingMethodTypeEnum.PRICE;
   const initialForm: ShippingZoneRateCommonFormData = {
@@ -80,96 +75,99 @@ export const ShippingZoneRatesCreatePage: React.FC<ShippingZoneRatesCreatePagePr
   };
 
   return (
-    <Form initial={initialForm} onSubmit={onSubmit}>
-      {({ change, data, hasChanged, submit, triggerChange, set }) => {
-        const handleChannelsChange = createChannelsChangeHandler(
-          shippingChannels,
-          onChannelsChange,
-          triggerChange
-        );
-        const formDisabled = data.channelListings?.some(channel =>
-          validatePrice(channel.price)
-        );
-        const onDescriptionChange = (description: OutputData) => {
-          set({ description });
-          triggerChange();
-        };
+    <IonPage>
+      <IonContent>
+        <Form initial={initialForm} onSubmit={onSubmit}>
+          {({ change, data, hasChanged, submit, triggerChange, set }) => {
+            const handleChannelsChange = createChannelsChangeHandler(
+              shippingChannels,
+              onChannelsChange,
+              triggerChange
+            );
+            const formDisabled = data.channelListings?.some(channel =>
+              validatePrice(channel.price)
+            );
+            const onDescriptionChange = (description: OutputData) => {
+              set({ description });
+              triggerChange();
+            };
 
-        return (
-          <IonPage>
-            <IonContent>
-              <Backlink onClick={onBack}>
-                <FormattedMessage defaultMessage="Shipping" />
-              </Backlink>
-              <PageHeader
-                title={
-                  isPriceVariant
-                    ? intl.formatMessage({
-                        defaultMessage: "Price Rate Create",
-                        description: "page title"
-                      })
-                    : intl.formatMessage({
-                        defaultMessage: "Weight Rate Create",
-                        description: "page title"
-                      })
-                }
-              />
-              <Grid>
-                <div>
-                  <ShippingRateInfo
-                    data={data}
-                    disabled={disabled}
-                    errors={errors}
-                    onChange={change}
-                    onDescriptionChange={onDescriptionChange}
-                  />
-                  <CardSpacer />
-                  {isPriceVariant ? (
-                    <OrderValue
-                      channels={data.channelListings}
-                      errors={channelErrors}
-                      orderValueRestricted={data.orderValueRestricted}
+            return (
+              <>
+                <Backlink onClick={onBack}>
+                  <FormattedMessage defaultMessage="Shipping" />
+                </Backlink>
+                <PageHeader
+                  title={
+                    isPriceVariant
+                      ? intl.formatMessage({
+                          defaultMessage: "Price Rate Create",
+                          description: "page title"
+                        })
+                      : intl.formatMessage({
+                          defaultMessage: "Weight Rate Create",
+                          description: "page title"
+                        })
+                  }
+                />
+                <Grid>
+                  <div>
+                    <ShippingRateInfo
+                      data={data}
                       disabled={disabled}
-                      onChange={change}
-                      onChannelsChange={handleChannelsChange}
-                    />
-                  ) : (
-                    <OrderWeight
-                      orderValueRestricted={data.orderValueRestricted}
-                      disabled={disabled}
-                      minValue={data.minValue}
-                      maxValue={data.maxValue}
-                      onChange={change}
                       errors={errors}
+                      onChange={change}
+                      onDescriptionChange={onDescriptionChange}
                     />
-                  )}
-                  <CardSpacer />
-                  <PricingCard
-                    channels={data.channelListings}
-                    onChange={handleChannelsChange}
-                    disabled={disabled}
-                    errors={channelErrors}
-                  />
-                  <CardSpacer />
-                </div>
-                <div style={{ height: "100px" }} />
-              </Grid>
-              <Savebar
-                disabled={
-                  disabled ||
-                  formDisabled ||
-                  (!hasChanged && !hasChannelChanged)
-                }
-                onCancel={onBack}
-                onDelete={onDelete}
-                onSubmit={submit}
-                state={saveButtonBarState}
-              />
-            </IonContent>
-          </IonPage>
-        );
-      }}
-    </Form>
+                    <CardSpacer />
+                    {isPriceVariant ? (
+                      <OrderValue
+                        channels={data.channelListings}
+                        errors={channelErrors}
+                        orderValueRestricted={data.orderValueRestricted}
+                        disabled={disabled}
+                        onChange={change}
+                        onChannelsChange={handleChannelsChange}
+                      />
+                    ) : (
+                      <OrderWeight
+                        orderValueRestricted={data.orderValueRestricted}
+                        disabled={disabled}
+                        minValue={data.minValue}
+                        maxValue={data.maxValue}
+                        onChange={change}
+                        errors={errors}
+                      />
+                    )}
+                    <CardSpacer />
+                    <PricingCard
+                      channels={data.channelListings}
+                      onChange={handleChannelsChange}
+                      disabled={disabled}
+                      errors={channelErrors}
+                    />
+                    <CardSpacer />
+                  </div>
+
+                  <div style={{ height: "100px" }} />
+                </Grid>
+                <Savebar
+                  disabled={
+                    disabled ||
+                    formDisabled ||
+                    (!hasChanged && !hasChannelChanged)
+                  }
+                  onCancel={onBack}
+                  onDelete={onDelete}
+                  onSubmit={submit}
+                  state={saveButtonBarState}
+                />
+              </>
+            );
+          }}
+        </Form>
+      </IonContent>
+    </IonPage>
   );
 };
 

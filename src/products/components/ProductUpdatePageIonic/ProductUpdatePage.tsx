@@ -59,6 +59,8 @@ import ProductUpdateForm, {
   ProductUpdateHandlers
 } from "./form";
 import { Loader } from "frontend/ui/loader";
+import CardMenu from "@saleor/components/CardMenu";
+import PageHeader from "@saleor/components/PageHeader";
 // import { useLocation } from "react-router-dom";
 
 export interface ProductUpdatePageProps extends ListActions, ChannelProps {
@@ -179,6 +181,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   toggle,
   toggleAll,
   toolbar,
+  header,
   assignReferencesAttributeId,
   onAssignReferencesClick,
   fetchReferencePages,
@@ -239,7 +242,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   return (
     <IonPage>
       <IonContent data-test-id="update-product-view">
-        {product === undefined && <Loader/>}
+        {product === undefined && <Loader />}
         <ProductUpdateForm
           isSimpleProduct={isSimpleProduct}
           currentChannels={currentChannels}
@@ -279,7 +282,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
               <Backlink onClick={onBack}>
                 {intl.formatMessage(sectionNames.products)}
               </Backlink>
-          
+              <PageHeader title={header}></PageHeader>
               <Grid>
                 <div>
                   <ProductDetailsForm
@@ -388,7 +391,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                     </>
                   )}
                   <CardSpacer />
-             
+
                   <CardSpacer />
                   <Metadata data={data} onChange={handlers.changeMetadata} />
                 </div>

@@ -15,8 +15,6 @@ import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTr
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 
-import { IonContent, IonPage } from "@ionic/react";
-
 import { getStringOrPlaceholder } from "../../../misc";
 import { ChannelProps, FetchMoreProps, SearchProps } from "../../../types";
 import { ShippingMethodTypeEnum } from "../../../types/globalTypes";
@@ -70,6 +68,7 @@ export interface ShippingZoneDetailsPageProps
 const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
   disabled,
   errors,
+  loading,
   onBack,
   onCountryAdd,
   onCountryRemove,
@@ -85,7 +84,6 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
   shippingZone
 }) => {
   const intl = useIntl();
-
   const initialForm = getInitialFormData(shippingZone);
 
   const {
@@ -93,82 +91,83 @@ const ShippingZoneDetailsPage: React.FC<ShippingZoneDetailsPageProps> = ({
   } = useMetadataChangeTrigger();
 
   return (
-    <IonPage>
-      <IonContent data-test-id="shipping-zone-details-page">
-        <Form initial={initialForm} onSubmit={onSubmit}>
-          {({ change, data, hasChanged, submit }) => {
-            const changeMetadata = makeMetadataChangeHandler(change);
-
-            return (
-              <>
-                <PageHeader title={shippingZone?.name} />
-                <Grid>
-                  <div>
-                    <ShippingZoneInfo
-                      data={data}
-                      disabled={disabled}
-                      errors={errors}
-                      onChange={change}
-                    />
-                    <CardSpacer />
-                    <CountryList
-                      countries={shippingZone?.countries}
-                      disabled={disabled}
-                      emptyText={getStringOrPlaceholder(
-                        shippingZone?.default === undefined
-                          ? undefined
-                          : shippingZone.default
-                          ? intl.formatMessage(messages.defaultZone)
-                          : intl.formatMessage(messages.noCountriesAssigned)
-                      )}
-                      onCountryAssign={onCountryAdd}
-                      onCountryUnassign={onCountryRemove}
-                      title={intl.formatMessage(messages.countries)}
-                    />
-                    <CardSpacer />
-                    <ShippingZoneRates
-                      disabled={disabled}
-                      onRateAdd={onPriceRateAdd}
-                      onRateEdit={onPriceRateEdit}
-                      onRateRemove={onRateRemove}
-                      rates={shippingZone?.shippingMethods?.filter(
-                        method => method.type === ShippingMethodTypeEnum.PRICE
-                      )}
-                      variant="price"
-                      selectedChannelId={selectedChannelId}
-                      testId="add-price-rate"
-                    />
-                    <CardSpacer />
-                    <ShippingZoneRates
-                      disabled={disabled}
-                      onRateAdd={onWeightRateAdd}
-                      onRateEdit={onWeightRateEdit}
-                      onRateRemove={onRateRemove}
-                      rates={shippingZone?.shippingMethods?.filter(
-                        method => method.type === ShippingMethodTypeEnum.WEIGHT
-                      )}
-                      variant="weight"
-                      selectedChannelId={selectedChannelId}
-                      testId="add-weight-rate"
-                    />
-                    <CardSpacer />
-                    <Metadata data={data} onChange={changeMetadata} />
-                  </div>
-                  <div style={{ height: "100px" }} />
-                </Grid>
-                <Savebar
-                  disabled={disabled || !hasChanged}
-                  onCancel={onBack}
-                  onDelete={onDelete}
-                  onSubmit={submit}
-                  state={saveButtonBarState}
+    <Form
+      initial={initialForm}
+      onSubmit={e => {
+        console.log("onSubmit", e);
+        onSubmit(e);
+      }}
+    >
+      {({ change, data, hasChanged, submit }) => {
+        const changeMetadata = makeMetadataChangeHandler(change);
+        return (
+          <>
+            <PageHeader title={shippingZone?.name + " shipping zone"} />
+            <Grid>
+              <div>
+                <ShippingZoneInfo
+                  data={data}
+                  disabled={disabled}
+                  errors={errors}
+                  onChange={change}
                 />
-              </>
-            );
-          }}
-        </Form>
-      </IonContent>
-    </IonPage>
+                <CardSpacer />
+                <CountryList
+                  countries={shippingZone?.countries}
+                  disabled={disabled}
+                  emptyText={getStringOrPlaceholder(
+                    shippingZone?.default === undefined
+                      ? undefined
+                      : shippingZone.default
+                      ? intl.formatMessage(messages.defaultZone)
+                      : intl.formatMessage(messages.noCountriesAssigned)
+                  )}
+                  onCountryAssign={onCountryAdd}
+                  onCountryUnassign={onCountryRemove}
+                  title={intl.formatMessage(messages.countries)}
+                />
+                <CardSpacer />
+                <ShippingZoneRates
+                  disabled={shippingZone?.channels.length === 0 || loading}
+                  onRateAdd={onPriceRateAdd}
+                  onRateEdit={onPriceRateEdit}
+                  onRateRemove={onRateRemove}
+                  rates={shippingZone?.shippingMethods?.filter(
+                    method => method.type === ShippingMethodTypeEnum.PRICE
+                  )}
+                  variant="price"
+                  selectedChannelId={selectedChannelId}
+                  testId="add-price-rate"
+                />
+                <CardSpacer />
+                <ShippingZoneRates
+                  disabled={shippingZone?.channels.length === 0 || loading}
+                  onRateAdd={onWeightRateAdd}
+                  onRateEdit={onWeightRateEdit}
+                  onRateRemove={onRateRemove}
+                  rates={shippingZone?.shippingMethods?.filter(
+                    method => method.type === ShippingMethodTypeEnum.WEIGHT
+                  )}
+                  variant="weight"
+                  selectedChannelId={selectedChannelId}
+                  testId="add-weight-rate"
+                />
+                <CardSpacer />
+                <Metadata data={data} onChange={changeMetadata} />
+              </div>
+              <div style={{ height: "100px" }} />
+            </Grid>
+            <Savebar
+              disabled={disabled || !hasChanged}
+              onCancel={onBack}
+              onDelete={onDelete}
+              onSubmit={submit}
+              state={saveButtonBarState}
+            />
+          </>
+        );
+      }}
+    </Form>
   );
 };
 ShippingZoneDetailsPage.displayName = "ShippingZoneDetailsPage";

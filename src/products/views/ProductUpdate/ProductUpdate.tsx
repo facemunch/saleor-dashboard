@@ -189,6 +189,7 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
         status: "success",
         text: intl.formatMessage(commonMessages.savedChanges)
       });
+      handleBack();
     }
   };
   const [updateProduct, updateProductOpts] = useProductUpdateMutation({

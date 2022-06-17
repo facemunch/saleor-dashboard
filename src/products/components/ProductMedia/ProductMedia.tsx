@@ -1,4 +1,4 @@
-import { Button, Card, CardContent } from "@mui/material";
+import { CardContent } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import ImageUpload from "@saleor/components/ImageUpload";
 import MediaTile from "@saleor/components/MediaTile";
@@ -12,7 +12,7 @@ import classNames from "classnames";
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { SortableContainer, SortableElement } from "react-sortable-hoc";
-import { IonCard } from "@ionic/react";
+import { IonCard, IonButton } from "@ionic/react";
 const messages = defineMessages({
   media: {
     defaultMessage: "Media",
@@ -101,7 +101,7 @@ const useStyles = makeStyles(
       gridRowGap: theme.spacing(2),
       gridTemplateColumns: "repeat(4, 1fr)",
       [theme.breakpoints.down("sm")]: {
-        gridTemplateColumns: "repeat(3, 1fr)"
+        gridTemplateColumns: "repeat(2, 1fr)"
       },
       [theme.breakpoints.down("xs")]: {
         gridTemplateColumns: "repeat(2, 1fr)"
@@ -144,7 +144,7 @@ interface MediaListContainerProps {
 
 const MediaListContainer = SortableContainer<MediaListContainerProps>(
   ({ media, preview, onDelete, onEdit, ...props }) => (
-    <div {...props}>
+    <div data-test-id="media-mooo" {...props}>
       {media.map((mediaObj, index) => (
         <SortableMedia
           key={`item-${index}`}
@@ -225,15 +225,15 @@ const ProductMedia: React.FC<ProductMediaProps> = props => {
         title={intl.formatMessage(messages.media)}
         toolbar={
           <>
-            <Button
+            <IonButton
               onClick={() => setPopperOpenStatus(true)}
-              variant="text"
+              size="small"
               color="primary"
               data-test="button-upload-image"
               ref={anchor}
             >
               {intl.formatMessage(messages.upload)}
-            </Button>
+            </IonButton>
 
             <ProductMediaPopper
               anchorRef={anchor.current}

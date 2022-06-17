@@ -33,9 +33,10 @@ const useStyles = makeStyles(
     root: {
       alignItems: "end",
       display: "flex",
-      marginBottom: theme.spacing(3),
+      // marginBottom: theme.spacing(3),
       wordBreak: "break-all",
-      flexDirection: "column"
+      flexDirection: "column",
+      marginTop: "12px"
     },
     subtitle: {
       alignItems: "center",

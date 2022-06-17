@@ -1,3 +1,4 @@
+import { IonButton } from "@ionic/react";
 import { Button, CardActions, Typography } from "@mui/material";
 import { buttonMessages, commonMessages } from "@saleor/intl";
 import { FulfillmentStatus } from "@saleor/types/globalTypes";
@@ -6,7 +7,7 @@ import { FormattedMessage } from "react-intl";
 
 import { actionButtonsMessages } from "./messages";
 
-interface AcionButtonsProps {
+interface AcionIonButtonsProps {
   status: FulfillmentStatus;
   trackingNumber?: string;
   orderIsPaid?: boolean;
@@ -22,7 +23,7 @@ const statusesToShow = [
   FulfillmentStatus.WAITING_FOR_APPROVAL
 ];
 
-const ActionButtons: React.FC<AcionButtonsProps> = ({
+const ActionIonButtons: React.FC<AcionIonButtonsProps> = ({
   status,
   trackingNumber,
   orderIsPaid,
@@ -42,9 +43,14 @@ const ActionButtons: React.FC<AcionButtonsProps> = ({
 
     return (
       <CardActions>
-        <Button color="primary" onClick={onApprove} disabled={cannotFulfill}>
+        <IonButton
+          size="small"
+          color="primary"
+          onClick={onApprove}
+          disabled={cannotFulfill}
+        >
           <FormattedMessage {...buttonMessages.approve} />
-        </Button>
+        </IonButton>
         {cannotFulfill && (
           <Typography color="error" variant="caption">
             <FormattedMessage {...commonMessages.cannotFullfillUnpaidOrder} />
@@ -57,26 +63,26 @@ const ActionButtons: React.FC<AcionButtonsProps> = ({
   if (status === FulfillmentStatus.RETURNED) {
     return (
       <CardActions>
-        <Button color="primary" onClick={onRefund}>
+        <IonButton size="small" color="primary" onClick={onRefund}>
           <FormattedMessage {...actionButtonsMessages.refund} />
-        </Button>
+        </IonButton>
       </CardActions>
     );
   }
 
   return hasTrackingNumber ? (
     <CardActions>
-      <Button color="primary" onClick={onTrackingCodeAdd}>
+      <IonButton size="small" color="primary" onClick={onTrackingCodeAdd}>
         <FormattedMessage {...actionButtonsMessages.editTracking} />
-      </Button>
+      </IonButton>
     </CardActions>
   ) : (
     <CardActions>
-      <Button color="primary" onClick={onTrackingCodeAdd}>
+      <IonButton size="small" color="primary" onClick={onTrackingCodeAdd}>
         <FormattedMessage {...actionButtonsMessages.addTracking} />
-      </Button>
+      </IonButton>
     </CardActions>
   );
 };
 
-export default ActionButtons;
+export default ActionIonButtons;

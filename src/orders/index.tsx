@@ -1,9 +1,15 @@
+import { IonModal } from "@ionic/react";
+import { ShippingZoneDetails } from "@saleor/shipping";
+import { shippingZonePath } from "@saleor/shipping/urls";
 import { asSortParams } from "@saleor/utils/sort";
 import { Loader } from "frontend/ui/loader";
+import { orderPath, orderRefundPath, orderReturnPath } from "../orders/urls";
+
 import { parse as parseQs } from "qs";
 import React, { lazy, memo, Suspense, useMemo, useRef } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { Route, useHistory, useLocation, useParams } from "react-router-dom";
 import {
+  orderFulfillPath,
   OrderListUrlQueryParams,
   OrderListUrlSortField,
   OrderUrlQueryParams
@@ -42,16 +48,56 @@ export const OrderList: React.FC = memo(() => {
   );
 });
 
-export const OrderDetails: React.FC = () => {
-  const { search } = useLocation()
+export const OrderDetails = ({ orderModalRef }) => {
+  const { pathname, search } = useLocation();
+
   const qs = parseQs(search.substr(1));
   const params: OrderUrlQueryParams = qs;
   const id = useParams().id;
+  const { push } = useHistory();
 
   return (
-    <Suspense fallback={<Loader />}>
-      <OrderDetailsComponent id={decodeURIComponent(id)} params={params} />;
-    </Suspense>
+    <>
+      <Suspense fallback={<Loader />}>
+        <OrderDetailsComponent id={decodeURIComponent(id)} params={params} />;
+      </Suspense>
+
+      <IonModal
+        style={{
+          "--border-radius": "16px"
+        }}
+        mode="ios"
+        backdropDismiss={true}
+        isOpen={pathname.includes("/fulfill")}
+        canDismiss={true}
+        presentingElement={orderModalRef.current}
+        onWillDismiss={() => push(`/orders/${id}`)}
+      >
+        <Route
+          exact
+          path={"/orders/" + orderFulfillPath(":id", "")}
+          render={() => <OrderFulfill />}
+        />
+      </IonModal>
+
+      <IonModal
+        style={{
+          "--border-radius": "16px"
+        }}
+        mode="ios"
+        backdropDismiss={true}
+        isOpen={pathname.includes("/return")}
+        canDismiss={true}
+        presentingElement={orderModalRef.current}
+        onWillDismiss={() => push(`/orders/${id}`)}
+      >
+        <Route
+          exact
+          path={"/orders/" + orderReturnPath(":id", "")}
+          render={() => <OrderReturn />}
+        />
+      </IonModal>
+    </>
   );
 };
 
