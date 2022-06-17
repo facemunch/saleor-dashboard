@@ -1,6 +1,6 @@
 import { IonModal } from "@ionic/react";
 import { parse as parseQs } from "qs";
-import React, { HTMLAttributes, Ref, RefObject, useRef } from "react";
+import React, { useRef } from "react";
 import { Route, useParams, useHistory, useLocation } from "react-router-dom";
 
 import {
@@ -27,8 +27,8 @@ export const ShippingZonesList = ({ shippingListModalRef }) => {
 
   const qs = parseQs(search.substr(1));
 
-  const shippingDetailModalRef = useRef() as RefObject<HTMLIonModalElement>;
-  const shippingCreateModalRef = useRef() as RefObject<HTMLIonModalElement>;
+  const shippingDetailModalRef = useRef<HTMLIonModalElement>();
+  const shippingCreateModalRef = useRef<HTMLIonModalElement>();
 
   const { push } = useHistory();
 
@@ -90,9 +90,9 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
   const { push } = useHistory();
   const params: ShippingZoneUrlQueryParams = qs;
 
-  const shippingWeightRatesRef = useRef() as RefObject<HTMLIonModalElement>;
+  const shippingWeightRatesRef = useRef<HTMLIonModalElement>()
 
-  const shippingPriceRatesEditRef = useRef() as RefObject<HTMLIonModalElement>;
+  const shippingPriceRatesEditRef = useRef<HTMLIonModalElement>()
 
   const match = useParams();
   return (
