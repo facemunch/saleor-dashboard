@@ -1,10 +1,10 @@
-import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import { IonAlert } from "@ionic/react";
 import { DialogProps } from "@saleor/types";
 import React from "react";
 
 import { ConfirmButtonTransitionState } from "../ConfirmButton";
-import DialogButtons from "./DialogButtons";
 import { ActionDialogVariant, Size } from "./types";
+import { useIntl } from "react-intl";
 
 export interface ActionDialogProps extends DialogProps {
   children?: React.ReactNode;
@@ -13,18 +13,54 @@ export interface ActionDialogProps extends DialogProps {
   disabled?: boolean;
   maxWidth?: Size | false;
   title: string;
+  message?: string;
   variant?: ActionDialogVariant;
   onConfirm();
 }
 
 const ActionDialog: React.FC<ActionDialogProps> = props => {
-  const { children, open, title, onClose, variant, maxWidth, ...rest } = props;
+  const {
+    message,
+    children,
+    open,
+    title,
+    onClose,
+    variant,
+    maxWidth,
+    ...rest
+  } = props;
+  const intl = useIntl();
+
   return (
-    <Dialog fullWidth onClose={onClose} open={open} maxWidth={maxWidth}>
-      <DialogTitle>{title}</DialogTitle>
-      <DialogContent>{children}</DialogContent>
-      <DialogButtons {...rest} onClose={onClose} variant={variant} />
-    </Dialog>
+    <>
+  
+      <IonAlert
+        isOpen={open}
+        cssClass="my-custom-class"
+        header={title}
+        message={message}
+        buttons={[
+          {
+            text: "Cancel",
+            role: "cancel",
+            cssClass: "secondary",
+            id: "cancel-button",
+            handler: onClose
+          },
+          {
+            text: variant === "delete" ? "Delete" : "Confirm",
+            role: variant === "delete" ? "destructive" : "",
+            
+
+            id: "confirm-button",
+            handler: () => {
+              rest.onConfirm();
+              console.log("Confirm Okay");
+            }
+          }
+        ]}
+      />
+    </>
   );
 };
 

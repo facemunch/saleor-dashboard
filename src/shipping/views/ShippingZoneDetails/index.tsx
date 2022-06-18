@@ -250,23 +250,12 @@ const ShippingZoneDetails: React.FC<ShippingZoneDetailsProps> = ({
             defaultMessage: "Delete Shipping Zone",
             description: "dialog header"
           })}
+          message={"Are you sure you want to delete {name}?".replace(
+            "{name}",
+            getStringOrPlaceholder(data?.shippingZone.name)
+          )}
           variant="delete"
-        >
-          <DialogContentText>
-            <FormattedMessage
-              defaultMessage="Are you sure you want to delete {name}?"
-              description="delete shipping zone"
-              id="shippingZoneDetailsDialogsDeleteShippingZone"
-              values={{
-                name: (
-                  <strong>
-                    {getStringOrPlaceholder(data?.shippingZone.name)}
-                  </strong>
-                )
-              }}
-            />
-          </DialogContentText>
-        </ActionDialog>
+        ></ActionDialog>
         <ShippingZoneCountriesAssignDialog
           shippingCreateModalRef={shippingDetailModalRef}
           confirmButtonState={updateShippingZoneOpts.status}
