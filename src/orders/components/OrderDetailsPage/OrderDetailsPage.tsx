@@ -3,7 +3,6 @@ import { CardSpacer } from "@saleor/components/CardSpacer";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import { DateTime } from "@saleor/components/Date";
 import Form from "@saleor/components/Form";
-import Grid from "@saleor/components/Grid";
 import Metadata, { MetadataFormData } from "@saleor/components/Metadata";
 import PageHeader from "@saleor/components/PageHeader";
 import Savebar from "@saleor/components/Savebar";
@@ -206,7 +205,6 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
       shouldExist: hasAnyItemsReplaceable(order)
     }
   ]);
-
   return (
     <Form initial={initial} onSubmit={handleSubmit}>
       {({ change, data, hasChanged, submit }) => {
@@ -236,7 +234,7 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                   )}
                 </div>
               </IonCardContent>
-              <Grid>
+              <>
                 <div data-test-id="orderFulfillment">
                   {!isOrderUnconfirmed ? (
                     <OrderUnfulfilledProductsCard
@@ -258,22 +256,23 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                     </>
                   )}
                   {order?.fulfillments?.map(fulfillment => (
-                    <OrderFulfilledProductsCard
-                      fulfillment={fulfillment}
-                      fulfillmentAllowUnpaid={shop?.fulfillmentAllowUnpaid}
-                      order={order}
-                      onOrderFulfillmentCancel={() =>
-                        onFulfillmentCancel(fulfillment.id)
-                      }
-                      onTrackingCodeAdd={() =>
-                        onFulfillmentTrackingNumberUpdate(fulfillment.id)
-                      }
-                      onRefund={onPaymentRefund}
-                      onOrderFulfillmentApprove={() =>
-                        onFulfillmentApprove(fulfillment.id)
-                      }
-                      id={fulfillment.id}
-                    />
+                    <div key={`${fulfillment.id}-${fulfillment.status}`}>
+                      <OrderFulfilledProductsCard
+                        fulfillment={fulfillment}
+                        fulfillmentAllowUnpaid={shop?.fulfillmentAllowUnpaid}
+                        order={order}
+                        onOrderFulfillmentCancel={() =>
+                          onFulfillmentCancel(fulfillment.id)
+                        }
+                        onTrackingCodeAdd={() =>
+                          onFulfillmentTrackingNumberUpdate(fulfillment.id)
+                        }
+                        onRefund={onPaymentRefund}
+                        onOrderFulfillmentApprove={() =>
+                          onFulfillmentApprove(fulfillment.id)
+                        }
+                      />
+                    </div>
                   ))}
                   {!isOrderUnconfirmed && (
                     <>
@@ -322,7 +321,7 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                   )}
                 </div>
                 <div style={{ height: "100px" }} />
-              </Grid>
+              </>
               <Savebar
                 labels={saveLabel}
                 onCancel={onBack}

@@ -1,6 +1,5 @@
 import {
   Accordion,
-  AccordionDetails,
   AccordionSummary,
   Typography
 } from "@mui/material";
@@ -104,9 +103,7 @@ export const TimelineEvent: React.FC<TimelineEventProps> = props => {
               titleElements={titleElements}
             />
           </AccordionSummary>
-          <AccordionDetails>
             <Typography>{children}</Typography>
-          </AccordionDetails>
         </Accordion>
       ) : (
         <TimelineEventHeader

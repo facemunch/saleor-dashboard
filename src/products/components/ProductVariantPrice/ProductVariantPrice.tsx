@@ -1,12 +1,4 @@
-import {
-  Card,
-  CardContent,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Typography
-} from "@mui/material";
+import { Card, CardContent, TableBody, TableCell, TableRow, Typography } from "@mui/material";
 import {
   ChannelData,
   ChannelPriceAndPreorderArgs,
@@ -87,7 +79,6 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
     ProductVariantChannelListings = [],
     loading,
     onChange,
-    isDigitalProduct = false,
     disabledMessage
   } = props;
   const classes = useStyles(props);
@@ -126,37 +117,9 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
           description: "product pricing, section header"
         })}
       />
-      <CardContent className={classes.pricingContent}>
-        {/* <Typography variant="caption" className={classes.caption}>
-          {intl.formatMessage({
-            defaultMessage:
-              "Channels that don’t have assigned prices will use their parent channel to define the price. Price will be converted to channel’s currency",
-            description: "info text"
-          })}
-        </Typography> */}
+     
         <ResponsiveTable className={classes.table}>
-          {/* <TableHead> */}
-          {/* <TableRow> */}
-          {/* <TableCell>
-                <FormattedMessage
-                  defaultMessage="Channel Name"
-                  description="tabel column header"
-                />
-              </TableCell> */}
-          {/* <TableCell className={classes.colType}>
-                <FormattedMessage
-                  defaultMessage="Selling Price"
-                  description="tabel column header"
-                /> */}
-          {/* </TableCell> */}
-          {/* <TableCell className={classes.colType}>
-                <FormattedMessage
-                  defaultMessage="Cost Price"
-                  description="tabel column header"
-                />
-              </TableCell> */}
-          {/* </TableRow> */}
-          {/* </TableHead> */}
+        
           <TableBody>
             {renderCollection(
               ProductVariantChannelListings,
@@ -165,14 +128,9 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
                   formErrors.price,
                   listing.id
                 );
-                const costPriceError = getFormChannelError(
-                  formErrors.costPrice,
-                  listing.id
-                );
-
+                
                 return (
                   <TableRow key={listing?.id || `skeleton-${index}`}>
-                    {/* <TableCell>{listing?.name || <Skeleton />}</TableCell> */}
                     <TableCell className={classes.colPrice}>
                       {listing ? (
                         <PriceField
@@ -202,36 +160,7 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
                         <Skeleton />
                       )}
                     </TableCell>
-                    {/* <TableCell className={classes.colPrice}>
-                      {listing ? (
-                        <PriceField
-                          className={classes.input}
-                          error={!!costPriceError}
-                          label={intl.formatMessage({
-                            defaultMessage: "Cost Price",
-                            description: "tabel column header"
-                          })}
-                          name={`${listing.id}-channel-costPrice`}
-                          value={listing.costPrice || ""}
-                          currencySymbol={listing.currency}
-                          onChange={e =>
-                            onChange(listing.id, {
-                              costPrice: e.target.value,
-                              price: listing.price,
-                              preorderThreshold: listing.preorderThreshold
-                            })
-                          }
-                          disabled={loading}
-                          hint={
-                            costPriceError
-                              ? getProductErrorMessage(costPriceError, intl)
-                              : ""
-                          }
-                        />
-                      ) : (
-                        <Skeleton />
-                      )}
-                    </TableCell> */}
+                    
                   </TableRow>
                 );
               },
@@ -245,7 +174,6 @@ const ProductVariantPrice: React.FC<ProductVariantPriceProps> = props => {
             )}
           </TableBody>
         </ResponsiveTable>
-      </CardContent>
     </IonCard>
   );
 };

@@ -10,7 +10,7 @@ import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 
 interface ProductMediaPopperProps {
-  anchorRef: HTMLButtonElement;
+  anchorRef: HTMLIonButtonElement;
   imagesUploadRef: HTMLInputElement;
   openMediaUrlModal: () => void;
   popperStatus: boolean;

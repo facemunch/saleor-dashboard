@@ -13,7 +13,7 @@ import { useIntl } from "react-intl";
 const useStyles = makeStyles(
   theme => ({
     title: {
-      width: "50%",
+      width: "100%",
       display: "flex",
       flexWrap: "wrap"
     },
@@ -136,10 +136,10 @@ const CardTitle: React.FC<CardTitleProps> = ({
         fulfillmentName,
         quantity: totalQuantity
       })}
-      <Typography className={classes.orderNumber} variant="body1">
+      {/* <Typography className={classes.orderNumber} variant="body1">
         {fulfillmentName}
-      </Typography>
-      {!!warehouseName && (
+      </Typography> */}
+      {/* {!!warehouseName && (
         <Typography className={classes.warehouseName} variant="caption">
           <FormattedMessage
             {...messages.fulfilledFrom}
@@ -148,7 +148,7 @@ const CardTitle: React.FC<CardTitleProps> = ({
             }}
           />
         </Typography>
-      )}
+      )} */}
     </div>
   );
 

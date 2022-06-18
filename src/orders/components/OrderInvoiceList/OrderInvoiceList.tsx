@@ -39,10 +39,11 @@ const useStyles = makeStyles(
       margin: "0",
       paddingRight: "0 !important"
     },
-    colNumber: { width: "100%" },
+    colNumber: { width: "100%", padding: "0 !important" },
     colNumberClickable: {
       cursor: "pointer",
-      width: "100%"
+      width: "100%",
+      padding: "0 !important"
     },
     invoicesTable: {
       display: "flex"
@@ -131,7 +132,7 @@ const OrderInvoiceList: React.FC<OrderInvoiceListProps> = props => {
                       className={classes.colAction}
                       onClick={() => onInvoiceSend(invoice.id)}
                     >
-                      <IonButton size="small"  color="primary">
+                      <IonButton size="small" color="primary">
                         <FormattedMessage {...buttonMessages.send} />
                       </IonButton>
                     </TableCell>

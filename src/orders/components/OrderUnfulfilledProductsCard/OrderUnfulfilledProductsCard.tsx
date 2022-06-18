@@ -1,7 +1,6 @@
 import { CardActions, TableBody, Typography } from "@mui/material";
 import CardSpacer from "@saleor/components/CardSpacer";
 import { commonMessages } from "@saleor/intl";
-import { makeStyles } from "@saleor/macaw-ui";
 import { renderCollection } from "@saleor/misc";
 import React from "react";
 import { FormattedMessage } from "react-intl";
@@ -11,16 +10,8 @@ import TableHeader from "../OrderProductsCardElements/OrderProductsCardHeader";
 import TableLine from "../OrderProductsCardElements/OrderProductsTableRow";
 import CardTitle from "../OrderReturnPage/OrderReturnRefundItemsCard/CardTitle";
 
-import { IonCard, IonButton } from "@ionic/react";
+import { IonCard, IonButton, IonCardContent } from "@ionic/react";
 
-const useStyles = makeStyles(
-  () => ({
-    table: {
-      tableLayout: "fixed"
-    }
-  }),
-  { name: "OrderUnfulfilledItems" }
-);
 
 interface OrderUnfulfilledProductsCardProps {
   showFulfillmentAction: boolean;
@@ -36,7 +27,6 @@ const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> 
     lines,
     onFulfill
   } = props;
-  const classes = useStyles({});
 
   if (!lines.length) {
     return null;
@@ -46,8 +36,8 @@ const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> 
     <>
       <IonCard>
         <CardTitle withStatus status="unfulfilled" />
-        {/* <IonCardContent> */}
-        <div style={{ width: "92vw", overflow: "scroll" }}>
+        <IonCardContent>
+          {/* <div style={{ width: "92vw", overflow: "scroll" }}> */}
           <TableHeader />
           <TableBody>
             {renderCollection(lines, line => (
@@ -56,8 +46,8 @@ const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> 
               </div>
             ))}
           </TableBody>
-        </div>
-
+          {/* </div> */}
+        </IonCardContent>
         {showFulfillmentAction && (
           <CardActions>
             <IonButton
@@ -77,7 +67,6 @@ const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> 
             )}
           </CardActions>
         )}
-        {/* </IonCardContent> */}
       </IonCard>
       <CardSpacer />
     </>

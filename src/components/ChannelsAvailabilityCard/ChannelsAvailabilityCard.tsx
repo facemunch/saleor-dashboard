@@ -75,15 +75,13 @@ export const ChannelsAvailability: React.FC<ChannelsAvailabilityCardProps> = pro
                 errors?.filter(error => error.channels.includes(data.id)) || [];
 
               return (
-                <div>
-                  {/* <ChannelAvailabilityItemWrapper messages={messages} data={data}> */}
+                <div key={data.id}>
                   <ChannelAvailabilityItemContent
                     data={data}
                     onChange={onChange}
                     messages={channelsMessages[data.id]}
                     errors={channelErrors}
                   />
-                  {/* </ChannelAvailabilityItemWrapper> */}
                 </div>
               );
             })
@@ -99,7 +97,6 @@ export const ChannelsAvailability: React.FC<ChannelsAvailabilityCardProps> = pro
               </React.Fragment>
             ))
           : null}
-        {/* </ChannelsAvailabilityCardWrapper> */}
       </IonCardContent>
     </IonCard>
   );

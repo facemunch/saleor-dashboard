@@ -362,7 +362,6 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                       />
 
                       <CardSpacer />
-                      {/* {!isDigitalProduct && ( */}
                       <ProductStocks
                         onVariantChannelListingChange={
                           handlers.changeChannelPreorder
@@ -387,7 +386,6 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                         onWarehouseStockDelete={handlers.deleteStock}
                         onWarehouseConfigure={onWarehouseConfigure}
                       />
-                      {/* )} */}
                     </>
                   )}
                   <CardSpacer />
