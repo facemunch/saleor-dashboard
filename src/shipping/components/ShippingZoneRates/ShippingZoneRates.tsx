@@ -4,10 +4,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import CardTitle from "@saleor/components/CardTitle";
 import IconButtonTableCell from "@saleor/components/IconButtonTableCell";
 import Money from "@saleor/components/Money";
-import MoneyRange from "@saleor/components/MoneyRange";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
-import WeightRange from "@saleor/components/WeightRange";
 import { ShippingZoneDetailsFragment_shippingMethods } from "@saleor/fragments/types/ShippingZoneDetailsFragment";
 import { makeStyles } from "@saleor/macaw-ui";
 import { ICONBUTTON_SIZE } from "@saleor/macaw-ui";
@@ -40,7 +38,8 @@ const useStyles = makeStyles(
       width: "62px"
     },
     nameColumn: {
-      width: "auto"
+      width: "auto",
+      textAlign: "right"
     },
     valueColumn: {
       width: "auto"
@@ -80,7 +79,7 @@ const ShippingZoneRates: React.FC<ShippingZoneRatesProps> = props => {
         }
         toolbar={
           <IonButton
-          size="small"
+            size="small"
             color="primary"
             disabled={disabled}
             onClick={onRateAdd}
@@ -102,18 +101,7 @@ const ShippingZoneRates: React.FC<ShippingZoneRatesProps> = props => {
                 description="shipping method name"
               />
             </TableCell>
-            <TableCell className={classes.valueColumn}>
-              {variant === "price"
-                ? intl.formatMessage({
-                    defaultMessage: "Value Range",
-                    description: "shipping method price range"
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "Weight Range",
-                    description: "shipping method weight range"
-                  })}
-            </TableCell>
-            <TableCell className={classes.nameColumn}>
+            <TableCell className={classes.alignRight}>
               <FormattedMessage
                 defaultMessage="Price"
                 description="shipping method price"
@@ -138,25 +126,6 @@ const ShippingZoneRates: React.FC<ShippingZoneRatesProps> = props => {
                 >
                   <TableCell className={classes.nameColumn}>
                     {maybe<React.ReactNode>(() => rate.name, <Skeleton />)}
-                  </TableCell>
-                  <TableCell>
-                    {maybe<React.ReactNode>(
-                      () =>
-                        rate && !channel ? (
-                          "-"
-                        ) : variant === "price" ? (
-                          <MoneyRange
-                            from={channel.minimumOrderPrice}
-                            to={channel.maximumOrderPrice}
-                          />
-                        ) : (
-                          <WeightRange
-                            from={rate.minimumOrderWeight}
-                            to={rate.maximumOrderWeight}
-                          />
-                        ),
-                      <Skeleton />
-                    )}
                   </TableCell>
                   <TableCell data-test-id="shipping-rate-price">
                     {maybe<React.ReactNode>(
