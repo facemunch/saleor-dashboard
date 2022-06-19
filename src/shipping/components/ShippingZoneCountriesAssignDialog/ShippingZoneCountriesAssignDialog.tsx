@@ -1,14 +1,17 @@
-import { IonModal, IonButton, IonIcon, IonContent } from "@ionic/react";
+import {
+  IonModal,
+  IonButton,
+  IonIcon,
+  IonContent,
+  IonCheckbox,
+  IonItem,
+  IonLabel,
+  IonSearchbar
+} from "@ionic/react";
 import { closeOutline } from "ionicons/icons";
 import Savebar from "@saleor/components/Savebar";
-
-import {
-  DialogContent,
-  TableCell,
-  TableRow,
-  TextField,
-  Typography
-} from "@mui/material";
+import CountriesDefault from "./countriesDefault";
+import { DialogContent, TableCell, TextField, Typography } from "@mui/material";
 import Checkbox from "@saleor/components/Checkbox";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Form from "@saleor/components/Form";
@@ -61,7 +64,8 @@ const useStyles = makeStyles(
       marginTop: theme.spacing(2)
     },
     container: {
-      padding: theme.spacing(1.25, 0)
+      padding: theme.spacing(1.25, 0),
+      opacity: 0.5
     },
     scrollAreaContainer: {
       maxHeight: "25vh",
@@ -87,10 +91,9 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
     onConfirm,
     shippingCreateModalRef
   } = props;
-
   const classes = useStyles(props);
   const intl = useIntl();
-
+  console.log("ShippingZoneCountriesAssignDialog", { countries, initial });
   const initialForm: FormData = {
     countries: initial,
     query: "",
@@ -150,35 +153,55 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                   <Typography>
                     <FormattedMessage defaultMessage="Choose countries you want to add to shipping zone from list below" />
                   </Typography>
-                  <FormSpacer />
-                  <TextField
+                  <IonSearchbar
                     name="query"
+                    autoCorrect={"on"}
                     value={data.query}
-                    onChange={event => change(event, () => fetch(data.query))}
-                    label={intl.formatMessage({
-                      defaultMessage: "Search Countries"
-                    })}
-                    placeholder={intl.formatMessage({
-                      defaultMessage: "Search by country name"
-                    })}
-                    fullWidth
+                    onIonChange={event => {
+                      change(event, () => fetch(data.query));
+                    }}
                   />
                 </DialogContent>
+
                 <Hr />
 
+                {/* <DialogContent className={classes.container}> */}
                 <DialogContent className={classes.container}>
                   <Typography className={classes.heading} variant="subtitle1">
                     <FormattedMessage defaultMessage="Quick Pick" />
                   </Typography>
-
-                  <TableCell>
+                </DialogContent>
+                <IonItem>
+                  <IonLabel className={classes.wideCell}>
                     <FormattedMessage defaultMessage="Rest of the World" />
                     <br />
                     <Typography variant="caption">
                       <FormattedMessage defaultMessage="If selected, this will add all of the countries not selected to other shipping zones" />
                     </Typography>
-                  </TableCell>
-                  <TableCell
+                  </IonLabel>
+
+                  <IonCheckbox
+                    checked={data.restOfTheWorld}
+                    slot="end"
+                    onIonChange={() =>
+                      change({
+                        target: {
+                          name: "restOfTheWorld" as keyof FormData,
+                          value: !data.restOfTheWorld
+                        }
+                      } as any)
+                    }
+                  />
+                  {/* <FormattedMessage defaultMessage="If selected, this will add all of the countries not selected to other shipping zones" /> */}
+                </IonItem>
+                {/* <TableCell>
+                    <FormattedMessage defaultMessage="Rest of the World" />
+                    <br />
+                    <Typography variant="caption">
+                      <FormattedMessage defaultMessage="If selected, this will add all of the countries not selected to other shipping zones" />
+                    </Typography>
+                  </TableCell> */}
+                {/* <TableCell
                     padding="checkbox"
                     className={classes.checkboxCell}
                   >
@@ -193,8 +216,8 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                         } as any)
                       }
                     />
-                  </TableCell>
-                </DialogContent>
+                  </TableCell> */}
+                {/* </DialogContent> */}
 
                 <DialogContent className={classes.container}>
                   <Typography className={classes.heading} variant="subtitle1">
@@ -205,49 +228,51 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                   </Typography>
                 </DialogContent>
 
-                {filter(countries, data.query, {
-                  key: "country"
-                }).map(country => {
+                {filter(
+                  countries.length === 0 ? CountriesDefault : countries,
+                  data.query,
+                  {
+                    key: "country"
+                  }
+                ).map(country => {
                   const isChecked = countrySelectionMap[country.code];
 
                   return (
-                    <TableRow
+                    <IonItem
                       data-test-id={`shipping-zone-countries-assign-${country.code}`}
                       key={country.code}
                     >
-                      <TableCell className={classes.wideCell}>
+                      <IonLabel className={classes.wideCell}>
                         {country.country}
-                      </TableCell>
-                      <TableCell
-                        padding="checkbox"
-                        className={classes.checkboxCell}
-                      >
-                        <Checkbox
-                          checked={isChecked}
-                          data-test-id={`shipping-zone-countries-assign-${country.code}-checkbox`}
-                          onChange={() =>
-                            isChecked
-                              ? change({
-                                  target: {
-                                    name: "countries" as keyof FormData,
-                                    value: data.countries.filter(
-                                      selectedCountries =>
-                                        selectedCountries !== country.code
-                                    )
-                                  }
-                                } as any)
-                              : change({
-                                  target: {
-                                    name: "countries" as keyof FormData,
-                                    value: [...data.countries, country.code]
-                                  }
-                                } as any)
-                          }
-                        />
-                      </TableCell>
-                    </TableRow>
+                      </IonLabel>
+
+                      <IonCheckbox
+                        checked={isChecked}
+                        slot="end"
+                        data-test-id={`shipping-zone-countries-assign-${country.code}-checkbox`}
+                        onIonChange={() =>
+                          isChecked
+                            ? change({
+                                target: {
+                                  name: "countries" as keyof FormData,
+                                  value: data.countries.filter(
+                                    selectedCountries =>
+                                      selectedCountries !== country.code
+                                  )
+                                }
+                              } as any)
+                            : change({
+                                target: {
+                                  name: "countries" as keyof FormData,
+                                  value: [...data.countries, country.code]
+                                }
+                              } as any)
+                        }
+                      />
+                    </IonItem>
                   );
                 })}
+                <div style={{ height: "100px" }} />
                 <Savebar
                   disabled={false}
                   state={"success"}
