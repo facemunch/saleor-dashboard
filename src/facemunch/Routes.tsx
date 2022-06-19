@@ -178,7 +178,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
             isOpen={pathname.includes("/orders/")}
             canDismiss={true}
             presentingElement={refto.current}
-            onWillDismiss={() => pathname.includes("/orders/") && goBack()}
+            onWillDismiss={() => pathname.includes("/orders/") && push("/orders")}
           >
             <Route
               path={"/orders/" + orderPath(":id", "")}

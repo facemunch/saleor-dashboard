@@ -1,11 +1,9 @@
-import { Card, IconButton, TableBody } from "@mui/material";
-import CardSpacer from "@saleor/components/CardSpacer";
-import ResponsiveTable from "@saleor/components/ResponsiveTable";
+import { IconButton } from "@mui/material";
 import { OrderDetailsFragment } from "@saleor/fragments/types/OrderDetailsFragment";
 import TrashIcon from "@saleor/icons/Trash";
 import { makeStyles } from "@saleor/macaw-ui";
 import { mergeRepeatedOrderLines } from "@saleor/orders/utils/data";
-import React from "react";
+import React, { memo } from "react";
 
 import { renderCollection } from "../../../misc";
 import { FulfillmentStatus } from "../../../types/globalTypes";
@@ -36,7 +34,6 @@ const useStyles = makeStyles(
 interface OrderFulfilledProductsCardProps {
   fulfillment: OrderDetails_order_fulfillments;
   fulfillmentAllowUnpaid: boolean;
-  id?: string;
   order?: OrderDetailsFragment;
   onOrderFulfillmentApprove: () => void;
   onOrderFulfillmentCancel: () => void;
@@ -63,8 +60,7 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
     onOrderFulfillmentApprove,
     onOrderFulfillmentCancel,
     onTrackingCodeAdd,
-    onRefund,
-    id
+    onRefund
   } = props;
   const classes = useStyles(props);
 
@@ -79,9 +75,8 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
 
     return fulfillment?.lines || [];
   };
-
   return (
-    <IonCard key={id}>
+    <IonCard>
       <CardTitle
         withStatus
         lines={fulfillment?.lines}
@@ -108,11 +103,12 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
         }}
       >
         <TableHeader />
-        <TableBody>
-          {renderCollection(getLines(), line => (
-            <TableLine line={line} />
-          ))}
-        </TableBody>
+        {renderCollection(getLines(), line => (
+          <div key={fulfillment?.status + line.id}>
+            <TableLine status={fulfillment?.status} line={line} />
+          </div>
+        ))}
+
         <ExtraInfoLines fulfillment={fulfillment} />
       </IonCardContent>
       <ActionButtons
@@ -128,4 +124,4 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
   );
 };
 
-export default OrderFulfilledProductsCard;
+export default memo(OrderFulfilledProductsCard);

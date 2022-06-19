@@ -144,7 +144,7 @@ interface MediaListContainerProps {
 
 const MediaListContainer = SortableContainer<MediaListContainerProps>(
   ({ media, preview, onDelete, onEdit, ...props }) => (
-    <div data-test-id="media-mooo" {...props}>
+    <div {...props}>
       {media.map((mediaObj, index) => (
         <SortableMedia
           key={`item-${index}`}
@@ -188,7 +188,7 @@ const ProductMedia: React.FC<ProductMediaProps> = props => {
   const classes = useStyles(props);
   const intl = useIntl();
   const imagesUpload = React.useRef<HTMLInputElement>(null);
-  const anchor = React.useRef<HTMLButtonElement>();
+  const anchor = React.useRef<HTMLIonButtonElement>();
   const [imagesToUpload, setImagesToUpload] = React.useState<
     ProductMediaFragment[]
   >([]);

@@ -1,4 +1,4 @@
-import { TableCell, TableRow, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import { getStringOrPlaceholder } from "@saleor/misc";
 import { FulfillmentStatus } from "@saleor/types/globalTypes";
@@ -19,13 +19,12 @@ const useStyles = makeStyles(
       marginBottom: theme.spacing()
     },
     infoRow: {
-      padding: theme.spacing(2, 3)
+      padding: "16px 0"
     }
   }),
   { name: "ExtraInfoLines" }
 );
 
-const NUMBER_OF_COLUMNS = 5;
 
 interface ExtraInfoLinesProps {
   fulfillment?: OrderDetails_order_fulfillments;
@@ -42,8 +41,8 @@ const ExtraInfoLines: React.FC<ExtraInfoLinesProps> = ({ fulfillment }) => {
   const { warehouse, trackingNumber, status } = fulfillment;
 
   return (
-    <TableRow>
-      <TableCell className={classes.infoRow} colSpan={NUMBER_OF_COLUMNS}>
+    <>
+      <div className={classes.infoRow}>
         <Typography color="textSecondary" variant="body2">
           {warehouse && (
             <>
@@ -82,8 +81,8 @@ const ExtraInfoLines: React.FC<ExtraInfoLinesProps> = ({ fulfillment }) => {
             />
           )}
         </Typography>
-      </TableCell>
-    </TableRow>
+      </div>
+    </>
   );
 };
 

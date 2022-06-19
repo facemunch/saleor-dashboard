@@ -1,7 +1,6 @@
-import { TableCell, TableRow } from "@mui/material";
+import { IonCol, IonImg, IonItem, IonRow, IonThumbnail } from "@ionic/react";
 import Money from "@saleor/components/Money";
 import Skeleton from "@saleor/components/Skeleton";
-import TableCellAvatar from "@saleor/components/TableCellAvatar";
 import { AVATAR_MARGIN } from "@saleor/components/TableCellAvatar/Avatar";
 import { makeStyles } from "@saleor/macaw-ui";
 import { maybe } from "@saleor/misc";
@@ -17,7 +16,8 @@ const useStyles = makeStyles(
       cursor: "pointer"
     },
     colName: {
-      width: "auto"
+      width: "auto",
+      padding: "8px !important"
     },
     colNameLabel: {
       marginLeft: AVATAR_MARGIN
@@ -65,11 +65,13 @@ const useStyles = makeStyles(
 interface TableLineProps {
   line: OrderDetails_order_fulfillments_lines | OrderDetails_order_lines;
   isOrderLine?: boolean;
+  status?: string;
 }
 
 const TableLine: React.FC<TableLineProps> = ({
   line: lineData,
-  isOrderLine = false
+  isOrderLine = false,
+  status
 }) => {
   const classes = useStyles({});
   const { quantity, quantityToFulfill } = lineData as OrderDetails_order_lines;
@@ -86,37 +88,37 @@ const TableLine: React.FC<TableLineProps> = ({
     : (lineData as OrderDetails_order_fulfillments_lines);
 
   const quantityToDisplay = isOrderLine ? quantityToFulfill : quantity;
-
+  const key = line.id + status;
   return (
-    <TableRow className={classes.clickableRow} hover key={line.id}>
-      <TableCellAvatar
-        className={classes.colName}
-        thumbnail={maybe(() => line.orderLine.thumbnail.url)}
-      >
-        {maybe(() => line.orderLine.productName) || <Skeleton />}
-      </TableCellAvatar>
-      <TableCell className={classes.colSku}>
-        {line?.orderLine ? line.orderLine.productSku : <Skeleton />}
-      </TableCell>
-      <TableCell className={classes.colQuantity}>
+    <IonRow
+      style={{ "--background": "#313131", height: 50, color: "white" }}
+      key={key}
+    >
+      <IonCol>
+        <IonThumbnail>
+          <IonImg src={maybe(() => line.orderLine.thumbnail.url)} />
+        </IonThumbnail>
+      </IonCol>
+      <IonCol>{maybe(() => line.orderLine.productName) || <Skeleton />}</IonCol>
+      <IonCol className={classes.colQuantity}>
         {quantityToDisplay || <Skeleton />}
-      </TableCell>
-      <TableCell className={classes.colPrice}>
+      </IonCol>
+      <IonCol className={classes.colPrice}>
         {maybe(() => line.orderLine.unitPrice.gross) ? (
           <Money money={line.orderLine.unitPrice.gross} />
         ) : (
           <Skeleton />
         )}
-      </TableCell>
-      <TableCell className={classes.colTotal}>
+      </IonCol>
+      <IonCol className={classes.colTotal}>
         <Money
           money={{
             amount: line.quantity * line.orderLine.unitPrice.gross.amount,
             currency: line.orderLine.unitPrice.gross.currency
           }}
         />
-      </TableCell>
-    </TableRow>
+      </IonCol>
+    </IonRow>
   );
 };
 

@@ -1,3 +1,4 @@
+import { IonRow, IonCol } from "@ionic/react";
 import { TableCell, TableHead, TableRow } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
@@ -9,7 +10,6 @@ const useStyles = makeStyles(
       cursor: "pointer"
     },
     colName: {
-      textAlign: "left",
       width: "auto"
     },
     colPrice: {
@@ -56,40 +56,41 @@ const TableHeader = () => {
   const classes = useStyles({});
 
   return (
-    <TableHead>
-      <TableRow>
-        <TableCell className={classes.colName}>
+    <>
+      <IonRow>
+        <IonCol className={classes.colName}>
           <FormattedMessage
             defaultMessage="Product"
             description="product name"
           />
-        </TableCell>
-        <TableCell className={classes.colSku}>
+        </IonCol>
+        <IonCol className={classes.colName}></IonCol>
+        {/* <TableCell className={classes.colSku}>
           <FormattedMessage
             defaultMessage="SKU"
             description="ordered product sku"
           />
-        </TableCell>
-        <TableCell className={classes.colQuantity}>
+        </TableCell> */}
+        <IonCol className={classes.colQuantity}>
           <FormattedMessage
             defaultMessage="Quantity"
             description="ordered product quantity"
           />
-        </TableCell>
-        <TableCell className={classes.colPrice}>
+        </IonCol>
+        <IonCol className={classes.colPrice}>
           <FormattedMessage
             defaultMessage="Price"
             description="product price"
           />
-        </TableCell>
-        <TableCell className={classes.colTotal}>
+        </IonCol>
+        <IonCol className={classes.colTotal}>
           <FormattedMessage
             defaultMessage="Total"
             description="order line total price"
           />
-        </TableCell>
-      </TableRow>
-    </TableHead>
+        </IonCol>
+      </IonRow>
+    </>
   );
 };
 

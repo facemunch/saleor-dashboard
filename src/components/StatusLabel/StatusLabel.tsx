@@ -1,9 +1,7 @@
 import { IonChip, IonIcon, IonLabel } from "@ionic/react";
-import { Typography } from "@mui/material";
 import grey from "@mui/material/colors/grey";
 import yellow from "@mui/material/colors/yellow";
 import { makeStyles } from "@saleor/macaw-ui";
-import Label from "@saleor/orders/components/OrderHistory/Label";
 import classNames from "classnames";
 import React from "react";
 
@@ -95,7 +93,6 @@ const StatusLabel: React.FC<StatusLabelProps> = ({
       ></IonIcon>
       <IonLabel>
         {label}
-        {subtitle && <Label text={subtitle} />}
       </IonLabel>
     </IonChip>
   );

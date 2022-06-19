@@ -1,11 +1,4 @@
-import {
-  Card,
-  CardContent,
-  TableBody,
-  TableCell,
-  TableRow,
-  Typography
-} from "@mui/material";
+import { CardContent, TableBody, TableCell, TableRow } from "@mui/material";
 import { ChannelShippingData } from "@saleor/channels/utils";
 import CardTitle from "@saleor/components/CardTitle";
 import PriceField from "@saleor/components/PriceField";
@@ -56,6 +49,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({
           description: "pricing card title"
         })}
       />
+      
       <CardContent className={classes.pricingContent}>
         {/* <Typography variant="caption" className={classes.caption}>
           {intl.formatMessage({

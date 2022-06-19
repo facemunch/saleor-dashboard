@@ -1,5 +1,5 @@
 import placeholderImg from "@assets/images/placeholder255x255.png";
-import { DialogContentText, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAttributeValueDeleteMutation } from "@saleor/attributes/mutations";
 import {
@@ -55,7 +55,7 @@ import {
 import { useWarehouseList } from "@saleor/warehouses/queries";
 import { warehouseAddPath } from "@saleor/warehouses/urls";
 import React, { memo } from "react";
-import { defineMessages, FormattedMessage, useIntl } from "react-intl";
+import { defineMessages, useIntl } from "react-intl";
 
 import { getMutationState } from "../../../misc";
 import ProductUpdatePage from "../../components/ProductUpdatePageIonic";
@@ -472,6 +472,7 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
   if (product === null) {
     return <NotFoundPage onBack={handleBack} />;
   }
+
   return (
     <>
       <ProductUpdatePage
@@ -564,14 +565,10 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
         onConfirm={() => deleteProduct({ variables: { id } })}
         variant="delete"
         title={intl.formatMessage(messages.deleteProductDialogTitle)}
-      >
-        <DialogContentText>
-          <FormattedMessage
-            {...messages.deleteProductDialogSubtitle}
-            values={{ name: product?.name }}
-          />
-        </DialogContentText>
-      </ActionDialog>
+        message={String(
+          messages?.deleteProductDialogSubtitle?.defaultMessage
+        ).replace("{name}", product?.name)}
+      ></ActionDialog>
     </>
   );
 };

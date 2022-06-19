@@ -1,9 +1,8 @@
-import { DialogContentText } from "@mui/material";
 import ActionDialog from "@saleor/components/ActionDialog";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import { getStringOrPlaceholder } from "@saleor/misc";
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
 export interface DeleteShippingRateDialogProps {
   confirmButtonState: ConfirmButtonTransitionState;
@@ -32,18 +31,11 @@ export const DeleteShippingRateDialog: React.FC<DeleteShippingRateDialogProps> =
         description: "dialog header"
       })}
       variant="delete"
-    >
-      <DialogContentText>
-        <FormattedMessage
-          defaultMessage="Are you sure you want to delete {name}?"
-          description="delete shipping method"
-          id="shippingZoneDetailsDialogsDeleteShippingMethod"
-          values={{
-            name: getStringOrPlaceholder(name)
-          }}
-        />
-      </DialogContentText>
-    </ActionDialog>
+      message={"Are you sure you want to delete {name}?".replace(
+        "{name}",
+        getStringOrPlaceholder(name)
+      )}
+    ></ActionDialog>
   );
 };
 

@@ -197,24 +197,13 @@ export const ShippingZonesList: React.FC<ShippingZonesListProps> = ({
             variables: { id: params.id }
           })
         }
-      >
-        <DialogContentText>
-          <FormattedMessage
-            defaultMessage="Are you sure you want to delete {shippingZoneName} shipping zone?"
-            values={{
-              shippingZoneName: (
-                <strong>
-                  {getStringOrPlaceholder(
-                    mapEdgesToItems(data?.shippingZones)?.find(
-                      getById(params.id)
-                    )?.name
-                  )}
-                </strong>
-              )
-            }}
-          />
-        </DialogContentText>
-      </ActionDialog>
+        message={"Are you sure you want to delete {shippingZoneName} shipping zone?".replace(
+          "{shippingZoneName}",
+          getStringOrPlaceholder(
+            mapEdgesToItems(data?.shippingZones)?.find(getById(params.id))?.name
+          )
+        )}
+      ></ActionDialog>
       <ActionDialog
         open={params.action === "remove-many"}
         confirmButtonState={bulkDeleteShippingZoneOpts.status}

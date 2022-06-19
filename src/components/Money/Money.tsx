@@ -23,7 +23,7 @@ const useStyles = makeStyles(
   { name: "Money" }
 );
 
-export const Money: React.FC<MoneyProps> = ({ money, ...rest }) => {
+export const Money: React.FC<MoneyProps> = ({ money }) => {
   const classes = useStyles({});
 
   if (!money) {
@@ -32,11 +32,7 @@ export const Money: React.FC<MoneyProps> = ({ money, ...rest }) => {
 
   return (
     <div className={classes.container}>
-      <Typography variant="caption" {...rest}>
-        $
-      </Typography>
-      <HorizontalSpacer spacing={0.5} />
-      <Typography {...rest}>{money.amount.toFixed(2)}</Typography>
+      <HorizontalSpacer spacing={0.5} />${money.amount.toFixed(2)}
     </div>
   );
 };

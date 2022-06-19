@@ -1,12 +1,4 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  Typography
-} from "@mui/material";
+import { CardContent, FormControlLabel, Radio, RadioGroup, Typography } from "@mui/material";
 import CardSpacer from "@saleor/components/CardSpacer";
 import CardTitle from "@saleor/components/CardTitle";
 import ControlledCheckbox from "@saleor/components/ControlledCheckbox";
@@ -17,7 +9,7 @@ import { OrderDetails_order } from "@saleor/orders/types/OrderDetails";
 import { OrderRefundData_order } from "@saleor/orders/types/OrderRefundData";
 import React from "react";
 import { defineMessages, FormattedMessage, useIntl } from "react-intl";
-import { IonCard } from "@ionic/react";
+import { IonButton, IonCard, IonRow } from "@ionic/react";
 import {
   OrderRefundAmountCalculationMode,
   OrderRefundFormData,
@@ -49,7 +41,8 @@ const useStyles = makeStyles(
     root: {
       ...theme.typography.body1,
       lineHeight: 1.9,
-      width: "100%"
+      width: "100%",
+      textAlign: "center"
     },
     textRight: {
       textAlign: "right"
@@ -270,11 +263,9 @@ const OrderRefundAmount: React.FC<OrderRefundAmountProps> = props => {
             />
           </>
         )}
-        <Button
+        <IonButton
           color="primary"
-          variant="contained"
-          fullWidth
-          size="large"
+          expand="block"
           onClick={onRefund}
           className={classes.refundButton}
           disabled={disableRefundButton}
@@ -294,18 +285,21 @@ const OrderRefundAmount: React.FC<OrderRefundAmountProps> = props => {
               isReturn ? messages.returnButton : messages.refundButton
             )
           )}
-        </Button>
-        <Typography
-          variant="caption"
-          color="textSecondary"
-          className={classes.refundCaution}
-        >
-          {intl.formatMessage(
-            isReturn
-              ? messages.returnCannotBeFulfilled
-              : messages.refundCannotBeFulfilled
-          )}
-        </Typography>
+        </IonButton>
+        <br />
+        <IonRow class="ion-justify-content-center">
+          <Typography
+            variant="caption"
+            color="textSecondary"
+            className={classes.refundCaution}
+          >
+            {intl.formatMessage(
+              isReturn
+                ? messages.returnCannotBeFulfilled
+                : messages.refundCannotBeFulfilled
+            )}
+          </Typography>
+        </IonRow>
       </CardContent>
     </IonCard>
   );

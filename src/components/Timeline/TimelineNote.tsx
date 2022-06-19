@@ -40,7 +40,7 @@ const useStyles = makeStyles(
     },
     cardContent: {
       "&:last-child": {
-        padding: 16
+        padding: "16 !important",
       },
       boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.05)"
     },

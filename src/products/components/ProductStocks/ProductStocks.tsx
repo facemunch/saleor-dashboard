@@ -178,21 +178,14 @@ const useStyles = makeStyles(
 const ProductStocks: React.FC<ProductStocksProps> = ({
   data,
   disabled,
-  hasVariants,
   errors,
-  formErrors: localFormErrors,
-  onChangePreorderEndDate,
   stocks,
   isDigitalProduct,
   warehouses,
-  productVariantChannelListings = [],
   onChange,
-  onEndPreorderTrigger,
   onFormDataChange,
-  onVariantChannelListingChange,
   onWarehouseStockAdd,
   onWarehouseStockDelete,
-  onWarehouseConfigure,
   defaultInvetoryCount = isDigitalProduct ? 1000000 : 10,
   defaultSKU
 }) => {
@@ -200,7 +193,6 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
   const intl = useIntl();
   const anchor = React.useRef<HTMLDivElement>();
   const [isExpanded, setExpansionState] = React.useState(false);
-  const unitsLeft = parseInt(data.globalThreshold, 10) - data.globalSoldUnits;
 
   const warehousesToAssign =
     warehouses?.filter(
@@ -208,9 +200,6 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
     ) || [];
   const formErrors = getFormErrors(["sku"], errors);
 
-  const onThresholdChange = createNonNegativeValueChangeHandler(
-    onFormDataChange
-  );
 
   useEffect(() => {
     onFormDataChange({ target: { name: "sku", value: defaultSKU } });
@@ -225,7 +214,6 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
     onWarehouseStockAdd(defaultWareHouse.id);
     onChange(defaultWareHouse.id, defaultInvetoryCount);
   }, [warehouses, stocks]);
-
   return (
     <IonCard>
       <CardTitle
@@ -249,7 +237,7 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
             onChange={e => {
               onFormDataChange(e);
             }}
-            value={data.sku}
+            value={data.sku || ""}
           />
         </div>
       </CardContent>
