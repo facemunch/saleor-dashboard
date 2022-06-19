@@ -11,17 +11,15 @@ import {
 import { closeOutline } from "ionicons/icons";
 import Savebar from "@saleor/components/Savebar";
 import CountriesDefault from "./countriesDefault";
-import { DialogContent, TableCell, TextField, Typography } from "@mui/material";
-import Checkbox from "@saleor/components/Checkbox";
+import { DialogContent, Typography } from "@mui/material";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Form from "@saleor/components/Form";
-import FormSpacer from "@saleor/components/FormSpacer";
 import Hr from "@saleor/components/Hr";
 import { ShopInfo_shop_countries } from "@saleor/components/Shop/types/ShopInfo";
 import { makeStyles } from "@saleor/macaw-ui";
 import { filter } from "fuzzaldrin";
 import React, { RefObject } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 
 const spanStyle = {
   width: "100%",
@@ -92,8 +90,6 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
     shippingCreateModalRef
   } = props;
   const classes = useStyles(props);
-  const intl = useIntl();
-  console.log("ShippingZoneCountriesAssignDialog", { countries, initial });
   const initialForm: FormData = {
     countries: initial,
     query: "",
@@ -192,32 +188,8 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                       } as any)
                     }
                   />
-                  {/* <FormattedMessage defaultMessage="If selected, this will add all of the countries not selected to other shipping zones" /> */}
                 </IonItem>
-                {/* <TableCell>
-                    <FormattedMessage defaultMessage="Rest of the World" />
-                    <br />
-                    <Typography variant="caption">
-                      <FormattedMessage defaultMessage="If selected, this will add all of the countries not selected to other shipping zones" />
-                    </Typography>
-                  </TableCell> */}
-                {/* <TableCell
-                    padding="checkbox"
-                    className={classes.checkboxCell}
-                  >
-                    <Checkbox
-                      checked={data.restOfTheWorld}
-                      onChange={() =>
-                        change({
-                          target: {
-                            name: "restOfTheWorld" as keyof FormData,
-                            value: !data.restOfTheWorld
-                          }
-                        } as any)
-                      }
-                    />
-                  </TableCell> */}
-                {/* </DialogContent> */}
+            
 
                 <DialogContent className={classes.container}>
                   <Typography className={classes.heading} variant="subtitle1">
@@ -279,8 +251,6 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                   onCancel={onClose}
                   onSubmit={() => onConfirm(data)}
                 />
-
-                {/* </DialogContent> */}
               </>
             );
           }}
