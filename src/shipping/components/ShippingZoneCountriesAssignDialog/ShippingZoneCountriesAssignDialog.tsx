@@ -10,7 +10,6 @@ import {
 } from "@ionic/react";
 import { closeOutline } from "ionicons/icons";
 import Savebar from "@saleor/components/Savebar";
-import CountriesDefault from "./countriesDefault";
 import { DialogContent, Typography } from "@mui/material";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Form from "@saleor/components/Form";
@@ -201,7 +200,7 @@ const ShippingZoneCountriesAssignDialog: React.FC<ShippingZoneCountriesAssignDia
                 </DialogContent>
 
                 {filter(
-                  countries.length === 0 ? CountriesDefault : countries,
+                  countries,
                   data.query,
                   {
                     key: "country"
