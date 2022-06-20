@@ -25,7 +25,6 @@ const useStyles = makeStyles(
   { name: "ExtraInfoLines" }
 );
 
-
 interface ExtraInfoLinesProps {
   fulfillment?: OrderDetails_order_fulfillments;
 }
@@ -43,7 +42,7 @@ const ExtraInfoLines: React.FC<ExtraInfoLinesProps> = ({ fulfillment }) => {
   return (
     <>
       <div className={classes.infoRow}>
-        <Typography color="textSecondary" variant="body2">
+        <div>
           {warehouse && (
             <>
               {intl.formatMessage(
@@ -62,8 +61,8 @@ const ExtraInfoLines: React.FC<ExtraInfoLinesProps> = ({ fulfillment }) => {
               </Typography>
             </>
           )}
-        </Typography>
-        <Typography color="textSecondary" variant="body2">
+        </div>
+        <div>
           {trackingNumber && (
             <FormattedMessage
               {...extraInfoMessages.tracking}
@@ -80,7 +79,7 @@ const ExtraInfoLines: React.FC<ExtraInfoLinesProps> = ({ fulfillment }) => {
               }}
             />
           )}
-        </Typography>
+        </div>
       </div>
     </>
   );

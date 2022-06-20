@@ -91,7 +91,6 @@ export const HomeProductList: React.FC<HomeProductListProps> = props => {
                 <TableCellAvatar
                   className={classes.colAvatar}
                   thumbnail={maybe(() => variant.product.thumbnail.url)}
-                  avatarProps={classes.avatarProps}
                 />
 
                 <TableCell className={classes.label}>
