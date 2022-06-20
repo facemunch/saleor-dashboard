@@ -7,7 +7,8 @@ import { IonFooter, IonToolbar } from "@ionic/react";
 const fixedStyle = {
   position: "fixed",
   bottom: 0,
-  width: "100vw"
+  width: "100vw",
+  zIndex: 100
 };
 const toolBarStyle = {
   "--background": "#404040",
