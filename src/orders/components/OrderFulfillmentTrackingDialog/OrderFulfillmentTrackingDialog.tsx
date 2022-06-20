@@ -17,19 +17,14 @@ export interface OrderFulfillmentTrackingDialogProps {
 }
 
 const OrderFulfillmentTrackingDialog: React.FC<OrderFulfillmentTrackingDialogProps> = ({
-  confirmButtonState,
-  errors: apiErrors,
   open,
   trackingNumber,
   onConfirm,
   onClose
 }) => {
-  console.log("confirmButtonState", { confirmButtonState, apiErrors });
   return (
     <IonAlert
       isOpen={open}
-      // onDidDismiss={() => setShowAlert4(false)}
-      cssClass="my-custom-class"
       header={"Add Tracking Code"}
       inputs={[
         {
