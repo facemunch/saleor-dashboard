@@ -1,11 +1,7 @@
 import { DEFAULT_NOTIFICATION_SHOW_TIME } from "@saleor/config";
 import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  checkmarkCircle,
-  closeCircle,
-  informationCircle,
-  alertCircle
-} from "ionicons/icons";
+import { checkmark, bug
+  , information, alert } from "ionicons/icons";
 import { INotification, ITimer, MessageContext } from ".";
 import { IonToast } from "@ionic/react";
 import React from "react";
@@ -67,16 +63,16 @@ const MessageManagerProvider = ({ children }) => {
 
   const getIcon = (notification: INotification) => {
     if (notification.message.status === "success") {
-      return checkmarkCircle;
+      return checkmark;
     }
     if (notification.message.status === "error") {
-      return closeCircle;
+      return bug;
     }
     if (notification.message.status === "info") {
-      return informationCircle;
+      return information;
     }
     if (notification.message.status === "warning") {
-      return alertCircle;
+      return alert;
     }
   };
   return (
@@ -87,6 +83,15 @@ const MessageManagerProvider = ({ children }) => {
       {!!notifications.length &&
         notifications.map(notification => (
           <IonToast
+            buttons={[
+              notification.close && {
+                text: "Ok",
+                role: "cancel",
+                handler: () => {
+                  notification.close();
+                }
+              }
+            ]}
             key={notification.id}
             isOpen={true}
             position="top"
