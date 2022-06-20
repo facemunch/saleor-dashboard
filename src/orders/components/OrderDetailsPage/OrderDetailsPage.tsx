@@ -38,7 +38,7 @@ import { filteredConditionalItems, hasAnyItemsReplaceable } from "./utils";
 const useStyles = makeStyles(
   theme => ({
     date: {
-      marginBottom: theme.spacing(3)
+      marginBottom: 0
     },
     header: {
       display: "flex",

@@ -31,7 +31,7 @@ const OrderFulfillmentTrackingDialog: React.FC<OrderFulfillmentTrackingDialogPro
           name: "trackingNumber",
           type: "text",
           value: String(trackingNumber),
-          placeholder: "Placeholder 1"
+          placeholder: "Tracking number"
         }
       ]}
       buttons={[

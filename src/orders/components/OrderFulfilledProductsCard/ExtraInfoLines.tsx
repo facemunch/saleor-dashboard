@@ -1,10 +1,6 @@
 import { Typography } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
-import { getStringOrPlaceholder } from "@saleor/misc";
-import { FulfillmentStatus } from "@saleor/types/globalTypes";
-import classNames from "classnames";
 import React from "react";
-import { useIntl } from "react-intl";
 import { FormattedMessage } from "react-intl";
 
 import { OrderDetails_order_fulfillments } from "../../types/OrderDetails";
@@ -30,19 +26,19 @@ interface ExtraInfoLinesProps {
 }
 
 const ExtraInfoLines: React.FC<ExtraInfoLinesProps> = ({ fulfillment }) => {
-  const intl = useIntl();
+  // const intl = useIntl();
   const classes = useStyles({});
 
   if (!fulfillment || !fulfillment?.warehouse || !fulfillment?.trackingNumber) {
     return null;
   }
 
-  const { warehouse, trackingNumber, status } = fulfillment;
+  const {  trackingNumber } = fulfillment;
 
   return (
     <>
       <div className={classes.infoRow}>
-        <div>
+        {/* <div>
           {warehouse && (
             <>
               {intl.formatMessage(
@@ -61,7 +57,7 @@ const ExtraInfoLines: React.FC<ExtraInfoLinesProps> = ({ fulfillment }) => {
               </Typography>
             </>
           )}
-        </div>
+        </div> */}
         <div>
           {trackingNumber && (
             <FormattedMessage

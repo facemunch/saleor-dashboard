@@ -1,14 +1,10 @@
-import { Typography } from "@mui/material";
 import DefaultCardTitle from "@saleor/components/CardTitle";
 import { StatusType } from "@saleor/components/StatusChip/types";
 import StatusLabel from "@saleor/components/StatusLabel";
 import { makeStyles } from "@saleor/macaw-ui";
 import { FulfillmentStatus } from "@saleor/types/globalTypes";
-import camelCase from "lodash/camelCase";
 import React from "react";
-import { FormattedMessage } from "react-intl";
 import { defineMessages } from "react-intl";
-import { useIntl } from "react-intl";
 
 const useStyles = makeStyles(
   theme => ({
@@ -107,48 +103,17 @@ const selectStatus = (status: CardTitleStatus) => {
 };
 
 const CardTitle: React.FC<CardTitleProps> = ({
-  lines = [],
-  fulfillmentOrder,
   status,
-  orderNumber = "",
-  warehouseName,
   withStatus = false,
   toolbar
 }) => {
-  const intl = useIntl();
   const classes = useStyles({});
 
-  const fulfillmentName =
-    orderNumber && fulfillmentOrder
-      ? `#${orderNumber}-${fulfillmentOrder}`
-      : "";
-
-  const messageForStatus = messages[camelCase(status)] || messages.unfulfilled;
-
-  const totalQuantity = lines.reduce(
-    (resultQuantity, { quantity }) => resultQuantity + quantity,
-    0
-  );
-
+  
   const title = (
     <div className={classes.title}>
-      {intl.formatMessage(messageForStatus, {
-        fulfillmentName,
-        quantity: totalQuantity
-      })}
-      {/* <Typography className={classes.orderNumber} variant="body1">
-        {fulfillmentName}
-      </Typography> */}
-      {/* {!!warehouseName && (
-        <Typography className={classes.warehouseName} variant="caption">
-          <FormattedMessage
-            {...messages.fulfilledFrom}
-            values={{
-              warehouseName
-            }}
-          />
-        </Typography>
-      )} */}
+      {status}
+   
     </div>
   );
 
