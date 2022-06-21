@@ -245,7 +245,7 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                       <CardSpacer />
                     </>
                   )}
-                  {order?.fulfillments?.map(fulfillment => (
+                  {order?.fulfillments?.filter(e => e.status !== 'CANCELED').map(fulfillment => (
                     <div key={`${fulfillment.id}-${fulfillment.status}`}>
                       <OrderFulfilledProductsCard
                         fulfillment={fulfillment}
