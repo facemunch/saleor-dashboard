@@ -1,4 +1,3 @@
-import { WindowTitle } from "@saleor/components/WindowTitle";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
 import OrderFulfillPage from "@saleor/orders/components/OrderFulfillPage";
@@ -77,24 +76,6 @@ const OrderFulfill: React.FC<OrderFulfillProps> = ({ orderId }) => {
 
   return (
     <>
-      <WindowTitle
-        title={
-          data?.order?.number
-            ? intl.formatMessage(
-                {
-                  defaultMessage: "Fulfill Order #{orderNumber}",
-                  description: "window title"
-                },
-                {
-                  orderNumber: data.order.number
-                }
-              )
-            : intl.formatMessage({
-                defaultMessage: "Fulfill Order",
-                description: "window title"
-              })
-        }
-      />
       <OrderFulfillPage
         loading={loading || settingsLoading || fulfillOrderOpts.loading}
         errors={fulfillOrderOpts.data?.orderFulfill.errors}

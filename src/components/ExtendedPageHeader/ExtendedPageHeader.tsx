@@ -1,4 +1,3 @@
-import { Divider } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
@@ -79,11 +78,6 @@ const ExtendedPageHeader: React.FC<ExtendedPageHeaderProps> = props => {
         {title}
         <div className={classes.action}>{children}</div>
       </div>
-      {underline && (
-        <div className={classes.underline}>
-          <Divider />
-        </div>
-      )}
     </>
   );
 };

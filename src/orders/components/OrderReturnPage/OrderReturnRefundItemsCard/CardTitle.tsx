@@ -4,7 +4,6 @@ import StatusLabel from "@saleor/components/StatusLabel";
 import { makeStyles } from "@saleor/macaw-ui";
 import { FulfillmentStatus } from "@saleor/types/globalTypes";
 import React from "react";
-import { defineMessages } from "react-intl";
 
 const useStyles = makeStyles(
   theme => ({
@@ -26,44 +25,6 @@ const useStyles = makeStyles(
   { name: "CardTitle" }
 );
 
-const messages = defineMessages({
-  cancelled: {
-    defaultMessage: "Cancelled ({quantity})",
-    description: "cancelled fulfillment, section header"
-  },
-  fulfilled: {
-    defaultMessage: "Fulfilled ({quantity})",
-    description: "section header"
-  },
-  refunded: {
-    defaultMessage: "Refunded ({quantity})",
-    description: "refunded fulfillment, section header"
-  },
-  refundedAndReturned: {
-    defaultMessage: "Refunded and Returned ({quantity})",
-    description: "cancelled fulfillment, section header"
-  },
-  replaced: {
-    defaultMessage: "Replaced ({quantity})",
-    description: "refunded fulfillment, section header"
-  },
-  returned: {
-    defaultMessage: "Returned ({quantity})",
-    description: "refunded fulfillment, section header"
-  },
-  waitingForApproval: {
-    defaultMessage: "Waiting for approval ({quantity})",
-    description: "unapproved fulfillment, section header"
-  },
-  unfulfilled: {
-    defaultMessage: "Unfulfilled",
-    description: "section header"
-  },
-  fulfilledFrom: {
-    defaultMessage: "Fulfilled from {warehouseName}",
-    description: "fulfilled fulfillment, section header"
-  }
-});
 
 type CardTitleStatus = FulfillmentStatus | "unfulfilled";
 

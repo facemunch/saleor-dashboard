@@ -29,7 +29,7 @@ const PageTitleWithStatusChip: React.FC<PageTitleWithStatusChipProps> = ({
 
   return (
     <div className={classes.container}>
-      {title}
+     #{title}
       <HorizontalSpacer spacing={2} />
       <StatusChip label={statusLabel} status={statusType} />
     </div>
