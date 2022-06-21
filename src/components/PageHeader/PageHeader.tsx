@@ -20,15 +20,12 @@ const useStyles = makeStyles(
         "& > *": {
           width: "100%"
         },
-        "& > *:not(first-child)": {
-          // marginTop: theme.spacing(2)
-        }
+        "& > *:not(first-child)": {}
       }
     },
     title: {
       [theme.breakpoints.down("sm")]: {
         fontSize: 20,
-        // marginTop: theme.spacing(2),
         padding: 0
       },
       textAlign: "center",
@@ -67,11 +64,7 @@ const PageHeader: React.FC<PageHeaderProps> = props => {
             className={classes.title + " modalPageHeader"}
             variant="h5"
           >
-            {title !== undefined ? (
-              title
-            ) : (
-              <Skeleton style={{ width: "10em" }} />
-            )}
+            {title || <Skeleton style={{ width: "10em" }} />}
           </Typography>
         }
       >

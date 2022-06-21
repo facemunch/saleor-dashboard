@@ -26,38 +26,17 @@ interface ExtraInfoLinesProps {
 }
 
 const ExtraInfoLines: React.FC<ExtraInfoLinesProps> = ({ fulfillment }) => {
-  // const intl = useIntl();
   const classes = useStyles({});
 
   if (!fulfillment || !fulfillment?.warehouse || !fulfillment?.trackingNumber) {
     return null;
   }
 
-  const {  trackingNumber } = fulfillment;
+  const { trackingNumber } = fulfillment;
 
   return (
     <>
       <div className={classes.infoRow}>
-        {/* <div>
-          {warehouse && (
-            <>
-              {intl.formatMessage(
-                status === FulfillmentStatus.RETURNED
-                  ? extraInfoMessages.restocked
-                  : extraInfoMessages.fulfilled
-              )}
-              <Typography
-                className={classNames(classes.infoLabel, {
-                  [classes.infoLabelWithMargin]: !!trackingNumber
-                })}
-                color="textPrimary"
-                variant="body2"
-              >
-                {getStringOrPlaceholder(warehouse?.name)}
-              </Typography>
-            </>
-          )}
-        </div> */}
         <div>
           {trackingNumber && (
             <FormattedMessage

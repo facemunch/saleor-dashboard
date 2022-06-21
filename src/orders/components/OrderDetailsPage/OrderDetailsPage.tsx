@@ -245,25 +245,28 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                       <CardSpacer />
                     </>
                   )}
-                  {order?.fulfillments?.filter(e => e.status !== 'CANCELED').map(fulfillment => (
-                    <div key={`${fulfillment.id}-${fulfillment.status}`}>
-                      <OrderFulfilledProductsCard
-                        fulfillment={fulfillment}
-                        fulfillmentAllowUnpaid={shop?.fulfillmentAllowUnpaid}
-                        order={order}
-                        onOrderFulfillmentCancel={() =>
-                          onFulfillmentCancel(fulfillment.id)
-                        }
-                        onTrackingCodeAdd={() =>
-                          onFulfillmentTrackingNumberUpdate(fulfillment.id)
-                        }
-                        onRefund={onPaymentRefund}
-                        onOrderFulfillmentApprove={() =>
-                          onFulfillmentApprove(fulfillment.id)
-                        }
-                      />
-                    </div>
-                  ))}
+                  {order?.fulfillments
+                    ?.filter(a => a.status !== "CANCELED")
+                    .map(fulfillment => (
+                      <div key={`${fulfillment.id}-${fulfillment.status}`}>
+                        <OrderFulfilledProductsCard
+                          fulfillment={fulfillment}
+                          fulfillmentAllowUnpaid={shop?.fulfillmentAllowUnpaid}
+                          order={order}
+                          onOrderFulfillmentCancel={() =>
+                            onFulfillmentCancel(fulfillment.id)
+                          }
+                          onTrackingCodeAdd={() =>
+                            onFulfillmentTrackingNumberUpdate(fulfillment.id)
+                          }
+                          onRefund={onPaymentRefund}
+                          onOrderFulfillmentApprove={() =>
+                            onFulfillmentApprove(fulfillment.id)
+                          }
+                        />
+                      </div>
+                    ))}
+
                   {!isOrderUnconfirmed && (
                     <>
                       <OrderPayment
@@ -277,6 +280,27 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                       <Metadata data={data} onChange={changeMetadata} />
                     </>
                   )}
+                  {order?.fulfillments
+                    ?.filter(a => a.status === "CANCELED")
+                    .map(fulfillment => (
+                      <div key={`${fulfillment.id}-${fulfillment.status}`}>
+                        <OrderFulfilledProductsCard
+                          fulfillment={fulfillment}
+                          fulfillmentAllowUnpaid={shop?.fulfillmentAllowUnpaid}
+                          order={order}
+                          onOrderFulfillmentCancel={() =>
+                            onFulfillmentCancel(fulfillment.id)
+                          }
+                          onTrackingCodeAdd={() =>
+                            onFulfillmentTrackingNumberUpdate(fulfillment.id)
+                          }
+                          onRefund={onPaymentRefund}
+                          onOrderFulfillmentApprove={() =>
+                            onFulfillmentApprove(fulfillment.id)
+                          }
+                        />
+                      </div>
+                    ))}
                   <OrderHistory
                     history={order?.events}
                     orderCurrency={order?.total?.gross.currency}

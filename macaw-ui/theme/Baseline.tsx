@@ -6,7 +6,7 @@ import { makeStyles } from "./styles";
 const useStyles = makeStyles(
   (theme) => ({
     "@global": {
-      "@import": "url('https://rsms.me/inter/inter.css')",
+      "@import": "url('https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css')",
 
       // For some reason @import clause must be put on top
       // eslint-disable-next-line sort-keys
