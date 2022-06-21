@@ -30,11 +30,7 @@ export const Money: React.FC<MoneyProps> = ({ money }) => {
     return null;
   }
 
-  return (
-    <div className={classes.container}>
-      <HorizontalSpacer spacing={0.5} />${money.amount.toFixed(2)}
-    </div>
-  );
+  return <span className={classes.container}>${money.amount.toFixed(2)}</span>;
 };
 
 Money.displayName = "Money";

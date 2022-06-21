@@ -1,9 +1,7 @@
 import { IonModal } from "@ionic/react";
-import { ShippingZoneDetails } from "@saleor/shipping";
-import { shippingZonePath } from "@saleor/shipping/urls";
 import { asSortParams } from "@saleor/utils/sort";
 import { Loader } from "frontend/ui/loader";
-import { orderPath, orderRefundPath, orderReturnPath } from "../orders/urls";
+import { orderReturnPath } from "../orders/urls";
 
 import { parse as parseQs } from "qs";
 import React, { lazy, memo, Suspense, useMemo, useRef } from "react";
@@ -61,25 +59,11 @@ export const OrderDetails = ({ orderModalRef }) => {
       <Suspense fallback={<Loader />}>
         <OrderDetailsComponent id={decodeURIComponent(id)} params={params} />;
       </Suspense>
-
-      <IonModal
-        style={{
-          "--border-radius": "16px"
-        }}
-        mode="ios"
-        backdropDismiss={true}
-        isOpen={pathname.includes("/fulfill")}
-        canDismiss={true}
-        presentingElement={orderModalRef.current}
-        onWillDismiss={() => push(`/orders/${id}`)}
-      >
         <Route
           exact
           path={"/orders/" + orderFulfillPath(":id", "")}
           render={() => <OrderFulfill />}
         />
-      </IonModal>
-
       <IonModal
         style={{
           "--border-radius": "16px"

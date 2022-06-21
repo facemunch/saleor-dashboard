@@ -42,11 +42,11 @@ export const fragmentOrderEvent = gql`
       firstName
       lastName
     }
-    app {
-      id
-      name
-      appUrl
-    }
+    # app {
+    #   id
+    #   name
+    #   appUrl
+    # }
     lines {
       quantity
       itemName

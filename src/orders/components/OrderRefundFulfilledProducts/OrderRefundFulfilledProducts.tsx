@@ -1,24 +1,14 @@
-import {
-  Button,
-  CardContent,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, CardContent, TextField, Typography } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import Money from "@saleor/components/Money";
 import Skeleton from "@saleor/components/Skeleton";
-import TableCellAvatar from "@saleor/components/TableCellAvatar";
 import { FormsetChange } from "@saleor/hooks/useFormset";
 import { makeStyles } from "@saleor/macaw-ui";
 import { renderCollection } from "@saleor/misc";
 import { OrderRefundData_order_fulfillments } from "@saleor/orders/types/OrderRefundData";
-import React from "react";
+import React, { useEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { IonCard } from "@ionic/react";
+import { IonCard, IonCol, IonRow } from "@ionic/react";
 
 import { OrderRefundFormData } from "../OrderRefundPage/form";
 import { getTitle } from "./messages";
@@ -36,7 +26,7 @@ const useStyles = makeStyles(
         paddingTop: 0
       },
       colQuantity: {
-        textAlign: "right",
+        textAlign: "right"
         // width: 210
       },
       notice: {
@@ -86,6 +76,10 @@ const OrderRefundFulfilledProducts: React.FC<OrderRefundFulfilledProductsProps> 
   } = props;
   const classes = useStyles({});
   const intl = useIntl();
+  
+  useEffect(() => {
+    onSetMaximalQuantities();
+  }, []);
 
   return (
     <IonCard>
@@ -115,127 +109,125 @@ const OrderRefundFulfilledProducts: React.FC<OrderRefundFulfilledProductsProps> 
           />
         </Button>
       </CardContent>
-      <div style={{width: '92vw', overflow: 'scroll'}}>
-        <TableHead>
-          <TableRow>
-            <TableCell>
-              <FormattedMessage
-                defaultMessage="Product"
-                description="tabel column header"
-              />
-            </TableCell>
-            <TableCell>
-              <FormattedMessage
-                defaultMessage="Price"
-                description="tabel column header"
-              />
-            </TableCell>
-            <TableCell>
-              <FormattedMessage
-                defaultMessage="Refunded Qty"
-                description="tabel column header"
-              />
-            </TableCell>
-            <TableCell>
-              <FormattedMessage
-                defaultMessage="Total"
-                description="tabel column header"
-              />
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {renderCollection(
-            fulfillment?.lines,
-            line => {
-              const selectedLineQuantity = data.refundedFulfilledProductQuantities.find(
-                refundedLine => refundedLine.id === line.id
-              );
-              const isError =
-                Number(selectedLineQuantity?.value) > line?.quantity ||
-                Number(selectedLineQuantity?.value) < 0;
+      <div style={{ width: "92vw", overflow: "scroll" }}>
+        <IonRow>
+          <IonCol>
+            <FormattedMessage
+              defaultMessage="Product"
+              description="tabel column header"
+            />
+          </IonCol>
+          <IonCol>
+            <FormattedMessage
+              defaultMessage="Price"
+              description="tabel column header"
+            />
+          </IonCol>
+          <IonCol>
+            <FormattedMessage
+              defaultMessage="Refunded Qty"
+              description="tabel column header"
+            />
+          </IonCol>
+          <IonCol>
+            <FormattedMessage
+              defaultMessage="Total"
+              description="tabel column header"
+            />
+          </IonCol>
+        </IonRow>
+        {/* <IonList> */}
+        {renderCollection(
+          fulfillment?.lines,
+          line => {
+            const selectedLineQuantity = data.refundedFulfilledProductQuantities.find(
+              refundedLine => refundedLine.id === line.id
+            );
+            const isError =
+              Number(selectedLineQuantity?.value) > line?.quantity ||
+              Number(selectedLineQuantity?.value) < 0;
 
-              return (
-                <TableRow key={line?.id}>
-                  <TableCellAvatar thumbnail={line?.orderLine?.thumbnail?.url}>
+            return (
+              <IonRow key={line?.id}>
+                {/* <TableCellAvatar thumbnail={line?.orderLine?.thumbnail?.url}>
                     {line?.orderLine?.productName ? (
                       line?.orderLine?.productName
                     ) : (
                       <Skeleton />
                     )}
-                  </TableCellAvatar>
-                  <TableCell>
-                    {line?.orderLine?.unitPrice ? (
-                      <Money money={line?.orderLine?.unitPrice.gross} />
-                    ) : (
-                      <Skeleton />
-                    )}
-                  </TableCell>
-                  <TableCell className={classes.colQuantity}>
-                    {line?.quantity ? (
-                      <TextField
-                        disabled={disabled}
-                        type="number"
-                        inputProps={{
-                          className: classes.quantityInnerInput,
-                          "data-test": "quantityInput",
-                          "data-test-id": line?.id,
-                          max: (line?.quantity).toString(),
-                          min: 0,
-                          style: { textAlign: "right" }
-                        }}
-                        fullWidth
-                        value={selectedLineQuantity?.value}
-                        onChange={event =>
-                          onRefundedProductQuantityChange(
-                            line.id,
-                            event.target.value
-                          )
-                        }
-                        InputProps={{
-                          endAdornment: line?.quantity && (
-                            <div className={classes.remainingQuantity}>
-                              / {line?.quantity}
-                            </div>
-                          )
-                        }}
-                        error={isError}
-                        helperText={
-                          isError &&
-                          intl.formatMessage({
-                            defaultMessage: "Improper value",
-                            description: "error message"
-                          })
-                        }
-                      />
-                    ) : (
-                      <Skeleton />
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    {(line?.quantity && line?.orderLine?.unitPrice.gross && (
-                      <Money
-                        money={{
-                          ...line?.orderLine.unitPrice.gross,
-                          amount:
-                            (line?.orderLine.unitPrice.gross.amount || 0) *
-                            Number(selectedLineQuantity?.value)
-                        }}
-                      />
-                    )) || <Skeleton />}
-                  </TableCell>
-                </TableRow>
-              );
-            },
-            () => (
-              <TableRow>
-                <TableCell colSpan={4}>
-                  <FormattedMessage defaultMessage="No products found" />
-                </TableCell>
-              </TableRow>
-            )
-          )}
-        </TableBody>
+                  </TableCellAvatar> */}
+                <IonCol>
+                  {line?.orderLine?.unitPrice ? (
+                    <Money money={line?.orderLine?.unitPrice.gross} />
+                  ) : (
+                    <Skeleton />
+                  )}
+                </IonCol>
+                <IonCol className={classes.colQuantity}>
+                  {line?.quantity ? (
+                    <TextField
+                      disabled={disabled}
+                      type="number"
+                      inputProps={{
+                        className: classes.quantityInnerInput,
+                        "data-test": "quantityInput",
+                        "data-test-id": line?.id,
+                        max: (line?.quantity).toString(),
+                        min: 0,
+                        style: { textAlign: "right" }
+                      }}
+                      fullWidth
+                      value={selectedLineQuantity?.value}
+                      onChange={event =>
+                        onRefundedProductQuantityChange(
+                          line.id,
+                          event.target.value
+                        )
+                      }
+                      InputProps={{
+                        endAdornment: line?.quantity && (
+                          <div className={classes.remainingQuantity}>
+                            / {line?.quantity}
+                          </div>
+                        )
+                      }}
+                      error={isError}
+                      helperText={
+                        isError &&
+                        intl.formatMessage({
+                          defaultMessage: "Improper value",
+                          description: "error message"
+                        })
+                      }
+                    />
+                  ) : (
+                    <Skeleton />
+                  )}
+                </IonCol>
+                <IonCol>
+                  {(line?.quantity && line?.orderLine?.unitPrice.gross && (
+                    <Money
+                      money={{
+                        ...line?.orderLine.unitPrice.gross,
+                        amount:
+                          (line?.orderLine.unitPrice.gross.amount || 0) *
+                          Number(selectedLineQuantity?.value)
+                      }}
+                    />
+                  )) || <Skeleton />}
+                </IonCol>
+              </IonRow>
+            );
+          },
+          () => (
+            <IonRow>
+              <IonCol>
+                <FormattedMessage defaultMessage="No products found" />
+              </IonCol>
+            </IonRow>
+          )
+        )}
+        {/* </IonList> */}
       </div>
     </IonCard>
   );

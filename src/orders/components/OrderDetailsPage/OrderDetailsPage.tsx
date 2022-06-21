@@ -1,12 +1,10 @@
 import CardMenu from "@saleor/components/CardMenu";
 import { CardSpacer } from "@saleor/components/CardSpacer";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
-import { DateTime } from "@saleor/components/Date";
 import Form from "@saleor/components/Form";
 import Metadata, { MetadataFormData } from "@saleor/components/Metadata";
 import PageHeader from "@saleor/components/PageHeader";
 import Savebar from "@saleor/components/Savebar";
-import Skeleton from "@saleor/components/Skeleton";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import { sectionNames } from "@saleor/intl";
 import { Backlink } from "@saleor/macaw-ui";
@@ -17,7 +15,7 @@ import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTr
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 
-import { IonContent, IonPage, IonCardContent } from "@ionic/react";
+import { IonContent, IonPage, IonCardHeader } from "@ionic/react";
 
 import { OrderStatus } from "../../../types/globalTypes";
 import {
@@ -38,7 +36,7 @@ import { filteredConditionalItems, hasAnyItemsReplaceable } from "./utils";
 const useStyles = makeStyles(
   theme => ({
     date: {
-      marginBottom: theme.spacing(3)
+      marginBottom: 0
     },
     header: {
       display: "flex",
@@ -213,10 +211,11 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
         return (
           <IonPage>
             <IonContent>
-              <IonCardContent>
+              <IonCardHeader style={{ marginTop: "-20px" }}>
                 <Backlink onClick={onBack}>
                   {intl.formatMessage(sectionNames.orders)}
                 </Backlink>
+
                 <PageHeader
                   className={classes.header}
                   inline
@@ -224,16 +223,7 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                 >
                   <CardMenu menuItems={selectCardMenuItems} />
                 </PageHeader>
-                <div className={classes.date}>
-                  {order && order.created ? (
-                    <>
-                      <DateTime date={order.created} />
-                    </>
-                  ) : (
-                    <Skeleton style={{ width: "10em" }} />
-                  )}
-                </div>
-              </IonCardContent>
+              </IonCardHeader>
               <>
                 <div data-test-id="orderFulfillment">
                   {!isOrderUnconfirmed ? (
@@ -255,25 +245,28 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                       <CardSpacer />
                     </>
                   )}
-                  {order?.fulfillments?.map(fulfillment => (
-                    <div key={`${fulfillment.id}-${fulfillment.status}`}>
-                      <OrderFulfilledProductsCard
-                        fulfillment={fulfillment}
-                        fulfillmentAllowUnpaid={shop?.fulfillmentAllowUnpaid}
-                        order={order}
-                        onOrderFulfillmentCancel={() =>
-                          onFulfillmentCancel(fulfillment.id)
-                        }
-                        onTrackingCodeAdd={() =>
-                          onFulfillmentTrackingNumberUpdate(fulfillment.id)
-                        }
-                        onRefund={onPaymentRefund}
-                        onOrderFulfillmentApprove={() =>
-                          onFulfillmentApprove(fulfillment.id)
-                        }
-                      />
-                    </div>
-                  ))}
+                  {order?.fulfillments
+                    ?.filter(a => a.status !== "CANCELED")
+                    .map(fulfillment => (
+                      <div key={`${fulfillment.id}-${fulfillment.status}`}>
+                        <OrderFulfilledProductsCard
+                          fulfillment={fulfillment}
+                          fulfillmentAllowUnpaid={shop?.fulfillmentAllowUnpaid}
+                          order={order}
+                          onOrderFulfillmentCancel={() =>
+                            onFulfillmentCancel(fulfillment.id)
+                          }
+                          onTrackingCodeAdd={() =>
+                            onFulfillmentTrackingNumberUpdate(fulfillment.id)
+                          }
+                          onRefund={onPaymentRefund}
+                          onOrderFulfillmentApprove={() =>
+                            onFulfillmentApprove(fulfillment.id)
+                          }
+                        />
+                      </div>
+                    ))}
+
                   {!isOrderUnconfirmed && (
                     <>
                       <OrderPayment
@@ -287,6 +280,27 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
                       <Metadata data={data} onChange={changeMetadata} />
                     </>
                   )}
+                  {order?.fulfillments
+                    ?.filter(a => a.status === "CANCELED")
+                    .map(fulfillment => (
+                      <div key={`${fulfillment.id}-${fulfillment.status}`}>
+                        <OrderFulfilledProductsCard
+                          fulfillment={fulfillment}
+                          fulfillmentAllowUnpaid={shop?.fulfillmentAllowUnpaid}
+                          order={order}
+                          onOrderFulfillmentCancel={() =>
+                            onFulfillmentCancel(fulfillment.id)
+                          }
+                          onTrackingCodeAdd={() =>
+                            onFulfillmentTrackingNumberUpdate(fulfillment.id)
+                          }
+                          onRefund={onPaymentRefund}
+                          onOrderFulfillmentApprove={() =>
+                            onFulfillmentApprove(fulfillment.id)
+                          }
+                        />
+                      </div>
+                    ))}
                   <OrderHistory
                     history={order?.events}
                     orderCurrency={order?.total?.gross.currency}

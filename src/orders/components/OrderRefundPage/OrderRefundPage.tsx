@@ -1,6 +1,5 @@
 import CardSpacer from "@saleor/components/CardSpacer";
 import Grid from "@saleor/components/Grid";
-import PageHeader from "@saleor/components/PageHeader";
 import { OrderErrorFragment } from "@saleor/fragments/types/OrderErrorFragment";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import { Backlink } from "@saleor/macaw-ui";
@@ -142,6 +141,13 @@ const OrderRefundPage: React.FC<OrderRefundPageProps> = props => {
                           />
                         </>
                       )}
+                         <div
+                        id="hide-isDigitalProduct"
+                        style={{
+                          height: "0",
+                          overflow: "hidden"
+                        }}
+                      >
                       {renderCollection(fulfilledFulfillemnts, fulfillment => (
                         <React.Fragment key={fulfillment?.id}>
                           <CardSpacer />
@@ -161,6 +167,7 @@ const OrderRefundPage: React.FC<OrderRefundPageProps> = props => {
                           />
                         </React.Fragment>
                       ))}
+                      </div>
                     </>
                   )}
                 </div>

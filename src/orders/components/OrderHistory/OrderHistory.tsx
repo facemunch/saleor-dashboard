@@ -15,7 +15,7 @@ import {
   OrderEventsEmailsEnum,
   OrderEventsEnum
 } from "@saleor/types/globalTypes";
-import React from "react";
+import React, { useState } from "react";
 import { FormattedMessage, IntlShape, useIntl } from "react-intl";
 
 import ExtendedTimelineEvent from "./ExtendedTimelineEvent";
@@ -303,6 +303,7 @@ interface OrderHistoryProps {
 const OrderHistory: React.FC<OrderHistoryProps> = props => {
   const { history, orderCurrency, onNoteAdd } = props;
   const classes = useStyles(props);
+  const [message, setMessage] = useState("");
 
   const intl = useIntl();
 
@@ -326,23 +327,22 @@ const OrderHistory: React.FC<OrderHistoryProps> = props => {
   };
 
   return (
-    <IonCardContent >
+    <IonCardContent>
       <Typography className={classes.header} color="textSecondary">
         <FormattedMessage defaultMessage="Order History" />
       </Typography>
       <Hr />
       {history ? (
         <Timeline>
-          <Form initial={{ message: "" }} onSubmit={onNoteAdd} resetOnSubmit>
-            {({ change, data, reset, submit }) => (
-              <TimelineAddNote
-                message={data.message}
-                reset={reset}
-                onChange={change}
-                onSubmit={submit}
-              />
-            )}
-          </Form>
+          <TimelineAddNote
+            message={message}
+            reset={() => setMessage("")}
+            onChange={e => {
+              setMessage(e.target.value);
+            }}
+            onSubmit={() => onNoteAdd({ message: message })}
+          />
+
           {history
             .slice()
             .reverse()

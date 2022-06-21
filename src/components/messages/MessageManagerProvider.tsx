@@ -1,15 +1,12 @@
 import { DEFAULT_NOTIFICATION_SHOW_TIME } from "@saleor/config";
-import { Notification } from "@saleor/macaw-ui";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { TransitionGroup } from "react-transition-group";
-
+import { useCallback, useEffect, useRef, useState } from "react";
+import { checkmark, bug
+  , information, alert } from "ionicons/icons";
 import { INotification, ITimer, MessageContext } from ".";
-import Container from "./Container";
-import { useStyles } from "./styles";
-import Transition from "./Transition";
+import { IonToast } from "@ionic/react";
+import React from "react";
 
 const MessageManagerProvider = ({ children }) => {
-  const classes = useStyles();
   const timersArr = useRef<ITimer[]>([]);
   const [notifications, setNotifications] = useState<INotification[]>([]);
 
@@ -64,69 +61,45 @@ const MessageManagerProvider = ({ children }) => {
     []
   );
 
-  const getCurrentTimer = (notification: INotification) => {
-    const currentTimerIndex = timersArr.current.findIndex(
-      timer => timer.id === notification.id
-    );
-    return timersArr.current[currentTimerIndex];
-  };
-
-  const pauseTimer = (notification: INotification) => {
-    const currentTimer = getCurrentTimer(notification);
-    if (currentTimer) {
-      currentTimer.remaining =
-        currentTimer.remaining - (new Date().getTime() - currentTimer.start);
-      window.clearTimeout(currentTimer.timeoutId);
+  const getIcon = (notification: INotification) => {
+    if (notification.message.status === "success") {
+      return checkmark;
+    }
+    if (notification.message.status === "error") {
+      return bug;
+    }
+    if (notification.message.status === "info") {
+      return information;
+    }
+    if (notification.message.status === "warning") {
+      return alert;
     }
   };
-  const resumeTimer = (notification: INotification) => {
-    const currentTimer = getCurrentTimer(notification);
-    if (currentTimer) {
-      currentTimer.start = new Date().getTime();
-      currentTimer.timeoutId = window.setTimeout(
-        () => timerCallback(notification),
-        currentTimer.remaining
-      );
-    }
-  };
-
   return (
     <>
       <MessageContext.Provider value={{ remove, show }}>
         {children}
       </MessageContext.Provider>
-      <TransitionGroup
-        appear
-        options={{ position: "top right" }}
-        component={Container}
-      >
-        {!!notifications.length &&
-          notifications.map(notification => (
-            <Transition key={notification.id}>
-              <Notification
-                {...(!!notification.timeout
-                  ? {
-                      onMouseEnter: () => pauseTimer(notification),
-                      onMouseLeave: () => resumeTimer(notification)
-                    }
-                  : {})}
-                onClose={notification.close}
-                title={notification.message.title}
-                type={notification.message.status || "info"}
-                content={notification.message.text}
-                {...(!!notification.message.actionBtn
-                  ? {
-                      action: {
-                        label: notification.message.actionBtn.label,
-                        onClick: notification.message.actionBtn.action
-                      }
-                    }
-                  : {})}
-                className={classes.notification}
-              />
-            </Transition>
-          ))}
-      </TransitionGroup>
+      {!!notifications.length &&
+        notifications.map(notification => (
+          <IonToast
+            buttons={[
+              notification.close && {
+                text: "Ok",
+                role: "cancel",
+                handler: () => {
+                  notification.close();
+                }
+              }
+            ]}
+            key={notification.id}
+            isOpen={true}
+            position="top"
+            icon={getIcon(notification)}
+            message={String(notification.message.text)}
+            duration={notification.timeout}
+          />
+        ))}
     </>
   );
 };

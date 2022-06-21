@@ -13,23 +13,22 @@ const useStyles = makeStyles(
     root: {
       alignItems: "center",
       display: "flex",
+      marginTop: 0,
       [theme.breakpoints.down("xs")]: {
         flexDirection: "column",
         alignItems: "flex-start",
         "& > *": {
           width: "100%"
         },
-        "& > *:not(first-child)": {
-          marginTop: theme.spacing(2)
-        }
+        "& > *:not(first-child)": {}
       }
     },
     title: {
       [theme.breakpoints.down("sm")]: {
         fontSize: 20,
-        marginTop: theme.spacing(2),
         padding: 0
       },
+      textAlign: "center",
       fontWeight: 700,
       alignSelf: "flex-start",
       flex: 1,
@@ -54,26 +53,31 @@ const PageHeader: React.FC<PageHeaderProps> = props => {
   const classes = useStyles(props);
 
   return (
-    <ExtendedPageHeader
-      testId="page-header"
-      className={className}
-      inline={inline}
-      underline={underline}
-      title={
-        <Typography className={classes.title + " modalPageHeader"} variant="h5">
-          {title !== undefined ? title : <Skeleton style={{ width: "10em" }} />}
-        </Typography>
-      }
-    >
-      <div className={classes.root}>
-        {limitText && (
-          <Typography className={classes.limit} color="textSecondary">
-            {limitText}
+    <>
+      <ExtendedPageHeader
+        testId="page-header"
+        className={className}
+        inline={inline}
+        underline={underline}
+        title={
+          <Typography
+            className={classes.title + " modalPageHeader"}
+            variant="h5"
+          >
+            {title || <Skeleton style={{ width: "10em" }} />}
           </Typography>
-        )}
-        {children}
-      </div>
-    </ExtendedPageHeader>
+        }
+      >
+        <div className={classes.root}>
+          {limitText && (
+            <Typography className={classes.limit} color="textSecondary">
+              {limitText}
+            </Typography>
+          )}
+          {children}
+        </div>
+      </ExtendedPageHeader>
+    </>
   );
 };
 

@@ -12,7 +12,6 @@ import CardTitle from "../OrderReturnPage/OrderReturnRefundItemsCard/CardTitle";
 
 import { IonCard, IonButton, IonCardContent } from "@ionic/react";
 
-
 interface OrderUnfulfilledProductsCardProps {
   showFulfillmentAction: boolean;
   notAllowedToFulfillUnpaid: boolean;
@@ -39,13 +38,13 @@ const OrderUnfulfilledProductsCard: React.FC<OrderUnfulfilledProductsCardProps> 
         <IonCardContent>
           {/* <div style={{ width: "92vw", overflow: "scroll" }}> */}
           <TableHeader />
-          <TableBody>
-            {renderCollection(lines, line => (
-              <div key={line.id}>
-                <TableLine isOrderLine line={line} />
-              </div>
-            ))}
-          </TableBody>
+          {/* <TableBody> */}
+          {renderCollection(lines, line => (
+            <div key={line.id}>
+              <TableLine isOrderLine line={line} />
+            </div>
+          ))}
+          {/* </TableBody> */}
           {/* </div> */}
         </IonCardContent>
         {showFulfillmentAction && (
