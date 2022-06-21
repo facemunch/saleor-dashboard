@@ -31,6 +31,7 @@ const useStyles = makeStyles(
         // marginTop: theme.spacing(2),
         padding: 0
       },
+      textAlign: "center",
       fontWeight: 700,
       alignSelf: "flex-start",
       flex: 1,
