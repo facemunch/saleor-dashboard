@@ -170,7 +170,7 @@ const AttributePage: React.FC<AttributePageProps> = ({
         const changeMetadata = makeMetadataChangeHandler(change);
 
         return (
-          <IonPage>
+          <>
             <IonContent>
               <Backlink onClick={onBack}>
                 {intl.formatMessage(sectionNames.attributes)}
@@ -247,7 +247,7 @@ const AttributePage: React.FC<AttributePageProps> = ({
               />
             </IonContent>
             {children(data)}
-          </IonPage>
+          </>
         );
       }}
     </Form>

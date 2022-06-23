@@ -6,13 +6,12 @@ import { Backlink } from "@saleor/macaw-ui";
 import { renderCollection } from "@saleor/misc";
 import { OrderRefundData_order } from "@saleor/orders/types/OrderRefundData";
 import { FulfillmentStatus } from "@saleor/types/globalTypes";
-import React from "react";
+import React, { memo } from "react";
 import { useIntl } from "react-intl";
 import { chevronBackOutline } from "ionicons/icons";
 
 import {
   IonContent,
-  IonPage,
   IonToolbar,
   IonTitle,
   IonButtons,
@@ -70,17 +69,17 @@ const OrderRefundPage: React.FC<OrderRefundPageProps> = props => {
     ) || [];
 
   return (
-    <OrderRefundForm
-      order={order}
-      defaultType={defaultType}
-      onSubmit={onSubmit}
-    >
-      {({ data, handlers, change, submit }) => {
-        const isProductRefund = data.type === OrderRefundType.PRODUCTS;
+    <IonContent>
+      <OrderRefundForm
+        order={order}
+        defaultType={defaultType}
+        onSubmit={onSubmit}
+      >
+        {({ data, handlers, change, submit }) => {
+          const isProductRefund = data.type === OrderRefundType.PRODUCTS;
 
-        return (
-          <IonPage>
-            <IonContent>
+          return (
+            <>
               <IonToolbar>
                 <IonButtons slot="start">
                   <IonButton onClick={() => onBack()}>
@@ -141,32 +140,35 @@ const OrderRefundPage: React.FC<OrderRefundPageProps> = props => {
                           />
                         </>
                       )}
-                         <div
+                      <div
                         id="hide-isDigitalProduct"
                         style={{
                           height: "0",
                           overflow: "hidden"
                         }}
                       >
-                      {renderCollection(fulfilledFulfillemnts, fulfillment => (
-                        <React.Fragment key={fulfillment?.id}>
-                          <CardSpacer />
-                          <OrderRefundFulfilledProducts
-                            fulfillment={fulfillment}
-                            data={data}
-                            disabled={disabled}
-                            orderNumber={order?.number}
-                            onRefundedProductQuantityChange={
-                              handlers.changeRefundedFulfilledProductQuantity
-                            }
-                            onSetMaximalQuantities={() =>
-                              handlers.setMaximalRefundedFulfilledProductQuantities(
-                                fulfillment?.id
-                              )
-                            }
-                          />
-                        </React.Fragment>
-                      ))}
+                        {renderCollection(
+                          fulfilledFulfillemnts,
+                          fulfillment => (
+                            <React.Fragment key={fulfillment?.id}>
+                              <CardSpacer />
+                              <OrderRefundFulfilledProducts
+                                fulfillment={fulfillment}
+                                data={data}
+                                disabled={disabled}
+                                orderNumber={order?.number}
+                                onRefundedProductQuantityChange={
+                                  handlers.changeRefundedFulfilledProductQuantity
+                                }
+                                onSetMaximalQuantities={() =>
+                                  handlers.setMaximalRefundedFulfilledProductQuantities(
+                                    fulfillment?.id
+                                  )
+                                }
+                              />
+                            </React.Fragment>
+                          )
+                        )}
                       </div>
                     </>
                   )}
@@ -188,12 +190,12 @@ const OrderRefundPage: React.FC<OrderRefundPageProps> = props => {
                 </div>
               </Grid>
               <div style={{ height: "100px" }} />
-            </IonContent>
-          </IonPage>
-        );
-      }}
-    </OrderRefundForm>
+            </>
+          );
+        }}
+      </OrderRefundForm>
+    </IonContent>
   );
 };
 OrderRefundPage.displayName = "OrderRefundPage";
-export default OrderRefundPage;
+export default memo(OrderRefundPage);

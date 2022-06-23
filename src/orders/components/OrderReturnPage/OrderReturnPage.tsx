@@ -67,7 +67,7 @@ const OrderRefundPage: React.FC<OrderReturnPageProps> = props => {
           unfulfilledItemsQuantities.some(({ value }) => !!value);
 
         return (
-          <IonPage>
+          <>
             <IonContent>
               <IonToolbar>
                 <IonButtons slot="start">
@@ -182,7 +182,7 @@ const OrderRefundPage: React.FC<OrderReturnPageProps> = props => {
                 <div style={{ height: "100px" }} />
               </Grid>
             </IonContent>
-          </IonPage>
+          </>
         );
       }}
     </OrderRefundForm>

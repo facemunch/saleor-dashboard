@@ -204,150 +204,156 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
     }
   ]);
   return (
-    <Form initial={initial} onSubmit={handleSubmit}>
-      {({ change, data, hasChanged, submit }) => {
-        const changeMetadata = makeMetadataChangeHandler(change);
+    <>
+      <IonContent>
+        <Form initial={initial} onSubmit={handleSubmit}>
+          {({ change, data, hasChanged, submit }) => {
+            const changeMetadata = makeMetadataChangeHandler(change);
 
-        return (
-          <IonPage>
-            <IonContent>
-              <IonCardHeader style={{ marginTop: "-20px" }}>
-                <Backlink onClick={onBack}>
-                  {intl.formatMessage(sectionNames.orders)}
-                </Backlink>
-
-                <PageHeader
-                  className={classes.header}
-                  inline
-                  title={<Title order={order} />}
-                >
-                  <CardMenu menuItems={selectCardMenuItems} />
-                </PageHeader>
-              </IonCardHeader>
+            return (
               <>
-                <div data-test-id="orderFulfillment">
-                  {!isOrderUnconfirmed ? (
-                    <OrderUnfulfilledProductsCard
-                      showFulfillmentAction={canFulfill}
-                      notAllowedToFulfillUnpaid={notAllowedToFulfillUnpaid}
-                      lines={unfulfilled}
-                      onFulfill={onOrderFulfill}
-                    />
-                  ) : (
-                    <>
-                      <OrderDraftDetails
-                        order={order}
-                        onOrderLineAdd={onOrderLineAdd}
-                        onOrderLineChange={onOrderLineChange}
-                        onOrderLineRemove={onOrderLineRemove}
-                        onShippingMethodEdit={onShippingMethodEdit}
-                      />
-                      <CardSpacer />
-                    </>
-                  )}
-                  {order?.fulfillments
-                    ?.filter(a => a.status !== "CANCELED")
-                    .map(fulfillment => (
-                      <div key={`${fulfillment.id}-${fulfillment.status}`}>
-                        <OrderFulfilledProductsCard
-                          fulfillment={fulfillment}
-                          fulfillmentAllowUnpaid={shop?.fulfillmentAllowUnpaid}
-                          order={order}
-                          onOrderFulfillmentCancel={() =>
-                            onFulfillmentCancel(fulfillment.id)
-                          }
-                          onTrackingCodeAdd={() =>
-                            onFulfillmentTrackingNumberUpdate(fulfillment.id)
-                          }
-                          onRefund={onPaymentRefund}
-                          onOrderFulfillmentApprove={() =>
-                            onFulfillmentApprove(fulfillment.id)
-                          }
-                        />
-                      </div>
-                    ))}
+                <IonCardHeader style={{ marginTop: "-20px" }}>
+                  <Backlink onClick={onBack}>
+                    {intl.formatMessage(sectionNames.orders)}
+                  </Backlink>
 
-                  {!isOrderUnconfirmed && (
-                    <>
-                      <OrderPayment
-                        order={order}
-                        onCapture={onPaymentCapture}
-                        onMarkAsPaid={onPaymentPaid}
-                        onRefund={onPaymentRefund}
-                        onVoid={onPaymentVoid}
+                  <PageHeader
+                    className={classes.header}
+                    inline
+                    title={<Title order={order} />}
+                  >
+                    <CardMenu menuItems={selectCardMenuItems} />
+                  </PageHeader>
+                </IonCardHeader>
+                <>
+                  <div data-test-id="orderFulfillment">
+                    {!isOrderUnconfirmed ? (
+                      <OrderUnfulfilledProductsCard
+                        showFulfillmentAction={canFulfill}
+                        notAllowedToFulfillUnpaid={notAllowedToFulfillUnpaid}
+                        lines={unfulfilled}
+                        onFulfill={onOrderFulfill}
                       />
-                      <CardSpacer />
-                      <Metadata data={data} onChange={changeMetadata} />
-                    </>
-                  )}
-                  {order?.fulfillments
-                    ?.filter(a => a.status === "CANCELED")
-                    .map(fulfillment => (
-                      <div key={`${fulfillment.id}-${fulfillment.status}`}>
-                        <OrderFulfilledProductsCard
-                          fulfillment={fulfillment}
-                          fulfillmentAllowUnpaid={shop?.fulfillmentAllowUnpaid}
+                    ) : (
+                      <>
+                        <OrderDraftDetails
                           order={order}
-                          onOrderFulfillmentCancel={() =>
-                            onFulfillmentCancel(fulfillment.id)
-                          }
-                          onTrackingCodeAdd={() =>
-                            onFulfillmentTrackingNumberUpdate(fulfillment.id)
-                          }
-                          onRefund={onPaymentRefund}
-                          onOrderFulfillmentApprove={() =>
-                            onFulfillmentApprove(fulfillment.id)
-                          }
+                          onOrderLineAdd={onOrderLineAdd}
+                          onOrderLineChange={onOrderLineChange}
+                          onOrderLineRemove={onOrderLineRemove}
+                          onShippingMethodEdit={onShippingMethodEdit}
                         />
-                      </div>
-                    ))}
-                  <OrderHistory
-                    history={order?.events}
-                    orderCurrency={order?.total?.gross.currency}
-                    onNoteAdd={onNoteAdd}
-                  />
-                </div>
-                <div>
-                  <OrderCustomer
-                    canEditAddresses={canEditAddresses}
-                    canEditCustomer={false}
-                    order={order}
-                    userPermissions={userPermissions}
-                    onBillingAddressEdit={onBillingAddressEdit}
-                    onShippingAddressEdit={onShippingAddressEdit}
-                    onProfileView={onProfileView}
-                  />
-                  <CardSpacer />
-                  {/* <OrderChannelSectionCard
+                        <CardSpacer />
+                      </>
+                    )}
+                    {order?.fulfillments
+                      ?.filter(a => a.status !== "CANCELED")
+                      .map(fulfillment => (
+                        <div key={`${fulfillment.id}-${fulfillment.status}`}>
+                          <OrderFulfilledProductsCard
+                            fulfillment={fulfillment}
+                            fulfillmentAllowUnpaid={
+                              shop?.fulfillmentAllowUnpaid
+                            }
+                            order={order}
+                            onOrderFulfillmentCancel={() =>
+                              onFulfillmentCancel(fulfillment.id)
+                            }
+                            onTrackingCodeAdd={() =>
+                              onFulfillmentTrackingNumberUpdate(fulfillment.id)
+                            }
+                            onRefund={onPaymentRefund}
+                            onOrderFulfillmentApprove={() =>
+                              onFulfillmentApprove(fulfillment.id)
+                            }
+                          />
+                        </div>
+                      ))}
+
+                    {!isOrderUnconfirmed && (
+                      <>
+                        <OrderPayment
+                          order={order}
+                          onCapture={onPaymentCapture}
+                          onMarkAsPaid={onPaymentPaid}
+                          onRefund={onPaymentRefund}
+                          onVoid={onPaymentVoid}
+                        />
+                        <CardSpacer />
+                        <Metadata data={data} onChange={changeMetadata} />
+                      </>
+                    )}
+                    {order?.fulfillments
+                      ?.filter(a => a.status === "CANCELED")
+                      .map(fulfillment => (
+                        <div key={`${fulfillment.id}-${fulfillment.status}`}>
+                          <OrderFulfilledProductsCard
+                            fulfillment={fulfillment}
+                            fulfillmentAllowUnpaid={
+                              shop?.fulfillmentAllowUnpaid
+                            }
+                            order={order}
+                            onOrderFulfillmentCancel={() =>
+                              onFulfillmentCancel(fulfillment.id)
+                            }
+                            onTrackingCodeAdd={() =>
+                              onFulfillmentTrackingNumberUpdate(fulfillment.id)
+                            }
+                            onRefund={onPaymentRefund}
+                            onOrderFulfillmentApprove={() =>
+                              onFulfillmentApprove(fulfillment.id)
+                            }
+                          />
+                        </div>
+                      ))}
+                    <OrderHistory
+                      history={order?.events}
+                      orderCurrency={order?.total?.gross.currency}
+                      onNoteAdd={onNoteAdd}
+                    />
+                  </div>
+                  <div>
+                    <OrderCustomer
+                      canEditAddresses={canEditAddresses}
+                      canEditCustomer={false}
+                      order={order}
+                      userPermissions={userPermissions}
+                      onBillingAddressEdit={onBillingAddressEdit}
+                      onShippingAddressEdit={onShippingAddressEdit}
+                      onProfileView={onProfileView}
+                    />
+                    <CardSpacer />
+                    {/* <OrderChannelSectionCard
                     selectedChannelName={order?.channel?.name}
                   /> */}
-                  <CardSpacer />
-                  {!isOrderUnconfirmed && (
-                    <>
-                      <OrderInvoiceList
-                        invoices={order?.invoices}
-                        onInvoiceClick={onInvoiceClick}
-                        onInvoiceGenerate={onInvoiceGenerate}
-                        onInvoiceSend={onInvoiceSend}
-                      />
-                      <CardSpacer />
-                    </>
-                  )}
-                </div>
-                <div style={{ height: "100px" }} />
+                    <CardSpacer />
+                    {!isOrderUnconfirmed && (
+                      <>
+                        <OrderInvoiceList
+                          invoices={order?.invoices}
+                          onInvoiceClick={onInvoiceClick}
+                          onInvoiceGenerate={onInvoiceGenerate}
+                          onInvoiceSend={onInvoiceSend}
+                        />
+                        <CardSpacer />
+                      </>
+                    )}
+                  </div>
+                  <div style={{ height: "100px" }} />
+                </>
+                <Savebar
+                  labels={saveLabel}
+                  onCancel={onBack}
+                  onSubmit={submit}
+                  state={saveButtonBarState}
+                  disabled={allowSave(hasChanged)}
+                />
               </>
-              <Savebar
-                labels={saveLabel}
-                onCancel={onBack}
-                onSubmit={submit}
-                state={saveButtonBarState}
-                disabled={allowSave(hasChanged)}
-              />
-            </IonContent>
-          </IonPage>
-        );
-      }}
-    </Form>
+            );
+          }}
+        </Form>
+      </IonContent>
+    </>
   );
 };
 

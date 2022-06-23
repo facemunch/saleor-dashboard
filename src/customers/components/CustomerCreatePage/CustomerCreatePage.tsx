@@ -17,7 +17,7 @@ import CustomerCreateAddress from "../CustomerCreateAddress/CustomerCreateAddres
 import CustomerCreateDetails from "../CustomerCreateDetails";
 import CustomerCreateNote from "../CustomerCreateNote/CustomerCreateNote";
 
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent } from "@ionic/react";
 import PageHeader from "@saleor/components/PageHeader";
 
 export interface CustomerCreatePageFormData {
@@ -138,7 +138,7 @@ const CustomerCreatePage: React.FC<CustomerCreatePageProps> = ({
         );
 
         return (
-          <IonPage>
+          <>
             <IonContent>
               <PageHeader
                 title={intl.formatMessage({
@@ -181,7 +181,7 @@ const CustomerCreatePage: React.FC<CustomerCreatePageProps> = ({
                 onCancel={onBack}
               />
             </IonContent>
-          </IonPage>
+          </>
         );
       }}
     </Form>

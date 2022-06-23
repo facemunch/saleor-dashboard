@@ -64,7 +64,6 @@ const App: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken, ecomAPI }) => {
     });
 
     const tokenLink = setContext((_, context) => {
-
       const authToken = ecomAccessToken;
       return {
         ...context,

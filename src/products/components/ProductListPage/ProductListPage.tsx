@@ -115,7 +115,7 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
         </IonCard>
         <div
           style={{
-            height: "100px"
+            height: "300px"
           }}
         />
       </IonContent>

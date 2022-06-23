@@ -70,9 +70,6 @@ const OrderDraftListPage: React.FC<OrderDraftListPageProps> = ({
         vertical="bottom"
         horizontal="end"
         slot="fixed"
-        style={{
-          marginBottom: "50px"
-        }}
         data-test-id="create-order-button"
       >
         <IonButton

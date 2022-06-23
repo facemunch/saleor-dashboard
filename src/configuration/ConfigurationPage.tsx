@@ -3,7 +3,7 @@ import { User } from "@saleor/fragments/types/User";
 import { makeStyles } from "@saleor/macaw-ui";
 import React, { memo } from "react";
 
-import { IonContent, IonCard, IonPage, IonCardContent } from "@ionic/react";
+import { IonContent, IonCard, IonCardContent } from "@ionic/react";
 
 import { hasAnyPermissions } from "../auth/misc";
 import { PermissionEnum } from "../types/globalTypes";
@@ -97,7 +97,7 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
   const classes = useStyles(props);
 
   return (
-    <IonPage>                
+    <>                
       
       <PageHeader title={"Configuration"} />
 
@@ -142,7 +142,7 @@ export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
           ))}
         <div style={{ height: "100px" }} />
       </IonContent>
-    </IonPage>
+    </>
   );
 };
 ConfigurationPage.displayName = "ConfigurationPage";

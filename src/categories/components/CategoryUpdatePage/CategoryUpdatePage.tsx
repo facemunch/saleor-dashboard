@@ -2,7 +2,6 @@ import { Button, Card } from "@mui/material";
 import { CardSpacer } from "@saleor/components/CardSpacer";
 import CardTitle from "@saleor/components/CardTitle";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
-import Container from "@saleor/components/Container";
 import Metadata from "@saleor/components/Metadata/Metadata";
 import PageHeader from "@saleor/components/PageHeader";
 import Savebar from "@saleor/components/Savebar";
@@ -27,7 +26,7 @@ import {
 import CategoryBackground from "../CategoryBackground";
 import CategoryProducts from "../CategoryProducts";
 import CategoryUpdateForm, { CategoryUpdateData } from "./form";
-import { IonContent, IonCard, IonPage } from "@ionic/react";
+import { IonContent } from "@ionic/react";
 
 export enum CategoryPageTab {
   categories = "categories",
@@ -97,7 +96,7 @@ export const CategoryUpdatePage: React.FC<CategoryUpdatePageProps> = ({
   return (
     <CategoryUpdateForm category={category} onSubmit={onSubmit}>
       {({ data, change, handlers, submit, hasChanged }) => (
-        <IonPage>
+        <>
           <IonContent>
             <Backlink onClick={onBack}>
               {intl.formatMessage(sectionNames.categories)}
@@ -225,7 +224,7 @@ export const CategoryUpdatePage: React.FC<CategoryUpdatePageProps> = ({
               disabled={disabled || !hasChanged}
             />
           </IonContent>
-        </IonPage>
+        </>
       )}
     </CategoryUpdateForm>
   );

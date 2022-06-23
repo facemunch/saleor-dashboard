@@ -140,7 +140,7 @@ const HomePage: React.FC<HomePageProps> = props => {
             </div>
           )}
         </IonCard>
-        <div style={{ height: "100px" }} />
+        <div style={{ height: "300px" }} />
       </IonContent>
     </>
   );

@@ -176,9 +176,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         vertical="bottom"
         horizontal="end"
         slot="fixed"
-        style={{
-          marginBottom: "50px"
-        }}
         data-test-id="create-order-button"
       >
         <IonButton

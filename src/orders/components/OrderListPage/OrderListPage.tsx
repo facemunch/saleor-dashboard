@@ -57,37 +57,39 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
   const intl = useIntl();
   const filterStructure = createFilterStructure(intl, filterOpts);
   return (
-    <IonContent data-test-id="commerce-orders-tab">
-      <div style={{ height: "20px" }} />
-      <IonCard>
-        <FilterBar
-          options={options}
-          currentTab={currentTab}
-          initialSearch={initialSearch}
-          onAll={onAll}
-          onFilterChange={onFilterChange}
-          onSearchChange={onSearchChange}
-          onTabChange={onTabChange}
-          onTabDelete={onTabDelete}
-          onTabSave={onTabSave}
-          tabs={tabs}
-          allTabLabel={intl.formatMessage({
-            defaultMessage: "All Orders",
-            description: "tab name"
-          })}
-          filterStructure={filterStructure}
-          searchPlaceholder={intl.formatMessage({
-            defaultMessage: "Search Orders..."
-          })}
+    <>
+      <IonContent data-test-id="commerce-orders-tab">
+        <div style={{ height: "20px" }} />
+        <IonCard>
+          <FilterBar
+            options={options}
+            currentTab={currentTab}
+            initialSearch={initialSearch}
+            onAll={onAll}
+            onFilterChange={onFilterChange}
+            onSearchChange={onSearchChange}
+            onTabChange={onTabChange}
+            onTabDelete={onTabDelete}
+            onTabSave={onTabSave}
+            tabs={tabs}
+            allTabLabel={intl.formatMessage({
+              defaultMessage: "All Orders",
+              description: "tab name"
+            })}
+            filterStructure={filterStructure}
+            searchPlaceholder={intl.formatMessage({
+              defaultMessage: "Search Orders..."
+            })}
+          />
+          <OrderList {...listProps} />
+        </IonCard>
+        <div
+          style={{
+            height: "300px"
+          }}
         />
-        <OrderList {...listProps} />
-      </IonCard>
-      <div
-        style={{
-          height: "100px"
-        }}
-      />
-    </IonContent>
+      </IonContent>
+    </>
   );
 };
 OrderListPage.displayName = "OrderListPage";

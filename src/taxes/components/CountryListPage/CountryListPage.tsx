@@ -1,5 +1,4 @@
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
-import { Container } from "@saleor/components/Container";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
 import PageHeader from "@saleor/components/PageHeader";
@@ -8,7 +7,7 @@ import { sectionNames } from "@saleor/intl";
 import { Backlink } from "@saleor/macaw-ui";
 import React from "react";
 import { useIntl } from "react-intl";
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent } from "@ionic/react";
 import { maybe } from "../../../misc";
 import { CountryList_shop } from "../../types/CountryList";
 import CountryList from "../CountryList";
@@ -48,7 +47,7 @@ const CountryListPage: React.FC<CountryListPageProps> = ({
   return (
     <Form initial={initialForm} onSubmit={onSubmit}>
       {({ change, data, hasChanged, submit }) => (
-        <IonPage>
+        <>
           <IonContent>
             <Backlink onClick={onBack}>
               {intl.formatMessage(sectionNames.configuration)}
@@ -82,7 +81,7 @@ const CountryListPage: React.FC<CountryListPageProps> = ({
             onCancel={onBack}
             onSubmit={submit}
           />
-        </IonPage>
+        </>
       )}
     </Form>
   );
