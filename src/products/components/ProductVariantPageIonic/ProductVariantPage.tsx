@@ -10,7 +10,6 @@ import Attributes, {
 } from "@saleor/components/Attributes";
 import CardSpacer from "@saleor/components/CardSpacer";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
-import Container from "@saleor/components/Container";
 import Grid from "@saleor/components/Grid";
 import { MetadataFormData } from "@saleor/components/Metadata";
 import Metadata from "@saleor/components/Metadata/Metadata";
@@ -28,7 +27,7 @@ import { SearchProducts_search_edges_node } from "@saleor/searches/types/SearchP
 import { FetchMoreProps, ReorderAction } from "@saleor/types";
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent } from "@ionic/react";
 import { maybe } from "../../../misc";
 import ProductShipping from "../ProductShipping/ProductShipping";
 import ProductStocks, { ProductStockInput } from "../ProductStocks";
@@ -191,7 +190,7 @@ const ProductVariantPage: React.FC<ProductVariantPageProps> = ({
   };
 
   return (
-    <IonPage>
+    <>
       <IonContent>
         <Backlink onClick={onBack}>{variant?.product?.name}</Backlink>
         <PageHeader title={header}>
@@ -403,7 +402,7 @@ const ProductVariantPage: React.FC<ProductVariantPageProps> = ({
           variantGlobalSoldUnits={variant?.preorder?.globalSoldUnits}
         />
       )}
-    </IonPage>
+    </>
   );
 };
 ProductVariantPage.displayName = "ProductVariantPage";

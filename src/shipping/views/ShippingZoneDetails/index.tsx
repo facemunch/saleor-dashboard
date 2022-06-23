@@ -1,4 +1,4 @@
-import { IonPage, IonContent } from "@ionic/react";
+import { IonContent } from "@ionic/react";
 import { DialogContentText } from "@mui/material";
 import ActionDialog from "@saleor/components/ActionDialog";
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
@@ -176,7 +176,7 @@ const ShippingZoneDetails: React.FC<ShippingZoneDetailsProps> = ({
   }
 
   return (
-    <IonPage>
+    <>
       <IonContent data-test-id="shipping-zone-details-page">
         {!data ? (
           <Loader />
@@ -347,7 +347,7 @@ const ShippingZoneDetails: React.FC<ShippingZoneDetailsProps> = ({
           }
         />
       </IonContent>
-    </IonPage>
+    </>
   );
 };
 export default ShippingZoneDetails;

@@ -1,6 +1,5 @@
 import { CircularProgress, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
@@ -84,11 +83,11 @@ const MediaTile: React.FC<MediaTileProps> = props => {
           <CircularProgress size={32} />
         ) : (
           <div className={classes.mediaOverlayToolbar}>
-            {onEdit && (
+            {/* {onEdit && (
               <IconButton color="primary" onClick={onEdit}>
                 <EditIcon />
               </IconButton>
-            )}
+            )} */}
             {onDelete && (
               <IconButton color="primary" onClick={onDelete}>
                 <DeleteIcon />

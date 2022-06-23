@@ -3,15 +3,11 @@ import useUser from "@saleor/hooks/useUser";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, History } from "swiper";
 import { Route, useLocation, useHistory } from "react-router-dom";
-import { IonicSlides, IonModal, IonPage } from "@ionic/react";
+import { IonContent, IonicSlides, IonModal } from "@ionic/react";
 import { productPath } from "../products/urls";
 import { userDataQuery } from "./queries";
 
 import { ProductUpdate, ProductCreate } from "../products";
-
-import { CustomerDetailsView, CustomerAddressesView } from "../customers";
-
-import { customerAddressesPath, customerPath } from "../customers/urls";
 
 import { OrderDetails, OrderRefund } from "../orders";
 import { orderPath, orderRefundPath } from "../orders/urls";
@@ -83,182 +79,165 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
   }, [ecomAccessToken, data, loading]);
 
   return (
-    <IonPage ref={refto}>
-      <AppLayout>
-        <>
-          <Swiper
-            cssMode={true}
-            style={{
-              height: "100vh",
-              width: "100vw"
-            }}
-            onSlideChangeTransitionEnd={onSlideChange}
-            onInit={e => {
-              e.updateActiveIndex(getActiveIndex);
-            }}
-            spaceBetween={0}
-            slidesPerView={1}
-            history={{
-              enabled: true,
-              root: "/",
-              key: "c",
-              keepQuery: true
-            }}
-            pagination={{
-              enabled: true,
-              clickable: true,
-              renderBullet: function(index, className) {
-                return (
-                  "<ion-segment-button data-test-id='commerce-tab-" +
-                  menu[index].toLowerCase() +
-                  "-trigger' class='ios in-segment segment-button-has-label segment-button-has-label-only segment-button-layout-icon-top ion-activatable ion-activatable-instant SideBarDrawer-menuItemBtn-150 " +
-                  className +
-                  "'>" +
-                  menu[index] +
-                  "</ion-segment-button>"
-                );
-              }
-            }}
-            modules={[Pagination, Navigation, History, IonicSlides]}
-            className="mySwiper"
-          >
-            <SwiperSlide data-history="home">
-              <HomePage />
-            </SwiperSlide>
-            <SwiperSlide data-history="products">
-              <ProductList />
-            </SwiperSlide>
-            <SwiperSlide data-history="orders">
-              <OrderList />
-            </SwiperSlide>
-          </Swiper>
+    <>
+      <IonContent ref={refto}>
+        <AppLayout>
+          <>
+            <Swiper
+              cssMode={true}
+              style={{
+                height: "100vh",
+                width: "100vw"
+              }}
+              onSlideChangeTransitionEnd={onSlideChange}
+              onInit={e => {
+                e.updateActiveIndex(getActiveIndex);
+              }}
+              spaceBetween={0}
+              slidesPerView={1}
+              // history={{
+              //   enabled: true,
+              //   root: "/",
+              //   key: "c",
+              //   keepQuery: true
+              // }}
+              pagination={{
+                enabled: true,
+                clickable: true,
+                renderBullet: function(index, className) {
+                  return (
+                    "<ion-segment-button data-test-id='commerce-tab-" +
+                    menu[index].toLowerCase() +
+                    "-trigger' class='ios in-segment segment-button-has-label segment-button-has-label-only segment-button-layout-icon-top ion-activatable ion-activatable-instant SideBarDrawer-menuItemBtn-150 " +
+                    className +
+                    "'>" +
+                    menu[index] +
+                    "</ion-segment-button>"
+                  );
+                }
+              }}
+              modules={[Pagination, Navigation, IonicSlides]}
+              className="mySwiper"
+            >
+              <SwiperSlide data-history="home">
+                <HomePage />
+              </SwiperSlide>
+              <SwiperSlide data-history="products">
+                <ProductList />
+              </SwiperSlide>
+              <SwiperSlide data-history="orders">
+                <OrderList />
+              </SwiperSlide>
+            </Swiper>
 
-          <IonModal
-            mode="ios"
-            style={{
-              "--border-radius": "16px"
-            }}
-            backdropDismiss={true}
-            isOpen={
-              pathname.includes("/products/") && pathname !== "/products/add"
-            }
-            canDismiss={true}
-            presentingElement={refto.current}
-            onWillDismiss={() =>
-              pathname.includes("/products/") && push("/products")
-            }
-          >
-            <Route
-              path={"/products/" + productPath(":id", "")}
-              render={() => <ProductUpdate />}
-            />
-          </IonModal>
-          <IonModal
-            style={{
-              "--border-radius": "16px"
-            }}
-            mode="ios"
-            backdropDismiss={true}
-            isOpen={pathname.includes("/products/add")}
-            canDismiss={true}
-            presentingElement={refto.current}
-            onWillDismiss={() =>
-              pathname === "/products/add" && push("/products")
-            }
-          >
-            <ProductCreate />
-          </IonModal>
-          <IonModal
-            style={{
-              "--border-radius": "16px"
-            }}
-            mode="ios"
-            ref={orderModalRef}
-            backdropDismiss={true}
-            isOpen={pathname.includes("/orders/")}
-            canDismiss={true}
-            presentingElement={refto.current}
-            onWillDismiss={() => pathname.includes("/orders/") && push("/orders")}
-          >
-            <Route
-              path={"/orders/" + orderPath(":id", "")}
-              render={() => <OrderDetails orderModalRef={orderModalRef} />}
-            />
-          </IonModal>
-          <IonModal
-            style={{
-              "--border-radius": "16px"
-            }}
-            mode="ios"
-            backdropDismiss={true}
-            isOpen={
-              pathname.includes("/orders/") && pathname.includes("/refund")
-            }
-            canDismiss={true}
-            presentingElement={orderModalRef.current}
-            // onWillDismiss={() => pathname.includes("/orders/") && goBack()}
-          >
-            <Route
-              exact
-              path={"/orders/" + orderRefundPath(":id", "")}
-              render={() => <OrderRefund />}
-            />
-          </IonModal>
-          <IonModal
-            style={{
-              "--border-radius": "16px"
-            }}
-            mode="ios"
-            backdropDismiss={true}
-            isOpen={pathname.includes("/customers/")}
-            canDismiss={true}
-            presentingElement={refto.current}
-            onWillDismiss={() => pathname.includes("/customers/") && goBack()}
-          >
-            <Route
-              exact
-              path={"/customers/" + customerAddressesPath(":id", "")}
-              render={() => <CustomerAddressesView />}
-            />
-            <Route
-              exact
-              path={"/customers/" + customerPath(":id", "")}
-              render={() => <CustomerDetailsView />}
-            />
-          </IonModal>
-          <IonModal
-            style={{
-              "--border-radius": "16px"
-            }}
-            mode="ios"
-            ref={homeModalRef}
-            backdropDismiss={true}
-            isOpen={
-              pathname === "/configuration" || pathname.includes("/shipping")
-            }
-            canDismiss={true}
-            presentingElement={refto.current}
-            onWillDismiss={() => push("/home")}
-          >
-            <ConfigurationSection />
-          </IonModal>
-          <IonModal
-            style={{
-              "--border-radius": "16px"
-            }}
-            mode="ios"
-            ref={shippingListModalRef}
-            backdropDismiss={true}
-            isOpen={pathname.includes("/shipping")}
-            canDismiss={true}
-            presentingElement={homeModalRef.current}
-            onWillDismiss={() => push("/configuration")}
-          >
-            <ShippingZonesList shippingListModalRef={shippingListModalRef} />
-          </IonModal>
-        </>
-      </AppLayout>
-    </IonPage>
+            <IonModal
+              mode="ios"
+              style={{
+                "--border-radius": "16px"
+              }}
+              backdropDismiss={true}
+              isOpen={
+                pathname.includes("/products/") && pathname !== "/products/add"
+              }
+              canDismiss={true}
+              presentingElement={refto.current}
+              onWillDismiss={() =>
+                pathname.includes("/products/") && push("/products")
+              }
+            >
+              <Route
+                path={"/products/" + productPath(":id", "")}
+                render={() => <ProductUpdate />}
+              />
+            </IonModal>
+            <IonModal
+              style={{
+                "--border-radius": "16px"
+              }}
+              mode="ios"
+              backdropDismiss={true}
+              isOpen={pathname.includes("/products/add")}
+              canDismiss={true}
+              presentingElement={refto.current}
+              onWillDismiss={() =>
+                pathname === "/products/add" && push("/products")
+              }
+            >
+              <ProductCreate />
+            </IonModal>
+            <IonModal
+              style={{
+                "--border-radius": "16px"
+              }}
+              mode="ios"
+              ref={orderModalRef}
+              backdropDismiss={true}
+              isOpen={pathname.includes("/orders/")}
+              canDismiss={true}
+              presentingElement={refto.current}
+              onWillDismiss={() =>
+                pathname.includes("/orders/") && push("/orders")
+              }
+            >
+              <Route
+                path={"/orders/" + orderPath(":id", "")}
+                render={() => <OrderDetails orderModalRef={orderModalRef} />}
+              />
+            </IonModal>
+            <IonModal
+              style={{
+                "--border-radius": "16px"
+              }}
+              mode="ios"
+              backdropDismiss={true}
+              isOpen={
+                pathname.includes("/orders/") && pathname.includes("/refund")
+              }
+              canDismiss={true}
+              presentingElement={orderModalRef.current}
+              // onWillDismiss={() => pathname.includes("/orders/") && goBack()}
+            >
+              <Route
+                exact
+                path={"/orders/" + orderRefundPath(":id", "")}
+                render={() => <OrderRefund />}
+              />
+            </IonModal>
+
+            <IonModal
+              style={{
+                "--border-radius": "16px"
+              }}
+              mode="ios"
+              ref={homeModalRef}
+              backdropDismiss={true}
+              isOpen={
+                pathname === "/configuration" || pathname.includes("/shipping")
+              }
+              canDismiss={true}
+              presentingElement={refto.current}
+              onWillDismiss={() => push("/home")}
+            >
+              <ConfigurationSection />
+            </IonModal>
+            <IonModal
+              style={{
+                "--border-radius": "16px"
+              }}
+              mode="ios"
+              ref={shippingListModalRef}
+              backdropDismiss={true}
+              isOpen={pathname.includes("/shipping")}
+              canDismiss={true}
+              presentingElement={homeModalRef.current}
+              onWillDismiss={() => push("/configuration")}
+            >
+              <ShippingZonesList shippingListModalRef={shippingListModalRef} />
+            </IonModal>
+          </>
+        </AppLayout>
+      </IonContent>
+    </>
   );
 };
 

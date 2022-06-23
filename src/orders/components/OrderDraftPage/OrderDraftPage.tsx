@@ -90,7 +90,7 @@ const OrderDraftPage: React.FC<OrderDraftPageProps> = props => {
   const intl = useIntl();
 
   return (
-    <IonPage>
+    <>
       <IonContent>
         <IonCardContent>
           <Backlink onClick={onBack}>
@@ -172,7 +172,7 @@ const OrderDraftPage: React.FC<OrderDraftPageProps> = props => {
           }}
         />
       </IonContent>
-    </IonPage>
+    </>
   );
 };
 OrderDraftPage.displayName = "OrderDraftPage";

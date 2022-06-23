@@ -1,6 +1,5 @@
 import { CardSpacer } from "@saleor/components/CardSpacer";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
-import Container from "@saleor/components/Container";
 import Metadata from "@saleor/components/Metadata";
 import PageHeader from "@saleor/components/PageHeader";
 import Savebar from "@saleor/components/Savebar";
@@ -10,7 +9,7 @@ import { sectionNames } from "@saleor/intl";
 import { Backlink } from "@saleor/macaw-ui";
 import React from "react";
 import { useIntl } from "react-intl";
-import { IonContent, IonPage, IonCard } from "@ionic/react";
+import { IonContent } from "@ionic/react";
 
 import CategoryDetailsForm from "../../components/CategoryDetailsForm";
 import CategoryCreateForm, { CategoryCreateData } from "./form";
@@ -35,7 +34,7 @@ export const CategoryCreatePage: React.FC<CategoryCreatePageProps> = ({
   return (
     <CategoryCreateForm onSubmit={onSubmit}>
       {({ data, change, handlers, submit, hasChanged }) => (
-        <IonPage>
+        <>
           <IonContent>
             <Backlink onClick={onBack}>
               {intl.formatMessage(sectionNames.categories)}
@@ -81,7 +80,7 @@ export const CategoryCreatePage: React.FC<CategoryCreatePageProps> = ({
               />
             </div>
           </IonContent>
-        </IonPage>
+        </>
       )}
     </CategoryCreateForm>
   );

@@ -2,7 +2,6 @@ import { ChannelVoucherData } from "@saleor/channels/utils";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ChannelsAvailabilityCard from "@saleor/components/ChannelsAvailabilityCard";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
-import Container from "@saleor/components/Container";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
 import Metadata, { MetadataFormData } from "@saleor/components/Metadata";
@@ -20,7 +19,7 @@ import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTr
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent } from "@ionic/react";
 
 import { PermissionEnum, VoucherTypeEnum } from "../../../types/globalTypes";
 import { DiscountTypeEnum, RequirementsPicker } from "../../types";
@@ -125,7 +124,7 @@ const VoucherCreatePage: React.FC<VoucherCreatePageProps> = ({
         const changeMetadata = makeMetadataChangeHandler(change);
 
         return (
-          <IonPage>
+          <>
             <IonContent>
               <Backlink onClick={onBack}>
                 {intl.formatMessage(sectionNames.vouchers)}
@@ -214,7 +213,7 @@ const VoucherCreatePage: React.FC<VoucherCreatePageProps> = ({
                 state={saveButtonBarState}
               />
             </IonContent>
-          </IonPage>
+          </>
         );
       }}
     </Form>

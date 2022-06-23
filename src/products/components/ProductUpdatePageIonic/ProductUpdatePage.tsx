@@ -240,7 +240,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   };
 
   return (
-    <IonPage>
+    <>
       <IonContent data-test-id="update-product-view">
         {product === undefined && <Loader />}
         <ProductUpdateForm
@@ -491,7 +491,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
           )}
         </ProductUpdateForm>
       </IonContent>
-    </IonPage>
+    </>
   );
 };
 ProductUpdatePage.displayName = "ProductUpdatePage";

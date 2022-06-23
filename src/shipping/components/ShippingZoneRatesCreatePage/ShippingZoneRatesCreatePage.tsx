@@ -22,7 +22,7 @@ import { PostalCodeRuleInclusionTypeEnum, ShippingMethodTypeEnum } from "@saleor
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent } from "@ionic/react";
 
 import { ShippingZoneRateCommonFormData } from "../ShippingZoneRatesPage/types";
 
@@ -75,7 +75,7 @@ export const ShippingZoneRatesCreatePage: React.FC<ShippingZoneRatesCreatePagePr
   };
 
   return (
-    <IonPage>
+    <>
       <IonContent>
         <Form initial={initialForm} onSubmit={onSubmit}>
           {({ change, data, hasChanged, submit, triggerChange, set }) => {
@@ -167,7 +167,7 @@ export const ShippingZoneRatesCreatePage: React.FC<ShippingZoneRatesCreatePagePr
           }}
         </Form>
       </IonContent>
-    </IonPage>
+    </>
   );
 };
 

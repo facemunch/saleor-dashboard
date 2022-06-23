@@ -107,94 +107,96 @@ export const ShippingZoneRatesPage: React.FC<ShippingZoneRatesPageProps> = ({
   } = useMetadataChangeTrigger();
 
   return (
-    <Form initial={initialForm} onSubmit={onSubmit}>
-      {({ change, data, hasChanged, submit, set, triggerChange }) => {
-        const handleChannelsChange = createChannelsChangeHandler(
-          shippingChannels,
-          onChannelsChange,
-          triggerChange
-        );
-        const formDisabled = data.channelListings?.some(channel =>
-          validatePrice(channel.price)
-        );
-        const onDescriptionChange = (description: OutputData) => {
-          set({ description });
-          triggerChange();
-        };
+    <>
+      <IonContent>
+        <Form initial={initialForm} onSubmit={onSubmit}>
+          {({ change, data, hasChanged, submit, set, triggerChange }) => {
+            const handleChannelsChange = createChannelsChangeHandler(
+              shippingChannels,
+              onChannelsChange,
+              triggerChange
+            );
+            const formDisabled = data.channelListings?.some(channel =>
+              validatePrice(channel.price)
+            );
+            const onDescriptionChange = (description: OutputData) => {
+              set({ description });
+              triggerChange();
+            };
 
-        const changeMetadata = makeMetadataChangeHandler(change);
-        const formIsUnchanged =
-          !hasChanged && !hasChannelChanged && !havePostalCodesChanged;
+            const changeMetadata = makeMetadataChangeHandler(change);
+            const formIsUnchanged =
+              !hasChanged && !hasChannelChanged && !havePostalCodesChanged;
 
-        return (
-          <IonPage>
-            <IonContent>
-              <Backlink onClick={onBack}>
-                <FormattedMessage defaultMessage="Shipping" />
-              </Backlink>
-              <PageHeader title={rate?.name} />
-              <Grid>
-                <div>
-                  <ShippingRateInfo
-                    data={data}
-                    disabled={disabled}
-                    errors={errors}
-                    onChange={change}
-                    onDescriptionChange={onDescriptionChange}
-                  />
-                  <CardSpacer />
-                  {isPriceVariant ? (
-                    <OrderValue
-                      channels={data.channelListings}
-                      errors={channelErrors}
-                      orderValueRestricted={data.orderValueRestricted}
+            return (
+              <>
+                <Backlink onClick={onBack}>
+                  <FormattedMessage defaultMessage="Shipping" />
+                </Backlink>
+                <PageHeader title={rate?.name} />
+                <Grid>
+                  <div>
+                    <ShippingRateInfo
+                      data={data}
                       disabled={disabled}
-                      onChange={change}
-                      onChannelsChange={handleChannelsChange}
-                    />
-                  ) : (
-                    <OrderWeight
-                      orderValueRestricted={data.orderValueRestricted}
-                      disabled={disabled}
-                      minValue={data.minValue}
-                      maxValue={data.maxValue}
-                      onChange={change}
                       errors={errors}
+                      onChange={change}
+                      onDescriptionChange={onDescriptionChange}
                     />
-                  )}
-                  <CardSpacer />
-                  <PricingCard
-                    channels={data.channelListings}
-                    onChange={handleChannelsChange}
-                    disabled={disabled}
-                    errors={channelErrors}
-                  />
-                  <CardSpacer />
-                  <ShippingMethodProducts
-                    products={mapEdgesToItems(rate?.excludedProducts)}
-                    onProductAssign={onProductAssign}
-                    onProductUnassign={onProductUnassign}
-                    disabled={disabled}
-                    {...listProps}
-                  />
-                  <CardSpacer />
-                  <Metadata data={data} onChange={changeMetadata} />
+                    <CardSpacer />
+                    {isPriceVariant ? (
+                      <OrderValue
+                        channels={data.channelListings}
+                        errors={channelErrors}
+                        orderValueRestricted={data.orderValueRestricted}
+                        disabled={disabled}
+                        onChange={change}
+                        onChannelsChange={handleChannelsChange}
+                      />
+                    ) : (
+                      <OrderWeight
+                        orderValueRestricted={data.orderValueRestricted}
+                        disabled={disabled}
+                        minValue={data.minValue}
+                        maxValue={data.maxValue}
+                        onChange={change}
+                        errors={errors}
+                      />
+                    )}
+                    <CardSpacer />
+                    <PricingCard
+                      channels={data.channelListings}
+                      onChange={handleChannelsChange}
+                      disabled={disabled}
+                      errors={channelErrors}
+                    />
+                    <CardSpacer />
+                    <ShippingMethodProducts
+                      products={mapEdgesToItems(rate?.excludedProducts)}
+                      onProductAssign={onProductAssign}
+                      onProductUnassign={onProductUnassign}
+                      disabled={disabled}
+                      {...listProps}
+                    />
+                    <CardSpacer />
+                    <Metadata data={data} onChange={changeMetadata} />
 
-                  <div style={{ height: "100px" }} />
-                </div>
-              </Grid>
-              <Savebar
-                disabled={disabled || formDisabled || formIsUnchanged}
-                onCancel={onBack}
-                onDelete={onDelete}
-                onSubmit={submit}
-                state={saveButtonBarState}
-              />
-            </IonContent>
-          </IonPage>
-        );
-      }}
-    </Form>
+                    <div style={{ height: "100px" }} />
+                  </div>
+                </Grid>
+                <Savebar
+                  disabled={disabled || formDisabled || formIsUnchanged}
+                  onCancel={onBack}
+                  onDelete={onDelete}
+                  onSubmit={submit}
+                  state={saveButtonBarState}
+                />
+              </>
+            );
+          }}
+        </Form>
+      </IonContent>
+    </>
   );
 };
 

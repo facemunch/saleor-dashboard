@@ -1,6 +1,5 @@
 import CardSpacer from "@saleor/components/CardSpacer";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
-import Container from "@saleor/components/Container";
 import ControlledSwitch from "@saleor/components/ControlledSwitch";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
@@ -19,7 +18,7 @@ import {
   ProductTypeKindEnum,
   WeightUnitsEnum
 } from "@saleor/types/globalTypes";
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent } from "@ionic/react";
 
 import { mapMetadataItemToInput } from "@saleor/utils/maps";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
@@ -167,7 +166,7 @@ const ProductTypeDetailsPage: React.FC<ProductTypeDetailsPageProps> = ({
         const changeMetadata = makeMetadataChangeHandler(change);
 
         return (
-          <IonPage>
+          <>
             <IonContent>
               <Backlink onClick={onBack}>
                 {intl.formatMessage(sectionNames.productTypes)}
@@ -270,7 +269,7 @@ const ProductTypeDetailsPage: React.FC<ProductTypeDetailsPageProps> = ({
                 state={saveButtonBarState}
               />
             </IonContent>
-          </IonPage>
+          </>
         );
       }}
     </Form>

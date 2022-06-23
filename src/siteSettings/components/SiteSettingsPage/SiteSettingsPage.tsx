@@ -1,11 +1,8 @@
 import CompanyAddressInput from "@saleor/components/CompanyAddressInput";
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
-import Container from "@saleor/components/Container";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
-import Hr from "@saleor/components/Hr";
 import PageHeader from "@saleor/components/PageHeader";
-import PageSectionHeader from "@saleor/components/PageSectionHeader";
 import Savebar from "@saleor/components/Savebar";
 import { ShopErrorFragment } from "@saleor/fragments/types/ShopErrorFragment";
 import useAddressValidation from "@saleor/hooks/useAddressValidation";
@@ -19,12 +16,10 @@ import { mapCountriesToChoices } from "@saleor/utils/maps";
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { IonPage, IonContent } from "@ionic/react";
+import { IonContent } from "@ionic/react";
 
 import { SiteSettings_shop } from "../../types/SiteSettings";
-import SiteCheckoutSettingsCard from "../SiteCheckoutSettingsCard";
 import SiteSettingsDetailsCard from "../SiteDetailsSettingsCard";
-import { messages } from "./messages";
 
 export interface SiteSettingsPageAddressFormData {
   city: string;
@@ -143,7 +138,7 @@ const SiteSettingsPage: React.FC<SiteSettingsPageProps> = props => {
         );
 
         return (
-          <IonPage>
+          <>
             <IonContent>
               <Backlink onClick={onBack}>
                 {intl.formatMessage(sectionNames.configuration)}
@@ -207,7 +202,7 @@ const SiteSettingsPage: React.FC<SiteSettingsPageProps> = props => {
                 onSubmit={submit}
               />
             </IonContent>
-          </IonPage>
+          </>
         );
       }}
     </Form>

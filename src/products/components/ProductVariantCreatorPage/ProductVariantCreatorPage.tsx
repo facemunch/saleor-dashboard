@@ -1,6 +1,5 @@
 import { Button, Typography } from "@mui/material";
 import { drawerWidthExpanded } from "@saleor/components/AppLayout/consts";
-import Container from "@saleor/components/Container";
 import Hr from "@saleor/components/Hr";
 import PageHeader from "@saleor/components/PageHeader";
 import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
@@ -21,7 +20,7 @@ import reduceProductVariantCreateFormData, {
   ProductVariantCreateReducerActionType
 } from "./reducer";
 import { ProductVariantCreatorStep } from "./types";
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent } from "@ionic/react";
 const useStyles = makeStyles(
   theme => ({
     button: {
@@ -193,7 +192,7 @@ const ProductVariantCreatePage: React.FC<ProductVariantCreatePageProps> = props 
     : null;
 
   return (
-    <IonPage>
+    <>
       <IonContent>
         <ProductVariantCreateTabs step={step} onStepClick={setStep} />
         <PageHeader
@@ -259,7 +258,7 @@ const ProductVariantCreatePage: React.FC<ProductVariantCreatePageProps> = props 
           />
         </div>
       </IonContent>
-    </IonPage>
+    </>
   );
 };
 

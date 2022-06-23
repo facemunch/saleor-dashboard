@@ -111,9 +111,6 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
         isOpen={pathname.includes("/price/add")}
         canDismiss={true}
         presentingElement={shippingDetailModalRef.current}
-        onWillDismiss={() => {
-          push(`/shipping/${match.id}`);
-        }}
       >
         <Route
           exact
@@ -158,9 +155,6 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
         isOpen={pathname.includes("/weight/add")}
         canDismiss={true}
         presentingElement={shippingDetailModalRef.current}
-        onWillDismiss={() => {
-          push(`/shipping/${match.id}`);
-        }}
       >
         <Route
           exact

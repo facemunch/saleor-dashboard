@@ -6,7 +6,7 @@ import {
   TableHead,
   TableRow,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import Money from "@saleor/components/Money";
@@ -16,9 +16,9 @@ import { FormsetChange } from "@saleor/hooks/useFormset";
 import { makeStyles } from "@saleor/macaw-ui";
 import { renderCollection } from "@saleor/misc";
 import { OrderRefundData_order_lines } from "@saleor/orders/types/OrderRefundData";
-import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { IonCard } from "@ionic/react";
+import React, { useEffect } from "react";
 
 import { OrderRefundFormData } from "../OrderRefundPage/form";
 
@@ -35,7 +35,7 @@ const useStyles = makeStyles(
         paddingTop: 0
       },
       colQuantity: {
-        textAlign: "right",
+        textAlign: "right"
         // width: 210
       },
       notice: {
@@ -79,6 +79,12 @@ const OrderRefundUnfulfilledProducts: React.FC<OrderRefundUnfulfilledProductsPro
   } = props;
   const classes = useStyles({});
   const intl = useIntl();
+
+  useEffect(() => {
+    onSetMaximalQuantities();
+  }, []);
+
+  return null;
 
   return (
     <IonCard>
@@ -140,7 +146,7 @@ const OrderRefundUnfulfilledProducts: React.FC<OrderRefundUnfulfilledProductsPro
             </TableCell>
           </TableRow>
         </TableHead>
-        <div style={{width: '92vw', overflow: 'scroll'}}>
+        <div style={{ width: "92vw", overflow: "scroll" }}>
           {renderCollection(
             unfulfilledLines,
             line => {

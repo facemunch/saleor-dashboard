@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   IconButton,
   TableBody,
@@ -8,9 +7,7 @@ import {
   TableRow
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Container from "@saleor/components/Container";
 import LimitReachedAlert from "@saleor/components/LimitReachedAlert";
-import PageHeader from "@saleor/components/PageHeader";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
 import Skeleton from "@saleor/components/Skeleton";
@@ -18,20 +15,14 @@ import TableCellHeader from "@saleor/components/TableCellHeader";
 import { sectionNames } from "@saleor/intl";
 import { Backlink } from "@saleor/macaw-ui";
 import { renderCollection, stopPropagation } from "@saleor/misc";
-import { hasLimits, isLimitReached } from "@saleor/utils/limits";
+import { isLimitReached } from "@saleor/utils/limits";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { Channels_channels } from "../../types/Channels";
 import { useStyles } from "./styles";
 
-import {
-  IonContent,
-  IonCard,
-  IonFab,
-  IonFabButton,
-  IonIcon
-} from "@ionic/react";
+import { IonContent, IonFab, IonFabButton, IonIcon } from "@ionic/react";
 import { add } from "ionicons/icons";
 export interface ChannelsListPageProps {
   channelsList: Channels_channels[] | undefined;
@@ -67,9 +58,6 @@ export const ChannelsListPage: React.FC<ChannelsListPageProps> = ({
         vertical="bottom"
         horizontal="end"
         slot="fixed"
-        style={{
-          marginBottom: "50px"
-        }}
         data-test-id="create-order-button"
       >
         <IonFabButton onClick={onAdd}>
