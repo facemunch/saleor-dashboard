@@ -57,13 +57,13 @@ export const OrderDetails = ({ orderModalRef }) => {
   return (
     <>
       <Suspense fallback={<Loader />}>
-        <OrderDetailsComponent id={decodeURIComponent(id)} params={params} />;
+        <OrderDetailsComponent id={decodeURIComponent(id)} params={params} />
       </Suspense>
-        <Route
-          exact
-          path={"/orders/" + orderFulfillPath(":id", "")}
-          render={() => <OrderFulfill />}
-        />
+      <Route
+        exact
+        path={"/orders/" + orderFulfillPath(":id", "")}
+        render={() => <OrderFulfill />}
+      />
       <IonModal
         style={{
           "--border-radius": "16px"
