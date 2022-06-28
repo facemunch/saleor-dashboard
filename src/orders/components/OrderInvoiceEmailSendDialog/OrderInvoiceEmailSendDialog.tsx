@@ -9,6 +9,8 @@ import {
 import ConfirmButton, {
   ConfirmButtonTransitionState
 } from "@saleor/components/ConfirmButton";
+import { IonAlert } from "@ionic/react";
+
 import FormSpacer from "@saleor/components/FormSpacer";
 import { InvoiceErrorFragment } from "@saleor/fragments/types/InvoiceErrorFragment";
 import { InvoiceFragment } from "@saleor/fragments/types/InvoiceFragment";
@@ -34,49 +36,76 @@ const OrderInvoiceEmailSendDialog: React.FC<OrderInvoiceEmailSendDialogProps> = 
   onSend
 }) => {
   const intl = useIntl();
-
+  console.log("invoice", invoice);
   return (
-    <Dialog onClose={onClose} open={open} fullWidth maxWidth="xs">
-      <DialogTitle>
-        {intl.formatMessage({
-          defaultMessage: "Send Invoice",
-          description: "dialog header"
-        })}
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          <FormattedMessage
-            defaultMessage="Are you sure you want to send this invoice: {invoiceNumber} to the customer?"
-            values={{
-              invoiceNumber: <strong>{invoice?.number}</strong>
-            }}
-          />
-        </DialogContentText>
-        {errors.length > 0 && (
-          <>
-            <FormSpacer />
-            {errors.map((err, idx) => (
-              <DialogContentText key={idx} color="error">
-                {getInvoiceErrorMessage(err, intl)}
-              </DialogContentText>
-            ))}
-          </>
-        )}
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>
-          <FormattedMessage {...buttonMessages.back} />
-        </Button>
-        <ConfirmButton
-          transitionState={confirmButtonState}
-          color="primary"
-          variant="contained"
-          onClick={onSend}
-        >
-          <FormattedMessage {...buttonMessages.send} />
-        </ConfirmButton>
-      </DialogActions>
-    </Dialog>
+    <IonAlert
+      isOpen={open}
+      cssClass="my-custom-class"
+      header={intl.formatMessage({
+        defaultMessage: "Send Invoice",
+        description: "dialog header"
+      })}
+      message={"Are you sure you want to send this invoice: {invoiceNumber} to the customer?".replace(
+        "{invoiceNumber}",
+        invoice?.number
+      )}
+      buttons={[
+        {
+          text: "Cancel",
+          role: "cancel",
+          cssClass: "secondary",
+          id: "cancel-button",
+          handler: onClose
+        },
+        {
+          text: "Send",
+
+          id: "confirm-button",
+          handler: () => {
+            onSend();
+          }
+        }
+      ]}
+    />
+
+    // <Dialog onClose={onClose} open={open} fullWidth maxWidth="xs">
+    //   <DialogTitle>
+    //     {}
+    //   </DialogTitle>
+    //   <DialogContent>
+    //     <DialogContentText>
+    //       <FormattedMessage
+    //         defaultMessage="Are you sure you want to send this invoice: {invoiceNumber} to the customer?"
+    //         values={{
+    //           invoiceNumber: <strong>{invoice?.number}</strong>
+    //         }}
+    //       />
+    //     </DialogContentText>
+    //     {errors.length > 0 && (
+    //       <>
+    //         <FormSpacer />
+    //         {errors.map((err, idx) => (
+    //           <DialogContentText key={idx} color="error">
+    //             {getInvoiceErrorMessage(err, intl)}
+    //           </DialogContentText>
+    //         ))}
+    //       </>
+    //     )}
+    //   </DialogContent>
+    //   <DialogActions>
+    //     <Button onClick={onClose}>
+    //       <FormattedMessage {...buttonMessages.back} />
+    //     </Button>
+    //     <ConfirmButton
+    //       transitionState={confirmButtonState}
+    //       color="primary"
+    //       variant="contained"
+    //       onClick={onSend}
+    //     >
+    //       <FormattedMessage {...buttonMessages.send} />
+    //     </ConfirmButton>
+    //   </DialogActions>
+    // </Dialog>
   );
 };
 OrderInvoiceEmailSendDialog.displayName = "OrderInvoiceEmailSendDialog";
