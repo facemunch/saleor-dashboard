@@ -1,14 +1,10 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle
-} from "@mui/material";
+import { IonButton, IonToolbar, IonIcon, IonModal, IonCardContent } from "@ionic/react";
 import AddressEdit from "@saleor/components/AddressEdit";
 import ConfirmButton, {
   ConfirmButtonTransitionState
 } from "@saleor/components/ConfirmButton";
+import { closeOutline } from "ionicons/icons";
+
 import Form from "@saleor/components/Form";
 import { ShopInfo_shop_countries } from "@saleor/components/Shop/types/ShopInfo";
 import { AddressTypeInput } from "@saleor/customers/types";
@@ -17,21 +13,13 @@ import useAddressValidation from "@saleor/hooks/useAddressValidation";
 import useModalDialogErrors from "@saleor/hooks/useModalDialogErrors";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
 import { buttonMessages } from "@saleor/intl";
-import { makeStyles } from "@saleor/macaw-ui";
 import { AddressInput } from "@saleor/types/globalTypes";
 import createSingleAutocompleteSelectHandler from "@saleor/utils/handlers/singleAutocompleteSelectChangeHandler";
 import { mapCountriesToChoices } from "@saleor/utils/maps";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-const useStyles = makeStyles(
-  {
-    overflow: {
-      overflowY: "visible"
-    }
-  },
-  { name: "OrderAddressEditDialog" }
-);
+
 
 interface OrderAddressEditDialogProps {
   confirmButtonState: ConfirmButtonTransitionState;
@@ -43,6 +31,21 @@ interface OrderAddressEditDialogProps {
   onClose();
   onConfirm(data: AddressInput);
 }
+
+const spanStyle = {
+  width: "100%",
+  display: "block",
+  position: "relative",
+  top: "-2px",
+  marginTop: "12px",
+  fontFamily: "Inter",
+  fontStyle: "normal",
+  fontWeight: "600",
+  fontSize: "14px",
+  lineHeight: "20px",
+  textAlign: "center",
+  color: "#ffffff"
+};
 
 const OrderAddressEditDialog: React.FC<OrderAddressEditDialogProps> = props => {
   const {
@@ -56,7 +59,6 @@ const OrderAddressEditDialog: React.FC<OrderAddressEditDialogProps> = props => {
     onConfirm
   } = props;
 
-  const classes = useStyles(props);
   const intl = useIntl();
   const [countryDisplayName, setCountryDisplayName] = useStateFromProps(
     countries.find(country => address?.country === country.code)?.country
@@ -73,29 +75,64 @@ const OrderAddressEditDialog: React.FC<OrderAddressEditDialogProps> = props => {
   const countryChoices = mapCountriesToChoices(countries);
 
   return (
-    <Dialog onClose={onClose} open={open} classes={{ paper: classes.overflow }}>
-      <Form initial={address} onSubmit={handleSubmit}>
-        {({ change, data }) => {
-          const handleCountrySelect = createSingleAutocompleteSelectHandler(
-            change,
-            setCountryDisplayName,
-            countryChoices
-          );
+    <IonModal
+      style={{
+        "--border-radius": "16px 16px 0px 0px"
+      }}
+      mode="ios"
+      backdropDismiss={true}
+      isOpen={open}
+      onWillDismiss={() => onClose()}
+      initialBreakpoint={0.95}
+      handle={false}
+      backdropBreakpoint={0.95}
+    >
 
-          return (
-            <>
-              <DialogTitle>
-                {variant === "billing"
-                  ? intl.formatMessage({
-                      defaultMessage: "Edit Billing Address",
-                      description: "dialog header"
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "Edit Shipping Address",
-                      description: "dialog header"
-                    })}
-              </DialogTitle>
-              <DialogContent className={classes.overflow}>
+      <>
+        <span style={spanStyle}>
+          {variant === "billing"
+            ? intl.formatMessage({
+                defaultMessage: "Edit Billing Address",
+                description: "dialog header"
+              })
+            : intl.formatMessage({
+                defaultMessage: "Edit Shipping Address",
+                description: "dialog header"
+              })}
+        </span>
+
+        <IonButton
+          data-test={"close-modal"}
+          size="small"
+          style={{
+            position: "absolute",
+            right: "0",
+            top: "4px"
+          }}
+          fill="clear"
+          onClick={() => {
+            onClose();
+          }}
+        >
+          <IonIcon slot="icon-only" color="dark" icon={closeOutline} />
+        </IonButton>
+      </>
+      <IonCardContent>
+        <Form
+          initial={address}
+          onSubmit={e => {
+            handleSubmit(e);
+          }}
+        >
+          {({ change, data }) => {
+            const handleCountrySelect = createSingleAutocompleteSelectHandler(
+              change,
+              setCountryDisplayName,
+              countryChoices
+            );
+
+            return (
+              <>
                 <AddressEdit
                   countries={countryChoices}
                   countryDisplayValue={countryDisplayName}
@@ -104,26 +141,35 @@ const OrderAddressEditDialog: React.FC<OrderAddressEditDialogProps> = props => {
                   onChange={change}
                   onCountryChange={handleCountrySelect}
                 />
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={onClose}>
-                  <FormattedMessage {...buttonMessages.back} />
-                </Button>
-                <ConfirmButton
-                  data-test-id="order-address-edit-dialog-confirm-button"
-                  transitionState={confirmButtonState}
-                  color="primary"
-                  variant="contained"
-                  type="submit"
+                <IonToolbar
+                  style={{
+                    position: "fixed",
+                    bottom: "66px",
+                    width: "100vw",
+                    left: "0"
+                  }}
+                  slot="fixed"
                 >
-                  <FormattedMessage {...buttonMessages.confirm} />
-                </ConfirmButton>
-              </DialogActions>
-            </>
-          );
-        }}
-      </Form>
-    </Dialog>
+                  <IonButton fill="outline" slot="start" onClick={onClose}>
+                    <FormattedMessage {...buttonMessages.back} />
+                  </IonButton>
+                  <ConfirmButton
+                    slot="end"
+                    data-test-id="order-address-edit-dialog-confirm-button"
+                    transitionState={confirmButtonState}
+                    color="primary"
+                    variant="contained"
+                    type="submit"
+                  >
+                    <FormattedMessage {...buttonMessages.confirm} />
+                  </ConfirmButton>
+                </IonToolbar>
+              </>
+            );
+          }}
+        </Form>
+      </IonCardContent>
+    </IonModal>
   );
 };
 

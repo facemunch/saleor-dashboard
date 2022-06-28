@@ -1,8 +1,7 @@
-import { Button, Card, CardContent, Typography } from "@mui/material";
+import { CardContent, Typography } from "@mui/material";
 import AddressFormatter from "@saleor/components/AddressFormatter";
 import CardTitle from "@saleor/components/CardTitle";
 import { Hr } from "@saleor/components/Hr";
-import { buttonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -41,16 +40,6 @@ const CustomerAddresses: React.FC<CustomerAddressesProps> = props => {
           defaultMessage: "Address Information",
           description: "header"
         })}
-        toolbar={
-          <Button
-            color="primary"
-            disabled={disabled}
-            variant="text"
-            onClick={onAddressManageClick}
-          >
-            <FormattedMessage {...buttonMessages.manage} />
-          </Button>
-        }
       />
       {maybe(() => customer.defaultBillingAddress.id) !==
       maybe(() => customer.defaultShippingAddress.id) ? (

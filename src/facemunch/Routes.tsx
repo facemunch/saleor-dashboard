@@ -1,11 +1,13 @@
 import React, { memo, useEffect, useMemo, useRef } from "react";
 import useUser from "@saleor/hooks/useUser";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, History } from "swiper";
+import { Navigation, Pagination } from "swiper";
 import { Route, useLocation, useHistory } from "react-router-dom";
 import { IonContent, IonicSlides, IonModal } from "@ionic/react";
 import { productPath } from "../products/urls";
 import { userDataQuery } from "./queries";
+import { CustomerDetailsView } from "../customers";
+import { customerPath } from "../customers/urls";
 
 import { ProductUpdate, ProductCreate } from "../products";
 
@@ -76,7 +78,6 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
     if (!ecomAccessToken || loading || !data) return;
     loginByToken(ecomAccessToken, "", data.me);
   }, [ecomAccessToken, data, loading]);
-
   return (
     <>
       <IonContent ref={refto}>
@@ -232,6 +233,24 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
               onWillDismiss={() => push("/configuration")}
             >
               <ShippingZonesList shippingListModalRef={shippingListModalRef} />
+            </IonModal>
+
+            <IonModal
+              style={{
+                "--border-radius": "16px"
+              }}
+              mode="ios"
+              backdropDismiss={true}
+              isOpen={pathname.includes("/customers/")}
+              canDismiss={true}
+              presentingElement={refto.current || undefined}
+              onWillDismiss={() => pathname.includes("/customers/") && goBack()}
+            >
+              <Route
+                exact
+                path={"/customers/" + customerPath(":id", "")}
+                render={() => <CustomerDetailsView />}
+              />
             </IonModal>
           </>
         </AppLayout>
