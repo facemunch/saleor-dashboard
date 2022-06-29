@@ -44,7 +44,6 @@ const OrderAddressFields = ({
 
   const handleConfirm = (type: FieldType) => (value: AddressInput) => {
     const updateMutation = isDraft ? orderDraftUpdate : orderUpdate;
-
     updateMutation.mutate({
       id,
       input: {

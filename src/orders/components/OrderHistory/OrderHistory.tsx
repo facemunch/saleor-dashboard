@@ -328,9 +328,9 @@ const OrderHistory: React.FC<OrderHistoryProps> = props => {
 
   return (
     <IonCardContent>
-      <Typography className={classes.header} color="textSecondary">
+      <div className={classes.header}>
         <FormattedMessage defaultMessage="Order History" />
-      </Typography>
+      </div>
       <Hr />
       {history ? (
         <Timeline>

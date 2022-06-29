@@ -1,4 +1,4 @@
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent } from "@ionic/react";
 import { MetadataFormData } from "@saleor/components/Metadata";
 import NotFoundPage from "@saleor/components/NotFoundPage";
 import { Task } from "@saleor/containers/BackgroundTasks/types";
@@ -109,7 +109,6 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ id, params }) => {
 
             return (
               <>
-                {/* <PageHeader title={"Order #" + id}></PageHeader> */}
                 <OrderDetailsMessages id={id} params={params}>
                   {orderMessages => (
                     <OrderOperations

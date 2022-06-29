@@ -18,7 +18,7 @@ const useStyles = makeStyles(
     date: {
       // color: theme.typography.caption.color,
       paddingLeft: 24,
-      color: 'white',
+      color: "white",
       fontSize: 12
     },
     elementsContainer: {
@@ -33,8 +33,7 @@ const useStyles = makeStyles(
       marginTop: theme.spacing(2)
     },
     titleElement: {
-      marginRight: theme.spacing(0.5),
-    
+      marginRight: theme.spacing(0.5)
     }
   }),
   { name: "TimelineEventHeader" }
@@ -57,10 +56,9 @@ export const TimelineEventHeader: React.FC<TimelineEventHeaderProps> = props => 
   const navigate = useNavigator();
 
   const classes = useStyles(props);
-
   return (
     <div className={classes.container}>
-      {title && <Typography>{title}</Typography>}
+      {title && <Typography >{title}</Typography>}
       {titleElements && (
         <div className={classes.elementsContainer}>
           {titleElements.filter(Boolean).map(({ text, link }) => {
@@ -77,7 +75,9 @@ export const TimelineEventHeader: React.FC<TimelineEventHeaderProps> = props => 
             }
 
             return (
-              <Typography key={text} className={classes.titleElement}>{text}</Typography>
+              <Typography key={text} className={classes.titleElement}>
+                {text}
+              </Typography>
             );
           })}
         </div>
