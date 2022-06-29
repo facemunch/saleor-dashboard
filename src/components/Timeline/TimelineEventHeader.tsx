@@ -16,7 +16,6 @@ const useStyles = makeStyles(
       width: "100%"
     },
     date: {
-      // color: theme.typography.caption.color,
       paddingLeft: 24,
       color: "white",
       fontSize: 12

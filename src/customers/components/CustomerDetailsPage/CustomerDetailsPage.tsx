@@ -83,12 +83,6 @@ const CustomerDetailsPage: React.FC<CustomerDetailsPageProps> = ({
 
           return (
             <>
-              {/* <IonCardContent>
-                <Backlink onClick={onBack}>
-                  {intl.formatMessage(sectionNames.customers)}
-                </Backlink>
-                <PageHeader title={getUserName(customer, true)} />
-              </IonCardContent> */}
               <Grid>
                 <div>
                   <CustomerDetails
