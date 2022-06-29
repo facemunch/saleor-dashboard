@@ -1,8 +1,4 @@
-import {
-  Accordion,
-  AccordionSummary,
-  Typography
-} from "@mui/material";
+import { Accordion, AccordionSummary, Typography } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
@@ -103,7 +99,7 @@ export const TimelineEvent: React.FC<TimelineEventProps> = props => {
               titleElements={titleElements}
             />
           </AccordionSummary>
-            <Typography>{children}</Typography>
+          {children}
         </Accordion>
       ) : (
         <TimelineEventHeader

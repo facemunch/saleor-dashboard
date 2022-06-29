@@ -23,8 +23,7 @@ const RequirePermissions: React.FC<RequirePermissionsProps> = ({
   children,
   requiredPermissions,
   userPermissions
-}) =>
-  hasPermissions(userPermissions, requiredPermissions) ? <>{children}</> : null;
+}) => (hasPermissions(userPermissions, requiredPermissions) ? children : null);
 
 RequirePermissions.displayName = "RequirePermissions";
 export default RequirePermissions;

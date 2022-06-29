@@ -7,7 +7,7 @@ interface ButtonTooltipDecoratorProps {
 
 export const ButtonTooltipDecorator: React.FC<ButtonTooltipDecoratorProps> = ({
   tooltip,
-  children,
+  children
 }) => {
   if (tooltip) {
     return (
@@ -17,6 +17,6 @@ export const ButtonTooltipDecorator: React.FC<ButtonTooltipDecoratorProps> = ({
     );
   }
 
-  return <>{children}</>;
+  return children;
 };
 ButtonTooltipDecorator.displayName = "ButtonTooltipDecorator";

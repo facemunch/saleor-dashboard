@@ -400,10 +400,6 @@ export function findValueInEnum<TEnum extends {}>(
   needle: string,
   haystack: TEnum
 ): TEnum[keyof TEnum] {
-  // TODO: investigate this, remove if possible, relating to query params of different views clashing
-  if (!haystack[needle]) {
-    return (needle as unknown) as TEnum[keyof TEnum];
-  }
   const match = Object.entries(haystack).find(([_, value]) => value === needle);
 
   if (!match) {

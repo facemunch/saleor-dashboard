@@ -17,7 +17,7 @@ export const ButtonTooltipDecorator: React.FC<ButtonTooltipDecoratorProps> = ({
     );
   }
 
-  return <>{children}</>;
+  return children;
 };
 ButtonTooltipDecorator.displayName = "ButtonTooltipDecorator";
 export default ButtonTooltipDecorator;
