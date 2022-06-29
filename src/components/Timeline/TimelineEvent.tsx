@@ -99,7 +99,7 @@ export const TimelineEvent: React.FC<TimelineEventProps> = props => {
               titleElements={titleElements}
             />
           </AccordionSummary>
-          <>{children}</>
+          {children}
         </Accordion>
       ) : (
         <TimelineEventHeader

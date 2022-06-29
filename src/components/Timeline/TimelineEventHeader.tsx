@@ -57,7 +57,7 @@ export const TimelineEventHeader: React.FC<TimelineEventHeaderProps> = props => 
   const classes = useStyles(props);
   return (
     <div className={classes.container}>
-      {title && <Typography >{title}</Typography>}
+      {title && <Typography>{title}</Typography>}
       {titleElements && (
         <div className={classes.elementsContainer}>
           {titleElements.filter(Boolean).map(({ text, link }) => {
