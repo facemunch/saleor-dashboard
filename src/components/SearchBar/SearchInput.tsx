@@ -1,15 +1,6 @@
-import { TextField } from "@mui/material";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
-import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-  IonSearchbar,
-  IonFooter
-} from "@ionic/react";
+import { IonSearchbar, SearchbarChangeEventDetail } from "@ionic/react";
 
 import { SearchPageProps } from "../../types";
 import Debounce from "../Debounce";
@@ -42,22 +33,20 @@ const SearchInput: React.FC<SearchInputProps> = props => {
   return (
     <Debounce debounceFn={onSearchChange}>
       {debounceSearchChange => {
-        const handleSearchChange = (event: React.ChangeEvent<any>) => {
+        const handleSearchChange = (
+          event: IonSearchbarCustomEvent<SearchbarChangeEventDetail>
+        ) => {
           const value = event.target.value;
           setSearch(value);
           debounceSearchChange(value);
         };
 
         return (
-          // <IonSearchbar value={searchText} onIonChange={e => setSearchText(e.detail.value!)}></IonSearchbar>
-
           <IonSearchbar
+            debounce={1000}
             data-test-id="searchInput"
             className={classes.root}
-            inputProps={{
-              className: classes.input,
-              placeholder
-            }}
+            placeholder={placeholder}
             style={{ textAlign: "left" }}
             value={search}
             onIonChange={handleSearchChange}

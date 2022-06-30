@@ -4,7 +4,7 @@ import { Loader } from "frontend/ui/loader";
 import { orderReturnPath } from "../orders/urls";
 
 import { parse as parseQs } from "qs";
-import React, { lazy, memo, Suspense, useMemo, useRef } from "react";
+import React, { lazy, Suspense, useMemo, useRef } from "react";
 import { Route, useHistory, useLocation, useParams } from "react-router-dom";
 import {
   orderFulfillPath,
@@ -20,11 +20,14 @@ const OrderFulfillComponent = lazy(() => import("./views/OrderFulfill"));
 const OrderDetailsComponent = lazy(() => import("./views/OrderDetails"));
 const OrderListComponent = lazy(() => import("./views/OrderList"));
 
-export const OrderList: React.FC = memo(() => {
-  const { search } = useLocation();
+export const OrderList: React.FC = () => {
+  const { search, pathname } = useLocation();
   const oldQs = useRef();
 
   const params: OrderListUrlQueryParams = useMemo(() => {
+    if (!pathname.includes("orders")) {
+      return;
+    }
     const qs = parseQs(search.substr(1));
 
     if (search.length > 0) {
@@ -37,14 +40,14 @@ export const OrderList: React.FC = memo(() => {
     }
 
     return oldQs.current;
-  }, [search]);
+  }, [search, pathname]);
 
   return (
     <Suspense fallback={<Loader />}>
       <OrderListComponent params={params || {}} />
     </Suspense>
   );
-});
+};
 
 export const OrderDetails = ({ orderModalRef }) => {
   const { pathname, search } = useLocation();

@@ -10,7 +10,6 @@ import { IonContent, IonCard } from "@ionic/react";
 import { OrderList_orders_edges_node } from "../../types/OrderList";
 import OrderList from "../OrderList";
 import {
-  createFilterStructure,
   OrderFilterKeys,
   OrderListFilterOpts
 } from "./filters";
@@ -55,7 +54,6 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
   ...listProps
 }) => {
   const intl = useIntl();
-  const filterStructure = createFilterStructure(intl, filterOpts);
   return (
     <>
       <IonContent data-test-id="commerce-orders-tab">
@@ -76,7 +74,6 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
               defaultMessage: "All Orders",
               description: "tab name"
             })}
-            filterStructure={filterStructure}
             searchPlaceholder={intl.formatMessage({
               defaultMessage: "Search Orders..."
             })}

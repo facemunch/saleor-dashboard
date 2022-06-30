@@ -23,12 +23,11 @@ import { ListViews } from "@saleor/types";
 import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import { getSortUrlVariables } from "@saleor/utils/sort";
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 
 import ProductListPage from "../../components/ProductListPage";
 import {
   getFilterQueryParam,
-  getFiltersCurrentTab,
   getFilterTabs,
   getFilterVariables
 } from "./filters";
@@ -54,9 +53,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     channel => channel.slug === "usd"
   );
 
-  const tabs = getFilterTabs();
 
-  const currentTab = getFiltersCurrentTab(params, tabs);
 
   const [
     changeFilters,
@@ -87,6 +84,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
       })
     );
   }, [params.query]);
+  
   const handleTabChange = (tab: number) => {
     reset();
     navigate(
@@ -140,7 +138,6 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
         }}
         onSort={handleSort}
         currencySymbol={selectedChannel?.currencyCode || ""}
-        currentTab={currentTab}
         defaultSettings={defaultListSettings[ListViews.PRODUCT_LIST]}
         gridAttributes={[]}
         settings={settings}
@@ -169,4 +166,4 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     </>
   );
 };
-export default ProductList;
+export default memo(ProductList);

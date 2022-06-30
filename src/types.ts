@@ -90,7 +90,7 @@ export interface ListActions extends ListActionsWithoutToolbar {
 export interface PageListProps<TColumns extends string = string>
   extends ListProps<TColumns> {
   defaultSettings?: ListSettings<TColumns>;
-  onAdd: () => void;
+  onAdd: (e: any) => void;
 }
 
 export interface SearchProps {
@@ -113,12 +113,12 @@ export interface FilterProps<TKeys extends string> {
 }
 
 export interface TabPageProps {
-  currentTab: number;
+  currentTab?: number;
   tabs: string[];
-  onAll: () => void;
-  onTabChange: (tab: number) => void;
-  onTabDelete: () => void;
-  onTabSave: () => void;
+  onAll?: () => void;
+  onTabChange?: (tab: number) => void;
+  onTabDelete?: () => void;
+  onTabSave?: () => void;
 }
 
 export interface ChannelProps {
