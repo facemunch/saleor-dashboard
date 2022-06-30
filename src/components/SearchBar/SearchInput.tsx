@@ -42,8 +42,6 @@ const SearchInput: React.FC<SearchInputProps> = props => {
         };
 
         return (
-          // <IonSearchbar value={searchText} onIonChange={e => setSearchText(e.detail.value!)}></IonSearchbar>
-
           <IonSearchbar
             debounce={1000}
             data-test-id="searchInput"
