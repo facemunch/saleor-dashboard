@@ -163,4 +163,4 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
   );
 };
 
-export default OrderList;
+export default memo(OrderList);
