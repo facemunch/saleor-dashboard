@@ -1,5 +1,4 @@
 import CardSpacer from "@saleor/components/CardSpacer";
-import Money from "@saleor/components/Money";
 import Skeleton from "@saleor/components/Skeleton";
 import { makeStyles } from "@saleor/macaw-ui";
 import { UserPermissionProps } from "@saleor/types";
@@ -27,6 +26,11 @@ const useStyles = makeStyles(
       "& path": {
         fill: theme.palette.primary.main
       }
+    },
+    loader: {
+      position: "fixed",
+      top: "0",
+      height: "calc(100% - 150px)"
     }
   }),
   { name: "HomePage" }
@@ -64,84 +68,89 @@ const HomePage: React.FC<HomePageProps> = props => {
   const classes = useStyles(props);
   return (
     <>
-      <IonContent data-test-id="commerce-home-tab">
-        <div style={{ height: "20px" }} />
-        {loading && <Loader />}
-
-        <div className={classes.cardContainer}>
-          <IonCard>
-            <HomeAnalyticsCard
-              title={"Sales"}
-              testId="sales-analytics"
-              icon={
-                <Sales
-                  className={classes.icon}
-                  fontSize={"inherit"}
-                  viewBox="0 0 64 64"
-                />
-              }
-            >
-              {noChannel ? (
-                0
-              ) : sales ? (
-                <span>{`${sales?.currency === "USD" && "$"}${
-                  sales?.amount
-                }`}</span>
-              ) : (
-                <Skeleton style={{ width: "5em" }} />
-              )}
-            </HomeAnalyticsCard>
-          </IonCard>
-          <IonCard>
-            <HomeAnalyticsCard
-              title={"Orders"}
-              testId="orders-analytics"
-              icon={
-                <Orders
-                  className={classes.icon}
-                  fontSize={"inherit"}
-                  viewBox="0 0 64 64"
-                />
-              }
-            >
-              {noChannel ? (
-                0
-              ) : orders !== undefined ? (
-                orders
-              ) : (
-                <Skeleton style={{ width: "5em" }} />
-              )}
-            </HomeAnalyticsCard>
-          </IonCard>
+      {loading ? (
+        <div className={classes.loader}>
+          <Loader />
         </div>
+      ) : (
+        <IonContent data-test-id="commerce-home-tab">
+          <div style={{ height: "20px" }} />
 
-        <CardSpacer />
-        <IonCard>
-          {topProducts && (
-            <>
-              <HomeProductListCard
-                testId="top-products"
-                onRowClick={onProductClick}
-                topProducts={topProducts}
-              />
-              <CardSpacer />
-            </>
-          )}
-        </IonCard>
-        <IonCard>
-          {activities && (
-            <div>
+          <div className={classes.cardContainer}>
+            <IonCard>
+              <HomeAnalyticsCard
+                title={"Sales"}
+                testId="sales-analytics"
+                icon={
+                  <Sales
+                    className={classes.icon}
+                    fontSize={"inherit"}
+                    viewBox="0 0 64 64"
+                  />
+                }
+              >
+                {noChannel ? (
+                  0
+                ) : sales ? (
+                  <span>{`${sales?.currency === "USD" && "$"}${
+                    sales?.amount
+                  }`}</span>
+                ) : (
+                  <Skeleton style={{ width: "5em" }} />
+                )}
+              </HomeAnalyticsCard>
+            </IonCard>
+            <IonCard>
+              <HomeAnalyticsCard
+                title={"Orders"}
+                testId="orders-analytics"
+                icon={
+                  <Orders
+                    className={classes.icon}
+                    fontSize={"inherit"}
+                    viewBox="0 0 64 64"
+                  />
+                }
+              >
+                {noChannel ? (
+                  0
+                ) : orders !== undefined ? (
+                  orders
+                ) : (
+                  <Skeleton style={{ width: "5em" }} />
+                )}
+              </HomeAnalyticsCard>
+            </IonCard>
+          </div>
+
+          <CardSpacer />
+          <IonCard>
+            {topProducts && (
               <>
-                <HomeActivityCard
-                  activities={activities}
-                  testId="activity-card"
+                <HomeProductListCard
+                  testId="top-products"
+                  onRowClick={onProductClick}
+                  topProducts={topProducts}
                 />
+                <CardSpacer />
               </>
-            </div>
-          )}
-        </IonCard>
-        <div style={{ height: "300px" }} />
-      </IonContent>
+            )}
+          </IonCard>
+          <IonCard>
+            {activities && (
+              <div>
+                <>
+                  <HomeActivityCard
+                    activities={activities}
+                    testId="activity-card"
+                  />
+                </>
+              </div>
+            )}
+          </IonCard>
+          <div style={{ height: "300px" }} />
+        </IonContent>
+      )}
     </>
   );
 };

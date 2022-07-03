@@ -3,7 +3,7 @@ import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useUser from "@saleor/hooks/useUser";
 import { mapEdgesToItems } from "@saleor/utils/maps";
-import React from "react";
+import React, { memo } from "react";
 
 import { getDatePeriod, getUserName } from "../../misc";
 import { orderListUrl } from "../../orders/urls";
@@ -71,4 +71,4 @@ const HomeSection = () => {
   );
 };
 
-export default HomeSection;
+export default memo(HomeSection);
