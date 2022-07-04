@@ -4,6 +4,7 @@ import { Loader } from "frontend/ui/loader";
 import { parse as parseQs } from "qs";
 import React, { memo, Suspense, lazy, useMemo } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import ProductListComponent from "./views/ProductList";
 
 import {
   ProductCreateUrlQueryParams,
@@ -13,7 +14,6 @@ import {
 } from "./urls";
 const ProductUpdateComponent = lazy(() => import("./views/ProductUpdate"));
 const ProductCreateComponent = lazy(() => import("./views/ProductCreate"));
-const ProductListComponent = lazy(() => import("./views/ProductList"));
 
 export const ProductList: React.FC = () => {
   const { search, pathname } = useLocation();

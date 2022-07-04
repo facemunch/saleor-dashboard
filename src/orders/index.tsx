@@ -3,6 +3,8 @@ import { asSortParams } from "@saleor/utils/sort";
 import { Loader } from "frontend/ui/loader";
 import { orderReturnPath } from "../orders/urls";
 
+import OrderListComponent from "./views/OrderList";
+
 import { parse as parseQs } from "qs";
 import React, { lazy, Suspense, useMemo, useRef } from "react";
 import { Route, useHistory, useLocation, useParams } from "react-router-dom";
@@ -18,7 +20,6 @@ const OrderReturnComponent = lazy(() => import("./views/OrderReturn"));
 const OrderRefundComponent = lazy(() => import("./views/OrderRefund"));
 const OrderFulfillComponent = lazy(() => import("./views/OrderFulfill"));
 const OrderDetailsComponent = lazy(() => import("./views/OrderDetails"));
-const OrderListComponent = lazy(() => import("./views/OrderList"));
 
 export const OrderList: React.FC = () => {
   const { search, pathname } = useLocation();

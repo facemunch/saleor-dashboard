@@ -81,7 +81,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
   }, [ecomAccessToken, data, loading]);
   return (
     <>
-      <IonContent ref={refto}>
+      <IonContent id="ecommerce" scrollX={false} scrollY={false} ref={refto}>
         <AppLayout>
           <>
             <Swiper
