@@ -25,7 +25,7 @@ const OrderFulfillmentTrackingDialog: React.FC<OrderFulfillmentTrackingDialogPro
   return (
     <IonAlert
       isOpen={open}
-      header={"Add Tracking Code"}
+      header={"Add Tracking Link"}
       inputs={[
         {
           name: "trackingNumber",
