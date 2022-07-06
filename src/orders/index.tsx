@@ -1,9 +1,11 @@
-import { IonModal } from "@ionic/react";
+import { IonModal, IonContent } from "@ionic/react";
 import { asSortParams } from "@saleor/utils/sort";
 import { Loader } from "frontend/ui/loader";
 import { orderReturnPath } from "../orders/urls";
 
 import OrderListComponent from "./views/OrderList";
+import OrderDetailsComponent from "./views/OrderDetails";
+import OrderReturnComponent from "./views/OrderReturn";
 
 import { parse as parseQs } from "qs";
 import React, { lazy, Suspense, useMemo, useRef } from "react";
@@ -16,10 +18,8 @@ import {
 } from "./urls";
 
 // TODO: const OrderSettings = lazy(() => import("./views/OrderSettings"));
-const OrderReturnComponent = lazy(() => import("./views/OrderReturn"));
 const OrderRefundComponent = lazy(() => import("./views/OrderRefund"));
 const OrderFulfillComponent = lazy(() => import("./views/OrderFulfill"));
-const OrderDetailsComponent = lazy(() => import("./views/OrderDetails"));
 
 export const OrderList: React.FC = () => {
   const { search, pathname } = useLocation();
@@ -57,12 +57,12 @@ export const OrderDetails = ({ orderModalRef }) => {
   const params: OrderUrlQueryParams = qs;
   const id = useParams().id;
   const { push } = useHistory();
-
+  console.log("pathname", { pathname, id });
   return (
     <>
-      <Suspense fallback={<Loader />}>
-        <OrderDetailsComponent id={decodeURIComponent(id)} params={params} />
-      </Suspense>
+      {/* <Suspense fallback={<Loader />}> */}
+      <OrderDetailsComponent id={decodeURIComponent(id)} params={params} />
+      {/* </Suspense> */}
       <Route
         exact
         path={"/orders/" + orderFulfillPath(":id", "")}
@@ -73,17 +73,22 @@ export const OrderDetails = ({ orderModalRef }) => {
           "--border-radius": "16px"
         }}
         mode="ios"
-        backdropDismiss={true}
-        isOpen={pathname.includes("/return")}
-        canDismiss={true}
+        // backdropDismiss={true}
+        isOpen={pathname?.includes("/return")}
+        // canDismiss={true}
         presentingElement={orderModalRef.current}
-        onWillDismiss={() => push(`/orders/${id}`)}
+        onWillDismiss={() => {
+          // console.log("OrderReturn");
+          // push(`/orders/${orderId}`);
+        }}
       >
-        <Route
-          exact
-          path={"/orders/" + orderReturnPath(":id", "")}
-          render={() => <OrderReturn />}
-        />
+        <IonContent>
+          <Route
+            exact
+            path={"/orders/" + orderReturnPath(":id", "")}
+            render={() => <OrderReturn />}
+          />
+        </IonContent>
       </IonModal>
     </>
   );
@@ -102,9 +107,5 @@ export const OrderRefund: React.FC = () => (
 );
 
 export const OrderReturn: React.FC = () => {
-  return (
-    <Suspense fallback={<Loader />}>
-      <OrderReturnComponent orderId={decodeURIComponent(useParams().id)} />
-    </Suspense>
-  );
+  return <OrderReturnComponent orderId={decodeURIComponent(useParams().id)} />;
 };

@@ -11,7 +11,6 @@ import { customerPath } from "../customers/urls";
 import { debounce } from "debounce";
 
 import { ProductUpdate, ProductCreate } from "../products";
-import ProductUpdateComponent from "../products/views/ProductUpdate";
 
 import { OrderDetails, OrderRefund } from "../orders";
 import { orderPath, orderRefundPath } from "../orders/urls";
@@ -52,6 +51,9 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
 
   const { pathname, search } = useLocation();
   const { goBack, push } = useHistory();
+  const orderId = window.location.pathname
+    .replace("/c/orders/", "")
+    .split("/")[0];
 
   const refto = useRef();
   const homeModalRef = useRef();
@@ -189,6 +191,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
                 render={() => <OrderDetails orderModalRef={orderModalRef} />}
               />
             </IonModal>
+         
             <IonModal
               style={{
                 "--border-radius": "16px"
@@ -200,7 +203,9 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
               }
               canDismiss={true}
               presentingElement={orderModalRef.current}
-              // onWillDismiss={() => pathname.includes("/orders/") && goBack()}
+              onWillDismiss={() =>
+                pathname.includes("/orders/") && push(`/orders/${orderId}`)
+              }
             >
               <Route
                 exact

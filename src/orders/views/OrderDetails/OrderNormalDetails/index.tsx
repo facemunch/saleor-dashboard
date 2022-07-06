@@ -108,7 +108,7 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
         )}
       />
       <OrderDetailsPage
-        onOrderReturn={() => navigate(orderReturnPath(id))}
+        onOrderReturn={() => navigate(orderReturnPath(encodeURIComponent(id)))}
         disabled={
           updateMetadataOpts.loading || updatePrivateMetadataOpts.loading
         }

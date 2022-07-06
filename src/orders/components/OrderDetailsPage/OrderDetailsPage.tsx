@@ -15,7 +15,7 @@ import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTr
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 
-import { IonContent, IonPage, IonCardHeader } from "@ionic/react";
+import { IonContent, IonCardHeader } from "@ionic/react";
 
 import { OrderStatus } from "../../../types/globalTypes";
 import {
@@ -31,7 +31,7 @@ import OrderInvoiceList from "../OrderInvoiceList";
 import OrderPayment from "../OrderPayment/OrderPayment";
 import OrderUnfulfilledProductsCard from "../OrderUnfulfilledProductsCard";
 import Title from "./Title";
-import { filteredConditionalItems, hasAnyItemsReplaceable } from "./utils";
+import { filteredConditionalItems } from "./utils";
 
 const useStyles = makeStyles(
   theme => ({
@@ -194,14 +194,8 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = props => {
         onSelect: onOrderCancel
       },
       shouldExist: canCancel
-    },
-    {
-      item: {
-        label: intl.formatMessage(messages.returnOrder),
-        onSelect: onOrderReturn
-      },
-      shouldExist: hasAnyItemsReplaceable(order)
     }
+
   ]);
   return (
     <>
