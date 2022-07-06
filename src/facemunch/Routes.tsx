@@ -8,8 +8,10 @@ import { productPath } from "../products/urls";
 import { userDataQuery } from "./queries";
 import { CustomerDetailsView } from "../customers";
 import { customerPath } from "../customers/urls";
+import { debounce } from "debounce";
 
 import { ProductUpdate, ProductCreate } from "../products";
+import ProductUpdateComponent from "../products/views/ProductUpdate";
 
 import { OrderDetails, OrderRefund } from "../orders";
 import { orderPath, orderRefundPath } from "../orders/urls";
@@ -67,18 +69,18 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
       return 3;
     }
   }, [pathname]);
-
-  const onSlideChange = e => {
+  const onSlideChange = debounce(e => {
     e.activeIndex === 0 && onRouteUpdate("/c/home");
     e.activeIndex === 1 && onRouteUpdate("/c/products" + search);
     e.activeIndex === 2 && onRouteUpdate("/c/orders" + search);
     e.activeIndex === 3 && onRouteUpdate("/c/customers" + search);
-  };
+  }, 1000);
 
   useEffect(() => {
     if (!ecomAccessToken || loading || !data) return;
     loginByToken(ecomAccessToken, "", data.me);
   }, [ecomAccessToken, data, loading]);
+
   return (
     <>
       <IonContent id="ecommerce" scrollX={false} scrollY={false} ref={refto}>
@@ -90,7 +92,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
                 height: "100vh",
                 width: "100vw"
               }}
-              onSlideChangeTransitionEnd={onSlideChange}
+              onSlideChange={onSlideChange}
               onInit={e => {
                 e.activeIndex = activeIndex;
                 e.updateSlides();
@@ -158,11 +160,12 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
               }}
               mode="ios"
               backdropDismiss={true}
-              isOpen={pathname.includes("/products/add")}
+              isOpen={window.location.pathname.includes("/products/add")}
               canDismiss={true}
               presentingElement={refto.current}
               onWillDismiss={() =>
-                pathname === "/products/add" && push("/products")
+                window.location.pathname === "/c/products/add" &&
+                push("/products")
               }
             >
               <ProductCreate />

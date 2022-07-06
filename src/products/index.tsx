@@ -5,6 +5,8 @@ import { parse as parseQs } from "qs";
 import React, { memo, Suspense, lazy, useMemo } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import ProductListComponent from "./views/ProductList";
+import ProductCreateComponent from "./views/ProductCreate";
+import ProductUpdateComponent from "./views/ProductUpdate";
 
 import {
   ProductCreateUrlQueryParams,
@@ -12,8 +14,6 @@ import {
   ProductListUrlSortField,
   ProductUrlQueryParams
 } from "./urls";
-const ProductUpdateComponent = lazy(() => import("./views/ProductUpdate"));
-const ProductCreateComponent = lazy(() => import("./views/ProductCreate"));
 
 export const ProductList: React.FC = () => {
   const { search, pathname } = useLocation();
@@ -48,14 +48,12 @@ export const ProductUpdate: React.FC = memo(() => {
 
   const match = useParams();
   return (
-    <Suspense fallback={<Loader />}>
       <ProductUpdateComponent
         id={decodeURIComponent(match.id)}
         params={{
           ...params
         }}
       />
-    </Suspense>
   );
 });
 
@@ -64,9 +62,5 @@ export const ProductCreate: React.FC = () => {
   const qs = parseQs(search.substr(1));
   const params: ProductCreateUrlQueryParams = qs;
 
-  return (
-    <Suspense fallback={<Loader />}>
-      <ProductCreateComponent params={params} />
-    </Suspense>
-  );
+  return <ProductCreateComponent params={params} />;
 };

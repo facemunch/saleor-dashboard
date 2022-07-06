@@ -24,6 +24,7 @@ import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import { getSortUrlVariables } from "@saleor/utils/sort";
 import React, { memo, useEffect } from "react";
+import { useLocation } from 'react-router-dom'
 
 import ProductListPage from "../../components/ProductListPage";
 import {
@@ -39,6 +40,8 @@ interface ProductListProps {
 
 export const ProductList: React.FC<ProductListProps> = ({ params }) => {
   const navigate = useNavigator();
+  const { pathname } = useLocation()
+
   const paginate = usePaginator();
   const { isSelected, listElements, reset, toggle, toggleAll } = useBulkActions(
     params.ids
@@ -68,6 +71,9 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
   });
 
   useEffect(() => {
+    if(pathname !== '/products'){
+      return
+    }
     const sortWithQuery = ProductListUrlSortField.rank;
     const sortWithoutQuery =
       params.sort === ProductListUrlSortField.rank
@@ -83,7 +89,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
         sort: params.query ? sortWithQuery : sortWithoutQuery
       })
     );
-  }, [params.query]);
+  }, [params.query, pathname]);
   
   const handleTabChange = (tab: number) => {
     reset();

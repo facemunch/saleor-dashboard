@@ -8,15 +8,6 @@ import { createUploadLink } from "apollo-upload-client";
 import React, { memo, useMemo } from "react";
 import { ApolloProvider } from "react-apollo";
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/free-mode";
-import "swiper/css/history";
-
-import "@ionic/react/css/ionic-swiper.css";
-
 import introspectionQueryResultData from "../../fragmentTypes.json";
 
 import { ExternalAppProvider } from "../apps/components/ExternalAppContext";
@@ -122,4 +113,4 @@ const App: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken, ecomAPI }) => {
   );
 };
 
-export default memo(App);
+export default App;
