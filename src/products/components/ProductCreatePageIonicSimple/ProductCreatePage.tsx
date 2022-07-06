@@ -158,11 +158,9 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
   }, [productTypes, isDigitalProduct]);
 
   const randomHash = useMemo(() => generateHash({ length: 4 }), []);
-
   return (
     <>
       <IonContent data-test-id="add-product-view">
-     
         <ProductCreateForm
           onSubmit={onSubmit}
           initial={initial}
@@ -198,10 +196,9 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
           }) => {
             // Comparing explicitly to false because `hasVariants` can be undefined
             const isSimpleProduct = data.productType?.hasVariants === false;
-
             return (
               <>
-                 <PageHeader title={header}></PageHeader>
+                <PageHeader title={header}></PageHeader>
 
                 {/* <Grid> */}
                 <div>
@@ -233,7 +230,7 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                   )}
                   <CardSpacer />
                   {isSimpleProduct && (
-                    <>                    
+                    <>
                       <ProductVariantPrice
                         isDigitalProduct={isDigitalProduct}
                         ProductVariantChannelListings={data.channelListings}
@@ -275,7 +272,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                       </div>
                     </>
                   )}
-            
                 </div>
                 <div>
                   <div
@@ -342,19 +338,25 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                     )}
                     <CardSpacer />
                   </div>
-                  <div style={{ height: "100px", padding: "24px 24px 24px 100px" }}>
+                  <div
+                    style={{ height: "100px", padding: "24px 24px 24px 24px" }}
+                  >
                     You can add media and specify more details in the next step.
                   </div>
-                
                 </div>
-               
+
                 <Savebar
                   onCancel={onBack}
                   onSubmit={submit}
                   state={saveButtonBarState}
-                  disabled={loading || !onSubmit || formDisabled || !hasChanged}
+                  disabled={
+                    loading ||
+                    !onSubmit ||
+                    formDisabled ||
+                    !hasChanged ||
+                    Number(data?.channelListings[0]?.price) < 1
+                  }
                 />
-               
               </>
             );
           }}

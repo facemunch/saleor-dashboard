@@ -59,7 +59,7 @@ export const PriceField: React.FC<PriceFieldProps> = props => {
   } = props;
 
   const classes = useStyles(props);
-  const minValue = 0;
+  const minValue = 1;
   return (
     <TextField
       className={className}
