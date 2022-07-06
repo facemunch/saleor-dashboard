@@ -80,7 +80,6 @@ const OrderCancelDialog: React.FC<OrderCancelDialogProps> = props => {
           style={{marginLeft: "8px"}}
           type="submit"
         >
-          {/* <FormattedMessage {...buttonMessages.accept} /> */}
           Cancel
         </ConfirmButton>
       </DialogActions>

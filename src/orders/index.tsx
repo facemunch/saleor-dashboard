@@ -9,7 +9,7 @@ import OrderReturnComponent from "./views/OrderReturn";
 
 import { parse as parseQs } from "qs";
 import React, { lazy, Suspense, useMemo, useRef } from "react";
-import { Route, useHistory, useLocation, useParams } from "react-router-dom";
+import { Route, useLocation, useParams } from "react-router-dom";
 import {
   orderFulfillPath,
   OrderListUrlQueryParams,
@@ -17,7 +17,6 @@ import {
   OrderUrlQueryParams
 } from "./urls";
 
-// TODO: const OrderSettings = lazy(() => import("./views/OrderSettings"));
 const OrderRefundComponent = lazy(() => import("./views/OrderRefund"));
 const OrderFulfillComponent = lazy(() => import("./views/OrderFulfill"));
 
@@ -56,13 +55,9 @@ export const OrderDetails = ({ orderModalRef }) => {
   const qs = parseQs(search.substr(1));
   const params: OrderUrlQueryParams = qs;
   const id = useParams().id;
-  const { push } = useHistory();
-  console.log("pathname", { pathname, id });
   return (
     <>
-      {/* <Suspense fallback={<Loader />}> */}
       <OrderDetailsComponent id={decodeURIComponent(id)} params={params} />
-      {/* </Suspense> */}
       <Route
         exact
         path={"/orders/" + orderFulfillPath(":id", "")}
@@ -73,13 +68,9 @@ export const OrderDetails = ({ orderModalRef }) => {
           "--border-radius": "16px"
         }}
         mode="ios"
-        // backdropDismiss={true}
         isOpen={pathname?.includes("/return")}
-        // canDismiss={true}
         presentingElement={orderModalRef.current}
         onWillDismiss={() => {
-          // console.log("OrderReturn");
-          // push(`/orders/${orderId}`);
         }}
       >
         <IonContent>
