@@ -51,9 +51,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
 
   const { pathname, search } = useLocation();
   const { goBack, push } = useHistory();
-  const orderId = window.location.pathname
-    .replace("/c/orders/", "")
-    .split("/").pop();
+  const orderId = window.location.pathname.split("/").pop();
 
   const refto = useRef();
   const homeModalRef = useRef();
@@ -191,7 +189,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
                 render={() => <OrderDetails orderModalRef={orderModalRef} />}
               />
             </IonModal>
-         
+
             <IonModal
               style={{
                 "--border-radius": "16px"
