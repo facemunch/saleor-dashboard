@@ -53,7 +53,7 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
   const { goBack, push } = useHistory();
   const orderId = window.location.pathname
     .replace("/c/orders/", "")
-    .split("/")[0];
+    .split("/").pop();
 
   const refto = useRef();
   const homeModalRef = useRef();

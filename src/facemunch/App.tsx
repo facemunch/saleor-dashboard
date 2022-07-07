@@ -113,4 +113,4 @@ const App: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken, ecomAPI }) => {
   );
 };
 
-export default App;
+export default memo(App);
