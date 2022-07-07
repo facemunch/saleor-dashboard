@@ -67,7 +67,7 @@ export const PriceField: React.FC<PriceFieldProps> = props => {
       helperText={
         hint ? (
           hint
-        ) : value?.length > 0 && value < minValue ? (
+        ) : value < minValue ? (
           <FormattedMessage defaultMessage="Price cannot be lower than 1" />
         ) : (
           ""

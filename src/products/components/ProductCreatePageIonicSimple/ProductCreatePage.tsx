@@ -354,8 +354,7 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                     !onSubmit ||
                     formDisabled ||
                     !hasChanged ||
-                    (data?.channelListings[0] &&
-                      Number(data?.channelListings[0]?.price) < 1)
+                    Number(data?.channelListings?.[0]?.price) < 1
                   }
                 />
               </>
