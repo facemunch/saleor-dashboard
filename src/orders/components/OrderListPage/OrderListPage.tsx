@@ -1,5 +1,4 @@
 import FilterBar from "@saleor/components/FilterBarIonic";
-import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
 import { OrderListUrlSortField } from "@saleor/orders/urls";
 import { FilterPageProps, PageListProps, SortPage } from "@saleor/types";
 import React, { memo } from "react";
@@ -18,7 +17,6 @@ export interface OrderListPageProps
   extends PageListProps,
     FilterPageProps<OrderFilterKeys, OrderListFilterOpts>,
     SortPage<OrderListUrlSortField> {
-  limits: RefreshLimits_shop_limits;
   orders: OrderList_orders_edges_node[];
   loading?: boolean;
   onSettingsOpen: () => void;
@@ -41,7 +39,6 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
   currentTab,
   initialSearch,
   filterOpts,
-  limits,
   tabs,
   onAdd,
   onAll,

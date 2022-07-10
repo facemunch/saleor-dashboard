@@ -64,11 +64,6 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
   });
 
   const { channel, availableChannels } = useAppChannel(false);
-  const limitOpts = useShopLimitsQuery({
-    variables: {
-      orders: true
-    }
-  });
 
   const channelOpts = availableChannels
     ? mapNodeToChoice(availableChannels)
@@ -133,7 +128,6 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
         disabled={loading}
         loading={loading}
         filterOpts={getFilterOpts(params, channelOpts)}
-        limits={limitOpts.data?.shop.limits}
         orders={mapEdgesToItems(data?.orders)}
         pageInfo={pageInfo}
         sort={getSortParams(params)}
