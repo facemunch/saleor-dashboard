@@ -115,10 +115,11 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
     reset: searchAttributeReset
   } = useAttributeValueSearchHandler(DEFAULT_INITIAL_SEARCH_DATA);
   const warehouses = useWarehouseList({
-    displayLoader: true,
+    displayLoader: false,
     variables: {
-      first: 50
-    }
+      first: 1
+    },
+    fetchPolicy: "cache-first"
   });
   const shop = useShop();
   const [updateMetadata] = useMetadataUpdate({});
@@ -133,7 +134,8 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
     variables: {
       id,
       firstValues: VALUES_PAGINATE_BY
-    }
+    },
+    fetchPolicy: "cache-first"
   });
   const handleBack = () => navigate(productListUrl());
 

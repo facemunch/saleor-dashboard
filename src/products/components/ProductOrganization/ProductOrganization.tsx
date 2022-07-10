@@ -57,8 +57,8 @@ interface ProductOrganizationProps {
   productType?: ProductType;
   productTypeInputDisplayValue?: string;
   productTypes?: SingleAutocompleteChoiceType[];
-  fetchCategories: (query: string) => void;
-  fetchCollections: (query: string) => void;
+  // fetchCategories: (query: string) => void;
+  // fetchCollections: (query: string) => void;
   fetchMoreCategories: FetchMoreProps;
   fetchMoreCollections: FetchMoreProps;
   fetchMoreProductTypes?: FetchMoreProps;
@@ -78,8 +78,6 @@ const ProductOrganization: React.FC<ProductOrganizationProps> = props => {
     data,
     disabled,
     errors,
-    fetchCategories,
-    fetchCollections,
     fetchMoreCategories,
     fetchMoreCollections,
     fetchMoreProductTypes,
@@ -177,7 +175,7 @@ const ProductOrganization: React.FC<ProductOrganizationProps> = props => {
           onChange={e => {
             onCategoryChange(e);
           }}
-          fetchChoices={fetchCategories}
+          // fetchChoices={fetchCategories}
           data-test="category"
           {...fetchMoreCategories}
         />

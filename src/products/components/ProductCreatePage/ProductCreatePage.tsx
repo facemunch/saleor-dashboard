@@ -27,7 +27,7 @@ import { ProductType_productType } from "@saleor/products/types/ProductType";
 import { getChoices } from "@saleor/products/utils/data";
 import { SearchAttributeValues_attribute_choices_edges_node } from "@saleor/searches/types/SearchAttributeValues";
 import { SearchCategories_search_edges_node } from "@saleor/searches/types/SearchCategories";
-import { SearchCollections_search_edges_node } from "@saleor/searches/types/SearchCollections";
+
 import { SearchPages_search_edges_node } from "@saleor/searches/types/SearchPages";
 import { SearchProducts_search_edges_node } from "@saleor/searches/types/SearchProducts";
 import { SearchProductTypes_search_edges_node } from "@saleor/searches/types/SearchProductTypes";
@@ -53,17 +53,17 @@ interface ProductCreatePageProps {
   channelsErrors: ProductChannelListingErrorFragment[];
   allChannelsCount: number;
   currentChannels: ChannelData[];
-  collections: SearchCollections_search_edges_node[];
+
   categories: SearchCategories_search_edges_node[];
   attributeValues: SearchAttributeValues_attribute_choices_edges_node[];
   loading: boolean;
   fetchMoreCategories: FetchMoreProps;
-  fetchMoreCollections: FetchMoreProps;
+
   fetchMoreProductTypes: FetchMoreProps;
   fetchMoreAttributeValues?: FetchMoreProps;
   initial?: Partial<ProductCreateFormData>;
   productTypes?: SearchProductTypes_search_edges_node[];
-  referencePages?: SearchPages_search_edges_node[];
+
   referenceProducts?: SearchProducts_search_edges_node[];
   header: string;
   saveButtonBarState: ConfirmButtonTransitionState;
@@ -72,7 +72,7 @@ interface ProductCreatePageProps {
   taxTypes: TaxTypeFragment[];
   selectedProductType?: ProductType_productType;
   fetchCategories: (data: string) => void;
-  fetchCollections: (data: string) => void;
+
   fetchProductTypes: (data: string) => void;
   fetchAttributeValues: (query: string, attributeId: string) => void;
   onWarehouseConfigure: () => void;
@@ -80,9 +80,9 @@ interface ProductCreatePageProps {
   onChannelsChange: (data: ChannelData[]) => void;
   assignReferencesAttributeId?: string;
   onAssignReferencesClick: (attribute: AttributeInput) => void;
-  fetchReferencePages?: (data: string) => void;
+
   fetchReferenceProducts?: (data: string) => void;
-  fetchMoreReferencePages?: FetchMoreProps;
+
   fetchMoreReferenceProducts?: FetchMoreProps;
   onAttributeSelectBlur: () => void;
   onCloseDialog: () => void;
@@ -97,18 +97,18 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
   currentChannels,
   loading,
   categories: categoryChoiceList,
-  collections: collectionChoiceList,
+
   attributeValues,
   errors,
   fetchCategories,
-  fetchCollections,
+
   fetchMoreCategories,
-  fetchMoreCollections,
+
   fetchMoreProductTypes,
   header,
   initial,
   productTypes: productTypeChoiceList,
-  referencePages = [],
+
   referenceProducts = [],
   saveButtonBarState,
   warehouses,
@@ -123,8 +123,7 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
   openChannelsModal,
   assignReferencesAttributeId,
   onAssignReferencesClick,
-  fetchReferencePages,
-  fetchMoreReferencePages,
+
   fetchReferenceProducts,
   fetchMoreReferenceProducts,
   fetchAttributeValues,
@@ -135,21 +134,16 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
 }: ProductCreatePageProps) => {
   const intl = useIntl();
 
-  // Display values
   const [selectedCategory, setSelectedCategory] = useStateFromProps(
     initial?.category || ""
   );
-
-  const [selectedCollections, setSelectedCollections] = useStateFromProps<
-    MultiAutocompleteChoiceType[]
-  >([]);
 
   const [selectedTaxType, setSelectedTaxType] = useStateFromProps(
     initial?.taxCode || null
   );
 
   const categories = getChoices(categoryChoiceList);
-  const collections = getChoices(collectionChoiceList);
+
   const productTypes = getChoices(productTypeChoiceList);
   const taxTypeChoices =
     taxTypes?.map(taxType => ({
@@ -182,20 +176,14 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
       selectedProductType={selectedProductType}
       onSelectProductType={onSelectProductType}
       categories={categories}
-      collections={collections}
       productTypes={productTypeChoiceList}
-      referencePages={referencePages}
       referenceProducts={referenceProducts}
-      selectedCollections={selectedCollections}
       setSelectedCategory={setSelectedCategory}
-      setSelectedCollections={setSelectedCollections}
       setSelectedTaxType={setSelectedTaxType}
       setChannels={onChannelsChange}
       taxTypes={taxTypeChoices}
       warehouses={warehouses}
       currentChannels={currentChannels}
-      fetchReferencePages={fetchReferencePages}
-      fetchMoreReferencePages={fetchMoreReferencePages}
       fetchReferenceProducts={fetchReferenceProducts}
       fetchMoreReferenceProducts={fetchMoreReferenceProducts}
       assignReferencesAttributeId={assignReferencesAttributeId}
@@ -209,7 +197,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
         hasChanged,
         submit
       }) => {
-        // Comparing explicitly to false because `hasVariants` can be undefined
         const isSimpleProduct = data.productType?.hasVariants === false;
 
         return (
@@ -305,14 +292,11 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                   canChangeType={true}
                   categories={categories}
                   categoryInputDisplayValue={selectedCategory}
-                  collections={collections}
                   data={data}
                   disabled={loading}
                   errors={errors}
                   fetchCategories={fetchCategories}
-                  fetchCollections={fetchCollections}
                   fetchMoreCategories={fetchMoreCategories}
-                  fetchMoreCollections={fetchMoreCollections}
                   fetchMoreProductTypes={fetchMoreProductTypes}
                   fetchProductTypes={fetchProductTypes}
                   productType={data.productType}
@@ -321,7 +305,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                   onCategoryChange={handlers.selectCategory}
                   onCollectionChange={handlers.selectCollection}
                   onProductTypeChange={handlers.selectProductType}
-                  collectionsInputDisplayValue={selectedCollections}
                 />
                 <CardSpacer />
                 {isSimpleProduct ? (
@@ -371,7 +354,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                 attributeValues={getAttributeValuesFromReferences(
                   assignReferencesAttributeId,
                   data.attributes,
-                  referencePages,
                   referenceProducts
                 )}
                 hasMore={handlers.fetchMoreReferences?.hasMore}

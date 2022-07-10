@@ -26,11 +26,10 @@ import {
   productUrl
 } from "@saleor/products/urls";
 import useCategorySearch from "@saleor/searches/useCategorySearch";
-import useCollectionSearch from "@saleor/searches/useCollectionSearch";
-import usePageSearch from "@saleor/searches/usePageSearch";
+
 import useProductSearch from "@saleor/searches/useProductSearch";
 import useProductTypeSearch from "@saleor/searches/useProductTypeSearch";
-import { useTaxTypeList } from "@saleor/taxes/queries";
+
 import { getProductErrorMessage } from "@saleor/utils/errors";
 import useAttributeValueSearchHandler from "@saleor/utils/handlers/attributeValueSearchHandler";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
@@ -76,20 +75,10 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
     ProductCreateUrlQueryParams
   >(navigate, params => productAddUrl(params), params);
 
-  const {
-    loadMore: loadMoreCategories,
-    search: searchCategory,
-    result: searchCategoryOpts
-  } = useCategorySearch({
+  const { result: searchCategoryOpts } = useCategorySearch({
     variables: DEFAULT_INITIAL_SEARCH_DATA
   });
-  const {
-    loadMore: loadMoreCollections,
-    search: searchCollection,
-    result: searchCollectionOpts
-  } = useCollectionSearch({
-    variables: DEFAULT_INITIAL_SEARCH_DATA
-  });
+
   const {
     loadMore: loadMoreProductTypes,
     search: searchProductTypes,
@@ -97,13 +86,7 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
   } = useProductTypeSearch({
     variables: DEFAULT_INITIAL_SEARCH_DATA
   });
-  const {
-    loadMore: loadMorePages,
-    search: searchPages,
-    result: searchPagesOpts
-  } = usePageSearch({
-    variables: DEFAULT_INITIAL_SEARCH_DATA
-  });
+
   const {
     loadMore: loadMoreProducts,
     search: searchProducts,
@@ -125,13 +108,14 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
   });
   const [updateMetadata] = useMetadataUpdate({});
   const [updatePrivateMetadata] = usePrivateMetadataUpdate({});
-  const taxTypes = useTaxTypeList({});
+
   const { data: selectedProductType } = useProductTypeQuery({
     variables: {
       id: selectedProductTypeId,
       firstValues: VALUES_PAGINATE_BY
     },
-    skip: !selectedProductTypeId
+    skip: !selectedProductTypeId,
+    fetchPolicy: "cache-first"
   });
 
   const productTypes =
@@ -145,7 +129,8 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
   const {
     currentChannels,
     handleChannelsModalOpen,
-    setCurrentChannels  } = useChannels(allChannels, params?.action, {
+    setCurrentChannels
+  } = useChannels(allChannels, params?.action, {
     closeModal,
     openModal
   });
@@ -237,26 +222,7 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
     loading: searchProductTypesOpts.loading,
     onFetchMore: loadMoreProductTypes
   };
-  const fetchMoreCollections = {
-    hasMore: searchCollectionOpts.data?.search?.pageInfo?.hasNextPage,
-    loading: searchCollectionOpts.loading,
-    onFetchMore: loadMoreCollections
-  };
-  const fetchMoreCategories = {
-    hasMore: searchCategoryOpts.data?.search?.pageInfo?.hasNextPage,
-    loading: searchCategoryOpts.loading,
-    onFetchMore: loadMoreCategories
-  };
-  const fetchMoreReferencePages = {
-    hasMore: searchPagesOpts.data?.search?.pageInfo?.hasNextPage,
-    loading: searchPagesOpts.loading,
-    onFetchMore: loadMorePages
-  };
-  const fetchMoreReferenceProducts = {
-    hasMore: searchProductsOpts.data?.search?.pageInfo?.hasNextPage,
-    loading: searchProductsOpts.loading,
-    onFetchMore: loadMoreProducts
-  };
+
   const fetchMoreAttributeValues = {
     hasMore: !!searchAttributeValuesOpts.data?.attribute?.choices?.pageInfo
       ?.hasNextPage,
@@ -277,7 +243,6 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
         allChannelsCount={allChannels?.length}
         currentChannels={currentChannels}
         categories={mapEdgesToItems(searchCategoryOpts?.data?.search) || []}
-        collections={mapEdgesToItems(searchCollectionOpts?.data?.search) || []}
         attributeValues={
           mapEdgesToItems(searchAttributeValuesOpts?.data?.attribute.choices) ||
           []
@@ -291,8 +256,6 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
           ...(productCreateOpts.data?.productCreate.errors || []),
           ...(productVariantCreateOpts.data?.productVariantCreate.errors || [])
         ]}
-        fetchCategories={searchCategory}
-        fetchCollections={searchCollection}
         fetchProductTypes={searchProductTypes}
         fetchAttributeValues={searchAttributeValues}
         header={intl.formatMessage({
@@ -304,11 +267,8 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
         onSubmit={handleSubmit}
         onWarehouseConfigure={() => navigate(warehouseAddPath)}
         saveButtonBarState={productCreateOpts.status}
-        fetchMoreCategories={fetchMoreCategories}
-        fetchMoreCollections={fetchMoreCollections}
         fetchMoreProductTypes={fetchMoreProductTypes}
         warehouses={mapEdgesToItems(warehouses?.data?.warehouses) || []}
-        taxTypes={taxTypes.data?.taxTypes || []}
         weightUnit={shop?.defaultWeightUnit}
         openChannelsModal={handleChannelsModalOpen}
         onChannelsChange={setCurrentChannels}
@@ -316,14 +276,10 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
           params.action === "assign-attribute-value" && params.id
         }
         onAssignReferencesClick={handleAssignAttributeReferenceClick}
-        referencePages={mapEdgesToItems(searchPagesOpts?.data?.search) || []}
         referenceProducts={
           mapEdgesToItems(searchProductsOpts?.data?.search) || []
         }
-        fetchReferencePages={searchPages}
-        fetchMoreReferencePages={fetchMoreReferencePages}
         fetchReferenceProducts={searchProducts}
-        fetchMoreReferenceProducts={fetchMoreReferenceProducts}
         fetchMoreAttributeValues={fetchMoreAttributeValues}
         onCloseDialog={() => navigate(productAddUrl())}
         selectedProductType={selectedProductType?.productType}
