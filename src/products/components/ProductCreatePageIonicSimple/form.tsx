@@ -5,8 +5,7 @@ import {
   createAttributeFileChangeHandler,
   createAttributeMultiChangeHandler,
   createAttributeReferenceChangeHandler,
-  createAttributeValueReorderHandler,
-  createFetchReferencesHandler
+  createAttributeValueReorderHandler
 } from "@saleor/attributes/utils/handlers";
 import { ChannelData, ChannelPriceArgs } from "@saleor/channels/utils";
 import {
@@ -127,7 +126,6 @@ export interface UseProductCreateFormOpts
   warehouses: SearchWarehouses_search_edges_node[];
   currentChannels: ChannelData[];
 
-  assignReferencesAttributeId?: string;
   selectedProductType?: ProductType_productType;
   onSelectProductType: (productTypeId: string) => void;
 }
@@ -218,12 +216,6 @@ function useProductCreateForm(
     attributes.change,
     triggerChange
   );
-  const handleFetchReferences = createFetchReferencesHandler(
-    attributes.data,
-    opts.assignReferencesAttributeId,
-    opts.fetchReferencePages,
-    opts.fetchReferenceProducts
-  );
 
   const handleAttributeFileChange = createAttributeFileChangeHandler(
     attributes.change,
@@ -284,8 +276,6 @@ function useProductCreateForm(
     attributes: getAttributesDisplayData(
       attributes.data,
       attributesWithNewFileValue.data,
-      opts.referencePages,
-      opts.referenceProducts
     ),
     attributesWithNewFileValue: attributesWithNewFileValue.data,
     description: description.current,
@@ -320,7 +310,7 @@ function useProductCreateForm(
       changeStock: handleStockChange,
       changePreorderEndDate: handlePreorderEndDateChange,
       deleteStock: handleStockDelete,
-      fetchReferences: handleFetchReferences,
+
       reorderAttributeValue: handleAttributeValueReorder,
       selectAttribute: handleAttributeChange,
       selectAttributeFile: handleAttributeFileChange,

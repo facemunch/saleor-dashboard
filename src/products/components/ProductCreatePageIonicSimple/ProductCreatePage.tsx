@@ -52,7 +52,6 @@ interface ProductCreatePageProps {
   initial?: Partial<ProductCreateFormData>;
   productTypes?: SearchProductTypes_search_edges_node[];
   referencePages?: SearchPages_search_edges_node[];
-  referenceProducts?: SearchProducts_search_edges_node[];
   header: string;
   saveButtonBarState: ConfirmButtonTransitionState;
   weightUnit: string;
@@ -68,7 +67,7 @@ interface ProductCreatePageProps {
   assignReferencesAttributeId?: string;
   onAssignReferencesClick: (attribute: AttributeInput) => void;
   fetchReferencePages?: (data: string) => void;
-  fetchReferenceProducts?: (data: string) => void;
+
   fetchMoreReferencePages?: FetchMoreProps;
 
   onAttributeSelectBlur: () => void;
@@ -93,7 +92,7 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
   initial,
   productTypes: productTypeChoiceList,
   referencePages = [],
-  referenceProducts = [],
+
   saveButtonBarState,
   warehouses,
 
@@ -108,7 +107,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
   onAssignReferencesClick,
   fetchReferencePages,
   fetchMoreReferencePages,
-  fetchReferenceProducts,
 
   fetchAttributeValues,
   fetchMoreAttributeValues,
@@ -152,7 +150,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
           categories={categories}
           productTypes={productTypeChoiceList}
           referencePages={referencePages}
-          referenceProducts={referenceProducts}
           setSelectedCategory={setSelectedCategory}
           setSelectedTaxType={setSelectedTaxType}
           setChannels={onChannelsChange}
@@ -160,7 +157,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
           currentChannels={currentChannels}
           fetchReferencePages={fetchReferencePages}
           fetchMoreReferencePages={fetchMoreReferencePages}
-          fetchReferenceProducts={fetchReferenceProducts}
           assignReferencesAttributeId={assignReferencesAttributeId}
         >
           {({

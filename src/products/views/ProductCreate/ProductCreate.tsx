@@ -27,7 +27,6 @@ import {
 } from "@saleor/products/urls";
 import useCategorySearch from "@saleor/searches/useCategorySearch";
 
-import useProductSearch from "@saleor/searches/useProductSearch";
 import useProductTypeSearch from "@saleor/searches/useProductTypeSearch";
 
 import { getProductErrorMessage } from "@saleor/utils/errors";
@@ -76,7 +75,8 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
   >(navigate, params => productAddUrl(params), params);
 
   const { result: searchCategoryOpts } = useCategorySearch({
-    variables: DEFAULT_INITIAL_SEARCH_DATA
+    variables: DEFAULT_INITIAL_SEARCH_DATA,
+    fetchPolicy: "cache-first"
   });
 
   const {
@@ -84,16 +84,10 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
     search: searchProductTypes,
     result: searchProductTypesOpts
   } = useProductTypeSearch({
-    variables: DEFAULT_INITIAL_SEARCH_DATA
+    variables: DEFAULT_INITIAL_SEARCH_DATA,
+    fetchPolicy: "cache-first"
   });
 
-  const {
-    loadMore: loadMoreProducts,
-    search: searchProducts,
-    result: searchProductsOpts
-  } = useProductSearch({
-    variables: DEFAULT_INITIAL_SEARCH_DATA
-  });
   const {
     loadMore: loadMoreAttributeValues,
     search: searchAttributeValues,
@@ -101,10 +95,11 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
     reset: searchAttributeReset
   } = useAttributeValueSearchHandler(DEFAULT_INITIAL_SEARCH_DATA);
   const warehouses = useWarehouseList({
-    displayLoader: true,
+    displayLoader: false,
     variables: {
       first: 50
-    }
+    },
+    fetchPolicy: "cache-first"
   });
   const [updateMetadata] = useMetadataUpdate({});
   const [updatePrivateMetadata] = usePrivateMetadataUpdate({});
@@ -276,10 +271,6 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
           params.action === "assign-attribute-value" && params.id
         }
         onAssignReferencesClick={handleAssignAttributeReferenceClick}
-        referenceProducts={
-          mapEdgesToItems(searchProductsOpts?.data?.search) || []
-        }
-        fetchReferenceProducts={searchProducts}
         fetchMoreAttributeValues={fetchMoreAttributeValues}
         onCloseDialog={() => navigate(productAddUrl())}
         selectedProductType={selectedProductType?.productType}
