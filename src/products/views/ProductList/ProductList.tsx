@@ -1,11 +1,6 @@
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
-import {
-  DEFAULT_INITIAL_PAGINATION_DATA,
-  defaultListSettings,
-  ProductListColumns
-} from "@saleor/config";
+import { defaultListSettings } from "@saleor/config";
 import useBulkActions from "@saleor/hooks/useBulkActions";
-import useListSettings from "@saleor/hooks/useListSettings";
 import useNavigator from "@saleor/hooks/useNavigator";
 import usePaginator, {
   createPaginationState
@@ -16,15 +11,12 @@ import {
   productAddUrl,
   productListUrl,
   ProductListUrlQueryParams,
-  ProductListUrlSortField,
   productUrl
 } from "@saleor/products/urls";
 import { ListViews } from "@saleor/types";
 import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
 import { mapEdgesToItems } from "@saleor/utils/maps";
-import { getSortUrlVariables } from "@saleor/utils/sort";
-import React, { memo, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useMemo } from "react";
 
 import ProductListPage from "../../components/ProductListPage";
 import {
@@ -32,7 +24,7 @@ import {
   getFilterTabs,
   getFilterVariables
 } from "./filters";
-import { DEFAULT_SORT_KEY, getSortQueryVariables } from "./sort";
+import { getSortQueryVariables } from "./sort";
 
 interface ProductListProps {
   params: ProductListUrlQueryParams;
@@ -40,7 +32,6 @@ interface ProductListProps {
 
 export const ProductList: React.FC<ProductListProps> = ({ params }) => {
   const navigate = useNavigator();
-  const { pathname } = useLocation();
 
   const paginate = usePaginator();
   const { isSelected, listElements, reset, toggle, toggleAll } = useBulkActions(
@@ -75,20 +66,10 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     );
   };
 
-  const handleSort = (field: ProductListUrlSortField, attributeId?: string) =>
-    navigate(
-      productListUrl({
-        ...params,
-        ...getSortUrlVariables(field, params),
-        attributeId,
-        ...DEFAULT_INITIAL_PAGINATION_DATA
-      })
-    );
-
   const paginationState = createPaginationState("100", params);
   const filter = getFilterVariables(params, !!selectedChannel);
   const sort = getSortQueryVariables(params, !!selectedChannel);
-  const queryVariables = React.useMemo<ProductListVariables>(
+  const queryVariables = useMemo<ProductListVariables>(
     () => ({
       ...paginationState,
       filter,
@@ -112,11 +93,6 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     <>
       <ProductListPage
         activeAttributeSortId={params.attributeId}
-        sort={{
-          asc: params.asc,
-          sort: params.sort
-        }}
-        onSort={handleSort}
         currencySymbol={selectedChannel?.currencyCode || ""}
         defaultSettings={defaultListSettings[ListViews.PRODUCT_LIST]}
         gridAttributes={[]}
@@ -140,8 +116,10 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
         tabs={getFilterTabs().map(tab => tab.name)}
         channelsCount={availableChannels?.length}
         selectedChannelId={selectedChannel?.id}
+        toolbar={""}
+        filterOpts={undefined}
       />
     </>
   );
 };
-export default memo(ProductList);
+export default ProductList;

@@ -6,13 +6,11 @@ import {
   ChannelProps,
   FilterPageProps,
   ListActions,
-  PageListProps,
-  SortPage
+  PageListProps
 } from "@saleor/types";
-import React from "react";
+import React, { memo } from "react";
 import { useIntl } from "react-intl";
 
-import { ProductListUrlSortField } from "../../urls";
 import ProductList from "../ProductList";
 import { ProductFilterKeys, ProductListFilterOpts } from "./filters";
 
@@ -29,7 +27,6 @@ export interface ProductListPageProps
   extends PageListProps<ProductListColumns>,
     ListActions,
     FilterPageProps<ProductFilterKeys, ProductListFilterOpts>,
-    SortPage<ProductListUrlSortField>,
     ChannelProps {
   activeAttributeSortId: string;
   channelsCount: number;
@@ -39,7 +36,7 @@ export interface ProductListPageProps
   products: ProductList_products_edges_node[];
 }
 
-export const ProductListPage: React.FC<ProductListPageProps> = props => {
+export const ProductListPage: React.FC<ProductListPageProps> = memo(props => {
   const {
     channelsCount,
     currencySymbol,
@@ -97,6 +94,6 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
       </IonContent>
     </>
   );
-};
+});
 ProductListPage.displayName = "ProductListPage";
-export default ProductListPage;
+export default memo(ProductListPage);

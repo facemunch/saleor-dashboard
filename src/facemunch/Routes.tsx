@@ -142,6 +142,7 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
               isOpen={
                 pathname.includes("/products/") && pathname !== "/products/add"
               }
+              breakPoints={[0, 1]}
               canDismiss={true}
               presentingElement={refto.current}
               onWillDismiss={() =>
@@ -161,6 +162,7 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
               backdropDismiss={true}
               isOpen={window.location.pathname.includes("/products/add")}
               canDismiss={true}
+              breakPoints={[0, 1]}
               presentingElement={refto.current}
               onWillDismiss={() =>
                 window.location.pathname === "/c/products/add" &&

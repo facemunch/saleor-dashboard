@@ -23,12 +23,12 @@ export interface OrderListPageProps
 }
 
 const options = [
-  { label: "Order no. (highest first)", path: "?asc=true&sort=number" },
-  { label: "Order no. (lowest first)", path: "?asc=false&sort=number" },
+  { label: "Order no. (highest first)", path: "?asc=false&sort=number" },
+  { label: "Order no. (lowest first)", path: "?asc=true&sort=number" },
   { label: "Customer name A-Z", path: "?asc=true&sort=customer" },
   { label: "Customer name Z-A", path: "?asc=false&sort=customer" },
-  { label: "Date (newest first)", path: "?asc=true&sort=date" },
-  { label: "Date (oldest first)", path: "?asc=false&sort=date" },
+  { label: "Date (newest first)", path: "?asc=false&sort=date" },
+  { label: "Date (oldest first)", path: "?asc=true&sort=date" },
   { label: "Payment (paid first)", path: "?asc=true&sort=payment" },
   { label: "Payment (unpid first)", path: "?asc=false&sort=payment" },
   { label: "Fulfilment (fulfilled first)", path: "?asc=true&sort=status" },

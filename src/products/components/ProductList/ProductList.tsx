@@ -88,11 +88,7 @@ const styleH2 = {
   color: "#FFFFFF"
 };
 
-interface ProductListProps
-  extends ListProps<ProductListColumns>,
-    ListActions,
-    SortPage<ProductListUrlSortField>,
-    ChannelProps {
+interface ProductListProps extends ListProps<ProductListColumns>, ChannelProps {
   activeAttributeSortId: string;
   gridAttributes: GridAttributes_grid_edges_node[];
   products: ProductList_products_edges_node[];

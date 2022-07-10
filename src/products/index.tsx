@@ -1,12 +1,12 @@
 import { asSortParams } from "@saleor/utils/sort";
 import { getArrayQueryParam } from "@saleor/utils/urls";
-import { Loader } from "frontend/ui/loader";
 import { parse as parseQs } from "qs";
-import React, { memo, Suspense, lazy, useMemo } from "react";
+import React, { memo, useMemo, useRef } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import ProductListComponent from "./views/ProductList";
 import ProductCreateComponent from "./views/ProductCreate";
 import ProductUpdateComponent from "./views/ProductUpdate";
+import { useIonRouter } from "@ionic/react";
 
 import {
   ProductCreateUrlQueryParams,
@@ -16,29 +16,32 @@ import {
 } from "./urls";
 
 export const ProductList: React.FC = () => {
+  const { routeInfo } = useIonRouter();
+
   const { search, pathname } = useLocation();
-  const qs = parseQs(search.substr(1));
+  const oldQs = useRef();
+
   const params: ProductListUrlQueryParams = useMemo(() => {
-    if (pathname !== "/products") {
-      return;
+    if (!pathname.includes("/products")) {
+      return oldQs.current;
     }
-    return asSortParams(
-      {
-        ...qs,
-        // categories: getArrayQueryParam(qs.categories),
-        // collections: getArrayQueryParam(qs.collections),
-        ids: getArrayQueryParam(qs.ids),
-        productTypes: getArrayQueryParam(qs.productTypes)
-      },
-      ProductListUrlSortField
-    );
-  }, [pathname, search]);
-  console.log("ProductList", { pathname, search, params });
-  return (
-    <Suspense fallback={<Loader />}>
-      <ProductListComponent params={params || {}} />
-    </Suspense>
-  );
+    const qs = parseQs(search.substr(1));
+
+    if (search.length > 0) {
+      oldQs.current = asSortParams(
+        {
+          ...qs,
+          ids: getArrayQueryParam(qs.ids),
+          productTypes: getArrayQueryParam(qs.productTypes)
+        },
+        ProductListUrlSortField
+      );
+    }
+
+    return oldQs.current;
+  }, [search, pathname, routeInfo]);
+
+  return <ProductListComponent params={params || {}} />;
 };
 
 export const ProductUpdate: React.FC = memo(() => {

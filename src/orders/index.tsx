@@ -26,7 +26,7 @@ export const OrderList: React.FC = () => {
 
   const params: OrderListUrlQueryParams = useMemo(() => {
     if (!pathname.includes("orders")) {
-      return;
+      return oldQs.current;
     }
     const qs = parseQs(search.substr(1));
 
@@ -70,8 +70,7 @@ export const OrderDetails = ({ orderModalRef }) => {
         mode="ios"
         isOpen={pathname?.includes("/return")}
         presentingElement={orderModalRef.current}
-        onWillDismiss={() => {
-        }}
+        onWillDismiss={() => {}}
       >
         <IonContent>
           <Route
