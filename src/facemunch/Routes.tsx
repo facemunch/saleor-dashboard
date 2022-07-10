@@ -2,8 +2,14 @@ import React, { memo, useEffect, useMemo, useRef } from "react";
 import useUser from "@saleor/hooks/useUser";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, History } from "swiper";
-import { Route, useLocation, useHistory } from "react-router-dom";
-import { IonContent, IonicSlides, IonModal, IonPage } from "@ionic/react";
+import { Route, useLocation, useHistory, useParams } from "react-router-dom";
+import {
+  IonContent,
+  IonicSlides,
+  IonModal,
+  IonPage,
+  useIonRouter
+} from "@ionic/react";
 import { productPath } from "../products/urls";
 import { userDataQuery } from "./queries";
 import { CustomerDetailsView } from "../customers";
@@ -47,11 +53,13 @@ const menu = {
 const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
   const { loginByToken } = useUser();
   const { data, loading } = userDataQuery();
+  const router = useIonRouter();
 
   const { pathname, search } = useLocation();
   const { goBack, push } = useHistory();
-  const orderId = window.location.pathname.split("/").pop();
+  const match = useParams();
 
+  // console.log("orderId", { match, router });
   const refto = useRef();
   const homeModalRef = useRef();
   const shippingListModalRef = useRef();
@@ -68,12 +76,12 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
       return 3;
     }
   }, [pathname]);
-  const onSlideChange = debounce(e => {
-    // e.activeIndex === 0 && onRouteUpdate("/c/home");
-    // e.activeIndex === 1 && onRouteUpdate("/c/products" + search);
-    // e.activeIndex === 2 && onRouteUpdate("/c/orders" + search);
-    // e.activeIndex === 3 && onRouteUpdate("/c/customers" + search);
-  }, 1000);
+  // const onSlideChange = debounce(e => {
+  //   // e.activeIndex === 0 && onRouteUpdate("/c/home");
+  //   // e.activeIndex === 1 && onRouteUpdate("/c/products" + search);
+  //   // e.activeIndex === 2 && onRouteUpdate("/c/orders" + search);
+  //   // e.activeIndex === 3 && onRouteUpdate("/c/customers" + search);
+  // }, 1000);
 
   useEffect(() => {
     if (!ecomAccessToken || loading || !data) return;
@@ -91,7 +99,7 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
                 height: "100vh",
                 width: "100vw"
               }}
-              onSlideChange={onSlideChange}
+              // onSlideChange={onSlideChange}
               onInit={e => {
                 e.activeIndex = activeIndex;
                 e.updateSlides();
@@ -202,9 +210,15 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
               }
               canDismiss={true}
               presentingElement={orderModalRef.current}
-              onWillDismiss={() =>
-                pathname.includes("/orders/") && push(`/orders/${orderId}`)
-              }
+              onWillDismiss={() => {
+                pathname.includes("/orders/") &&
+                  push(
+                    `/orders/${pathname
+                      .replace("/orders/", "")
+                      .replace("/refund", "")}`
+                  );
+                // );
+              }}
             >
               <Route
                 exact

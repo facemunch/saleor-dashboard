@@ -86,8 +86,9 @@ export const OrderNormalDetails: React.FC<OrderNormalDetailsProps> = ({
   const warehouses = useWarehouseList({
     displayLoader: true,
     variables: {
-      first: 30
-    }
+      first: 1
+    },
+    fetchPolicy: "cache-first"
   });
   const intl = useIntl();
   const [transactionReference, setTransactionReference] = React.useState("");

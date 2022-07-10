@@ -1,4 +1,4 @@
-import { useIonRouter } from "@ionic/react";
+import { useHistory } from "react-router-dom";
 import urlJoin from "url-join";
 
 export type UseNavigatorResult = (
@@ -7,13 +7,16 @@ export type UseNavigatorResult = (
   preserveQs?: boolean
 ) => void;
 function useNavigator(): UseNavigatorResult {
-  const history = useIonRouter();
+  const history = useHistory();
   const navigator = history.push;
 
-  return (url: string, preserveQs = false) => {;
+  return (url: string, replace = false, preserveQs = false) => {
     const targetUrl = preserveQs ? url + window.location.search : url;
+    // console.log("location from useNavigator", location);
     const path = `${urlJoin("/", targetUrl)}`;
-    navigator(path);
+    navigator(path, { replace: replace });
+
+    window.scrollTo({ behavior: "smooth", top: 0 });
   };
 }
 
