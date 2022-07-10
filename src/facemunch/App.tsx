@@ -82,30 +82,30 @@ const App: React.FC<IProps> = ({ ecomAccessToken, ecomAPI }) => {
   }, [ecomAPI, ecomAccessToken]);
   return (
     <ApolloProvider client={apolloClient}>
-      <IonReactRouter basename={"/c/"}>
-        <ThemeProvider>
-          <DateProvider>
-            <LocaleProvider>
-              <MessageManagerProvider>
-                <ServiceWorker />
-                <BackgroundTasksProvider>
-                  <AppStateProvider>
-                    <AuthProvider>
-                      <ShopProvider>
-                        <AppChannelProvider>
-                          <ExternalAppProvider>
-                            <Routes ecomAccessToken={ecomAccessToken} />
-                          </ExternalAppProvider>
-                        </AppChannelProvider>
-                      </ShopProvider>
-                    </AuthProvider>
-                  </AppStateProvider>
-                </BackgroundTasksProvider>
-              </MessageManagerProvider>
-            </LocaleProvider>
-          </DateProvider>
-        </ThemeProvider>
-      </IonReactRouter>
+      {/* <IonReactRouter basename={"/c/"}> */}
+      <ThemeProvider>
+        <DateProvider>
+          <LocaleProvider>
+            <MessageManagerProvider>
+              <ServiceWorker />
+              <BackgroundTasksProvider>
+                <AppStateProvider>
+                  <AuthProvider>
+                    <ShopProvider>
+                      <AppChannelProvider>
+                        <ExternalAppProvider>
+                          <Routes ecomAccessToken={ecomAccessToken} />
+                        </ExternalAppProvider>
+                      </AppChannelProvider>
+                    </ShopProvider>
+                  </AuthProvider>
+                </AppStateProvider>
+              </BackgroundTasksProvider>
+            </MessageManagerProvider>
+          </LocaleProvider>
+        </DateProvider>
+      </ThemeProvider>
+      {/* </IonReactRouter> */}
     </ApolloProvider>
   );
 };

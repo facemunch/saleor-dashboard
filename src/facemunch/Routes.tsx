@@ -20,6 +20,7 @@ import { ProductUpdate, ProductCreate } from "../products";
 
 import { OrderDetails, OrderRefund } from "../orders";
 import { orderPath, orderRefundPath } from "../orders/urls";
+import { useTabs } from "frontend/hooks/tabsProvider";
 
 // Import Swiper styles
 import "swiper/css";
@@ -54,12 +55,12 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
   const { loginByToken } = useUser();
   const { data, loading } = userDataQuery();
   const router = useIonRouter();
+  const { setVisible } = useTabs();
 
   const { pathname, search } = useLocation();
   const { goBack, push } = useHistory();
   const match = useParams();
 
-  // console.log("orderId", { match, router });
   const refto = useRef();
   const homeModalRef = useRef();
   const shippingListModalRef = useRef();
@@ -69,6 +70,7 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
     if (pathname.includes("home")) {
       return 0;
     } else if (pathname.includes("products")) {
+      pathname === "/c/products" && setVisible(true);
       return 1;
     } else if (pathname.includes("orders")) {
       return 2;
@@ -76,12 +78,6 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
       return 3;
     }
   }, [pathname]);
-  // const onSlideChange = debounce(e => {
-  //   // e.activeIndex === 0 && onRouteUpdate("/c/home");
-  //   // e.activeIndex === 1 && onRouteUpdate("/c/products" + search);
-  //   // e.activeIndex === 2 && onRouteUpdate("/c/orders" + search);
-  //   // e.activeIndex === 3 && onRouteUpdate("/c/customers" + search);
-  // }, 1000);
 
   useEffect(() => {
     if (!ecomAccessToken || loading || !data) return;
@@ -148,17 +144,20 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
               }}
               backdropDismiss={true}
               isOpen={
-                pathname.includes("/products/") && pathname !== "/products/add"
+                pathname.includes("/products/") &&
+                pathname !== "/c/products/add"
               }
               breakPoints={[0, 1]}
               canDismiss={true}
               presentingElement={refto.current}
-              onWillDismiss={() =>
-                pathname.includes("/products/") && push("/products")
-              }
+              onWillDismiss={() => {
+                if (pathname.includes("/products/")) {
+                  push("/c/products");
+                }
+              }}
             >
               <Route
-                path={"/products/" + productPath(":id", "")}
+                path={"/c/products/" + productPath(":id", "")}
                 render={() => <ProductUpdate />}
               />
             </IonModal>
@@ -168,14 +167,15 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
               }}
               mode="ios"
               backdropDismiss={true}
-              isOpen={window.location.pathname.includes("/products/add")}
+              isOpen={pathname.includes("/products/add")}
               canDismiss={true}
               breakPoints={[0, 1]}
               presentingElement={refto.current}
-              onWillDismiss={() =>
-                window.location.pathname === "/c/products/add" &&
-                push("/products")
-              }
+              onWillDismiss={() => {
+                if (pathname === "/c/products/add") {
+                  push("/c/products");
+                }
+              }}
             >
               <ProductCreate />
             </IonModal>
@@ -190,11 +190,11 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
               canDismiss={true}
               presentingElement={refto.current}
               onWillDismiss={() =>
-                pathname.includes("/orders/") && push("/orders")
+                pathname.includes("/orders/") && push("/c/orders")
               }
             >
               <Route
-                path={"/orders/" + orderPath(":id", "")}
+                path={"/c/orders/" + orderPath(":id", "")}
                 render={() => <OrderDetails orderModalRef={orderModalRef} />}
               />
             </IonModal>
@@ -212,17 +212,12 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
               presentingElement={orderModalRef.current}
               onWillDismiss={() => {
                 pathname.includes("/orders/") &&
-                  push(
-                    `/orders/${pathname
-                      .replace("/orders/", "")
-                      .replace("/refund", "")}`
-                  );
-                // );
+                  push(`${pathname.replace("/refund", "")}`);
               }}
             >
               <Route
                 exact
-                path={"/orders/" + orderRefundPath(":id", "")}
+                path={"/c/orders/" + orderRefundPath(":id", "")}
                 render={() => <OrderRefund />}
               />
             </IonModal>
@@ -235,11 +230,12 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
               ref={homeModalRef}
               backdropDismiss={true}
               isOpen={
-                pathname === "/configuration" || pathname.includes("/shipping")
+                pathname === "/c/configuration" ||
+                pathname.includes("/shipping")
               }
               canDismiss={true}
               presentingElement={refto.current}
-              onWillDismiss={() => push("/home")}
+              onWillDismiss={() => push("/c/home")}
             >
               <ConfigurationSection />
             </IonModal>
@@ -253,7 +249,7 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
               isOpen={pathname.includes("/shipping")}
               canDismiss={true}
               presentingElement={homeModalRef.current}
-              onWillDismiss={() => push("/configuration")}
+              onWillDismiss={() => push("/c/configuration")}
             >
               <ShippingZonesList shippingListModalRef={shippingListModalRef} />
             </IonModal>

@@ -135,7 +135,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
               data-test-id="commerce-configuration-trigger"
               color="dark"
               onClick={() => {
-                navigate("/configuration");
+                navigate("/c/configuration");
               }}
               fill="clear"
             >
@@ -181,7 +181,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         <IonButton
           data-test-id="add-product"
           onClick={() => {
-            navigate("/products/add");
+            navigate("/c/products/add");
           }}
           style={{ color: "#101010" }}
           shape="round"

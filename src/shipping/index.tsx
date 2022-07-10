@@ -43,13 +43,13 @@ export const ShippingZonesList = ({ shippingListModalRef }) => {
         mode="ios"
         ref={shippingDetailModalRef}
         backdropDismiss={true}
-        isOpen={pathname.includes("/shipping/") && pathname !== "/shipping/add"}
+        isOpen={pathname.includes("/c/shipping/") && pathname !== "/c/shipping/add"}
         canDismiss={true}
         presentingElement={shippingListModalRef.current}
-        onWillDismiss={() => push("/shipping")}
+        onWillDismiss={() => push("/c/shipping")}
       >
         <Route
-          path={"/shipping/" + shippingZonePath(":id", "")}
+          path={"/c/shipping/" + shippingZonePath(":id", "")}
           render={() => (
             <ShippingZoneDetails
               shippingDetailModalRef={shippingDetailModalRef}
@@ -64,14 +64,14 @@ export const ShippingZonesList = ({ shippingListModalRef }) => {
         mode="ios"
         ref={shippingCreateModalRef}
         backdropDismiss={true}
-        isOpen={pathname === "/shipping/add"}
+        isOpen={pathname === "/c/shipping/add"}
         canDismiss={true}
         presentingElement={shippingListModalRef.current}
-        onWillDismiss={() => push("/shipping")}
+        onWillDismiss={() => push("/c/shipping")}
       >
         <Route
           exact
-          path={"/shipping/" + "add"}
+          path={"/c/shipping/" + "add"}
           render={() => (
             <ShippingZoneCreate
               shippingCreateModalRef={shippingCreateModalRef}
@@ -114,7 +114,7 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
       >
         <Route
           exact
-          path={"/shipping/" + shippingPriceRatesPath(":id", "")}
+          path={"/c/shipping/" + shippingPriceRatesPath(":id", "")}
           render={() => <PriceRatesCreate />}
         />
       </IonModal>
@@ -132,12 +132,12 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
         canDismiss={true}
         presentingElement={shippingDetailModalRef.current}
         onWillDismiss={() => {
-          push(`/shipping/${match.id}`);
+          push(`/c/shipping/${match.id}`);
         }}
       >
         <Route
           exact
-          path={"/shipping/" + shippingPriceRatesEditPath(":id", ":rateId", "")}
+          path={"/c/shipping/" + shippingPriceRatesEditPath(":id", ":rateId", "")}
           render={() => (
             <PriceRatesUpdate
               shippingPriceRatesEditRef={shippingPriceRatesEditRef}
@@ -158,7 +158,7 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
       >
         <Route
           exact
-          path={"/shipping/" + shippingWeightRatesPath(":id", "")}
+          path={"/c/shipping/" + shippingWeightRatesPath(":id", "")}
           render={() => <WeightRatesCreate />}
         />
       </IonModal>
@@ -176,13 +176,13 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
         canDismiss={true}
         presentingElement={shippingDetailModalRef.current}
         onWillDismiss={() => {
-          push(`/shipping/${match.id}`);
+          push(`/c/shipping/${match.id}`);
         }}
       >
         <Route
           exact
           path={
-            "/shipping/" + shippingWeightRatesEditPath(":id", ":rateId", "")
+            "/c/shipping/" + shippingWeightRatesEditPath(":id", ":rateId", "")
           }
           render={() => (
             <WeightRatesUpdate

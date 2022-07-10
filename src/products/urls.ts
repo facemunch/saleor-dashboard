@@ -15,7 +15,7 @@ import {
 } from "../types";
 import { stringifyQs } from "../utils/urls";
 
-const productSection = "/products/";
+const productSection = "/c/products/";
 
 export const productAddPath = urlJoin(productSection, "add");
 export const productAddUrl = (params?: ProductCreateUrlQueryParams) =>
@@ -65,7 +65,8 @@ export interface ProductListUrlQueryParams
 export const productListUrl = (params?: ProductListUrlQueryParams): string =>
   productListPath + "?" + stringifyQs(params);
 
-export const productPath = (id: string, section=productSection) => urlJoin(section + id);
+export const productPath = (id: string, section = productSection) =>
+  urlJoin(section + id);
 export type ProductUrlDialog =
   | "add-variants"
   | "remove"
@@ -81,8 +82,11 @@ export type ProductCreateUrlQueryParams = Dialog<ProductCreateUrlDialog> &
 export const productUrl = (id: string, params?: ProductUrlQueryParams) =>
   productPath(encodeURIComponent(id)) + "?" + stringifyQs(params);
 
-export const productVariantEditPath = (productId: string, variantId: string, section = productSection) =>
-  urlJoin(section, productId, "variant", variantId);
+export const productVariantEditPath = (
+  productId: string,
+  variantId: string,
+  section = productSection
+) => urlJoin(section, productId, "variant", variantId);
 export type ProductVariantEditUrlDialog = "remove" | "assign-attribute-value";
 export type ProductVariantEditUrlQueryParams = Dialog<
   ProductVariantEditUrlDialog
@@ -100,8 +104,10 @@ export const productVariantEditUrl = (
   "?" +
   stringifyQs(params);
 
-export const productVariantCreatorPath = (productId: string, section = productSection) =>
-  urlJoin(section, productId, "variant-creator");
+export const productVariantCreatorPath = (
+  productId: string,
+  section = productSection
+) => urlJoin(section, productId, "variant-creator");
 export const productVariantCreatorUrl = (productId: string) =>
   productVariantCreatorPath(encodeURIComponent(productId));
 
@@ -110,8 +116,10 @@ export type ProductVariantAddUrlQueryParams = Dialog<
   ProductVariantAddUrlDialog
 > &
   SingleAction;
-export const productVariantAddPath = (productId: string, section = productSection) =>
-  urlJoin(section, productId, "variant/add");
+export const productVariantAddPath = (
+  productId: string,
+  section = productSection
+) => urlJoin(section, productId, "variant/add");
 export const productVariantAddUrl = (
   productId: string,
   params?: ProductVariantAddUrlQueryParams
@@ -120,8 +128,11 @@ export const productVariantAddUrl = (
   "?" +
   stringifyQs(params);
 
-export const productImagePath = (productId: string, imageId: string, section=productSection) =>
-  urlJoin(section, productId, "image", imageId);
+export const productImagePath = (
+  productId: string,
+  imageId: string,
+  section = productSection
+) => urlJoin(section, productId, "image", imageId);
 export type ProductImageUrlDialog = "remove";
 export type ProductImageUrlQueryParams = Dialog<"remove">;
 export const productImageUrl = (
