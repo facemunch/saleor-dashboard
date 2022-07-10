@@ -3,7 +3,7 @@ import useUser from "@saleor/hooks/useUser";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, History } from "swiper";
 import { Route, useLocation, useHistory } from "react-router-dom";
-import { IonContent, IonicSlides, IonModal } from "@ionic/react";
+import { IonContent, IonicSlides, IonModal, IonPage } from "@ionic/react";
 import { productPath } from "../products/urls";
 import { userDataQuery } from "./queries";
 import { CustomerDetailsView } from "../customers";
@@ -32,7 +32,6 @@ import { ShippingZonesList } from "../shipping";
 import { ProductList } from "../products";
 
 interface IProps {
-  onRouteUpdate: (route: string) => void;
   ecomAccessToken?: string | null;
   ecomAPI?: string | null;
   match?: string | null;
@@ -45,7 +44,7 @@ const menu = {
   3: "Customers"
 };
 
-const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
+const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
   const { loginByToken } = useUser();
   const { data, loading } = userDataQuery();
 
@@ -70,10 +69,10 @@ const RoutesApp: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken }) => {
     }
   }, [pathname]);
   const onSlideChange = debounce(e => {
-    e.activeIndex === 0 && onRouteUpdate("/c/home");
-    e.activeIndex === 1 && onRouteUpdate("/c/products" + search);
-    e.activeIndex === 2 && onRouteUpdate("/c/orders" + search);
-    e.activeIndex === 3 && onRouteUpdate("/c/customers" + search);
+    // e.activeIndex === 0 && onRouteUpdate("/c/home");
+    // e.activeIndex === 1 && onRouteUpdate("/c/products" + search);
+    // e.activeIndex === 2 && onRouteUpdate("/c/orders" + search);
+    // e.activeIndex === 3 && onRouteUpdate("/c/customers" + search);
   }, 1000);
 
   useEffect(() => {

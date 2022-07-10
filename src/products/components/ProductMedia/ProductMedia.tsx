@@ -11,7 +11,6 @@ import createMultiFileUploadHandler from "@saleor/utils/handlers/multiFileUpload
 import classNames from "classnames";
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { SortableContainer, SortableElement } from "react-sortable-hoc";
 import { IonCard, IonButton } from "@ionic/react";
 const messages = defineMessages({
   media: {
@@ -124,14 +123,12 @@ interface SortableMediaProps {
   onDelete: () => void;
 }
 
-const SortableMedia = SortableElement<SortableMediaProps>(
-  ({ media, onEdit, onDelete }) => (
-    <MediaTile
-      media={media}
-      onEdit={onEdit ? () => onEdit(media.id) : undefined}
-      onDelete={onDelete}
-    />
-  )
+const SortableMedia = ({ media, onEdit, onDelete }) => (
+  <MediaTile
+    media={media}
+    onEdit={onEdit ? () => onEdit(media.id) : undefined}
+    onDelete={onDelete}
+  />
 );
 
 interface MediaListContainerProps {
@@ -142,25 +139,18 @@ interface MediaListContainerProps {
   onEdit: (id: string) => () => void;
 }
 
-const MediaListContainer = SortableContainer<MediaListContainerProps>(
-  ({ media, preview, onDelete, onEdit, ...props }) => (
-    <div {...props}>
-      {media.map((mediaObj, index) => (
-        <SortableMedia
-          key={`item-${index}`}
-          index={index}
-          media={mediaObj}
-          onEdit={onEdit ? onEdit(mediaObj.id) : null}
-          onDelete={onDelete(mediaObj.id)}
-        />
-      ))}
-      {preview
-        .sort((a, b) => (a.sortOrder > b.sortOrder ? 1 : -1))
-        .map((mediaObj, index) => (
-          <MediaTile loading={true} media={mediaObj} key={index} />
-        ))}
-    </div>
-  )
+const MediaListContainer = ({ media, preview, onDelete, onEdit, ...props }) => (
+  <div {...props}>
+    {media.map((mediaObj, index) => (
+      <SortableMedia
+        key={`item-${index}`}
+        index={index}
+        media={mediaObj}
+        onEdit={onEdit ? onEdit(mediaObj.id) : null}
+        onDelete={onDelete(mediaObj.id)}
+      />
+    ))}
+  </div>
 );
 
 interface ProductMediaProps {
@@ -277,18 +267,18 @@ const ProductMedia: React.FC<ProductMediaProps> = props => {
               {({ isDragActive }) => (
                 <CardContent>
                   <MediaListContainer
-                    distance={20}
-                    helperClass="dragged"
-                    axis="xy"
+                    // distance={20}
+                    // helperClass="dragged"
+                    // axis="xy"
                     media={media}
-                    preview={imagesToUpload}
-                    onSortEnd={onImageReorder}
+                    // preview={imagesToUpload}
+                    // onSortEnd={onImageReorder}
                     className={classNames({
                       [classes.root]: true,
                       [classes.rootDragActive]: isDragActive
                     })}
                     onDelete={onImageDelete}
-                    onEdit={onImageEdit}
+                    // onEdit={onImageEdit}
                   />
                 </CardContent>
               )}

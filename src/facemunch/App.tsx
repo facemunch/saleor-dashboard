@@ -28,11 +28,11 @@ import Routes from "./Routes";
 import { IonReactRouter } from "@ionic/react-router";
 
 interface IProps {
-  onRouteUpdate: (route: string) => void;
+  onRouteUpdate?: (route: string) => void;
   ecomAccessToken?: string | null;
   ecomAPI?: string | null;
 }
-const App: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken, ecomAPI }) => {
+const App: React.FC<IProps> = ({ ecomAccessToken, ecomAPI }) => {
   const apolloClient = useMemo(() => {
     const linkOptions = {
       credentials: "include",
@@ -94,10 +94,7 @@ const App: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken, ecomAPI }) => {
                       <ShopProvider>
                         <AppChannelProvider>
                           <ExternalAppProvider>
-                            <Routes
-                              ecomAccessToken={ecomAccessToken}
-                              onRouteUpdate={onRouteUpdate}
-                            />
+                            <Routes ecomAccessToken={ecomAccessToken} />
                           </ExternalAppProvider>
                         </AppChannelProvider>
                       </ShopProvider>
