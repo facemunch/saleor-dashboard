@@ -46,9 +46,6 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
   const { isSelected, listElements, reset, toggle, toggleAll } = useBulkActions(
     params.ids
   );
-  // const { updateListSettings, settings } = useListSettings<ProductListColumns>(
-  //   ListViews.PRODUCT_LIST
-  // );
 
   const { availableChannels } = useAppChannel(false);
 
@@ -67,27 +64,6 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     navigate,
     params
   });
-
-  useEffect(() => {
-    if (pathname !== "/products") {
-      return;
-    }
-    const sortWithQuery = ProductListUrlSortField.rank;
-    const sortWithoutQuery =
-      params.sort === ProductListUrlSortField.rank
-        ? DEFAULT_SORT_KEY
-        : params.sort;
-    if (!sortWithoutQuery) {
-      return;
-    }
-    navigate(
-      productListUrl({
-        ...params,
-        asc: params.query ? undefined : params.asc,
-        sort: params.query ? sortWithQuery : sortWithoutQuery
-      })
-    );
-  }, [params.query, pathname]);
 
   const handleTabChange = (tab: number) => {
     reset();

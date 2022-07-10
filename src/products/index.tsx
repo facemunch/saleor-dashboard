@@ -19,21 +19,21 @@ export const ProductList: React.FC = () => {
   const { search, pathname } = useLocation();
   const qs = parseQs(search.substr(1));
   const params: ProductListUrlQueryParams = useMemo(() => {
-    if (!pathname.includes("products")) {
+    if (pathname !== "/products") {
       return;
     }
-
     return asSortParams(
       {
         ...qs,
-        categories: getArrayQueryParam(qs.categories),
-        collections: getArrayQueryParam(qs.collections),
+        // categories: getArrayQueryParam(qs.categories),
+        // collections: getArrayQueryParam(qs.collections),
         ids: getArrayQueryParam(qs.ids),
         productTypes: getArrayQueryParam(qs.productTypes)
       },
       ProductListUrlSortField
     );
   }, [pathname, search]);
+  console.log("ProductList", { pathname, search, params });
   return (
     <Suspense fallback={<Loader />}>
       <ProductListComponent params={params || {}} />
@@ -48,12 +48,12 @@ export const ProductUpdate: React.FC = memo(() => {
 
   const match = useParams();
   return (
-      <ProductUpdateComponent
-        id={decodeURIComponent(match.id)}
-        params={{
-          ...params
-        }}
-      />
+    <ProductUpdateComponent
+      id={decodeURIComponent(match.id)}
+      params={{
+        ...params
+      }}
+    />
   );
 });
 
