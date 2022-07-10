@@ -24,7 +24,7 @@ import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import { getSortUrlVariables } from "@saleor/utils/sort";
 import React, { memo, useEffect } from "react";
-import { useLocation } from 'react-router-dom'
+import { useLocation } from "react-router-dom";
 
 import ProductListPage from "../../components/ProductListPage";
 import {
@@ -40,23 +40,21 @@ interface ProductListProps {
 
 export const ProductList: React.FC<ProductListProps> = ({ params }) => {
   const navigate = useNavigator();
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
 
   const paginate = usePaginator();
   const { isSelected, listElements, reset, toggle, toggleAll } = useBulkActions(
     params.ids
   );
-  const { updateListSettings, settings } = useListSettings<ProductListColumns>(
-    ListViews.PRODUCT_LIST
-  );
+  // const { updateListSettings, settings } = useListSettings<ProductListColumns>(
+  //   ListViews.PRODUCT_LIST
+  // );
 
   const { availableChannels } = useAppChannel(false);
 
   const selectedChannel = availableChannels.find(
     channel => channel.slug === "usd"
   );
-
-
 
   const [
     changeFilters,
@@ -71,8 +69,8 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
   });
 
   useEffect(() => {
-    if(pathname !== '/products'){
-      return
+    if (pathname !== "/products") {
+      return;
     }
     const sortWithQuery = ProductListUrlSortField.rank;
     const sortWithoutQuery =
@@ -90,7 +88,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
       })
     );
   }, [params.query, pathname]);
-  
+
   const handleTabChange = (tab: number) => {
     reset();
     navigate(
@@ -111,7 +109,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
       })
     );
 
-  const paginationState = createPaginationState(settings.rowNumber, params);
+  const paginationState = createPaginationState("100", params);
   const filter = getFilterVariables(params, !!selectedChannel);
   const sort = getSortQueryVariables(params, !!selectedChannel);
   const queryVariables = React.useMemo<ProductListVariables>(
@@ -121,7 +119,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
       sort,
       channel: selectedChannel?.slug
     }),
-    [params, settings.rowNumber]
+    [params]
   );
   const { data, loading } = useProductListQuery({
     displayLoader: true,
@@ -146,14 +144,12 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
         currencySymbol={selectedChannel?.currencyCode || ""}
         defaultSettings={defaultListSettings[ListViews.PRODUCT_LIST]}
         gridAttributes={[]}
-        settings={settings}
         loading={loading}
         onAdd={params => navigate(productAddUrl(params))}
         disabled={loading}
         products={mapEdgesToItems(data?.products)}
         onNextPage={loadNextPage}
         onPreviousPage={loadPreviousPage}
-        onUpdateListSettings={updateListSettings}
         pageInfo={pageInfo}
         onRowClick={(id, type = "") => () => navigate(productUrl(id) + type)}
         onAll={resetFilters}

@@ -6,8 +6,7 @@ import {
   IonList,
   IonNote,
   IonThumbnail,
-  IonRippleEffect,
-  IonButton
+  IonRippleEffect
 } from "@ionic/react";
 import Skeleton from "@saleor/components/Skeleton";
 import { ProductListColumns } from "@saleor/config";

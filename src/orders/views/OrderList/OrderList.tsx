@@ -1,5 +1,4 @@
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
-import { useShopLimitsQuery } from "@saleor/components/Shop/query";
 import useListSettings from "@saleor/hooks/useListSettings";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";

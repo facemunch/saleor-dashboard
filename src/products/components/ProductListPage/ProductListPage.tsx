@@ -43,11 +43,9 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
   const {
     channelsCount,
     currencySymbol,
-    defaultSettings,
     gridAttributes,
     initialSearch,
     loading,
-    settings,
     tabs,
     onAdd,
     onAll,
@@ -55,7 +53,6 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
     onFilterAttributeFocus,
     onSearchChange,
     onTabChange,
-    onUpdateListSettings,
     selectedChannelId,
     ...listProps
   } = props;
@@ -88,10 +85,8 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
             {...listProps}
             loading={loading}
             gridAttributes={gridAttributes}
-            settings={settings}
             channelsCount={channelsCount}
             selectedChannelId={selectedChannelId}
-            onUpdateListSettings={onUpdateListSettings}
           />
         </IonCard>
         <div
