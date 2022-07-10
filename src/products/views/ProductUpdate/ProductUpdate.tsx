@@ -11,13 +11,12 @@ import ActionDialog from "@saleor/components/ActionDialog";
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
 import { AttributeInput } from "@saleor/components/Attributes";
 import NotFoundPage from "@saleor/components/NotFoundPage";
-import { useShopLimitsQuery } from "@saleor/components/Shop/query";
+
 import {
   DEFAULT_INITIAL_SEARCH_DATA,
   VALUES_PAGINATE_BY
 } from "@saleor/config";
 import { useFileUploadMutation } from "@saleor/files/mutations";
-import { getSearchFetchMoreProps } from "@saleor/hooks/makeTopLevelSearch/utils";
 import useBulkActions from "@saleor/hooks/useBulkActions";
 import useChannels from "@saleor/hooks/useChannels";
 import useNavigator from "@saleor/hooks/useNavigator";
@@ -39,10 +38,6 @@ import {
   useSimpleProductUpdateMutation,
   useVariantCreateMutation
 } from "@saleor/products/mutations";
-import useCategorySearch from "@saleor/searches/useCategorySearch";
-import useCollectionSearch from "@saleor/searches/useCollectionSearch";
-import usePageSearch from "@saleor/searches/usePageSearch";
-import useProductSearch from "@saleor/searches/useProductSearch";
 import { getProductErrorMessage } from "@saleor/utils/errors";
 import useAttributeValueSearchHandler from "@saleor/utils/handlers/attributeValueSearchHandler";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
@@ -112,34 +107,7 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
     params.ids
   );
   const intl = useIntl();
-  const {
-    loadMore: loadMoreCategories,
-    search: searchCategories,
-    result: searchCategoriesOpts
-  } = useCategorySearch({
-    variables: DEFAULT_INITIAL_SEARCH_DATA
-  });
-  const {
-    loadMore: loadMoreCollections,
-    search: searchCollections,
-    result: searchCollectionsOpts
-  } = useCollectionSearch({
-    variables: DEFAULT_INITIAL_SEARCH_DATA
-  });
-  const {
-    loadMore: loadMorePages,
-    search: searchPages,
-    result: searchPagesOpts
-  } = usePageSearch({
-    variables: DEFAULT_INITIAL_SEARCH_DATA
-  });
-  const {
-    loadMore: loadMoreProducts,
-    search: searchProducts,
-    result: searchProductsOpts
-  } = useProductSearch({
-    variables: DEFAULT_INITIAL_SEARCH_DATA
-  });
+
   const {
     loadMore: loadMoreAttributeValues,
     search: searchAttributeValues,
@@ -174,12 +142,6 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
   const isSimpleProduct = !data?.product?.productType?.hasVariants;
 
   const { availableChannels, channel } = useAppChannel(!isSimpleProduct);
-
-  const limitOpts = useShopLimitsQuery({
-    variables: {
-      productVariants: true
-    }
-  });
 
   const [uploadFile, uploadFileOpts] = useFileUploadMutation({});
 
@@ -340,8 +302,6 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
     deleteAttributeValueOpts
   ] = useAttributeValueDeleteMutation({});
 
-  // const handleBack = () => navigate(productListUrl());
-
   const handleVariantAdd = () => navigate(productVariantAddUrl(id));
 
   const handleImageDelete = (id: string) => () =>
@@ -418,11 +378,6 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
     createProductMediaOpts.data?.productMediaCreate.errors
   );
 
-  const categories = mapEdgesToItems(searchCategoriesOpts?.data?.search) || [];
-
-  const collections =
-    mapEdgesToItems(searchCollectionsOpts?.data?.search) || [];
-
   const attributeValues =
     mapEdgesToItems(searchAttributeValuesOpts?.data?.attribute.choices) || [];
 
@@ -441,26 +396,6 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
     ...(updateVariantChannelsOpts?.data?.productVariantChannelListingUpdate
       ?.errors || [])
   ];
-
-  const fetchMoreCollections = getSearchFetchMoreProps(
-    searchCollectionsOpts,
-    loadMoreCollections
-  );
-
-  const fetchMoreCategories = getSearchFetchMoreProps(
-    searchCategoriesOpts,
-    loadMoreCategories
-  );
-
-  const fetchMoreReferencePages = getSearchFetchMoreProps(
-    searchPagesOpts,
-    loadMorePages
-  );
-
-  const fetchMoreReferenceProducts = getSearchFetchMoreProps(
-    searchProductsOpts,
-    loadMoreProducts
-  );
 
   const fetchMoreAttributeValues = {
     hasMore: !!searchAttributeValuesOpts.data?.attribute?.choices?.pageInfo
@@ -488,18 +423,13 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
         allChannelsCount={allChannels?.length}
         channelsData={channelsData}
         setChannelsData={setChannelsData}
-        categories={categories}
-        collections={collections}
         attributeValues={attributeValues}
         channelsWithVariantsData={channelsWithVariantsData}
         defaultWeightUnit={shop?.defaultWeightUnit}
         disabled={disableFormSave}
         onSetDefaultVariant={onSetDefaultVariant}
         errors={errors}
-        fetchCategories={searchCategories}
-        fetchCollections={searchCollections}
         fetchAttributeValues={searchAttributeValues}
-        limits={limitOpts.data?.shop.limits}
         saveButtonBarState={formTransitionState}
         media={data?.product?.media}
         header={product?.name}
@@ -539,21 +469,11 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
         selected={listElements.length}
         toggle={toggle}
         toggleAll={toggleAll}
-        fetchMoreCategories={fetchMoreCategories}
-        fetchMoreCollections={fetchMoreCollections}
         selectedChannelId={channel?.id}
         assignReferencesAttributeId={
           params.action === "assign-attribute-value" && params.id
         }
         onAssignReferencesClick={handleAssignAttributeReferenceClick}
-        referencePages={mapEdgesToItems(searchPagesOpts?.data?.search) || []}
-        referenceProducts={
-          mapEdgesToItems(searchProductsOpts?.data?.search) || []
-        }
-        fetchReferencePages={searchPages}
-        fetchMoreReferencePages={fetchMoreReferencePages}
-        fetchReferenceProducts={searchProducts}
-        fetchMoreReferenceProducts={fetchMoreReferenceProducts}
         fetchMoreAttributeValues={fetchMoreAttributeValues}
         onCloseDialog={() => navigate(productUrl(id))}
         onAttributeSelectBlur={searchAttributeReset}

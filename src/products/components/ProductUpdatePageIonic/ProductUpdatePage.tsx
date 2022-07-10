@@ -12,7 +12,7 @@ import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Grid from "@saleor/components/Grid";
 import Metadata from "@saleor/components/Metadata/Metadata";
 import Savebar from "@saleor/components/Savebar";
-import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
+
 import { ProductChannelListingErrorFragment } from "@saleor/fragments/types/ProductChannelListingErrorFragment";
 import { ProductErrorWithAttributesFragment } from "@saleor/fragments/types/ProductErrorWithAttributesFragment";
 import { TaxTypeFragment } from "@saleor/fragments/types/TaxTypeFragment";
@@ -22,15 +22,11 @@ import { FormsetData } from "@saleor/hooks/useFormset";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
 import { sectionNames } from "@saleor/intl";
 import { Backlink } from "@saleor/macaw-ui";
-import { maybe } from "@saleor/misc";
 import ProductExternalMediaDialog from "@saleor/products/components/ProductExternalMediaDialog";
 import ProductVariantPrice from "@saleor/products/components/ProductVariantPrice";
 import { ChannelsWithVariantsData } from "@saleor/products/views/ProductUpdate/types";
 import { SearchAttributeValues_attribute_choices_edges_node } from "@saleor/searches/types/SearchAttributeValues";
-import { SearchCategories_search_edges_node } from "@saleor/searches/types/SearchCategories";
-import { SearchCollections_search_edges_node } from "@saleor/searches/types/SearchCollections";
-import { SearchPages_search_edges_node } from "@saleor/searches/types/SearchPages";
-import { SearchProducts_search_edges_node } from "@saleor/searches/types/SearchProducts";
+
 import {
   ChannelProps,
   FetchMoreProps,
@@ -40,17 +36,17 @@ import {
 import { PermissionEnum } from "@saleor/types/globalTypes";
 import React, { memo } from "react";
 import { useIntl } from "react-intl";
-import { IonPage, IonContent } from "@ionic/react";
+import { IonContent } from "@ionic/react";
 import ChannelsWithVariantsAvailabilityCard from "../../../channels/ChannelsWithVariantsAvailabilityCard/ChannelsWithVariantsAvailabilityCard";
 import {
   ProductDetails_product,
   ProductDetails_product_media,
   ProductDetails_product_variants
 } from "../../types/ProductDetails";
-import { getChoices, ProductUpdatePageFormData } from "../../utils/data";
+import { ProductUpdatePageFormData } from "../../utils/data";
 import ProductDetailsForm from "../ProductDetailsForm";
 import ProductMedia from "../ProductMedia";
-// import ProductOrganization from "../ProductOrganization";
+
 import ProductShipping from "../ProductShipping/ProductShipping";
 import ProductStocks, { ProductStockInput } from "../ProductStocks";
 import ProductVariants from "../ProductVariants";
@@ -59,9 +55,7 @@ import ProductUpdateForm, {
   ProductUpdateHandlers
 } from "./form";
 import { Loader } from "frontend/ui/loader";
-import CardMenu from "@saleor/components/CardMenu";
 import PageHeader from "@saleor/components/PageHeader";
-// import { useLocation } from "react-router-dom";
 
 export interface ProductUpdatePageProps extends ListActions, ChannelProps {
   channelsWithVariantsData: ChannelsWithVariantsData;
@@ -74,14 +68,12 @@ export interface ProductUpdatePageProps extends ListActions, ChannelProps {
   defaultWeightUnit: string;
   errors: ProductErrorWithAttributesFragment[];
   placeholderImage: string;
-  collections: SearchCollections_search_edges_node[];
-  categories: SearchCategories_search_edges_node[];
+
   attributeValues: SearchAttributeValues_attribute_choices_edges_node[];
   disabled: boolean;
-  fetchMoreCategories: FetchMoreProps;
-  fetchMoreCollections: FetchMoreProps;
+
   isMediaUrlModalVisible?: boolean;
-  limits: RefreshLimits_shop_limits;
+
   variants: ProductDetails_product_variants[];
   media: ProductDetails_product_media[];
   hasChannelChanged: boolean;
@@ -90,17 +82,12 @@ export interface ProductUpdatePageProps extends ListActions, ChannelProps {
   saveButtonBarState: ConfirmButtonTransitionState;
   warehouses: WarehouseFragment[];
   taxTypes: TaxTypeFragment[];
-  referencePages?: SearchPages_search_edges_node[];
-  referenceProducts?: SearchProducts_search_edges_node[];
+
   assignReferencesAttributeId?: string;
-  fetchMoreReferencePages?: FetchMoreProps;
-  fetchMoreReferenceProducts?: FetchMoreProps;
+
   fetchMoreAttributeValues?: FetchMoreProps;
   isSimpleProduct: boolean;
-  fetchCategories: (query: string) => void;
-  fetchCollections: (query: string) => void;
-  fetchReferencePages?: (data: string) => void;
-  fetchReferenceProducts?: (data: string) => void;
+
   fetchAttributeValues: (query: string, attributeId: string) => void;
   onAssignReferencesClick: (attribute: AttributeInput) => void;
   onCloseDialog: () => void;
@@ -128,7 +115,7 @@ export interface ProductUpdatePageSubmitData extends ProductUpdatePageFormData {
   addStocks: ProductStockInput[];
   attributes: AttributeInput[];
   attributesWithNewFileValue: FormsetData<null, File>;
-  collections: string[];
+
   description: OutputData;
   removeStocks: string[];
   updateStocks: ProductStockInput[];
@@ -137,15 +124,15 @@ export interface ProductUpdatePageSubmitData extends ProductUpdatePageFormData {
 export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   defaultWeightUnit,
   disabled,
-  categories: categoryChoiceList,
+
   channelsErrors,
-  collections: collectionChoiceList,
+
   attributeValues,
   isSimpleProduct,
   errors,
   media,
   hasChannelChanged,
-  limits,
+
   placeholderImage,
   product,
   saveButtonBarState,
@@ -153,8 +140,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   warehouses,
   setChannelsData,
   taxTypes,
-  referencePages = [],
-  referenceProducts = [],
+
   onBack,
   onDelete,
   allChannelsCount,
@@ -184,10 +170,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   header,
   assignReferencesAttributeId,
   onAssignReferencesClick,
-  fetchReferencePages,
-  fetchMoreReferencePages,
-  fetchReferenceProducts,
-  fetchMoreReferenceProducts,
+
   fetchAttributeValues,
   fetchMoreAttributeValues,
   onCloseDialog,
@@ -196,24 +179,15 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   onAttributeSelectBlur
 }) => {
   const intl = useIntl();
-  const [selectedCategory, setSelectedCategory] = useStateFromProps(
-    product?.category?.name || ""
-  );
 
   const [mediaUrlModalStatus, setMediaUrlModalStatus] = useStateFromProps(
     isMediaUrlModalVisible || false
-  );
-
-  const [selectedCollections, setSelectedCollections] = useStateFromProps(
-    getChoices(maybe(() => product.collections, []))
   );
 
   const [selectedTaxType, setSelectedTaxType] = useStateFromProps(
     product?.taxType.description
   );
 
-  const categories = getChoices(categoryChoiceList);
-  const collections = getChoices(collectionChoiceList);
   const hasVariants = product?.productType?.hasVariants;
   const taxTypeChoices =
     taxTypes?.map(taxType => ({
@@ -250,23 +224,12 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
           setChannelsData={setChannelsData}
           onSubmit={onSubmit}
           product={product}
-          categories={categories}
-          collections={collections}
           channelsWithVariants={channelsWithVariantsData}
-          selectedCollections={selectedCollections}
-          setSelectedCategory={setSelectedCategory}
-          setSelectedCollections={setSelectedCollections}
           setSelectedTaxType={setSelectedTaxType}
           setChannels={onChannelsChange}
           taxTypes={taxTypeChoices}
           warehouses={warehouses}
           hasVariants={hasVariants}
-          referencePages={referencePages}
-          referenceProducts={referenceProducts}
-          fetchReferencePages={fetchReferencePages}
-          fetchMoreReferencePages={fetchMoreReferencePages}
-          fetchReferenceProducts={fetchReferenceProducts}
-          fetchMoreReferenceProducts={fetchMoreReferenceProducts}
           assignReferencesAttributeId={assignReferencesAttributeId}
         >
           {({
@@ -336,7 +299,6 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                   {hasVariants ? (
                     <ProductVariants
                       disabled={disabled}
-                      limits={limits}
                       variants={variants}
                       product={product}
                       onRowClick={onVariantShow}
@@ -462,7 +424,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                   attributeValues={getAttributeValuesFromReferences(
                     assignReferencesAttributeId,
                     data.attributes,
-                    referencePages,
+
                     referenceProducts
                   )}
                   hasMore={handlers.fetchMoreReferences?.hasMore}
