@@ -53,22 +53,22 @@ const OrderRefundPage: React.FC<OrderReturnPageProps> = props => {
 
   const intl = useIntl();
   return (
-    <OrderRefundForm order={order} onSubmit={onSubmit}>
-      {({ data, handlers, change, submit }) => {
-        const {
-          fulfilledItemsQuantities,
-          waitingItemsQuantities,
-          unfulfilledItemsQuantities
-        } = data;
+    <IonContent>
+      <OrderRefundForm order={order} onSubmit={onSubmit}>
+        {({ data, handlers, change, submit }) => {
+          const {
+            fulfilledItemsQuantities,
+            waitingItemsQuantities,
+            unfulfilledItemsQuantities
+          } = data;
 
-        const hasAnyItemsSelected =
-          fulfilledItemsQuantities.some(({ value }) => !!value) ||
-          waitingItemsQuantities.some(({ value }) => !!value) ||
-          unfulfilledItemsQuantities.some(({ value }) => !!value);
+          const hasAnyItemsSelected =
+            fulfilledItemsQuantities.some(({ value }) => !!value) ||
+            waitingItemsQuantities.some(({ value }) => !!value) ||
+            unfulfilledItemsQuantities.some(({ value }) => !!value);
 
-        return (
-          <>
-            <IonContent>
+          return (
+            <>
               <IonToolbar>
                 <IonButtons slot="start">
                   <IonButton onClick={() => onBack()}>
@@ -181,11 +181,11 @@ const OrderRefundPage: React.FC<OrderReturnPageProps> = props => {
                 </div>
                 <div style={{ height: "100px" }} />
               </Grid>
-            </IonContent>
-          </>
-        );
-      }}
-    </OrderRefundForm>
+            </>
+          );
+        }}
+      </OrderRefundForm>
+    </IonContent>
   );
 };
 

@@ -13,7 +13,7 @@ import {
   TabActionDialog
 } from "../types";
 
-const orderSectionUrl = "/orders";
+const orderSectionUrl = "/c/orders";
 
 type CreateOrderDialog = "create-order";
 

@@ -1,10 +1,12 @@
 import { asSortParams } from "@saleor/utils/sort";
 import { getArrayQueryParam } from "@saleor/utils/urls";
-import { Loader } from "frontend/ui/loader";
 import { parse as parseQs } from "qs";
-import React, { memo, Suspense, lazy, useMemo } from "react";
+import React, { memo, useMemo, useRef } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import ProductListComponent from "./views/ProductList";
+import ProductCreateComponent from "./views/ProductCreate";
+import ProductUpdateComponent from "./views/ProductUpdate";
+import { useIonRouter } from "@ionic/react";
 
 import {
   ProductCreateUrlQueryParams,
@@ -12,33 +14,34 @@ import {
   ProductListUrlSortField,
   ProductUrlQueryParams
 } from "./urls";
-const ProductUpdateComponent = lazy(() => import("./views/ProductUpdate"));
-const ProductCreateComponent = lazy(() => import("./views/ProductCreate"));
 
 export const ProductList: React.FC = () => {
+  const { routeInfo } = useIonRouter();
+
   const { search, pathname } = useLocation();
-  const qs = parseQs(search.substr(1));
+  const oldQs = useRef();
+
   const params: ProductListUrlQueryParams = useMemo(() => {
-    if (!pathname.includes("products")) {
-      return;
+    if (!pathname.includes("/products")) {
+      return oldQs.current;
+    }
+    const qs = parseQs(search.substr(1));
+
+    if (search.length > 0) {
+      oldQs.current = asSortParams(
+        {
+          ...qs,
+          ids: getArrayQueryParam(qs.ids),
+          productTypes: getArrayQueryParam(qs.productTypes)
+        },
+        ProductListUrlSortField
+      );
     }
 
-    return asSortParams(
-      {
-        ...qs,
-        categories: getArrayQueryParam(qs.categories),
-        collections: getArrayQueryParam(qs.collections),
-        ids: getArrayQueryParam(qs.ids),
-        productTypes: getArrayQueryParam(qs.productTypes)
-      },
-      ProductListUrlSortField
-    );
-  }, [pathname, search]);
-  return (
-    <Suspense fallback={<Loader />}>
-      <ProductListComponent params={params || {}} />
-    </Suspense>
-  );
+    return oldQs.current;
+  }, [search, pathname, routeInfo]);
+
+  return <ProductListComponent params={params || {}} />;
 };
 
 export const ProductUpdate: React.FC = memo(() => {
@@ -48,14 +51,12 @@ export const ProductUpdate: React.FC = memo(() => {
 
   const match = useParams();
   return (
-    <Suspense fallback={<Loader />}>
-      <ProductUpdateComponent
-        id={decodeURIComponent(match.id)}
-        params={{
-          ...params
-        }}
-      />
-    </Suspense>
+    <ProductUpdateComponent
+      id={decodeURIComponent(match.id)}
+      params={{
+        ...params
+      }}
+    />
   );
 });
 
@@ -64,9 +65,5 @@ export const ProductCreate: React.FC = () => {
   const qs = parseQs(search.substr(1));
   const params: ProductCreateUrlQueryParams = qs;
 
-  return (
-    <Suspense fallback={<Loader />}>
-      <ProductCreateComponent params={params} />
-    </Suspense>
-  );
+  return <ProductCreateComponent params={params} />;
 };

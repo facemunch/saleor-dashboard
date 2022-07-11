@@ -1,5 +1,4 @@
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
-import { useShopLimitsQuery } from "@saleor/components/Shop/query";
 import useListSettings from "@saleor/hooks/useListSettings";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
@@ -64,11 +63,6 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
   });
 
   const { channel, availableChannels } = useAppChannel(false);
-  const limitOpts = useShopLimitsQuery({
-    variables: {
-      orders: true
-    }
-  });
 
   const channelOpts = availableChannels
     ? mapNodeToChoice(availableChannels)
@@ -133,7 +127,6 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
         disabled={loading}
         loading={loading}
         filterOpts={getFilterOpts(params, channelOpts)}
-        limits={limitOpts.data?.shop.limits}
         orders={mapEdgesToItems(data?.orders)}
         pageInfo={pageInfo}
         sort={getSortParams(params)}

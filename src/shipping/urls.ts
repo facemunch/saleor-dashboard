@@ -5,7 +5,7 @@ import urlJoin from "url-join";
 import { BulkAction, Dialog, Pagination, SingleAction } from "../types";
 import { ShippingMethodTypeEnum } from "../types/globalTypes";
 
-export const shippingSection = "/shipping/";
+export const shippingSection = "/c/shipping/";
 
 export const shippingZonesListPath = shippingSection;
 export type ShippingZonesListUrlDialog = "remove" | "remove-many";

@@ -151,7 +151,7 @@ const ChannelsWithVariantsAvailabilityDialogContent: React.FC<ChannelsWithVarian
           selectedVariantsIds.includes(variantId);
 
         const getVariantThumbnailSrc = (variantId: string) =>
-          allVariants.find(getById(variantId)).media[0]?.url ||
+          allVariants.find(getById(variantId)).media.?[0]?.url ||
           placeholderImage;
 
         return (

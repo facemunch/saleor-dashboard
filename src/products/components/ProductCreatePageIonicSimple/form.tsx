@@ -5,9 +5,7 @@ import {
   createAttributeFileChangeHandler,
   createAttributeMultiChangeHandler,
   createAttributeReferenceChangeHandler,
-  createAttributeValueReorderHandler,
-  createFetchMoreReferencesHandler,
-  createFetchReferencesHandler
+  createAttributeValueReorderHandler
 } from "@saleor/attributes/utils/handlers";
 import { ChannelData, ChannelPriceArgs } from "@saleor/channels/utils";
 import {
@@ -15,7 +13,6 @@ import {
   AttributeInputData
 } from "@saleor/components/Attributes";
 import { MetadataFormData } from "@saleor/components/Metadata";
-import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
 import { RichTextEditorChange } from "@saleor/components/RichTextEditor";
 import { SingleAutocompleteChoiceType } from "@saleor/components/SingleAutocompleteSelectField";
 import useForm, { FormChange, FormErrors } from "@saleor/hooks/useForm";
@@ -41,7 +38,6 @@ import {
 import { SearchProductTypes_search_edges_node } from "@saleor/searches/types/SearchProductTypes";
 import { SearchWarehouses_search_edges_node } from "@saleor/searches/types/SearchWarehouses";
 import { FetchMoreProps, ReorderEvent } from "@saleor/types";
-import createMultiAutocompleteSelectHandler from "@saleor/utils/handlers/multiAutocompleteSelectChangeHandler";
 import createSingleAutocompleteSelectHandler from "@saleor/utils/handlers/singleAutocompleteSelectChangeHandler";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
 import useRichText from "@saleor/utils/richText/useRichText";
@@ -85,7 +81,6 @@ export interface ProductCreateHandlers
   extends Record<
       | "changeMetadata"
       | "selectCategory"
-      | "selectCollection"
       | "selectProductType"
       | "selectTaxRate",
       FormChange
@@ -122,21 +117,15 @@ export interface UseProductCreateFormResult {
 }
 
 export interface UseProductCreateFormOpts
-  extends Record<
-    "categories" | "collections" | "taxTypes",
-    SingleAutocompleteChoiceType[]
-  > {
+  extends Record<"categories", SingleAutocompleteChoiceType[]> {
   setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
-  setSelectedCollections: React.Dispatch<
-    React.SetStateAction<MultiAutocompleteChoiceType[]>
-  >;
+
   setChannels: (channels: ChannelData[]) => void;
-  selectedCollections: MultiAutocompleteChoiceType[];
+
   productTypes: SearchProductTypes_search_edges_node[];
   warehouses: SearchWarehouses_search_edges_node[];
   currentChannels: ChannelData[];
 
-  assignReferencesAttributeId?: string;
   selectedProductType?: ProductType_productType;
   onSelectProductType: (productTypeId: string) => void;
 }
@@ -159,7 +148,7 @@ function useProductCreateForm(
     changeTaxCode: false,
     channelListings: opts.currentChannels,
     chargeTaxes: false,
-    // collections: [],
+
     description: null,
     isAvailable: false,
     metadata: [],
@@ -208,12 +197,7 @@ function useProductCreateForm(
     form.change(event, cb);
     triggerChange();
   };
-  const handleCollectionSelect = createMultiAutocompleteSelectHandler(
-    form.toggleValue,
-    opts.setSelectedCollections,
-    opts.selectedCollections,
-    opts.collections
-  );
+
   const handleCategorySelect = createSingleAutocompleteSelectHandler(
     handleChange,
     opts.setSelectedCategory,
@@ -232,18 +216,7 @@ function useProductCreateForm(
     attributes.change,
     triggerChange
   );
-  const handleFetchReferences = createFetchReferencesHandler(
-    attributes.data,
-    opts.assignReferencesAttributeId,
-    opts.fetchReferencePages,
-    opts.fetchReferenceProducts
-  );
-  const handleFetchMoreReferences = createFetchMoreReferencesHandler(
-    attributes.data,
-    opts.assignReferencesAttributeId,
-    opts.fetchMoreReferencePages,
-    opts.fetchMoreReferenceProducts
-  );
+
   const handleAttributeFileChange = createAttributeFileChangeHandler(
     attributes.change,
     attributesWithNewFileValue.data,
@@ -279,11 +252,7 @@ function useProductCreateForm(
     triggerChange();
     stocks.remove(id);
   };
-  const handleTaxTypeSelect = createSingleAutocompleteSelectHandler(
-    handleChange,
-    opts.setSelectedTaxType,
-    opts.taxTypes
-  );
+
   const changeMetadata = makeMetadataChangeHandler(handleChange);
   const handleChannelsChange = createChannelsChangeHandler(
     opts.currentChannels,
@@ -307,8 +276,6 @@ function useProductCreateForm(
     attributes: getAttributesDisplayData(
       attributes.data,
       attributesWithNewFileValue.data,
-      opts.referencePages,
-      opts.referenceProducts
     ),
     attributesWithNewFileValue: attributesWithNewFileValue.data,
     description: description.current,
@@ -343,17 +310,15 @@ function useProductCreateForm(
       changeStock: handleStockChange,
       changePreorderEndDate: handlePreorderEndDateChange,
       deleteStock: handleStockDelete,
-      fetchMoreReferences: handleFetchMoreReferences,
-      fetchReferences: handleFetchReferences,
+
       reorderAttributeValue: handleAttributeValueReorder,
       selectAttribute: handleAttributeChange,
       selectAttributeFile: handleAttributeFileChange,
       selectAttributeMultiple: handleAttributeMultiChange,
       selectAttributeReference: handleAttributeReferenceChange,
       selectCategory: handleCategorySelect,
-      selectCollection: handleCollectionSelect,
-      selectProductType: handleProductTypeSelect,
-      selectTaxRate: handleTaxTypeSelect
+
+      selectProductType: handleProductTypeSelect
     },
     hasChanged: changed,
     submit

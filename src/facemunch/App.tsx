@@ -8,15 +8,6 @@ import { createUploadLink } from "apollo-upload-client";
 import React, { memo, useMemo } from "react";
 import { ApolloProvider } from "react-apollo";
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/free-mode";
-import "swiper/css/history";
-
-import "@ionic/react/css/ionic-swiper.css";
-
 import introspectionQueryResultData from "../../fragmentTypes.json";
 
 import { ExternalAppProvider } from "../apps/components/ExternalAppContext";
@@ -37,11 +28,11 @@ import Routes from "./Routes";
 import { IonReactRouter } from "@ionic/react-router";
 
 interface IProps {
-  onRouteUpdate: (route: string) => void;
+  onRouteUpdate?: (route: string) => void;
   ecomAccessToken?: string | null;
   ecomAPI?: string | null;
 }
-const App: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken, ecomAPI }) => {
+const App: React.FC<IProps> = ({ ecomAccessToken, ecomAPI }) => {
   const apolloClient = useMemo(() => {
     const linkOptions = {
       credentials: "include",
@@ -91,35 +82,30 @@ const App: React.FC<IProps> = ({ onRouteUpdate, ecomAccessToken, ecomAPI }) => {
   }, [ecomAPI, ecomAccessToken]);
   return (
     <ApolloProvider client={apolloClient}>
-      <IonReactRouter basename={"/c/"}>
-        <ThemeProvider>
-          <DateProvider>
-            <LocaleProvider>
-              <MessageManagerProvider>
-                <ServiceWorker />
-                <BackgroundTasksProvider>
-                  <AppStateProvider>
-                    <AuthProvider>
-                      <ShopProvider>
-                        <AppChannelProvider>
-                          <ExternalAppProvider>
-                            <Routes
-                              ecomAccessToken={ecomAccessToken}
-                              onRouteUpdate={onRouteUpdate}
-                            />
-                          </ExternalAppProvider>
-                        </AppChannelProvider>
-                      </ShopProvider>
-                    </AuthProvider>
-                  </AppStateProvider>
-                </BackgroundTasksProvider>
-              </MessageManagerProvider>
-            </LocaleProvider>
-          </DateProvider>
-        </ThemeProvider>
-      </IonReactRouter>
+      <ThemeProvider>
+        <DateProvider>
+          <LocaleProvider>
+            <MessageManagerProvider>
+              <ServiceWorker />
+              <BackgroundTasksProvider>
+                <AppStateProvider>
+                  <AuthProvider>
+                    <ShopProvider>
+                      <AppChannelProvider>
+                        <ExternalAppProvider>
+                          <Routes ecomAccessToken={ecomAccessToken} />
+                        </ExternalAppProvider>
+                      </AppChannelProvider>
+                    </ShopProvider>
+                  </AuthProvider>
+                </AppStateProvider>
+              </BackgroundTasksProvider>
+            </MessageManagerProvider>
+          </LocaleProvider>
+        </DateProvider>
+      </ThemeProvider>
     </ApolloProvider>
   );
 };
 
-export default memo(App);
+export default App;

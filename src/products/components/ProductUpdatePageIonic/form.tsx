@@ -5,9 +5,7 @@ import {
   createAttributeFileChangeHandler,
   createAttributeMultiChangeHandler,
   createAttributeReferenceChangeHandler,
-  createAttributeValueReorderHandler,
-  createFetchMoreReferencesHandler,
-  createFetchReferencesHandler
+  createAttributeValueReorderHandler
 } from "@saleor/attributes/utils/handlers";
 import {
   ChannelData,
@@ -16,7 +14,6 @@ import {
 } from "@saleor/channels/utils";
 import { AttributeInput } from "@saleor/components/Attributes";
 import { MetadataFormData } from "@saleor/components/Metadata";
-import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
 import { RichTextEditorChange } from "@saleor/components/RichTextEditor";
 import { SingleAutocompleteChoiceType } from "@saleor/components/SingleAutocompleteSelectField";
 import useForm, {
@@ -47,13 +44,10 @@ import {
   validatePrice
 } from "@saleor/products/utils/validation";
 import { ChannelsWithVariantsData } from "@saleor/products/views/ProductUpdate/types";
-import { SearchPages_search_edges_node } from "@saleor/searches/types/SearchPages";
-import { SearchProducts_search_edges_node } from "@saleor/searches/types/SearchProducts";
 import { SearchWarehouses_search_edges_node } from "@saleor/searches/types/SearchWarehouses";
 import { FetchMoreProps, ReorderEvent } from "@saleor/types";
 import { arrayDiff } from "@saleor/utils/arrays";
 import handleFormSubmit from "@saleor/utils/handlers/handleFormSubmit";
-import createMultiAutocompleteSelectHandler from "@saleor/utils/handlers/multiAutocompleteSelectChangeHandler";
 import createSingleAutocompleteSelectHandler from "@saleor/utils/handlers/singleAutocompleteSelectChangeHandler";
 import getMetadata from "@saleor/utils/metadata/getMetadata";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
@@ -70,7 +64,7 @@ export interface ProductUpdateFormData extends MetadataFormData {
   channelsWithVariants: ChannelsWithVariantsData;
   channelListings: ChannelData[];
   chargeTaxes: boolean;
-  collections: string[];
+
   isAvailable: boolean;
   name: string;
   rating: number;
@@ -107,7 +101,7 @@ export interface ProductUpdateData extends ProductUpdateFormData {
 export interface ProductUpdateSubmitData extends ProductUpdateFormData {
   attributes: AttributeInput[];
   attributesWithNewFileValue: FormsetData<null, File>;
-  collections: string[];
+
   description: OutputData;
   addStocks: ProductStockInput[];
   updateStocks: ProductStockInput[];
@@ -115,13 +109,7 @@ export interface ProductUpdateSubmitData extends ProductUpdateFormData {
 }
 
 export interface ProductUpdateHandlers
-  extends Record<
-      | "changeMetadata"
-      | "selectCategory"
-      | "selectCollection"
-      | "selectTaxRate",
-      FormChange
-    >,
+  extends Record<"changeMetadata" | "selectTaxRate", FormChange>,
     Record<
       "changeStock" | "selectAttribute" | "selectAttributeMultiple",
       FormsetChange<string>
@@ -158,28 +146,16 @@ export interface UseProductUpdateFormResult {
 }
 
 export interface UseProductUpdateFormOpts
-  extends Record<
-    "categories" | "collections" | "taxTypes",
-    SingleAutocompleteChoiceType[]
-  > {
-  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
-  setSelectedCollections: React.Dispatch<
-    React.SetStateAction<MultiAutocompleteChoiceType[]>
-  >;
+  extends Record<"taxTypes", SingleAutocompleteChoiceType[]> {
   setSelectedTaxType: React.Dispatch<React.SetStateAction<string>>;
-  selectedCollections: MultiAutocompleteChoiceType[];
+
   warehouses: SearchWarehouses_search_edges_node[];
   channelsData: ChannelData[];
   hasVariants: boolean;
   currentChannels: ChannelData[];
   setChannels: (data: ChannelData[]) => void;
   setChannelsData: (data: ChannelData[]) => void;
-  referencePages: SearchPages_search_edges_node[];
-  referenceProducts: SearchProducts_search_edges_node[];
-  fetchReferencePages?: (data: string) => void;
-  fetchMoreReferencePages?: FetchMoreProps;
-  fetchReferenceProducts?: (data: string) => void;
-  fetchMoreReferenceProducts?: FetchMoreProps;
+
   assignReferencesAttributeId?: string;
   channelsWithVariants: ChannelsWithVariantsData;
   isSimpleProduct: boolean;
@@ -251,17 +227,7 @@ function useProductUpdateForm(
     form.change(event, cb);
     triggerChange();
   };
-  const handleCollectionSelect = createMultiAutocompleteSelectHandler(
-    event => form.toggleValue(event, triggerChange),
-    opts.setSelectedCollections,
-    opts.selectedCollections,
-    opts.collections
-  );
-  const handleCategorySelect = createSingleAutocompleteSelectHandler(
-    handleChange,
-    opts.setSelectedCategory,
-    opts.categories
-  );
+
   const handleAttributeChange = createAttributeChangeHandler(
     attributes.change,
     triggerChange
@@ -275,18 +241,7 @@ function useProductUpdateForm(
     attributes.change,
     triggerChange
   );
-  const handleFetchReferences = createFetchReferencesHandler(
-    attributes.data,
-    opts.assignReferencesAttributeId,
-    opts.fetchReferencePages,
-    opts.fetchReferenceProducts
-  );
-  const handleFetchMoreReferences = createFetchMoreReferencesHandler(
-    attributes.data,
-    opts.assignReferencesAttributeId,
-    opts.fetchMoreReferencePages,
-    opts.fetchMoreReferenceProducts
-  );
+
   const handleAttributeFileChange = createAttributeFileChangeHandler(
     attributes.change,
     attributesWithNewFileValue.data,
@@ -355,15 +310,12 @@ function useProductUpdateForm(
     channelsData: opts.channelsData,
     attributes: getAttributesDisplayData(
       attributes.data,
-      attributesWithNewFileValue.data,
-      opts.referencePages,
-      opts.referenceProducts
+      attributesWithNewFileValue.data
     ),
     description: description.current,
     stocks: stocks.data
   };
 
-  // Need to make it function to always have description.current up to date
   const getSubmitData = (): ProductUpdateSubmitData => ({
     ...data,
     ...getStocksData(product, stocks.data),
@@ -411,15 +363,13 @@ function useProductUpdateForm(
       changeStock: handleStockChange,
       changePreorderEndDate: handlePreorderEndDateChange,
       deleteStock: handleStockDelete,
-      fetchMoreReferences: handleFetchMoreReferences,
-      fetchReferences: handleFetchReferences,
+
       reorderAttributeValue: handleAttributeValueReorder,
       selectAttribute: handleAttributeChange,
       selectAttributeFile: handleAttributeFileChange,
       selectAttributeMultiple: handleAttributeMultiChange,
       selectAttributeReference: handleAttributeReferenceChange,
-      selectCategory: handleCategorySelect,
-      selectCollection: handleCollectionSelect,
+
       selectTaxRate: handleTaxTypeSelect
     },
     hasChanged: changed,

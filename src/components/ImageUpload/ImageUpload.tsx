@@ -97,7 +97,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
                 <ImageIcon className={classes.photosIcon} />
                 <Typography className={classes.uploadText}>
                   <FormattedMessage
-                    defaultMessage="Drop here to upload"
+                    defaultMessage="Tap to upload image"
                     description="image upload"
                   />
                 </Typography>

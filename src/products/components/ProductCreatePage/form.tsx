@@ -125,24 +125,14 @@ export interface UseProductCreateFormResult {
 }
 
 export interface UseProductCreateFormOpts
-  extends Record<
-    "categories" | "collections" | "taxTypes",
-    SingleAutocompleteChoiceType[]
-  > {
+  extends Record<"categories" | "taxTypes", SingleAutocompleteChoiceType[]> {
   setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
-  setSelectedCollections: React.Dispatch<
-    React.SetStateAction<MultiAutocompleteChoiceType[]>
-  >;
   setSelectedTaxType: React.Dispatch<React.SetStateAction<string>>;
   setChannels: (channels: ChannelData[]) => void;
-  selectedCollections: MultiAutocompleteChoiceType[];
   productTypes: SearchProductTypes_search_edges_node[];
   warehouses: SearchWarehouses_search_edges_node[];
   currentChannels: ChannelData[];
-  referencePages: SearchPages_search_edges_node[];
   referenceProducts: SearchProducts_search_edges_node[];
-  fetchReferencePages?: (data: string) => void;
-  fetchMoreReferencePages?: FetchMoreProps;
   fetchReferenceProducts?: (data: string) => void;
   fetchMoreReferenceProducts?: FetchMoreProps;
   assignReferencesAttributeId?: string;

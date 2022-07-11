@@ -1,6 +1,5 @@
 import {
   Button,
-  Card,
   CardContent,
   Hidden,
   TableCell,
@@ -10,11 +9,10 @@ import {
 } from "@mui/material";
 import CardTitle from "@saleor/components/CardTitle";
 import Checkbox from "@saleor/components/Checkbox";
-import LimitReachedAlert from "@saleor/components/LimitReachedAlert";
 import LinkChoice from "@saleor/components/LinkChoice";
 import Money from "@saleor/components/Money";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
-import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
+
 import { SingleAutocompleteChoiceType } from "@saleor/components/SingleAutocompleteSelectField";
 import Skeleton from "@saleor/components/Skeleton";
 import {
@@ -23,7 +21,6 @@ import {
 } from "@saleor/components/SortableTable";
 import TableHead from "@saleor/components/TableHead";
 import { makeStyles } from "@saleor/macaw-ui";
-import { isLimitReached } from "@saleor/utils/limits";
 import React from "react";
 import { FormattedMessage, IntlShape, useIntl } from "react-intl";
 
@@ -211,7 +208,7 @@ function getAvailabilityLabel(
 
 interface ProductVariantsProps extends ListActions, ChannelProps {
   disabled: boolean;
-  limits: RefreshLimits_shop_limits;
+
   product: ProductDetails_product;
   variants: ProductDetails_product_variants[];
   onVariantReorder: ReorderAction;
@@ -226,7 +223,7 @@ const numberOfColumns = 7;
 export const ProductVariants: React.FC<ProductVariantsProps> = props => {
   const {
     disabled,
-    limits,
+
     variants,
     product,
     onRowClick,
@@ -246,7 +243,6 @@ export const ProductVariants: React.FC<ProductVariantsProps> = props => {
   const intl = useIntl();
   const [warehouse, setWarehouse] = React.useState<string>(null);
   const hasVariants = maybe(() => variants.length > 0, true);
-  const limitReached = isLimitReached(limits, "productVariants");
 
   return (
     <IonCard>
@@ -259,7 +255,6 @@ export const ProductVariants: React.FC<ProductVariantsProps> = props => {
           toolbar={
             hasVariants ? (
               <Button
-                disabled={limitReached}
                 onClick={onVariantAdd}
                 variant="text"
                 color="primary"
@@ -272,7 +267,6 @@ export const ProductVariants: React.FC<ProductVariantsProps> = props => {
               </Button>
             ) : (
               <Button
-                disabled={limitReached}
                 onClick={onVariantsAdd}
                 variant="text"
                 color="primary"
@@ -286,18 +280,6 @@ export const ProductVariants: React.FC<ProductVariantsProps> = props => {
             )
           }
         />
-
-        {limitReached && (
-          <LimitReachedAlert
-            className={classes.alert}
-            title={intl.formatMessage({
-              defaultMessage: "SKU limit reached",
-              description: "alert"
-            })}
-          >
-            <FormattedMessage defaultMessage="You have reached your SKU limit, you will be no longer able to add SKUs to your store. If you would like to up your limit, contact your administration staff about raising your limits." />
-          </LimitReachedAlert>
-        )}
 
         {variants.length > 0 ? (
           <CardContent className={classes.warehouseSelectContainer}>
@@ -325,7 +307,6 @@ export const ProductVariants: React.FC<ProductVariantsProps> = props => {
         {hasVariants && (
           <Box
             sx={{
-              // width: "92vw",
               overflow: "hidden",
               height: "100%",
               position: "relative"

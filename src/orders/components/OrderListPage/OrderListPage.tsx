@@ -1,5 +1,4 @@
 import FilterBar from "@saleor/components/FilterBarIonic";
-import { RefreshLimits_shop_limits } from "@saleor/components/Shop/types/RefreshLimits";
 import { OrderListUrlSortField } from "@saleor/orders/urls";
 import { FilterPageProps, PageListProps, SortPage } from "@saleor/types";
 import React, { memo } from "react";
@@ -18,19 +17,18 @@ export interface OrderListPageProps
   extends PageListProps,
     FilterPageProps<OrderFilterKeys, OrderListFilterOpts>,
     SortPage<OrderListUrlSortField> {
-  limits: RefreshLimits_shop_limits;
   orders: OrderList_orders_edges_node[];
   loading?: boolean;
   onSettingsOpen: () => void;
 }
 
 const options = [
-  { label: "Order no. (highest first)", path: "?asc=true&sort=number" },
-  { label: "Order no. (lowest first)", path: "?asc=false&sort=number" },
+  { label: "Order no. (highest first)", path: "?asc=false&sort=number" },
+  { label: "Order no. (lowest first)", path: "?asc=true&sort=number" },
   { label: "Customer name A-Z", path: "?asc=true&sort=customer" },
   { label: "Customer name Z-A", path: "?asc=false&sort=customer" },
-  { label: "Date (newest first)", path: "?asc=true&sort=date" },
-  { label: "Date (oldest first)", path: "?asc=false&sort=date" },
+  { label: "Date (newest first)", path: "?asc=false&sort=date" },
+  { label: "Date (oldest first)", path: "?asc=true&sort=date" },
   { label: "Payment (paid first)", path: "?asc=true&sort=payment" },
   { label: "Payment (unpid first)", path: "?asc=false&sort=payment" },
   { label: "Fulfilment (fulfilled first)", path: "?asc=true&sort=status" },
@@ -41,7 +39,6 @@ const OrderListPage: React.FC<OrderListPageProps> = ({
   currentTab,
   initialSearch,
   filterOpts,
-  limits,
   tabs,
   onAdd,
   onAll,
