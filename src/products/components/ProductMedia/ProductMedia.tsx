@@ -131,13 +131,7 @@ const SortableMedia = ({ media, onEdit, onDelete }) => (
   />
 );
 
-interface MediaListContainerProps {
-  className: string;
-  media: ProductMediaFragment[];
-  preview: ProductMediaFragment[];
-  onDelete: (id: string) => () => void;
-  onEdit: (id: string) => () => void;
-}
+
 
 const MediaListContainer = ({ media, preview, onDelete, onEdit, ...props }) => (
   <div {...props}>
@@ -267,18 +261,12 @@ const ProductMedia: React.FC<ProductMediaProps> = props => {
               {({ isDragActive }) => (
                 <CardContent>
                   <MediaListContainer
-                    // distance={20}
-                    // helperClass="dragged"
-                    // axis="xy"
                     media={media}
-                    // preview={imagesToUpload}
-                    // onSortEnd={onImageReorder}
                     className={classNames({
                       [classes.root]: true,
                       [classes.rootDragActive]: isDragActive
                     })}
                     onDelete={onImageDelete}
-                    // onEdit={onImageEdit}
                   />
                 </CardContent>
               )}

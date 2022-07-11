@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { closeOutline, checkmarkOutline } from "ionicons/icons";
 import { FilterProps } from "../../types";
-import { FilterErrorMessages, IFilter } from "../Filter/types";
+import { FilterErrorMessages } from "../Filter/types";
 import { SearchBarProps } from "../SearchBar";
 import SearchInput from "../SearchBar/SearchInput";
 import {
@@ -162,7 +162,7 @@ const FilterBar: React.FC<FilterBarProps> = props => {
                 key={opt.path}
                 onClick={() => {
                   navigate(
-                    window.location.pathname.replace("/c", "") + opt.path
+                    window.location.pathname + opt.path
                   );
                   setShowModal(false);
                 }}

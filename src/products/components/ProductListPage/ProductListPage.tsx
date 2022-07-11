@@ -96,4 +96,4 @@ export const ProductListPage: React.FC<ProductListPageProps> = memo(props => {
   );
 });
 ProductListPage.displayName = "ProductListPage";
-export default memo(ProductListPage);
+export default ProductListPage;

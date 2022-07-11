@@ -2,19 +2,12 @@ import React, { memo, useEffect, useMemo, useRef } from "react";
 import useUser from "@saleor/hooks/useUser";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, History } from "swiper";
-import { Route, useLocation, useHistory, useParams } from "react-router-dom";
-import {
-  IonContent,
-  IonicSlides,
-  IonModal,
-  IonPage,
-  useIonRouter
-} from "@ionic/react";
+import { Route, useLocation, useHistory } from "react-router-dom";
+import { IonContent, IonicSlides, IonModal } from "@ionic/react";
 import { productPath } from "../products/urls";
 import { userDataQuery } from "./queries";
 import { CustomerDetailsView } from "../customers";
 import { customerPath } from "../customers/urls";
-import { debounce } from "debounce";
 
 import { ProductUpdate, ProductCreate } from "../products";
 
@@ -54,12 +47,10 @@ const menu = {
 const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
   const { loginByToken } = useUser();
   const { data, loading } = userDataQuery();
-  const router = useIonRouter();
   const { setVisible } = useTabs();
 
-  const { pathname, search } = useLocation();
+  const { pathname } = useLocation();
   const { goBack, push } = useHistory();
-  const match = useParams();
 
   const refto = useRef();
   const homeModalRef = useRef();
@@ -95,7 +86,6 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
                 height: "100vh",
                 width: "100vw"
               }}
-              // onSlideChange={onSlideChange}
               onInit={e => {
                 e.activeIndex = activeIndex;
                 e.updateSlides();

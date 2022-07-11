@@ -60,7 +60,7 @@ export const OrderDetails = ({ orderModalRef }) => {
       <OrderDetailsComponent id={decodeURIComponent(id)} params={params} />
       <Route
         exact
-        path={"/orders/" + orderFulfillPath(":id", "")}
+        path={"/c/orders/" + orderFulfillPath(":id", "")}
         render={() => <OrderFulfill />}
       />
       <IonModal
@@ -75,7 +75,7 @@ export const OrderDetails = ({ orderModalRef }) => {
         <IonContent>
           <Route
             exact
-            path={"/orders/" + orderReturnPath(":id", "")}
+            path={"/c/orders/" + orderReturnPath(":id", "")}
             render={() => <OrderReturn />}
           />
         </IonContent>

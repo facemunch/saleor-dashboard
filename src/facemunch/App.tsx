@@ -82,7 +82,6 @@ const App: React.FC<IProps> = ({ ecomAccessToken, ecomAPI }) => {
   }, [ecomAPI, ecomAccessToken]);
   return (
     <ApolloProvider client={apolloClient}>
-      {/* <IonReactRouter basename={"/c/"}> */}
       <ThemeProvider>
         <DateProvider>
           <LocaleProvider>
@@ -105,7 +104,6 @@ const App: React.FC<IProps> = ({ ecomAccessToken, ecomAPI }) => {
           </LocaleProvider>
         </DateProvider>
       </ThemeProvider>
-      {/* </IonReactRouter> */}
     </ApolloProvider>
   );
 };

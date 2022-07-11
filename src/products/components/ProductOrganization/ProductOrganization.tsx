@@ -1,11 +1,9 @@
-import { Card, CardContent, Typography } from "@mui/material";
+import { CardContent, Typography } from "@mui/material";
 import CardSpacer from "@saleor/components/CardSpacer";
 import CardTitle from "@saleor/components/CardTitle";
 import { FormSpacer } from "@saleor/components/FormSpacer";
 import Hr from "@saleor/components/Hr";
-import MultiAutocompleteSelectField, {
-  MultiAutocompleteChoiceType
-} from "@saleor/components/MultiAutocompleteSelectField";
+import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
 import SingleAutocompleteSelectField, {
   SingleAutocompleteChoiceType
 } from "@saleor/components/SingleAutocompleteSelectField";
@@ -57,8 +55,8 @@ interface ProductOrganizationProps {
   productType?: ProductType;
   productTypeInputDisplayValue?: string;
   productTypes?: SingleAutocompleteChoiceType[];
-  // fetchCategories: (query: string) => void;
-  // fetchCollections: (query: string) => void;
+  
+  
   fetchMoreCategories: FetchMoreProps;
   fetchMoreCollections: FetchMoreProps;
   fetchMoreProductTypes?: FetchMoreProps;
@@ -73,20 +71,16 @@ const ProductOrganization: React.FC<ProductOrganizationProps> = props => {
     canChangeType,
     categories,
     categoryInputDisplayValue,
-    collections,
-    collectionsInputDisplayValue,
     data,
     disabled,
     errors,
     fetchMoreCategories,
-    fetchMoreCollections,
     fetchMoreProductTypes,
     fetchProductTypes,
     productType,
     productTypeInputDisplayValue,
     productTypes,
     onCategoryChange,
-    onCollectionChange,
     onProductTypeChange
   } = props;
 
@@ -175,36 +169,13 @@ const ProductOrganization: React.FC<ProductOrganizationProps> = props => {
           onChange={e => {
             onCategoryChange(e);
           }}
-          // fetchChoices={fetchCategories}
+          
           data-test="category"
           {...fetchMoreCategories}
         />
         <FormSpacer />
         <Hr />
-        {/* <FormSpacer /> */}
-        {/* <MultiAutocompleteSelectField
-          displayValues={collectionsInputDisplayValue}
-          error={!!formErrors.collections}
-          label={intl.formatMessage({
-            defaultMessage: "Collections"
-          })}
-          choices={disabled ? [] : collections}
-          name="collections"
-          value={data.collections}
-          helperText={
-            getProductErrorMessage(formErrors.collections, intl) ||
-            intl.formatMessage({
-              defaultMessage:
-                "*Optional. Adding product to collection helps users find it.",
-              description: "field is optional"
-            })
-          }
-          onChange={onCollectionChange}
-          fetchChoices={fetchCollections}
-          data-test="collections"
-          testId="collection"
-          {...fetchMoreCollections}
-        /> */}
+      
       </CardContent>
     </IonCard>
   );

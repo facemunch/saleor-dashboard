@@ -66,7 +66,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
     );
   };
 
-  const paginationState = createPaginationState("100", params);
+  const paginationState = createPaginationState(100, params);
   const filter = getFilterVariables(params, !!selectedChannel);
   const sort = getSortQueryVariables(params, !!selectedChannel);
   const queryVariables = useMemo<ProductListVariables>(
@@ -76,7 +76,7 @@ export const ProductList: React.FC<ProductListProps> = ({ params }) => {
       sort,
       channel: selectedChannel?.slug
     }),
-    [params]
+    [sort, filter, selectedChannel, paginationState]
   );
   const { data, loading } = useProductListQuery({
     displayLoader: true,

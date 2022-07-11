@@ -494,4 +494,4 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
     </>
   );
 };
-export default memo(ProductUpdate);
+export default ProductUpdate;
