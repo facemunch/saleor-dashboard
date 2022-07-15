@@ -19,7 +19,7 @@ export const ProductList: React.FC = () => {
   const { routeInfo } = useIonRouter();
 
   const { search, pathname } = useLocation();
-  const oldQs = useRef();
+  const oldQs = useRef<{ productTypes: string; ids: string }>();
 
   const params: ProductListUrlQueryParams = useMemo(() => {
     if (!pathname.includes("/products")) {
@@ -31,8 +31,8 @@ export const ProductList: React.FC = () => {
       oldQs.current = asSortParams(
         {
           ...qs,
-          ids: getArrayQueryParam(qs.ids),
-          productTypes: getArrayQueryParam(qs.productTypes)
+          ids: String(getArrayQueryParam(qs.ids)),
+          productTypes: String(getArrayQueryParam(qs.productTypes))
         },
         ProductListUrlSortField
       );
@@ -49,7 +49,7 @@ export const ProductUpdate: React.FC = memo(() => {
   const qs = parseQs(search.substr(1));
   const params: ProductUrlQueryParams = qs;
 
-  const match = useParams();
+  const match = useParams<{ id: string }>();
   return (
     <ProductUpdateComponent
       id={decodeURIComponent(match.id)}

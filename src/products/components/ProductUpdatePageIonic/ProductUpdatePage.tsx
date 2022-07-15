@@ -94,7 +94,6 @@ export interface ProductUpdatePageProps extends ListActions, ChannelProps {
   onVariantsAdd: () => void;
   onVariantShow: (id: string) => () => void;
   onVariantReorder: ReorderAction;
-  onVariantEndPreorderDialogOpen: () => void;
   onImageDelete: (id: string) => () => void;
   onSubmit: (data: ProductUpdatePageSubmitData) => SubmitPromise;
   openChannelsModal: () => void;
@@ -158,7 +157,6 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   onSetDefaultVariant,
   onVariantShow,
   onVariantReorder,
-  onVariantEndPreorderDialogOpen,
   onWarehouseConfigure,
   isChecked,
   isMediaUrlModalVisible,
@@ -240,217 +238,216 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
             handlers,
             hasChanged,
             submit
-          }) => (
-            <>
-              <Backlink onClick={onBack}>
-                {intl.formatMessage(sectionNames.products)}
-              </Backlink>
-              <PageHeader title={header}></PageHeader>
-              <Grid>
-                <div>
-                  <ProductDetailsForm
-                    data={data}
-                    disabled={disabled}
-                    errors={errors}
-                    onDescriptionChange={handlers.changeDescription}
-                    onChange={change}
-                  />
-                  <CardSpacer />
-                  <ProductMedia
-                    media={media}
-                    placeholderImage={placeholderImage}
-                    onImageDelete={onImageDelete}
-                    onImageReorder={onImageReorder}
-                    onImageEdit={onImageEdit}
-                    onImageUpload={onImageUpload}
-                    openMediaUrlModal={() => setMediaUrlModalStatus(true)}
-                  />
-                  <CardSpacer />
-                  {data.attributes.length > 0 && (
-                    <Attributes
-                      attributes={data.attributes}
-                      attributeValues={attributeValues}
+          }) => {
+            return (
+              <>
+                <Backlink onClick={onBack}>
+                  {intl.formatMessage(sectionNames.products)}
+                </Backlink>
+                <PageHeader title={header}></PageHeader>
+                <Grid>
+                  <div>
+                    <ProductDetailsForm
+                      data={data}
+                      disabled={disabled}
                       errors={errors}
-                      loading={disabled}
-                      disabled={disabled}
-                      onChange={handlers.selectAttribute}
-                      onMultiChange={handlers.selectAttributeMultiple}
-                      onFileChange={handlers.selectAttributeFile}
-                      onReferencesRemove={handlers.selectAttributeReference}
-                      onReferencesAddClick={onAssignReferencesClick}
-                      onReferencesReorder={handlers.reorderAttributeValue}
-                      fetchAttributeValues={fetchAttributeValues}
-                      fetchMoreAttributeValues={fetchMoreAttributeValues}
-                      onAttributeSelectBlur={onAttributeSelectBlur}
+                      onDescriptionChange={handlers.changeDescription}
+                      onChange={change}
                     />
-                  )}
-                  <CardSpacer />
-                  {isSimpleProduct && (
-                    <>
-                      <ProductVariantPrice
-                        ProductVariantChannelListings={data.channelListings}
-                        errors={channelsErrors}
+                    <CardSpacer />
+                    <ProductMedia
+                      media={media}
+                      placeholderImage={placeholderImage}
+                      onImageDelete={onImageDelete}
+                      onImageReorder={onImageReorder}
+                      onImageEdit={onImageEdit}
+                      onImageUpload={onImageUpload}
+                      openMediaUrlModal={() => setMediaUrlModalStatus(true)}
+                    />
+                    <CardSpacer />
+                    {data.attributes.length > 0 && (
+                      <Attributes
+                        attributes={data.attributes}
+                        attributeValues={attributeValues}
+                        errors={errors}
                         loading={disabled}
-                        onChange={handlers.changeChannelPrice}
-                      />
-                      <CardSpacer />
-                    </>
-                  )}
-                  {hasVariants ? (
-                    <ProductVariants
-                      disabled={disabled}
-                      variants={variants}
-                      product={product}
-                      onRowClick={onVariantShow}
-                      onVariantAdd={onVariantAdd}
-                      onVariantsAdd={onVariantsAdd}
-                      onVariantReorder={onVariantReorder}
-                      onSetDefaultVariant={onSetDefaultVariant}
-                      toolbar={toolbar}
-                      isChecked={isChecked}
-                      selected={selected}
-                      selectedChannelId={selectedChannelId}
-                      toggle={toggle}
-                      toggleAll={toggleAll}
-                    />
-                  ) : (
-                    <>
-                      <ProductShipping
-                        data={data}
                         disabled={disabled}
-                        errors={errors}
-                        weightUnit={product?.weight?.unit || defaultWeightUnit}
-                        onChange={change}
+                        onChange={handlers.selectAttribute}
+                        onMultiChange={handlers.selectAttributeMultiple}
+                        onFileChange={handlers.selectAttributeFile}
+                        onReferencesRemove={handlers.selectAttributeReference}
+                        onReferencesAddClick={onAssignReferencesClick}
+                        onReferencesReorder={handlers.reorderAttributeValue}
+                        fetchAttributeValues={fetchAttributeValues}
+                        fetchMoreAttributeValues={fetchMoreAttributeValues}
+                        onAttributeSelectBlur={onAttributeSelectBlur}
                       />
-
-                      <CardSpacer />
-                      <ProductStocks
-                        onVariantChannelListingChange={
-                          handlers.changeChannelPreorder
-                        }
-                        productVariantChannelListings={data.channelListings}
-                        onEndPreorderTrigger={
-                          !!variants?.[0]?.preorder
-                            ? () => onVariantEndPreorderDialogOpen()
-                            : null
-                        }
-                        data={data}
+                    )}
+                    <CardSpacer />
+                    {isSimpleProduct && (
+                      <>
+                        <ProductVariantPrice
+                          ProductVariantChannelListings={data.channelListings}
+                          errors={channelsErrors}
+                          loading={disabled}
+                          onChange={handlers.changeChannelPrice}
+                        />
+                        <CardSpacer />
+                      </>
+                    )}
+                    {hasVariants ? (
+                      <ProductVariants
                         disabled={disabled}
-                        hasVariants={false}
-                        errors={errors}
-                        formErrors={formErrors}
-                        stocks={data.stocks}
-                        warehouses={warehouses}
-                        onChange={handlers.changeStock}
-                        onFormDataChange={change}
-                        onChangePreorderEndDate={handlers.changePreorderEndDate}
-                        onWarehouseStockAdd={handlers.addStock}
-                        onWarehouseStockDelete={handlers.deleteStock}
-                        onWarehouseConfigure={onWarehouseConfigure}
+                        variants={variants}
+                        product={product}
+                        onRowClick={onVariantShow}
+                        onVariantAdd={onVariantAdd}
+                        onVariantsAdd={onVariantsAdd}
+                        onVariantReorder={onVariantReorder}
+                        onSetDefaultVariant={onSetDefaultVariant}
+                        toolbar={toolbar}
+                        isChecked={isChecked}
+                        selected={selected}
+                        selectedChannelId={selectedChannelId}
+                        toggle={toggle}
+                        toggleAll={toggleAll}
                       />
-                    </>
-                  )}
-                  <CardSpacer />
+                    ) : (
+                      <>
+                        <ProductShipping
+                          data={data}
+                          disabled={disabled}
+                          errors={errors}
+                          weightUnit={
+                            product?.weight?.unit || defaultWeightUnit
+                          }
+                          onChange={change}
+                        />
 
-                  <CardSpacer />
-                  <Metadata data={data} onChange={handlers.changeMetadata} />
-                </div>
-                <div>
-                  {isSimpleProduct ? (
-                    <>
-                      <CardSpacer />
-                      <ChannelsAvailabilityCard
-                        managePermissions={[PermissionEnum.MANAGE_PRODUCTS]}
+                        <CardSpacer />
+                        <ProductStocks
+                          onVariantChannelListingChange={
+                            handlers.changeChannelPreorder
+                          }
+                          productVariantChannelListings={data.channelListings}
+                          data={data}
+                          disabled={disabled}
+                          hasVariants={false}
+                          errors={errors}
+                          formErrors={formErrors}
+                          stocks={data.stocks}
+                          warehouses={warehouses}
+                          onChange={handlers.changeStock}
+                          onFormDataChange={change}
+                          onChangePreorderEndDate={
+                            handlers.changePreorderEndDate
+                          }
+                          onWarehouseStockAdd={handlers.addStock}
+                          onWarehouseStockDelete={handlers.deleteStock}
+                          onWarehouseConfigure={onWarehouseConfigure}
+                        />
+                      </>
+                    )}
+                    <CardSpacer />
+
+                    <CardSpacer />
+                    <Metadata data={data} onChange={handlers.changeMetadata} />
+                  </div>
+                  <div>
+                    {isSimpleProduct ? (
+                      <>
+                        <CardSpacer />
+                        <ChannelsAvailabilityCard
+                          managePermissions={[PermissionEnum.MANAGE_PRODUCTS]}
+                          messages={{
+                            hiddenLabel: intl.formatMessage({
+                              defaultMessage: "Not published",
+                              description: "product label"
+                            }),
+
+                            visibleLabel: intl.formatMessage({
+                              defaultMessage: "Published",
+                              description: "product label"
+                            })
+                          }}
+                          errors={channelsErrors}
+                          selectedChannelsCount={data.channelListings.length}
+                          allChannelsCount={allChannelsCount}
+                          channels={data.channelListings}
+                          disabled={disabled}
+                          onChange={handlers.changeChannels}
+                          openModal={openChannelsModal}
+                        />
+                      </>
+                    ) : (
+                      <ChannelsWithVariantsAvailabilityCard
                         messages={{
                           hiddenLabel: intl.formatMessage({
                             defaultMessage: "Not published",
-                            description: "product label"
+                            description: "product label",
+                            id: "not published channel"
                           }),
 
                           visibleLabel: intl.formatMessage({
                             defaultMessage: "Published",
-                            description: "product label"
+                            description: "product label",
+                            id: "published channel"
                           })
                         }}
                         errors={channelsErrors}
-                        selectedChannelsCount={data.channelListings.length}
-                        allChannelsCount={allChannelsCount}
-                        channels={data.channelListings}
-                        disabled={disabled}
+                        channels={data.channelsData}
+                        channelsWithVariantsData={channelsWithVariantsData}
+                        variants={variants}
                         onChange={handlers.changeChannels}
                         openModal={openChannelsModal}
                       />
-                    </>
-                  ) : (
-                    <ChannelsWithVariantsAvailabilityCard
-                      messages={{
-                        hiddenLabel: intl.formatMessage({
-                          defaultMessage: "Not published",
-                          description: "product label",
-                          id: "not published channel"
-                        }),
-
-                        visibleLabel: intl.formatMessage({
-                          defaultMessage: "Published",
-                          description: "product label",
-                          id: "published channel"
-                        })
-                      }}
-                      errors={channelsErrors}
-                      channels={data.channelsData}
-                      channelsWithVariantsData={channelsWithVariantsData}
-                      variants={variants}
-                      onChange={handlers.changeChannels}
-                      openModal={openChannelsModal}
-                    />
-                  )}
-                  <CardSpacer />
-                  <div style={{ height: "100px" }} />
-                </div>
-              </Grid>
-              <Savebar
-                onCancel={onBack}
-                onDelete={onDelete}
-                onSubmit={submit}
-                state={saveButtonBarState}
-                disabled={
-                  disabled ||
-                  formDisabled ||
-                  (!hasChanged && !hasChannelChanged)
-                }
-              />
-              {canOpenAssignReferencesAttributeDialog && (
-                <AssignAttributeValueDialog
-                  attributeValues={getAttributeValuesFromReferences(
-                    assignReferencesAttributeId,
-                    data.attributes,
-
-                    referenceProducts
-                  )}
-                  hasMore={handlers.fetchMoreReferences?.hasMore}
-                  open={canOpenAssignReferencesAttributeDialog}
-                  onFetch={handlers.fetchReferences}
-                  onFetchMore={handlers.fetchMoreReferences?.onFetchMore}
-                  loading={handlers.fetchMoreReferences?.loading}
-                  onClose={onCloseDialog}
-                  onSubmit={attributeValues =>
-                    handleAssignReferenceAttribute(
-                      attributeValues,
-                      data,
-                      handlers
-                    )
+                    )}
+                    <CardSpacer />
+                    <div style={{ height: "100px" }} />
+                  </div>
+                </Grid>
+                <Savebar
+                  onCancel={onBack}
+                  onDelete={onDelete}
+                  onSubmit={submit}
+                  state={saveButtonBarState}
+                  disabled={
+                    disabled ||
+                    formDisabled ||
+                    (!hasChanged && !hasChannelChanged)
                   }
                 />
-              )}
+                {canOpenAssignReferencesAttributeDialog && (
+                  <AssignAttributeValueDialog
+                    attributeValues={getAttributeValuesFromReferences(
+                      assignReferencesAttributeId,
+                      data.attributes
+                    )}
+                    hasMore={handlers.fetchMoreReferences?.hasMore}
+                    open={canOpenAssignReferencesAttributeDialog}
+                    onFetch={handlers.fetchReferences}
+                    onFetchMore={handlers.fetchMoreReferences?.onFetchMore}
+                    loading={handlers.fetchMoreReferences?.loading}
+                    onClose={onCloseDialog}
+                    onSubmit={attributeValues =>
+                      handleAssignReferenceAttribute(
+                        attributeValues,
+                        data,
+                        handlers
+                      )
+                    }
+                  />
+                )}
 
-              <ProductExternalMediaDialog
-                product={product}
-                onClose={() => setMediaUrlModalStatus(false)}
-                open={mediaUrlModalStatus}
-                onSubmit={onMediaUrlUpload}
-              />
-            </>
-          )}
+                <ProductExternalMediaDialog
+                  product={product}
+                  onClose={() => setMediaUrlModalStatus(false)}
+                  open={mediaUrlModalStatus}
+                  onSubmit={onMediaUrlUpload}
+                />
+              </>
+            );
+          }}
         </ProductUpdateForm>
       </IonContent>
     </>

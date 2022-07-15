@@ -344,12 +344,9 @@ export const getProductReferenceAttributeDisplayData = (
 
 export const getReferenceAttributeDisplayData = (
   attribute: AttributeInput,
-  referencePages: SearchPages_search_edges_node[],
   referenceProducts: SearchProducts_search_edges_node[]
 ) => {
-  if (attribute.data.entityType === AttributeEntityTypeEnum.PAGE) {
-    return getPageReferenceAttributeDisplayData(attribute, referencePages);
-  } else if (attribute.data.entityType === AttributeEntityTypeEnum.PRODUCT) {
+  if (attribute.data.entityType === AttributeEntityTypeEnum.PRODUCT) {
     return getProductReferenceAttributeDisplayData(
       attribute,
       referenceProducts
@@ -360,14 +357,12 @@ export const getReferenceAttributeDisplayData = (
 export const getAttributesDisplayData = (
   attributes: AttributeInput[],
   attributesWithNewFileValue: FormsetData<null, File>,
-  referencePages: SearchPages_search_edges_node[],
   referenceProducts: SearchProducts_search_edges_node[]
 ) =>
   attributes.map(attribute => {
     if (attribute.data.inputType === AttributeInputTypeEnum.REFERENCE) {
       return getReferenceAttributeDisplayData(
         attribute,
-        referencePages,
         referenceProducts
       );
     }
@@ -391,16 +386,12 @@ export const getSelectedReferencesFromAttribute = <
 export const getAttributeValuesFromReferences = (
   attributeId: string,
   attributes?: AttributeInput[],
-  referencePages?: SearchPages_search_edges_node[],
   referenceProducts?: SearchProducts_search_edges_node[]
 ) => {
   const attribute = attributes?.find(attribute => attribute.id === attributeId);
 
-  if (attribute?.data?.entityType === AttributeEntityTypeEnum.PAGE) {
-    return mapPagesToChoices(
-      getSelectedReferencesFromAttribute(attribute, referencePages)
-    );
-  } else if (attribute?.data?.entityType === AttributeEntityTypeEnum.PRODUCT) {
+
+    if (attribute?.data?.entityType === AttributeEntityTypeEnum.PRODUCT) {
     return mapNodeToChoice(
       getSelectedReferencesFromAttribute(attribute, referenceProducts)
     );

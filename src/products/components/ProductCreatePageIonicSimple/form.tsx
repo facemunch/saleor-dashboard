@@ -41,11 +41,19 @@ import { FetchMoreProps, ReorderEvent } from "@saleor/types";
 import createSingleAutocompleteSelectHandler from "@saleor/utils/handlers/singleAutocompleteSelectChangeHandler";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
 import useRichText from "@saleor/utils/richText/useRichText";
-import React from "react";
+import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 
 import { createPreorderEndDateChangeHandler } from "../../utils/handlers";
 import { ProductStockFormsetData, ProductStockInput } from "../ProductStocks";
+import { RandomHash } from "random-hash";
+import { randomBytes } from "crypto";
+
+const generateHash = new RandomHash({
+  length: 8,
+  charset: "ABCDEFGHIJKLMNOPQRSTUVWXYZZZABCD",
+  rng: randomBytes
+});
 
 export interface ProductCreateFormData extends MetadataFormData {
   category: string;
@@ -143,33 +151,35 @@ function useProductCreateForm(
 ): UseProductCreateFormResult {
   const intl = useIntl();
   const defaultInitialFormData: ProductCreateFormData &
-    Record<"productType", string> = {
-    category: "",
-    changeTaxCode: false,
-    channelListings: opts.currentChannels,
-    chargeTaxes: false,
-
-    description: null,
-    isAvailable: false,
-    metadata: [],
-    name: "",
-    privateMetadata: [],
-    productType: null,
-    rating: 0,
-    seoDescription: "",
-    seoTitle: "",
-    sku: "",
-    slug: "",
-    stockQuantity: null,
-    taxCode: null,
-    trackInventory: false,
-    weight: "",
-    globalSoldUnits: 0,
-    globalThreshold: "",
-    isPreorder: false,
-    hasPreorderEndDate: false,
-    preorderEndDateTime: ""
-  };
+    Record<"productType", string> = useMemo(
+    () => ({
+      category: "",
+      changeTaxCode: false,
+      channelListings: opts.currentChannels,
+      chargeTaxes: false,
+      description: null,
+      isAvailable: false,
+      metadata: [],
+      name: "",
+      privateMetadata: [],
+      productType: null,
+      rating: 0,
+      seoDescription: "",
+      seoTitle: "",
+      sku: generateHash(),
+      slug: "",
+      stockQuantity: null,
+      taxCode: null,
+      trackInventory: false,
+      weight: "",
+      globalSoldUnits: 0,
+      globalThreshold: "",
+      isPreorder: false,
+      hasPreorderEndDate: false,
+      preorderEndDateTime: ""
+    }),
+    [opts.currentChannels]
+  );
   const [changed, setChanged] = React.useState(false);
   const triggerChange = () => setChanged(true);
 
@@ -275,7 +285,7 @@ function useProductCreateForm(
     ...form.data,
     attributes: getAttributesDisplayData(
       attributes.data,
-      attributesWithNewFileValue.data,
+      attributesWithNewFileValue.data
     ),
     attributesWithNewFileValue: attributesWithNewFileValue.data,
     description: description.current,
