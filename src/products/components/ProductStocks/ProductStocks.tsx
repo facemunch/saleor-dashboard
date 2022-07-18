@@ -62,7 +62,6 @@ export interface ProductStocksProps {
   data: ProductStockFormData;
   disabled: boolean;
   isDigitalProduct?: boolean;
-  // defaultSKU?: string;
   errors: ProductErrorFragment[];
   formErrors:
     | FormErrors<ProductVariantCreateData>
@@ -186,7 +185,6 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
   onWarehouseStockAdd,
   onWarehouseStockDelete,
   defaultInvetoryCount = isDigitalProduct ? 1000000 : 10,
-  // defaultSKU
 }) => {
   const classes = useStyles({});
   const intl = useIntl();
