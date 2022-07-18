@@ -14,12 +14,7 @@ const useStyles = makeStyles(
       gridColumnGap: theme.spacing(3),
       gridTemplateColumns: "1fr 48px"
     },
-    cardSpacing: {
-      // [theme.breakpoints.down("sm")]: {
-      //   marginBottom: theme.spacing(1)
-      // },
-      // marginBottom: theme.spacing(3)
-    },
+    cardSpacing: {},
     cardSubtitle: {
       fontSize: 12,
       height: "20px",
@@ -90,7 +85,6 @@ const HomeAnalyticsCard: React.FC<HomeAnalyticsCardProps> = props => {
             />
           </Typography>
         </div>
-        {/* <div className={classes.iconBackground}>{icon}</div> */}
       </CardContent>
     </Card>
   );
