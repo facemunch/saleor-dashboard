@@ -199,10 +199,6 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
     ) || [];
   const formErrors = getFormErrors(["sku"], errors);
 
-  // useEffect(() => {
-  //   onFormDataChange({ target: { name: "sku", value: defaultSKU } });
-  // }, [defaultSKU]);
-
   useEffect(() => {
     if (warehouses.length === 0) return;
     if (stocks.length === 1) {
