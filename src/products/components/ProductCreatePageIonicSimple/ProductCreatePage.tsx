@@ -3,7 +3,6 @@ import { ChannelData } from "@saleor/channels/utils";
 import Attributes, { AttributeInput } from "@saleor/components/Attributes";
 import CardSpacer from "@saleor/components/CardSpacer";
 import ChannelsAvailabilityCard from "@saleor/components/ChannelsAvailabilityCard";
-import generateHash from "random-hash";
 
 import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Savebar from "@saleor/components/Savebar";
@@ -17,11 +16,10 @@ import { SearchAttributeValues_attribute_choices_edges_node } from "@saleor/sear
 import { SearchCategories_search_edges_node } from "@saleor/searches/types/SearchCategories";
 
 import { SearchPages_search_edges_node } from "@saleor/searches/types/SearchPages";
-import { SearchProducts_search_edges_node } from "@saleor/searches/types/SearchProducts";
 import { SearchProductTypes_search_edges_node } from "@saleor/searches/types/SearchProductTypes";
 import { SearchWarehouses_search_edges_node } from "@saleor/searches/types/SearchWarehouses";
 import { PermissionEnum } from "@saleor/types/globalTypes";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
@@ -91,8 +89,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
   header,
   initial,
   productTypes: productTypeChoiceList,
-  referencePages = [],
-
   saveButtonBarState,
   warehouses,
 
@@ -103,11 +99,7 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
   onChannelsChange,
   onWarehouseConfigure,
   openChannelsModal,
-  assignReferencesAttributeId,
   onAssignReferencesClick,
-  fetchReferencePages,
-  fetchMoreReferencePages,
-
   fetchAttributeValues,
   fetchMoreAttributeValues,
   onSelectProductType,
@@ -118,10 +110,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
   const isDigitalProduct = search.includes("isDigitalProduct");
 
   const [selectedCategory, setSelectedCategory] = useStateFromProps("");
-
-  const [selectedTaxType, setSelectedTaxType] = useStateFromProps(
-    initial?.taxCode || null
-  );
 
   const categories = getChoices(categoryChoiceList);
 
@@ -138,7 +126,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
       : onSelectProductType(productTypes[0].value);
   }, [productTypes, isDigitalProduct]);
 
-  const randomHash = useMemo(() => generateHash({ length: 4 }), []);
   return (
     <>
       <IonContent data-test-id="add-product-view">
@@ -149,15 +136,10 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
           onSelectProductType={onSelectProductType}
           categories={categories}
           productTypes={productTypeChoiceList}
-          referencePages={referencePages}
           setSelectedCategory={setSelectedCategory}
-          setSelectedTaxType={setSelectedTaxType}
           setChannels={onChannelsChange}
           warehouses={warehouses}
           currentChannels={currentChannels}
-          fetchReferencePages={fetchReferencePages}
-          fetchMoreReferencePages={fetchMoreReferencePages}
-          assignReferencesAttributeId={assignReferencesAttributeId}
         >
           {({
             change,
@@ -173,7 +155,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
               <>
                 <PageHeader title={header}></PageHeader>
 
-                {/* <Grid> */}
                 <div>
                   <ProductDetailsForm
                     data={data}
@@ -221,9 +202,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                       >
                         <ProductStocks
                           data={data}
-                          defaultSKU={
-                            data.name.split(" ").join("-") + "-" + randomHash
-                          }
                           disabled={loading}
                           hasVariants={false}
                           onFormDataChange={change}
@@ -269,7 +247,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                       }
                       productTypes={productTypes}
                       onCategoryChange={handlers.selectCategory}
-                      onCollectionChange={handlers.selectCollection}
                       onProductTypeChange={handlers.selectProductType}
                     />
 

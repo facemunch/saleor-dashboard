@@ -13,7 +13,7 @@ import {
   TableRow,
   TextField,
   Typography,
-  alpha,
+  alpha
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -62,7 +62,6 @@ export interface ProductStocksProps {
   data: ProductStockFormData;
   disabled: boolean;
   isDigitalProduct?: boolean;
-  defaultSKU?: string;
   errors: ProductErrorFragment[];
   formErrors:
     | FormErrors<ProductVariantCreateData>
@@ -79,7 +78,6 @@ export interface ProductStocksProps {
   ) => void;
   onChange: FormsetChange;
   onChangePreorderEndDate: FormChange;
-  onEndPreorderTrigger?: () => void;
   onFormDataChange: FormChange;
   onWarehouseStockAdd: (warehouseId: string) => void;
   onWarehouseStockDelete: (warehouseId: string) => void;
@@ -187,7 +185,6 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
   onWarehouseStockAdd,
   onWarehouseStockDelete,
   defaultInvetoryCount = isDigitalProduct ? 1000000 : 10,
-  defaultSKU
 }) => {
   const classes = useStyles({});
   const intl = useIntl();
@@ -199,11 +196,6 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
       warehouse => !stocks.some(stock => stock.id === warehouse.id)
     ) || [];
   const formErrors = getFormErrors(["sku"], errors);
-
-
-  useEffect(() => {
-    onFormDataChange({ target: { name: "sku", value: defaultSKU } });
-  }, [defaultSKU]);
 
   useEffect(() => {
     if (warehouses.length === 0) return;

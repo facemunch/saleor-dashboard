@@ -241,6 +241,7 @@ export function getProductUpdatePageFormData(
   channelsWithVariants: ChannelsWithVariantsData
 ): ProductUpdatePageFormData {
   const variant = product?.variants[0];
+
   return {
     channelsWithVariants,
     channelsData,
@@ -259,6 +260,7 @@ export function getProductUpdatePageFormData(
     rating: maybe(() => product.rating, null),
     seoDescription: maybe(() => product.seoDescription, ""),
     seoTitle: maybe(() => product.seoTitle, ""),
+    // TODO: check
     sku: maybe(
       () =>
         product.productType.hasVariants

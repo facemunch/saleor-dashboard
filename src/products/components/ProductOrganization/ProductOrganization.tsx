@@ -44,7 +44,6 @@ interface ProductOrganizationProps {
   categories?: SingleAutocompleteChoiceType[];
   categoryInputDisplayValue: string;
   collections?: MultiAutocompleteChoiceType[];
-  collectionsInputDisplayValue: MultiAutocompleteChoiceType[];
   data: {
     category: string;
     collections?: string[];
@@ -57,12 +56,9 @@ interface ProductOrganizationProps {
   productTypes?: SingleAutocompleteChoiceType[];
   
   
-  fetchMoreCategories: FetchMoreProps;
-  fetchMoreCollections: FetchMoreProps;
   fetchMoreProductTypes?: FetchMoreProps;
   fetchProductTypes?: (data: string) => void;
   onCategoryChange: (event: ChangeEvent) => void;
-  onCollectionChange: (event: ChangeEvent) => void;
   onProductTypeChange?: (event: ChangeEvent) => void;
 }
 
@@ -74,7 +70,6 @@ const ProductOrganization: React.FC<ProductOrganizationProps> = props => {
     data,
     disabled,
     errors,
-    fetchMoreCategories,
     fetchMoreProductTypes,
     fetchProductTypes,
     productType,
@@ -171,7 +166,6 @@ const ProductOrganization: React.FC<ProductOrganizationProps> = props => {
           }}
           
           data-test="category"
-          {...fetchMoreCategories}
         />
         <FormSpacer />
         <Hr />

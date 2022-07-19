@@ -47,16 +47,19 @@ const menu = {
 const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
   const { loginByToken } = useUser();
   const { data, loading } = userDataQuery();
-  const { setVisible } = useTabs();
 
   const { pathname } = useLocation();
-  const { goBack, push } = useHistory();
 
-  const refto = useRef();
-  const homeModalRef = useRef();
-  const shippingListModalRef = useRef();
-  const orderModalRef = useRef();
+  useEffect(() => {
+    if (!ecomAccessToken || loading || !data) return;
+    loginByToken(ecomAccessToken, "", data.me);
+  }, [ecomAccessToken, data, loading]);
 
+  return <RoutesInner pathname={pathname} />;
+};
+
+const RoutesInner: React.FC<{ pathname: string }> = memo(({ pathname }) => {
+  const { setVisible } = useTabs();
   const activeIndex = useMemo(() => {
     if (pathname.includes("home")) {
       return 0;
@@ -69,12 +72,12 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
       return 3;
     }
   }, [pathname]);
-
-  useEffect(() => {
-    if (!ecomAccessToken || loading || !data) return;
-    loginByToken(ecomAccessToken, "", data.me);
-  }, [ecomAccessToken, data, loading]);
-
+  const refto = useRef();
+  const homeModalRef = useRef();
+  const shippingListModalRef = useRef();
+  const orderModalRef = useRef();
+  const { goBack, push } = useHistory();
+  console.log("RoutesInner");
   return (
     <>
       <IonContent id="ecommerce" scrollX={false} scrollY={false} ref={refto}>
@@ -137,7 +140,7 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
                 pathname.includes("/products/") &&
                 pathname !== "/c/products/add"
               }
-              breakPoints={[0, 1]}
+              breakpoints={[0, 1]}
               canDismiss={true}
               presentingElement={refto.current}
               onWillDismiss={() => {
@@ -159,7 +162,7 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
               backdropDismiss={true}
               isOpen={pathname.includes("/products/add")}
               canDismiss={true}
-              breakPoints={[0, 1]}
+              breakpoints={[0, 1]}
               presentingElement={refto.current}
               onWillDismiss={() => {
                 if (pathname === "/c/products/add") {
@@ -266,6 +269,6 @@ const RoutesApp: React.FC<IProps> = ({ ecomAccessToken }) => {
       </IonContent>
     </>
   );
-};
+});
 
 export default memo(RoutesApp);

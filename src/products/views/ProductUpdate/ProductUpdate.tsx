@@ -49,7 +49,7 @@ import {
 } from "@saleor/utils/metadata/updateMetadata";
 import { useWarehouseList } from "@saleor/warehouses/queries";
 import { warehouseAddPath } from "@saleor/warehouses/urls";
-import React, { memo } from "react";
+import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 
 import { getMutationState } from "../../../misc";
@@ -215,10 +215,6 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
     ProductUrlQueryParams
   >(navigate, params => productUrl(id, params), params);
 
-  const [
-    isEndPreorderModalOpened,
-    setIsEndPreorderModalOpened
-  ] = React.useState(false);
 
   const allChannels: ChannelData[] = createChannelsDataWithPrice(
     product,
@@ -366,7 +362,6 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
     updateChannelsOpts.loading ||
     updateVariantChannelsOpts.loading ||
     productVariantCreateOpts.loading ||
-    deactivatePreoderOpts.loading ||
     deleteAttributeValueOpts.loading ||
     createProductMediaOpts.loading ||
     loading;
@@ -451,7 +446,6 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
         onVariantShow={variantId => () =>
           navigate(productVariantEditUrl(product.id, variantId))}
         onVariantReorder={handleVariantReorder}
-        onVariantEndPreorderDialogOpen={() => setIsEndPreorderModalOpened(true)}
         onImageUpload={handleImageUpload}
         onImageEdit={handleImageEdit}
         onImageDelete={handleImageDelete}

@@ -25,61 +25,66 @@ import ServiceWorker from "../containers/ServiceWorker/ServiceWorker";
 
 import { setContext } from "apollo-link-context";
 import Routes from "./Routes";
-import { IonReactRouter } from "@ionic/react-router";
 
 interface IProps {
   onRouteUpdate?: (route: string) => void;
   ecomAccessToken?: string | null;
   ecomAPI?: string | null;
 }
+
+export const getApolloClient = (ecomAPI, ecomAccessToken) => {
+  const linkOptions = {
+    credentials: "include",
+    uri: ecomAPI
+  };
+  const uploadLink = createUploadLink(linkOptions);
+  const batchLink = new BatchHttpLink({
+    batchInterval: 100,
+    ...linkOptions
+  });
+
+  const link = ApolloLink.split(
+    operation => operation.getContext().useBatching,
+    batchLink,
+    uploadLink
+  );
+
+  const fragmentMatcher = new IntrospectionFragmentMatcher({
+    introspectionQueryResultData
+  });
+
+  const tokenLink = setContext((_, context) => {
+    return {
+      ...context,
+      headers: {
+        ...context.headers,
+        "Authorization-Bearer": ecomAccessToken || null
+      }
+    };
+  });
+
+  const authLink = tokenLink;
+
+  return new ApolloClient({
+    cache: new InMemoryCache({
+      fragmentMatcher,
+      dataIdFromObject: (obj: any) => {
+        if (obj.__typename === "Shop") {
+          return "shop";
+        }
+        return defaultDataIdFromObject(obj);
+      }
+    }),
+    link: authLink.concat(link)
+  });
+};
+
 const App: React.FC<IProps> = ({ ecomAccessToken, ecomAPI }) => {
   const apolloClient = useMemo(() => {
-    const linkOptions = {
-      credentials: "include",
-      uri: ecomAPI
-    };
-    const uploadLink = createUploadLink(linkOptions);
-    const batchLink = new BatchHttpLink({
-      batchInterval: 100,
-      ...linkOptions
-    });
-
-    const link = ApolloLink.split(
-      operation => operation.getContext().useBatching,
-      batchLink,
-      uploadLink
-    );
-
-    const fragmentMatcher = new IntrospectionFragmentMatcher({
-      introspectionQueryResultData
-    });
-
-    const tokenLink = setContext((_, context) => {
-      const authToken = ecomAccessToken;
-      return {
-        ...context,
-        headers: {
-          ...context.headers,
-          "Authorization-Bearer": authToken || null
-        }
-      };
-    });
-
-    const authLink = tokenLink;
-
-    return new ApolloClient({
-      cache: new InMemoryCache({
-        fragmentMatcher,
-        dataIdFromObject: (obj: any) => {
-          if (obj.__typename === "Shop") {
-            return "shop";
-          }
-          return defaultDataIdFromObject(obj);
-        }
-      }),
-      link: authLink.concat(link)
-    });
+    return getApolloClient(ecomAPI, ecomAccessToken);
   }, [ecomAPI, ecomAccessToken]);
+
+  console.log("ecom");
   return (
     <ApolloProvider client={apolloClient}>
       <ThemeProvider>
@@ -108,4 +113,4 @@ const App: React.FC<IProps> = ({ ecomAccessToken, ecomAPI }) => {
   );
 };
 
-export default App;
+export default memo(App);
