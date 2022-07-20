@@ -32,7 +32,17 @@ interface IProps {
   ecomAPI?: string | null;
 }
 
-export const getApolloClient = (ecomAPI, ecomAccessToken) => {
+const createClient = () => {
+  let client
+  return (url: string, token: string) => {
+    if (client) return client
+    return (client = getApolloClient(url, token))
+  }
+}
+
+export const getClient = createClient()
+
+const getApolloClient = (ecomAPI, ecomAccessToken) => {
   const linkOptions = {
     credentials: "include",
     uri: ecomAPI
@@ -81,7 +91,7 @@ export const getApolloClient = (ecomAPI, ecomAccessToken) => {
 
 const App: React.FC<IProps> = ({ ecomAccessToken, ecomAPI }) => {
   const apolloClient = useMemo(() => {
-    return getApolloClient(ecomAPI, ecomAccessToken);
+    return getClient(ecomAPI, ecomAccessToken);
   }, [ecomAPI, ecomAccessToken]);
 
   console.log("ecom");
