@@ -94,7 +94,6 @@ const App: React.FC<IProps> = ({ ecomAccessToken, ecomAPI }) => {
     return getClient(ecomAPI, ecomAccessToken);
   }, [ecomAPI, ecomAccessToken]);
 
-  console.log("ecom");
   return (
     <ApolloProvider client={apolloClient}>
       <ThemeProvider>
