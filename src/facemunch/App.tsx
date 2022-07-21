@@ -33,14 +33,14 @@ interface IProps {
 }
 
 const createClient = () => {
-  let client
+  let client;
   return (url: string, token: string) => {
-    if (client) return client
-    return (client = getApolloClient(url, token))
-  }
-}
+    if (client) return client;
+    return (client = getApolloClient(url, token));
+  };
+};
 
-export const getClient = createClient()
+export const getClient = createClient();
 
 const getApolloClient = (ecomAPI, ecomAccessToken) => {
   const linkOptions = {
@@ -73,6 +73,15 @@ const getApolloClient = (ecomAPI, ecomAccessToken) => {
     };
   });
 
+  const noTokenLink = setContext((_, context) => {
+    return {
+      ...context,
+      headers: {
+        ...context.headers
+      }
+    };
+  });
+
   const authLink = tokenLink;
 
   return new ApolloClient({
@@ -85,7 +94,12 @@ const getApolloClient = (ecomAPI, ecomAccessToken) => {
         return defaultDataIdFromObject(obj);
       }
     }),
-    link: authLink.concat(link)
+
+    link: ApolloLink.split(
+      operation => operation.getContext().api === "public",
+      noTokenLink,
+      authLink
+    ).concat(link)
   });
 };
 
