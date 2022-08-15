@@ -31,8 +31,8 @@ export const ProductList: React.FC = () => {
       oldQs.current = asSortParams(
         {
           ...qs,
-          ids: String(getArrayQueryParam(qs.ids)),
-          productTypes: String(getArrayQueryParam(qs.productTypes))
+          ids: getArrayQueryParam(qs.ids),
+          productTypes: getArrayQueryParam(qs.productTypes)
         },
         ProductListUrlSortField
       );
