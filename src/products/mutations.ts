@@ -11,6 +11,7 @@ import {
   channelListingProductFragment,
   channelListingProductVariantFragment,
   exportFileFragment,
+  fragmentDigitalContent,
   fragmentPreorder,
   fragmentProductMedia,
   fragmentVariant,
@@ -54,6 +55,10 @@ import {
   ProductMediaCreate,
   ProductMediaCreateVariables
 } from "./types/ProductMediaCreate";
+import {
+  DigitalContentCreate,
+  DigitalContentCreateVariables
+} from "./types/DigitalContentCreate";
 import { ProductUpdate, ProductUpdateVariables } from "./types/ProductUpdate";
 import {
   ProductVariantBulkCreate,
@@ -86,6 +91,8 @@ import {
 import { VariantCreate, VariantCreateVariables } from "./types/VariantCreate";
 import { VariantDelete, VariantDeleteVariables } from "./types/VariantDelete";
 import { VariantUpdate, VariantUpdateVariables } from "./types/VariantUpdate";
+import { DigitalContentUrlCreate, DigitalContentUrlCreateVariables } from "./types/DigitalContentUrlCreate";
+import { DigitalContentDelete, DigitalContentDeleteVariables } from "./types/DigitalContentDelete";
 
 export const productMediaCreateMutation = gql`
   ${productErrorFragment}
@@ -120,6 +127,78 @@ export const useProductMediaCreateMutation = makeMutation<
   ProductMediaCreate,
   ProductMediaCreateVariables
 >(productMediaCreateMutation);
+
+export const digitalContentCreateMutation = gql`
+  ${productErrorFragment}
+  ${fragmentDigitalContent}
+  mutation DigitalContentCreate(
+    $variantId: ID!
+    $contentFile: Upload!
+  ) {
+    digitalContentCreate(
+      variantId: $variantId
+      input: {
+        useDefaultSettings: true
+        automaticFulfillment: true
+        contentFile: $contentFile
+      }
+    ) {
+      errors {
+        ...ProductErrorFragment
+      }
+      content {
+        ...DigitalContentFragment
+      }
+      variant {
+        id 
+        product {
+          id
+          variants {
+            id
+            digitalContent {
+              ...DigitalContentFragment
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const useDigitalContentCreateMutation = makeMutation<
+  DigitalContentCreate,
+  DigitalContentCreateVariables
+>(digitalContentCreateMutation);
+
+export const digitalContentUrlCreateMutation = gql`
+  ${productErrorFragment}
+  ${fragmentDigitalContent}
+  mutation DigitalContentUrlCreate(
+    $content: ID!
+  ) {
+    digitalContentUrlCreate(
+      input: {
+        content: $content
+      }
+    ) {
+      errors {
+        ...ProductErrorFragment
+      }
+      digitalContentUrl {
+        id
+        url
+        content {
+          ...DigitalContentFragment
+        }
+      }
+    }
+  }
+`;
+
+export const useDigitalContentUrlCreateMutation = makeMutation<
+  DigitalContentUrlCreate,
+  DigitalContentUrlCreateVariables
+>(digitalContentUrlCreateMutation);
 
 export const productDeleteMutation = gql`
   ${productErrorFragment}
@@ -446,6 +525,35 @@ export const useProductMediaDeleteMutation = makeMutation<
   ProductMediaDelete,
   ProductMediaDeleteVariables
 >(productMediaDeleteMutation);
+
+export const digitalContentDeleteMutation = gql`
+  ${productErrorFragment}
+  ${fragmentDigitalContent}
+  mutation DigitalContentDelete($variantId: ID!) {
+    digitalContentDelete(variantId: $variantId) {
+      errors {
+        ...ProductErrorFragment
+      }
+      variant {
+        id
+        product {
+          id
+          variants {
+            id
+            digitalContent {
+              ...DigitalContentFragment
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const useDigitalContentDeleteMutation = makeMutation<
+  DigitalContentDelete,
+  DigitalContentDeleteVariables
+>(digitalContentDeleteMutation);
 
 export const productMediaUpdateMutation = gql`
   ${productErrorFragment}

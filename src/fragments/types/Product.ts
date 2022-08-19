@@ -300,6 +300,24 @@ export interface Product_variants_channelListings {
   preorderThreshold: Product_variants_channelListings_preorderThreshold | null;
 }
 
+export interface Product_variants_digitalContent_urls {
+  __typename: "DigitalContentUrl";
+  id: string;
+  url: string | null;
+}
+
+export interface Product_variants_digitalContent_productVariant {
+  __typename: "ProductVariant";
+  id: string;
+}
+
+export interface Product_variants_digitalContent {
+  __typename: "DigitalContent";
+  id: string;
+  urls: (Product_variants_digitalContent_urls | null)[] | null;
+  productVariant: Product_variants_digitalContent_productVariant;
+}
+
 export interface Product_variants {
   __typename: "ProductVariant";
   id: string;
@@ -311,6 +329,7 @@ export interface Product_variants {
   trackInventory: boolean;
   preorder: Product_variants_preorder | null;
   channelListings: Product_variants_channelListings[] | null;
+  digitalContent: Product_variants_digitalContent | null;
 }
 
 export interface Product_weight {

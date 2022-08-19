@@ -261,12 +261,25 @@ export interface ProductVariant_product_variants_media {
   oembedData: any;
 }
 
+export interface ProductVariant_product_variants_digitalContent_urls {
+  __typename: "DigitalContentUrl";
+  id: string;
+  url: string | null;
+}
+
+export interface ProductVariant_product_variants_digitalContent {
+  __typename: "DigitalContent";
+  id: string;
+  urls: (ProductVariant_product_variants_digitalContent_urls | null)[] | null;
+}
+
 export interface ProductVariant_product_variants {
   __typename: "ProductVariant";
   id: string;
   name: string;
   sku: string | null;
   media: ProductVariant_product_variants_media[] | null;
+  digitalContent: ProductVariant_product_variants_digitalContent | null;
 }
 
 export interface ProductVariant_product {

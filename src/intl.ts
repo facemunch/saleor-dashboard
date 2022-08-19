@@ -136,6 +136,13 @@ export const errorMessages = defineMessages({
     defaultMessage:
       "There was a poblem with the file you uploaded as an image and it couldn't be used. Please try a different file."
   },
+  fileUploadErrorTitle: {
+    defaultMessage: "Couldn't process file"
+  },
+  fileUploadErrorText: {
+    defaultMessage:
+      "There was a poblem with the file you uploaded. Please try a different file."
+  },
   preorderEndDateInFutureErrorText: {
     defaultMessage: "Preorder end time needs to be set in the future"
   }

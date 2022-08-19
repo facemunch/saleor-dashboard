@@ -77,7 +77,6 @@ const RoutesInner: React.FC<{ pathname: string }> = memo(({ pathname }) => {
   const shippingListModalRef = useRef();
   const orderModalRef = useRef();
   const { goBack, push } = useHistory();
-  console.log("RoutesInner");
   return (
     <>
       <IonContent id="ecommerce" scrollX={false} scrollY={false} ref={refto}>
