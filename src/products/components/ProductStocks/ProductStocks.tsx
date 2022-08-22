@@ -92,15 +92,15 @@ const useStyles = makeStyles(
     },
     colName: {},
     colQuantity: {
-      textAlign: "right",
-      width: 150
+      textAlign: "left",
+      width: 180
     },
     colSoldUnits: {
-      textAlign: "right",
+      textAlign: "left",
       width: 150
     },
     colThreshold: {
-      textAlign: "right",
+      textAlign: "left",
       width: 180
     },
     editWarehouses: {
@@ -108,7 +108,7 @@ const useStyles = makeStyles(
     },
     input: {
       padding: theme.spacing(1.5),
-      textAlign: "right"
+      textAlign: "left"
     },
     menuItem: {
       "&:not(:last-of-type)": {
@@ -208,7 +208,6 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
     onWarehouseStockAdd(defaultWareHouse.id);
     onChange(defaultWareHouse.id, defaultInvetoryCount);
   }, [warehouses, stocks]);
-  console.log("isDigitalProduct", isDigitalProduct);
   return (
     <IonCard>
       <CardTitle
@@ -248,7 +247,7 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
                   id="tableColQuantity"
                 />
               </TableCell>
-              <TableCell className={classes.colAction} />
+              <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
@@ -274,14 +273,14 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
                       value={stock.value}
                     />
                   </TableCell>
-                  <TableCell className={classes.colAction}>
+                  {/* <TableCell className={classes.colAction}>
                     <IconButton
                       color="primary"
                       onClick={() => onWarehouseStockDelete(stock.id)}
                     >
                       <DeleteIcon />
                     </IconButton>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               );
             })}
