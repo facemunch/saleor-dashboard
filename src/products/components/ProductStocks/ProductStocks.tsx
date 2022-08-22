@@ -34,6 +34,7 @@ import { getFormErrors, getProductErrorMessage } from "@saleor/utils/errors";
 import createNonNegativeValueChangeHandler from "@saleor/utils/handlers/nonNegativeValueChangeHandler";
 import React, { useEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 
 import { ProductCreateData } from "../ProductCreatePage";
 import { ProductUpdateSubmitData } from "../ProductUpdatePage/form";
@@ -178,14 +179,15 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
   disabled,
   errors,
   stocks,
-  isDigitalProduct,
   warehouses,
   onChange,
   onFormDataChange,
   onWarehouseStockAdd,
   onWarehouseStockDelete,
-  defaultInvetoryCount = isDigitalProduct ? 1000000 : 10,
+  defaultInvetoryCount = 1000000
 }) => {
+  const { search } = useLocation();
+  const isDigitalProduct = search.includes("isDigitalProduct");
   const classes = useStyles({});
   const intl = useIntl();
   const anchor = React.useRef<HTMLDivElement>();
@@ -206,6 +208,7 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
     onWarehouseStockAdd(defaultWareHouse.id);
     onChange(defaultWareHouse.id, defaultInvetoryCount);
   }, [warehouses, stocks]);
+  console.log("isDigitalProduct", isDigitalProduct);
   return (
     <IonCard>
       <CardTitle
