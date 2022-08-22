@@ -16,7 +16,6 @@ import {
   alpha
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from "@mui/icons-material/Delete";
 import {
   ChannelData,
   ChannelPriceAndPreorderArgs
@@ -273,14 +272,6 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
                       value={stock.value}
                     />
                   </TableCell>
-                  {/* <TableCell className={classes.colAction}>
-                    <IconButton
-                      color="primary"
-                      onClick={() => onWarehouseStockDelete(stock.id)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell> */}
                 </TableRow>
               );
             })}
