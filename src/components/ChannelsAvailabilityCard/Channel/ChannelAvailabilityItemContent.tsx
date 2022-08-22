@@ -78,27 +78,27 @@ const ChannelContent: React.FC<ChannelContentProps> = ({
         firstOptionLabel={
           <>
             <p className={classes.label}>{messages.visibleLabel}</p>
-            {isPublished &&
+            {/* {isPublished &&
               publicationDate &&
               Date.parse(publicationDate) < dateNow && (
                 <span className={classes.secondLabel}>
                   {messages.visibleSecondLabel ||
                     visibleMessage(publicationDate)}
                 </span>
-              )}
+              )} */}
           </>
         }
         name="isPublished"
         secondOptionLabel={
           <>
             <p className={classes.label}>{messages.hiddenLabel}</p>
-            {publicationDate &&
+            {/* {publicationDate &&
               !isPublished &&
               Date.parse(publicationDate) >= dateNow && (
                 <span className={classes.secondLabel}>
                   {messages.hiddenSecondLabel}
                 </span>
-              )}
+              )} */}
           </>
         }
         value={isPublished}
@@ -161,24 +161,24 @@ const ChannelContent: React.FC<ChannelContentProps> = ({
             firstOptionLabel={
               <>
                 <p className={classes.label}>{messages.availableLabel}</p>
-                {isAvailable &&
+                {/* {isAvailable &&
                   availableForPurchase &&
                   Date.parse(availableForPurchase) < dateNow && (
                     <span className={classes.secondLabel}>
                       {visibleMessage(availableForPurchase)}
                     </span>
-                  )}
+                  )} */}
               </>
             }
             name={`channel:isAvailableForPurchase:${id}`}
             secondOptionLabel={
               <>
                 <p className={classes.label}>{messages.unavailableLabel}</p>
-                {availableForPurchase && !isAvailable && (
+                {/* {availableForPurchase && !isAvailable && (
                   <span className={classes.secondLabel}>
                     {messages.availableSecondLabel}
                   </span>
-                )}
+                )} */}
               </>
             }
             value={isAvailable}
@@ -235,7 +235,7 @@ const ChannelContent: React.FC<ChannelContentProps> = ({
           )}
         </>
       )}
-      {visibleInListings !== undefined && (
+      {/* {visibleInListings !== undefined && (
         <>
           <Hr />
           <ControlledCheckbox
@@ -266,7 +266,7 @@ const ChannelContent: React.FC<ChannelContentProps> = ({
             }
           />
         </>
-      )}
+      )} */}
     </div>
   );
 };

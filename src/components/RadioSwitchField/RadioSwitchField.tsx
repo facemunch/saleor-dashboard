@@ -20,7 +20,7 @@ const useStyles = makeStyles(
     },
     radioLabel: {
       "& > span": {
-        padding: "10px 6px"
+        padding: "6px 6px"
       }
     },
     secondLabel: {
