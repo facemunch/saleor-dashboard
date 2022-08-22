@@ -1,9 +1,9 @@
 import CardTitle from "@saleor/components/CardTitle";
-import ImageUpload from "@saleor/components/ImageUpload";
+import DigitalContentUpload from "@saleor/components/DigitalContentUpload";
 import { DigitalContentFragment } from "@saleor/fragments/types/DigitalContentFragment";
 import { makeStyles } from "@saleor/macaw-ui";
 import createMultiFileUploadHandler from "@saleor/utils/handlers/multiFileUploadHandler";
-import React from "react";
+import React, { useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { trashOutline, documentOutline } from "ionicons/icons";
 
@@ -15,7 +15,6 @@ import {
   IonThumbnail,
   IonList,
   IonIcon,
-  IonAvatar,
   useIonAlert
 } from "@ionic/react";
 const messages = defineMessages({
@@ -83,26 +82,30 @@ const ProductDigitalContent: React.FC<ProductDigitalContentProps> = props => {
   const intl = useIntl();
   const filesUpload = React.useRef<HTMLInputElement>(null);
   const anchor = React.useRef<HTMLIonButtonElement>();
+  const [uploading, setUploading] = useState(false);
+
   const handleFileUpload = createMultiFileUploadHandler(onFileUpload, {
     onAfterUpload: e => {
-      console.log("handleFileUpload onAfterUpload", e);
+      setUploading(false);
     },
     onStart: e => {
-      console.log("handleFileUpload onStart", e);
+      setUploading(true);
     }
   });
-  const [present] = useIonAlert();
+  const [presentAlert] = useIonAlert();
 
   const replaceContent = () => {};
 
   const onDeleteHandler = () => {
-    present({
-      header: "Removing digital product",
-      message: "This cannot be undone.",
+    presentAlert({
+      header: "Delete current file?",
+      message:
+        "Do you really want to delete current file? This action cannot be reversed.",
       buttons: [
         "Cancel",
         {
-          text: "Ok",
+          text: "Delete",
+          role: "destructive",
           handler: async () => {
             onFileDelete(content.productVariant.id)();
           }
@@ -122,6 +125,7 @@ const ProductDigitalContent: React.FC<ProductDigitalContentProps> = props => {
                 onClick={() =>
                   content ? replaceContent : filesUpload.current.click()
                 }
+                disabled={uploading}
                 size="small"
                 color="primary"
                 data-test="button-upload-file"
@@ -151,8 +155,8 @@ const ProductDigitalContent: React.FC<ProductDigitalContentProps> = props => {
               </IonThumbnail>
               <IonLabel>
                 <p className={classes.productName}>
-                  <a href={content.urls[0].url} target="_blank">
-                    {content.contentFile.replace("digital_contents/", "")}
+                  <a href={content?.urls[0]?.url} target="_blank">
+                    {content?.contentFile?.replace("digital_contents/", "")}
                   </a>
                 </p>
               </IonLabel>
@@ -170,7 +174,10 @@ const ProductDigitalContent: React.FC<ProductDigitalContentProps> = props => {
             </IonItem>
           </IonList>
         ) : (
-          <ImageUpload onImageUpload={handleFileUpload} />
+          <DigitalContentUpload
+            uploading={uploading}
+            onDigitalContentUpload={handleFileUpload}
+          />
         )}
       </>
     </IonCard>
