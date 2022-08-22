@@ -65,12 +65,18 @@ export const fragmentProductMedia = gql`
 export const fragmentDigitalContent = gql`
   fragment DigitalContentFragment on DigitalContent {
     id
+    contentFile
     urls {
       id
       url
+      token
     }
+    # metadata
+    automaticFulfillment
     productVariant {
       id
+      name
+      sku
     }
   }
 `;

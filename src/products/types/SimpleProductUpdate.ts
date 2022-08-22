@@ -311,17 +311,22 @@ export interface SimpleProductUpdate_productUpdate_product_variants_digitalConte
   __typename: "DigitalContentUrl";
   id: string;
   url: string | null;
+  token: any;
 }
 
 export interface SimpleProductUpdate_productUpdate_product_variants_digitalContent_productVariant {
   __typename: "ProductVariant";
   id: string;
+  name: string;
+  sku: string | null;
 }
 
 export interface SimpleProductUpdate_productUpdate_product_variants_digitalContent {
   __typename: "DigitalContent";
   id: string;
+  contentFile: string;
   urls: (SimpleProductUpdate_productUpdate_product_variants_digitalContent_urls | null)[] | null;
+  automaticFulfillment: boolean;
   productVariant: SimpleProductUpdate_productUpdate_product_variants_digitalContent_productVariant;
 }
 

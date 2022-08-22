@@ -19,17 +19,22 @@ export interface DigitalContentCreate_digitalContentCreate_content_urls {
   __typename: "DigitalContentUrl";
   id: string;
   url: string | null;
+  token: any;
 }
 
 export interface DigitalContentCreate_digitalContentCreate_content_productVariant {
   __typename: "ProductVariant";
   id: string;
+  name: string;
+  sku: string | null;
 }
 
 export interface DigitalContentCreate_digitalContentCreate_content {
   __typename: "DigitalContent";
   id: string;
+  contentFile: string;
   urls: (DigitalContentCreate_digitalContentCreate_content_urls | null)[] | null;
+  automaticFulfillment: boolean;
   productVariant: DigitalContentCreate_digitalContentCreate_content_productVariant;
 }
 
@@ -37,17 +42,22 @@ export interface DigitalContentCreate_digitalContentCreate_variant_product_varia
   __typename: "DigitalContentUrl";
   id: string;
   url: string | null;
+  token: any;
 }
 
 export interface DigitalContentCreate_digitalContentCreate_variant_product_variants_digitalContent_productVariant {
   __typename: "ProductVariant";
   id: string;
+  name: string;
+  sku: string | null;
 }
 
 export interface DigitalContentCreate_digitalContentCreate_variant_product_variants_digitalContent {
   __typename: "DigitalContent";
   id: string;
+  contentFile: string;
   urls: (DigitalContentCreate_digitalContentCreate_variant_product_variants_digitalContent_urls | null)[] | null;
+  automaticFulfillment: boolean;
   productVariant: DigitalContentCreate_digitalContentCreate_variant_product_variants_digitalContent_productVariant;
 }
 

@@ -32,7 +32,6 @@ export const ProductMediaPopper = ({
   anchorRef,
   imagesUploadRef,
   setPopperStatus,
-  openMediaUrlModal,
   popperStatus
 }: ProductMediaPopperProps) => {
   const intl = useIntl();
@@ -59,14 +58,6 @@ export const ProductMediaPopper = ({
                 >
                   {intl.formatMessage(messages.uploadImages)}
                 </MenuItem>
-                {/* TODO: [SB-49] investigate why this is broken */}
-                {/* <MenuItem
-                  onClick={openMediaUrlModal}
-                  data-test="uploadMediaUrl"
-                  key="upload-media-url"
-                >
-                  {intl.formatMessage(messages.uploadUrl)}
-                </MenuItem> */}
               </Menu>
             </ClickAwayListener>
           </Paper>

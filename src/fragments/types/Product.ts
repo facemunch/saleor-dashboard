@@ -304,17 +304,22 @@ export interface Product_variants_digitalContent_urls {
   __typename: "DigitalContentUrl";
   id: string;
   url: string | null;
+  token: any;
 }
 
 export interface Product_variants_digitalContent_productVariant {
   __typename: "ProductVariant";
   id: string;
+  name: string;
+  sku: string | null;
 }
 
 export interface Product_variants_digitalContent {
   __typename: "DigitalContent";
   id: string;
+  contentFile: string;
   urls: (Product_variants_digitalContent_urls | null)[] | null;
+  automaticFulfillment: boolean;
   productVariant: Product_variants_digitalContent_productVariant;
 }
 

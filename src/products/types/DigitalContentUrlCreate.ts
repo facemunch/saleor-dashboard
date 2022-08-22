@@ -19,17 +19,22 @@ export interface DigitalContentUrlCreate_digitalContentUrlCreate_digitalContentU
   __typename: "DigitalContentUrl";
   id: string;
   url: string | null;
+  token: any;
 }
 
 export interface DigitalContentUrlCreate_digitalContentUrlCreate_digitalContentUrl_content_productVariant {
   __typename: "ProductVariant";
   id: string;
+  name: string;
+  sku: string | null;
 }
 
 export interface DigitalContentUrlCreate_digitalContentUrlCreate_digitalContentUrl_content {
   __typename: "DigitalContent";
   id: string;
+  contentFile: string;
   urls: (DigitalContentUrlCreate_digitalContentUrlCreate_digitalContentUrl_content_urls | null)[] | null;
+  automaticFulfillment: boolean;
   productVariant: DigitalContentUrlCreate_digitalContentUrlCreate_digitalContentUrl_content_productVariant;
 }
 
