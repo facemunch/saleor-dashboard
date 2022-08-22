@@ -46,6 +46,8 @@ import {
 import { ProductUpdatePageFormData } from "../../utils/data";
 import ProductDetailsForm from "../ProductDetailsForm";
 import ProductMedia from "../ProductMedia";
+import DigitalProduct from "../DigitalProduct";
+
 
 import ProductShipping from "../ProductShipping/ProductShipping";
 import ProductStocks, { ProductStockInput } from "../ProductStocks";
@@ -256,6 +258,16 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                     />
                     <CardSpacer />
                     <ProductMedia
+                      media={media}
+                      placeholderImage={placeholderImage}
+                      onImageDelete={onImageDelete}
+                      onImageReorder={onImageReorder}
+                      onImageEdit={onImageEdit}
+                      onImageUpload={onImageUpload}
+                      openMediaUrlModal={() => setMediaUrlModalStatus(true)}
+                    />
+                    <CardSpacer />
+                    <DigitalProduct
                       media={media}
                       placeholderImage={placeholderImage}
                       onImageDelete={onImageDelete}

@@ -141,11 +141,11 @@ const OrderRefundPage: React.FC<OrderRefundPageProps> = props => {
                         </>
                       )}
                       <div
-                        id="hide-isDigitalProduct"
-                        style={{
-                          height: "0",
-                          overflow: "hidden"
-                        }}
+                        // id="hide-isDigitalProduct"
+                        // style={{
+                          // height: "0",
+                          // overflow: "hidden"
+                        // }}
                       >
                         {renderCollection(
                           fulfilledFulfillemnts,

@@ -10,7 +10,8 @@ import {
   IonButton,
   IonButtons,
   IonTitle,
-  IonFab
+  IonFab,
+  useIonActionSheet
 } from "@ionic/react";
 
 import { add } from "ionicons/icons";
@@ -125,6 +126,36 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const classes = useStyles({});
   const { anchor: appActionAnchor, docked } = useActionBar();
   const navigate = useNavigator();
+  const [presentActionSheet, dismissActionSheet] = useIonActionSheet();
+
+  const newProductHandler = () => {
+    presentActionSheet({
+      buttons: [
+        {
+          text: "Digital Product",
+          handler: () => {
+            console.log("Delete clicked");
+            navigate("/c/products/add?isDigitalProduct");
+          }
+        },
+        {
+          text: "Physical Product",
+          handler: () => {
+            console.log("Delete clicked");
+            navigate("/c/products/add");
+          }
+        },
+        {
+          text: "Cancel",
+          role: 'cancel',
+          handler: () => {
+            dismissActionSheet();
+            console.log("Delete clicked");
+          }
+        }
+      ]
+    });
+  };
 
   return (
     <>
@@ -181,7 +212,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         <IonButton
           data-test-id="add-product"
           onClick={() => {
-            navigate("/c/products/add");
+            newProductHandler();
           }}
           style={{ color: "#101010" }}
           shape="round"
