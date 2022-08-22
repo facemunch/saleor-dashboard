@@ -2,6 +2,7 @@ import { IonModal } from "@ionic/react";
 import { parse as parseQs } from "qs";
 import React, { useRef } from "react";
 import { Route, useParams, useHistory, useLocation } from "react-router-dom";
+import CloseModal from "../components/ModalCloseIcon";
 
 import {
   shippingPriceRatesEditPath,
@@ -35,6 +36,7 @@ export const ShippingZonesList = ({ shippingListModalRef }) => {
   const params: ShippingZonesListUrlQueryParams = qs;
   return (
     <>
+      <CloseModal to="c/configuration" />
       <ShippingZonesListComponent params={params} />
       <IonModal
         style={{
@@ -43,7 +45,9 @@ export const ShippingZonesList = ({ shippingListModalRef }) => {
         mode="ios"
         ref={shippingDetailModalRef}
         backdropDismiss={true}
-        isOpen={pathname.includes("/c/shipping/") && pathname !== "/c/shipping/add"}
+        isOpen={
+          pathname.includes("/c/shipping/") && pathname !== "/c/shipping/add"
+        }
         canDismiss={true}
         presentingElement={shippingListModalRef.current}
         onWillDismiss={() => push("/c/shipping")}
@@ -137,7 +141,9 @@ export const ShippingZoneDetails = ({ shippingDetailModalRef }) => {
       >
         <Route
           exact
-          path={"/c/shipping/" + shippingPriceRatesEditPath(":id", ":rateId", "")}
+          path={
+            "/c/shipping/" + shippingPriceRatesEditPath(":id", ":rateId", "")
+          }
           render={() => (
             <PriceRatesUpdate
               shippingPriceRatesEditRef={shippingPriceRatesEditRef}

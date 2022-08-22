@@ -3,8 +3,6 @@ import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
 import { FormattedMessage } from "react-intl";
-
-import ImageIcon from "../../icons/Image";
 import Dropzone from "../Dropzone";
 
 interface DigitalContentUploadProps {
@@ -15,6 +13,7 @@ interface DigitalContentUploadProps {
   iconContainerClassName?: string;
   iconContainerActiveClassName?: string;
   hideUploadIcon?: boolean;
+  uploading?: boolean;
   onDigitalContentUpload: (file: FileList) => void;
 }
 

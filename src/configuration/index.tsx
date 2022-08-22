@@ -27,7 +27,7 @@ import { staffListUrl } from "@saleor/staff/urls";
 import { PermissionEnum } from "@saleor/types/globalTypes";
 import React from "react";
 import { IntlShape, useIntl } from "react-intl";
-
+import CloseModal from "../components/ModalCloseIcon";
 import ConfigurationPage, { MenuSection } from "./ConfigurationPage";
 
 export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
@@ -243,14 +243,13 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
 export const configurationMenuUrl = "/configuration/";
 
 export const ConfigurationSection: React.FC = () => {
-
-
   const navigate = useNavigator();
   const user = useUser();
   const intl = useIntl();
 
   return (
     <>
+      <CloseModal to="c/home" />
       <ConfigurationPage
         menu={createConfigurationMenu(intl)}
         user={maybe(() => user.user)}
