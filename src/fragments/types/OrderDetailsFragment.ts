@@ -141,13 +141,6 @@ export interface OrderDetailsFragment_events_user {
   lastName: string;
 }
 
-export interface OrderDetailsFragment_events_app {
-  __typename: "App";
-  id: string;
-  name: string | null;
-  appUrl: string | null;
-}
-
 export interface OrderDetailsFragment_events_lines_discount_amount {
   __typename: "Money";
   amount: number;
@@ -202,7 +195,6 @@ export interface OrderDetailsFragment_events {
   transactionReference: string | null;
   type: OrderEventsEnum | null;
   user: OrderDetailsFragment_events_user | null;
-  app: OrderDetailsFragment_events_app | null;
   lines: (OrderDetailsFragment_events_lines | null)[] | null;
 }
 

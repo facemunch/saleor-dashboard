@@ -58,6 +58,7 @@ import ProductUpdateForm, {
 } from "./form";
 import { Loader } from "frontend/ui/loader";
 import PageHeader from "@saleor/components/PageHeader";
+import ProductDigitalContent from "../ProductDigitalContent";
 
 export interface ProductUpdatePageProps extends ListActions, ChannelProps {
   channelsWithVariantsData: ChannelsWithVariantsData;
@@ -97,6 +98,7 @@ export interface ProductUpdatePageProps extends ListActions, ChannelProps {
   onVariantShow: (id: string) => () => void;
   onVariantReorder: ReorderAction;
   onImageDelete: (id: string) => () => void;
+  onFileDelete: (id: string) => () => void;
   onSubmit: (data: ProductUpdatePageSubmitData) => SubmitPromise;
   openChannelsModal: () => void;
   onAttributeSelectBlur: () => void;
@@ -105,6 +107,7 @@ export interface ProductUpdatePageProps extends ListActions, ChannelProps {
   onImageEdit?(id: string);
   onImageReorder?(event: { oldIndex: number; newIndex: number });
   onImageUpload(file: File);
+  onFileUpload(file: File);
   onMediaUrlUpload(mediaUrl: string);
   onSeoClick?();
   onVariantAdd?();
@@ -150,6 +153,8 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   onImageEdit,
   onImageReorder,
   onImageUpload,
+  onFileUpload,
+  onFileDelete,
   onMediaUrlUpload,
   openChannelsModal,
   onSubmit,
@@ -265,6 +270,11 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                       onImageEdit={onImageEdit}
                       onImageUpload={onImageUpload}
                       openMediaUrlModal={() => setMediaUrlModalStatus(true)}
+                    />
+                    <ProductDigitalContent
+                      content={variants?.[0]?.digitalContent}
+                      onFileDelete={onFileDelete}
+                      onFileUpload={onFileUpload}
                     />
                     <CardSpacer />
                     <DigitalProduct

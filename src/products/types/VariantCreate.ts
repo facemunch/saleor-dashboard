@@ -268,12 +268,25 @@ export interface VariantCreate_productVariantCreate_productVariant_product_varia
   oembedData: any;
 }
 
+export interface VariantCreate_productVariantCreate_productVariant_product_variants_digitalContent_urls {
+  __typename: "DigitalContentUrl";
+  id: string;
+  url: string | null;
+}
+
+export interface VariantCreate_productVariantCreate_productVariant_product_variants_digitalContent {
+  __typename: "DigitalContent";
+  id: string;
+  urls: (VariantCreate_productVariantCreate_productVariant_product_variants_digitalContent_urls | null)[] | null;
+}
+
 export interface VariantCreate_productVariantCreate_productVariant_product_variants {
   __typename: "ProductVariant";
   id: string;
   name: string;
   sku: string | null;
   media: VariantCreate_productVariantCreate_productVariant_product_variants_media[] | null;
+  digitalContent: VariantCreate_productVariantCreate_productVariant_product_variants_digitalContent | null;
 }
 
 export interface VariantCreate_productVariantCreate_productVariant_product {

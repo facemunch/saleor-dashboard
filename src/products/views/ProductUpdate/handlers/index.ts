@@ -25,6 +25,7 @@ import { ProductErrorFragment } from "@saleor/fragments/types/ProductErrorFragme
 import { StockErrorFragment } from "@saleor/fragments/types/StockErrorFragment";
 import { UploadErrorFragment } from "@saleor/fragments/types/UploadErrorFragment";
 import { ProductUpdatePageSubmitData } from "@saleor/products/components/ProductUpdatePage";
+import { DigitalContentCreateVariables } from "@saleor/products/types/DigitalContentCreate";
 import {
   ProductChannelListingUpdate,
   ProductChannelListingUpdateVariables
@@ -230,6 +231,17 @@ export function createImageUploadHandler(
       alt: "",
       image: file,
       product: id
+    });
+}
+
+export function createFileUploadHandler(
+  id: string,
+  createProductFile: (variables: DigitalContentCreateVariables) => void
+) {
+  return (file: File) =>
+    createProductFile({
+      contentFile: file,
+      variantId: id
     });
 }
 
