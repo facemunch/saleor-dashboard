@@ -70,74 +70,8 @@ const ChannelContent: React.FC<ChannelContentProps> = ({
   );
   return (
     <div className={classes.container}>
-      <RadioSwitchField
-        className={classes.radioField}
-        disabled={disabled}
-        firstOptionLabel={
-          <>
-            <p className={classes.label}>{messages.visibleLabel}</p>
-          </>
-        }
-        name="isPublished"
-        secondOptionLabel={
-          <>
-            <p className={classes.label}>{messages.hiddenLabel}</p>
-          </>
-        }
-        value={isPublished}
-        onChange={() => {
-          onChange(id, {
-            ...formData,
-            isPublished: !isPublished,
-            publicationDate:
-              !isPublished && !publicationDate ? todayDate : publicationDate
-          });
-        }}
-      />
-      {!isPublished && (
-        <>
-          <Typography
-            className={classes.setPublicationDate}
-            onClick={() => setPublicationDate(!isPublicationDate)}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Set publication date"
-            })}
-          </Typography>
-          {isPublicationDate && (
-            <TextField
-              error={!!formErrors.publicationDate}
-              disabled={disabled}
-              label={intl.formatMessage({
-                defaultMessage: "Publish on",
-                description: "publish on date"
-              })}
-              name={`channel:publicationDate:${id}`}
-              type="date"
-              fullWidth={true}
-              helperText={
-                formErrors.publicationDate
-                  ? getProductErrorMessage(formErrors.publicationDate, intl)
-                  : ""
-              }
-              value={publicationDate || ""}
-              onChange={e =>
-                onChange(id, {
-                  ...formData,
-                  publicationDate: e.target.value || null
-                })
-              }
-              className={classes.date}
-              InputLabelProps={{
-                shrink: true
-              }}
-            />
-          )}
-        </>
-      )}
       {hasAvailableProps && (
         <>
-          <Hr />
           <RadioSwitchField
             className={classes.radioField}
             disabled={disabled}

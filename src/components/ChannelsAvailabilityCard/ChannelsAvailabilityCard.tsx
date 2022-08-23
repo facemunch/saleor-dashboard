@@ -68,7 +68,7 @@ export const ChannelsAvailability: React.FC<ChannelsAvailabilityCardProps> = pro
 
   return (
     <IonCard>
-      <IonCardContent>
+      <IonCardContent className={classes.cardContent}>
         {channels
           ? channels.map(data => {
               const channelErrors =
