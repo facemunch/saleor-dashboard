@@ -12,6 +12,7 @@ import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Grid from "@saleor/components/Grid";
 import Metadata from "@saleor/components/Metadata/Metadata";
 import Savebar from "@saleor/components/Savebar";
+import { useLocation } from "react-router-dom";
 
 import { ProductChannelListingErrorFragment } from "@saleor/fragments/types/ProductChannelListingErrorFragment";
 import { ProductErrorWithAttributesFragment } from "@saleor/fragments/types/ProductErrorWithAttributesFragment";
@@ -56,6 +57,7 @@ import ProductUpdateForm, {
 } from "./form";
 import { Loader } from "frontend/ui/loader";
 import PageHeader from "@saleor/components/PageHeader";
+import ProductDigitalContent from "../ProductDigitalContent";
 
 export interface ProductUpdatePageProps extends ListActions, ChannelProps {
   channelsWithVariantsData: ChannelsWithVariantsData;
@@ -95,6 +97,7 @@ export interface ProductUpdatePageProps extends ListActions, ChannelProps {
   onVariantShow: (id: string) => () => void;
   onVariantReorder: ReorderAction;
   onImageDelete: (id: string) => () => void;
+  onFileDelete: (id: string) => () => void;
   onSubmit: (data: ProductUpdatePageSubmitData) => SubmitPromise;
   openChannelsModal: () => void;
   onAttributeSelectBlur: () => void;
@@ -103,6 +106,7 @@ export interface ProductUpdatePageProps extends ListActions, ChannelProps {
   onImageEdit?(id: string);
   onImageReorder?(event: { oldIndex: number; newIndex: number });
   onImageUpload(file: File);
+  onFileUpload(file: File);
   onMediaUrlUpload(mediaUrl: string);
   onSeoClick?();
   onVariantAdd?();
@@ -148,6 +152,8 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   onImageEdit,
   onImageReorder,
   onImageUpload,
+  onFileUpload,
+  onFileDelete,
   onMediaUrlUpload,
   openChannelsModal,
   onSubmit,
@@ -181,6 +187,8 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   const [mediaUrlModalStatus, setMediaUrlModalStatus] = useStateFromProps(
     isMediaUrlModalVisible || false
   );
+  const { search } = useLocation();
+  const isDigitalProduct = search.includes("isDigitalProduct");
 
   const [selectedTaxType, setSelectedTaxType] = useStateFromProps(
     product?.taxType.description
@@ -264,6 +272,15 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                       onImageUpload={onImageUpload}
                       openMediaUrlModal={() => setMediaUrlModalStatus(true)}
                     />
+                    {isDigitalProduct && (
+                      <ProductDigitalContent
+                        content={variants?.[0]?.digitalContent}
+                        onFileDelete={onFileDelete}
+                        onFileUpload={onFileUpload}
+                      />
+                    )}
+                    <CardSpacer />
+
                     <CardSpacer />
                     {data.attributes.length > 0 && (
                       <Attributes

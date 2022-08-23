@@ -3,11 +3,9 @@ import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
 import { FormattedMessage } from "react-intl";
-
-import ImageIcon from "../../icons/Image";
 import Dropzone from "../Dropzone";
 
-interface ImageUploadProps {
+interface DigitalContentUploadProps {
   children?: (props: { isDragActive: boolean }) => React.ReactNode;
   className?: string;
   disableClick?: boolean;
@@ -15,7 +13,8 @@ interface ImageUploadProps {
   iconContainerClassName?: string;
   iconContainerActiveClassName?: string;
   hideUploadIcon?: boolean;
-  onImageUpload: (file: FileList) => void;
+  uploading?: boolean;
+  onDigitalContentUpload: (file: FileList) => void;
 }
 
 const useStyles = makeStyles(
@@ -55,10 +54,10 @@ const useStyles = makeStyles(
       textTransform: "uppercase"
     }
   }),
-  { name: "ImageUpload" }
+  { name: "DigitalContentUpload" }
 );
 
-export const ImageUpload: React.FC<ImageUploadProps> = props => {
+export const DigitalContentUpload: React.FC<DigitalContentUploadProps> = props => {
   const {
     children,
     className,
@@ -67,13 +66,13 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
     iconContainerClassName,
     isActiveClassName,
     hideUploadIcon,
-    onImageUpload
+    onDigitalContentUpload,
+    uploading
   } = props;
 
   const classes = useStyles(props);
-
   return (
-    <Dropzone disableClick={disableClick} onDrop={onImageUpload}>
+    <Dropzone disableClick={disableClick} onDrop={onDigitalContentUpload}>
       {({ isDragActive, getInputProps, getRootProps }) => (
         <>
           <div
@@ -89,16 +88,21 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
                   [iconContainerActiveClassName]: isDragActive
                 })}
               >
-                <input
-                  {...getInputProps()}
-                  className={classes.fileField}
-                  accept="image/*"
-                />
+                <input {...getInputProps()} className={classes.fileField} />
                 <Typography className={classes.uploadText}>
-                  <FormattedMessage
-                    defaultMessage="Tap to upload image"
-                    description="image upload"
-                  />
+                  {!uploading ? (
+                    <FormattedMessage
+                      defaultMessage={"Tap to upload file"}
+                      description="upload file"
+                    />
+                  ) : (
+                    <div className={"animate-pulse"}>
+                      <FormattedMessage
+                        defaultMessage={"Uploading"}
+                        description="uploading file"
+                      />
+                    </div>
+                  )}
                 </Typography>
               </div>
             )}
@@ -109,5 +113,5 @@ export const ImageUpload: React.FC<ImageUploadProps> = props => {
     </Dropzone>
   );
 };
-ImageUpload.displayName = "ImageUpload";
-export default ImageUpload;
+DigitalContentUpload.displayName = "DigitalContentUpload";
+export default DigitalContentUpload;

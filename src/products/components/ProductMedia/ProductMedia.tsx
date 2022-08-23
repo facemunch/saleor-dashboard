@@ -4,7 +4,6 @@ import ImageUpload from "@saleor/components/ImageUpload";
 import MediaTile from "@saleor/components/MediaTile";
 import { ProductMediaFragment } from "@saleor/fragments/types/ProductMediaFragment";
 import { makeStyles } from "@saleor/macaw-ui";
-import { ProductMediaPopper } from "@saleor/products/components/ProductMediaPopper/ProductMediaPopper";
 import { ReorderAction } from "@saleor/types";
 import { ProductMediaType } from "@saleor/types/globalTypes";
 import createMultiFileUploadHandler from "@saleor/utils/handlers/multiFileUploadHandler";
@@ -113,16 +112,6 @@ const useStyles = makeStyles(
   { name: "ProductMedia" }
 );
 
-interface SortableMediaProps {
-  media: {
-    id: string;
-    alt?: string;
-    url: string;
-  };
-  onEdit: (id: string) => void;
-  onDelete: () => void;
-}
-
 const SortableMedia = ({ media, onEdit, onDelete }) => (
   <MediaTile
     media={media}
@@ -130,8 +119,6 @@ const SortableMedia = ({ media, onEdit, onDelete }) => (
     onDelete={onDelete}
   />
 );
-
-
 
 const MediaListContainer = ({ media, preview, onDelete, onEdit, ...props }) => (
   <div {...props}>
@@ -162,11 +149,8 @@ const ProductMedia: React.FC<ProductMediaProps> = props => {
   const {
     media,
     placeholderImage,
-    onImageEdit,
     onImageDelete,
-    onImageReorder,
-    onImageUpload,
-    openMediaUrlModal
+    onImageUpload
   } = props;
 
   const classes = useStyles(props);
@@ -176,7 +160,6 @@ const ProductMedia: React.FC<ProductMediaProps> = props => {
   const [imagesToUpload, setImagesToUpload] = React.useState<
     ProductMediaFragment[]
   >([]);
-  const [popperOpenStatus, setPopperOpenStatus] = React.useState(false);
 
   const handleImageUpload = createMultiFileUploadHandler(onImageUpload, {
     onAfterUpload: () =>
@@ -210,7 +193,7 @@ const ProductMedia: React.FC<ProductMediaProps> = props => {
         toolbar={
           <>
             <IonButton
-              onClick={() => setPopperOpenStatus(true)}
+              onClick={imagesUpload.current?.click}
               size="small"
               color="primary"
               data-test="button-upload-image"
@@ -218,14 +201,6 @@ const ProductMedia: React.FC<ProductMediaProps> = props => {
             >
               {intl.formatMessage(messages.upload)}
             </IonButton>
-
-            <ProductMediaPopper
-              anchorRef={anchor.current}
-              imagesUploadRef={imagesUpload.current}
-              setPopperStatus={setPopperOpenStatus}
-              popperStatus={popperOpenStatus}
-              openMediaUrlModal={openMediaUrlModal}
-            />
 
             <input
               className={classes.fileField}

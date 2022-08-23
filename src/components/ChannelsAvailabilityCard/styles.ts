@@ -12,6 +12,10 @@ export const useStyles = makeStyles(
     arrow: {
       transition: theme.transitions.duration.short + "ms"
     },
+    cardContent: {
+      paddingTop: 0,
+      paddingBottom: 0
+    },
     card: {
       "&:last-child": {
         paddingBottom: 0

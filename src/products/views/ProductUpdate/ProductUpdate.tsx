@@ -26,6 +26,9 @@ import useShop from "@saleor/hooks/useShop";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
 import { commonMessages, errorMessages } from "@saleor/intl";
 import {
+  useDigitalContentCreateMutation,
+  useDigitalContentDeleteMutation,
+  useDigitalContentUrlCreateMutation,
   useProductChannelListingUpdate,
   useProductDeleteMutation,
   useProductMediaCreateMutation,
@@ -67,12 +70,15 @@ import {
   productVariantEditUrl
 } from "../../urls";
 import {
+  createFileUploadHandler,
   createImageReorderHandler,
   createImageUploadHandler,
   createUpdateHandler,
   createVariantReorderHandler
 } from "./handlers";
 import useChannelVariantListings from "./useChannelVariantListings";
+import { DigitalContentCreateVariables } from "@saleor/products/types/DigitalContentCreate";
+import { DigitalContentUrlCreateVariables } from "@saleor/products/types/DigitalContentUrlCreate";
 
 const messages = defineMessages({
   deleteProductDialogTitle: {
@@ -202,7 +208,55 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
     }
   });
 
+  const [
+    createProductFile
+  ] = useDigitalContentCreateMutation({
+    onCompleted: data => {
+      const fileError = data.digitalContentCreate.errors.find(
+        error => error.field === ("contentFile" as keyof DigitalContentCreateVariables)
+      );
+      if (fileError) {
+        notify({
+          status: "error",
+          title: intl.formatMessage(errorMessages.fileUploadErrorTitle),
+          text: intl.formatMessage(errorMessages.fileUploadErrorText)
+        });
+      } else {
+        createProductFileUrl({
+          variables: {
+            content: data.digitalContentCreate.content.id
+          }
+        })
+      }
+    }
+  });
+
+  const [
+    createProductFileUrl,
+  ] = useDigitalContentUrlCreateMutation({
+    onCompleted: data => {
+      const fileError = data.digitalContentUrlCreate.errors.find(
+        error => error.field === ("content" as keyof DigitalContentUrlCreateVariables)
+      );
+      if (fileError) {
+        notify({
+          status: "error",
+          title: intl.formatMessage(errorMessages.fileUploadErrorTitle),
+          text: intl.formatMessage(errorMessages.fileUploadErrorText)
+        });
+      }
+    }
+  });
+
   const [deleteProductImage] = useProductMediaDeleteMutation({
+    onCompleted: () =>
+      notify({
+        status: "success",
+        text: intl.formatMessage(commonMessages.savedChanges)
+      })
+  });
+
+  const [deleteDigitalContent] = useDigitalContentDeleteMutation({
     onCompleted: () =>
       notify({
         status: "success",
@@ -327,6 +381,13 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
   const handleImageUpload = createImageUploadHandler(id, variables =>
     createProductImage({ variables })
   );
+  const handleFileUpload = createFileUploadHandler(data?.product?.variants?.[0]?.id, variables =>
+    createProductFile({ variables })
+  );
+
+  const handleFileDelete = (id: string) => () =>
+    deleteDigitalContent({ variables: { variantId: id } });
+  
   const handleImageReorder = createImageReorderHandler(product, variables =>
     reorderProductImages({ variables })
   );
@@ -447,6 +508,8 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
           navigate(productVariantEditUrl(product.id, variantId))}
         onVariantReorder={handleVariantReorder}
         onImageUpload={handleImageUpload}
+        onFileUpload={handleFileUpload}
+        onFileDelete={handleFileDelete}
         onImageEdit={handleImageEdit}
         onImageDelete={handleImageDelete}
         toolbar={

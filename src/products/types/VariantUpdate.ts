@@ -268,12 +268,25 @@ export interface VariantUpdate_productVariantUpdate_productVariant_product_varia
   oembedData: any;
 }
 
+export interface VariantUpdate_productVariantUpdate_productVariant_product_variants_digitalContent_urls {
+  __typename: "DigitalContentUrl";
+  id: string;
+  url: string | null;
+}
+
+export interface VariantUpdate_productVariantUpdate_productVariant_product_variants_digitalContent {
+  __typename: "DigitalContent";
+  id: string;
+  urls: (VariantUpdate_productVariantUpdate_productVariant_product_variants_digitalContent_urls | null)[] | null;
+}
+
 export interface VariantUpdate_productVariantUpdate_productVariant_product_variants {
   __typename: "ProductVariant";
   id: string;
   name: string;
   sku: string | null;
   media: VariantUpdate_productVariantUpdate_productVariant_product_variants_media[] | null;
+  digitalContent: VariantUpdate_productVariantUpdate_productVariant_product_variants_digitalContent | null;
 }
 
 export interface VariantUpdate_productVariantUpdate_productVariant_product {
@@ -630,12 +643,25 @@ export interface VariantUpdate_productVariantStocksUpdate_productVariant_product
   oembedData: any;
 }
 
+export interface VariantUpdate_productVariantStocksUpdate_productVariant_product_variants_digitalContent_urls {
+  __typename: "DigitalContentUrl";
+  id: string;
+  url: string | null;
+}
+
+export interface VariantUpdate_productVariantStocksUpdate_productVariant_product_variants_digitalContent {
+  __typename: "DigitalContent";
+  id: string;
+  urls: (VariantUpdate_productVariantStocksUpdate_productVariant_product_variants_digitalContent_urls | null)[] | null;
+}
+
 export interface VariantUpdate_productVariantStocksUpdate_productVariant_product_variants {
   __typename: "ProductVariant";
   id: string;
   name: string;
   sku: string | null;
   media: VariantUpdate_productVariantStocksUpdate_productVariant_product_variants_media[] | null;
+  digitalContent: VariantUpdate_productVariantStocksUpdate_productVariant_product_variants_digitalContent | null;
 }
 
 export interface VariantUpdate_productVariantStocksUpdate_productVariant_product {

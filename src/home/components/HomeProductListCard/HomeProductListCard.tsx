@@ -14,19 +14,16 @@ import { makeStyles } from "@saleor/macaw-ui";
 import classNames from "classnames";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { IonAvatar, IonRow, IonCol } from "@ionic/react";
 
 import { maybe, renderCollection } from "../../../misc";
 import { Home_productTopToday_edges_node } from "../../types/Home";
 
 const useStyles = makeStyles(
   theme => ({
-    avatarProps: {
-      height: "80 !important",
-      width: "80 !important"
-    },
     colAvatar: {
       paddingLeft: theme.spacing(2),
-      width: 112
+      width: "80px !important"
     },
     colName: {
       width: "auto"
@@ -66,7 +63,7 @@ export const HomeProductList: React.FC<HomeProductListProps> = props => {
           id: "homeProductsListCardHeader"
         })}
       />
-      <ResponsiveTable>
+      <ResponsiveTable className={classes.bodyPaddingLeft}>
         <colgroup>
           <col className={classes.colAvatar} />
           <col className={classes.colName} />
@@ -89,7 +86,7 @@ export const HomeProductList: React.FC<HomeProductListProps> = props => {
                 }
               >
                 <TableCellAvatar
-                  className={classes.colAvatar}
+                  style={{ paddingLeft: "10px" }}
                   thumbnail={maybe(() => variant.product.thumbnail.url)}
                 />
 

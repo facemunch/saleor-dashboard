@@ -62,6 +62,25 @@ export const fragmentProductMedia = gql`
   }
 `;
 
+export const fragmentDigitalContent = gql`
+  fragment DigitalContentFragment on DigitalContent {
+    id
+    contentFile
+    urls {
+      id
+      url
+      token
+    }
+    # metadata
+    automaticFulfillment
+    productVariant {
+      id
+      name
+      sku
+    }
+  }
+`;
+
 export const channelListingProductWithoutPricingFragment = gql`
   fragment ChannelListingProductWithoutPricingFragment on ProductChannelListing {
     isPublished
@@ -192,6 +211,7 @@ export const productVariantAttributesFragment = gql`
 export const productFragmentDetails = gql`
   ${fragmentPreorder}
   ${fragmentProductMedia}
+  ${fragmentDigitalContent}
   ${productVariantAttributesFragment}
   ${stockFragment}
   ${weightFragment}
@@ -244,6 +264,9 @@ export const productFragmentDetails = gql`
       }
       channelListings {
         ...ChannelListingProductVariantFragment
+      }
+      digitalContent {
+        ...DigitalContentFragment
       }
     }
     productType {
@@ -360,6 +383,13 @@ export const fragmentVariant = gql`
           url
           type
           oembedData
+        }
+        digitalContent {
+          id
+          urls {
+            id
+            url
+          }
         }
       }
       defaultVariant {

@@ -16,7 +16,6 @@ import {
   alpha
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from "@mui/icons-material/Delete";
 import {
   ChannelData,
   ChannelPriceAndPreorderArgs
@@ -34,6 +33,7 @@ import { getFormErrors, getProductErrorMessage } from "@saleor/utils/errors";
 import createNonNegativeValueChangeHandler from "@saleor/utils/handlers/nonNegativeValueChangeHandler";
 import React, { useEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 
 import { ProductCreateData } from "../ProductCreatePage";
 import { ProductUpdateSubmitData } from "../ProductUpdatePage/form";
@@ -91,15 +91,15 @@ const useStyles = makeStyles(
     },
     colName: {},
     colQuantity: {
-      textAlign: "right",
-      width: 150
+      textAlign: "left",
+      width: 180
     },
     colSoldUnits: {
-      textAlign: "right",
+      textAlign: "left",
       width: 150
     },
     colThreshold: {
-      textAlign: "right",
+      textAlign: "left",
       width: 180
     },
     editWarehouses: {
@@ -107,7 +107,7 @@ const useStyles = makeStyles(
     },
     input: {
       padding: theme.spacing(1.5),
-      textAlign: "right"
+      textAlign: "left"
     },
     menuItem: {
       "&:not(:last-of-type)": {
@@ -178,14 +178,15 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
   disabled,
   errors,
   stocks,
-  isDigitalProduct,
   warehouses,
   onChange,
   onFormDataChange,
   onWarehouseStockAdd,
   onWarehouseStockDelete,
-  defaultInvetoryCount = isDigitalProduct ? 1000000 : 10,
+  defaultInvetoryCount = 1000000
 }) => {
+  const { search } = useLocation();
+  const isDigitalProduct = search.includes("isDigitalProduct");
   const classes = useStyles({});
   const intl = useIntl();
   const anchor = React.useRef<HTMLDivElement>();
@@ -245,7 +246,7 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
                   id="tableColQuantity"
                 />
               </TableCell>
-              <TableCell className={classes.colAction} />
+              <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
@@ -270,14 +271,6 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
                       }}
                       value={stock.value}
                     />
-                  </TableCell>
-                  <TableCell className={classes.colAction}>
-                    <IconButton
-                      color="primary"
-                      onClick={() => onWarehouseStockDelete(stock.id)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
                   </TableCell>
                 </TableRow>
               );
