@@ -94,8 +94,6 @@ const ProductDigitalContent: React.FC<ProductDigitalContentProps> = props => {
   });
   const [presentAlert] = useIonAlert();
 
-  const replaceContent = () => {};
-
   const onDeleteHandler = () => {
     presentAlert({
       header: "Delete current file?",
@@ -122,9 +120,7 @@ const ProductDigitalContent: React.FC<ProductDigitalContentProps> = props => {
           <>
             {!content && (
               <IonButton
-                onClick={() =>
-                  content ? replaceContent : filesUpload.current.click()
-                }
+                onClick={() => filesUpload.current.click()}
                 disabled={uploading}
                 size="small"
                 color="primary"

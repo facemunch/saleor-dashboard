@@ -193,7 +193,7 @@ const ProductMedia: React.FC<ProductMediaProps> = props => {
         toolbar={
           <>
             <IonButton
-              onClick={() => imagesUpload.current.click()}
+              onClick={imagesUpload.current?.click}
               size="small"
               color="primary"
               data-test="button-upload-image"

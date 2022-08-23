@@ -93,13 +93,13 @@ export const DigitalContentUpload: React.FC<DigitalContentUploadProps> = props =
                   {!uploading ? (
                     <FormattedMessage
                       defaultMessage={"Tap to upload file"}
-                      description="image upload"
+                      description="upload file"
                     />
                   ) : (
                     <div className={"animate-pulse"}>
                       <FormattedMessage
                         defaultMessage={"Uploading"}
-                        description="image upload"
+                        description="uploading file"
                       />
                     </div>
                   )}

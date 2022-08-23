@@ -12,6 +12,7 @@ import { ConfirmButtonTransitionState } from "@saleor/components/ConfirmButton";
 import Grid from "@saleor/components/Grid";
 import Metadata from "@saleor/components/Metadata/Metadata";
 import Savebar from "@saleor/components/Savebar";
+import { useLocation } from "react-router-dom";
 
 import { ProductChannelListingErrorFragment } from "@saleor/fragments/types/ProductChannelListingErrorFragment";
 import { ProductErrorWithAttributesFragment } from "@saleor/fragments/types/ProductErrorWithAttributesFragment";
@@ -186,6 +187,8 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   const [mediaUrlModalStatus, setMediaUrlModalStatus] = useStateFromProps(
     isMediaUrlModalVisible || false
   );
+  const { search } = useLocation();
+  const isDigitalProduct = search.includes("isDigitalProduct");
 
   const [selectedTaxType, setSelectedTaxType] = useStateFromProps(
     product?.taxType.description
@@ -269,11 +272,13 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                       onImageUpload={onImageUpload}
                       openMediaUrlModal={() => setMediaUrlModalStatus(true)}
                     />
-                    <ProductDigitalContent
-                      content={variants?.[0]?.digitalContent}
-                      onFileDelete={onFileDelete}
-                      onFileUpload={onFileUpload}
-                    />
+                    {isDigitalProduct && (
+                      <ProductDigitalContent
+                        content={variants?.[0]?.digitalContent}
+                        onFileDelete={onFileDelete}
+                        onFileUpload={onFileUpload}
+                      />
+                    )}
                     <CardSpacer />
 
                     <CardSpacer />

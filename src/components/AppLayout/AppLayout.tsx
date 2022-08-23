@@ -134,14 +134,12 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         {
           text: "Digital Product",
           handler: () => {
-            console.log("Delete clicked");
             navigate("/c/products/add?isDigitalProduct");
           }
         },
         {
           text: "Physical Product",
           handler: () => {
-            console.log("Delete clicked");
             navigate("/c/products/add");
           }
         },
@@ -150,7 +148,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           role: 'cancel',
           handler: () => {
             dismissActionSheet();
-            console.log("Delete clicked");
           }
         }
       ]
