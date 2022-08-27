@@ -89,6 +89,7 @@ export interface ProductUpdatePageProps extends ListActions, ChannelProps {
 
   fetchMoreAttributeValues?: FetchMoreProps;
   isSimpleProduct: boolean;
+  isDigital: boolean;
 
   fetchAttributeValues: (query: string, attributeId: string) => void;
   onAssignReferencesClick: (attribute: AttributeInput) => void;
@@ -132,6 +133,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
 
   attributeValues,
   isSimpleProduct,
+  isDigital,
   errors,
   media,
   hasChannelChanged,
@@ -187,8 +189,6 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   const [mediaUrlModalStatus, setMediaUrlModalStatus] = useStateFromProps(
     isMediaUrlModalVisible || false
   );
-  const { search } = useLocation();
-  const isDigitalProduct = search.includes("isDigitalProduct");
 
   const [selectedTaxType, setSelectedTaxType] = useStateFromProps(
     product?.taxType.description
@@ -272,7 +272,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                       onImageUpload={onImageUpload}
                       openMediaUrlModal={() => setMediaUrlModalStatus(true)}
                     />
-                    {isDigitalProduct && (
+                    {isDigital && (
                       <ProductDigitalContent
                         content={variants?.[0]?.digitalContent}
                         onFileDelete={onFileDelete}

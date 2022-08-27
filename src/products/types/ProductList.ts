@@ -19,6 +19,7 @@ export interface ProductList_products_edges_node_productType {
   id: string;
   name: string;
   hasVariants: boolean;
+  isDigital: boolean;
 }
 
 export interface ProductList_products_edges_node_channelListings_channel {

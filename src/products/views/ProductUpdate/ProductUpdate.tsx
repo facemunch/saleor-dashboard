@@ -148,6 +148,7 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
   const product = data?.product;
 
   const isSimpleProduct = !data?.product?.productType?.hasVariants;
+  const isDigital = data?.product?.productType?.isDigital;
 
   const { availableChannels, channel } = useAppChannel(!isSimpleProduct);
 
@@ -474,6 +475,7 @@ export const ProductUpdate: React.FC<ProductUpdateProps> = ({ id, params }) => {
           productChannelsChoices?.length !== currentChannels?.length
         }
         isSimpleProduct={isSimpleProduct}
+        isDigital={isDigital}
         openChannelsModal={handleChannelsModalOpen}
         onChannelsChange={setCurrentChannels}
         channelsErrors={channelsErrors}

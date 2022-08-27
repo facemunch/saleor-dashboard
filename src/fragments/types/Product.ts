@@ -148,6 +148,7 @@ export interface Product_productType {
   variantAttributes: (Product_productType_variantAttributes | null)[] | null;
   name: string;
   hasVariants: boolean;
+  isDigital: boolean;
   taxType: Product_productType_taxType | null;
 }
 

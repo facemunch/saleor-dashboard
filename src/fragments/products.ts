@@ -141,6 +141,7 @@ export const productFragment = gql`
       id
       name
       hasVariants
+      isDigital
     }
     channelListings {
       ...ChannelListingProductFragment
@@ -273,6 +274,7 @@ export const productFragmentDetails = gql`
       id
       name
       hasVariants
+      isDigital
       taxType {
         ...TaxTypeFragment
       }

@@ -155,6 +155,7 @@ export interface SimpleProductUpdate_productUpdate_product_productType {
   variantAttributes: (SimpleProductUpdate_productUpdate_product_productType_variantAttributes | null)[] | null;
   name: string;
   hasVariants: boolean;
+  isDigital: boolean;
   taxType: SimpleProductUpdate_productUpdate_product_productType_taxType | null;
 }
 

@@ -125,7 +125,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
                 product &&
                 onRowClick(
                   product.id,
-                  product.productType.name === "Digital product"
+                  product.productType.isDigital === "Digital product"
                     ? "?isDigitalProduct=true"
                     : ""
                 )
