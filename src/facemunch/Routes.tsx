@@ -79,14 +79,15 @@ const RoutesInner: React.FC<{ pathname: string }> = memo(({ pathname }) => {
   const { goBack, push } = useHistory();
   return (
     <>
-      <IonContent id="ecommerce" scrollX={false} scrollY={false} ref={refto}>
+      <IonContent id="ecommerce"  scrollX={false} scrollY={false} ref={refto}>
         <AppLayout>
           <>
             <Swiper
               cssMode={true}
               style={{
                 height: "100vh",
-                width: "100vw"
+                width: "100vw",
+                maxWidth: "600px",
               }}
               onInit={e => {
                 e.activeIndex = activeIndex;
