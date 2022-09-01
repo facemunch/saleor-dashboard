@@ -150,8 +150,8 @@ export const ProductList: React.FC<ProductListProps> = props => {
                   •{" "}
                   {product.channelListings &&
                   product.channelListings.length > 0 &&
-                  product.channelListings[0].isPublished
-                    ? "published"
+                  product.channelListings[0].isAvailableForPurchase
+                    ? "available"
                     : "draft"}
                 </h4>
               </IonLabel>
