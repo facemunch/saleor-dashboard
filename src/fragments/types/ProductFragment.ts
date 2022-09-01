@@ -17,6 +17,7 @@ export interface ProductFragment_productType {
   id: string;
   name: string;
   hasVariants: boolean;
+  isDigital: boolean;
 }
 
 export interface ProductFragment_channelListings_channel {

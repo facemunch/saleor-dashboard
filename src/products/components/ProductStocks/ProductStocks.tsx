@@ -33,10 +33,9 @@ import { getFormErrors, getProductErrorMessage } from "@saleor/utils/errors";
 import createNonNegativeValueChangeHandler from "@saleor/utils/handlers/nonNegativeValueChangeHandler";
 import React, { useEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
 
-import { ProductCreateData } from "../ProductCreatePage";
-import { ProductUpdateSubmitData } from "../ProductUpdatePage/form";
+import { ProductCreateData } from "../ProductCreatePageIonicSimple";
+import { ProductUpdateSubmitData } from "../ProductUpdatePageIonic/form";
 import { ProductVariantCreateData } from "../ProductVariantCreatePage/form";
 import { ProductVariantUpdateData } from "../ProductVariantPage/form";
 import { IonCard } from "@ionic/react";
@@ -61,7 +60,7 @@ export interface ProductStocksProps {
   productVariantChannelListings?: ChannelData[];
   data: ProductStockFormData;
   disabled: boolean;
-  isDigitalProduct?: boolean;
+  isDigitalProduct: boolean;
   errors: ProductErrorFragment[];
   formErrors:
     | FormErrors<ProductVariantCreateData>
@@ -183,10 +182,9 @@ const ProductStocks: React.FC<ProductStocksProps> = ({
   onFormDataChange,
   onWarehouseStockAdd,
   onWarehouseStockDelete,
+  isDigitalProduct,
   defaultInvetoryCount = 1000000
 }) => {
-  const { search } = useLocation();
-  const isDigitalProduct = search.includes("isDigitalProduct");
   const classes = useStyles({});
   const intl = useIntl();
   const anchor = React.useRef<HTMLDivElement>();

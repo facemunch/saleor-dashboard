@@ -89,6 +89,7 @@ export interface ProductUpdatePageProps extends ListActions, ChannelProps {
 
   fetchMoreAttributeValues?: FetchMoreProps;
   isSimpleProduct: boolean;
+  isDigital: boolean;
 
   fetchAttributeValues: (query: string, attributeId: string) => void;
   onAssignReferencesClick: (attribute: AttributeInput) => void;
@@ -132,6 +133,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
 
   attributeValues,
   isSimpleProduct,
+  isDigital,
   errors,
   media,
   hasChannelChanged,
@@ -187,14 +189,13 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   const [mediaUrlModalStatus, setMediaUrlModalStatus] = useStateFromProps(
     isMediaUrlModalVisible || false
   );
-  const { search } = useLocation();
-  const isDigitalProduct = search.includes("isDigitalProduct");
 
   const [selectedTaxType, setSelectedTaxType] = useStateFromProps(
     product?.taxType.description
   );
 
   const hasVariants = product?.productType?.hasVariants;
+  const isDigitalProduct = product?.productType?.isDigital;
   const taxTypeChoices =
     taxTypes?.map(taxType => ({
       label: taxType.description,
@@ -272,7 +273,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                       onImageUpload={onImageUpload}
                       openMediaUrlModal={() => setMediaUrlModalStatus(true)}
                     />
-                    {isDigitalProduct && (
+                    {isDigital && (
                       <ProductDigitalContent
                         content={variants?.[0]?.digitalContent}
                         onFileDelete={onFileDelete}
@@ -331,21 +332,24 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                       />
                     ) : (
                       <>
-                        <ProductShipping
-                          data={data}
-                          disabled={disabled}
-                          errors={errors}
-                          weightUnit={
-                            product?.weight?.unit || defaultWeightUnit
-                          }
-                          onChange={change}
-                        />
+                        {!isDigital && (
+                          <ProductShipping
+                            data={data}
+                            disabled={disabled}
+                            errors={errors}
+                            weightUnit={
+                              product?.weight?.unit || defaultWeightUnit
+                            }
+                            onChange={change}
+                          />
+                        )}
 
                         <CardSpacer />
                         <ProductStocks
                           onVariantChannelListingChange={
                             handlers.changeChannelPreorder
                           }
+                          isDigitalProduct={isDigitalProduct}
                           productVariantChannelListings={data.channelListings}
                           data={data}
                           disabled={disabled}

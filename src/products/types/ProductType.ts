@@ -72,6 +72,7 @@ export interface ProductType_productType {
   id: string;
   name: string;
   hasVariants: boolean;
+  isDigital: boolean;
   productAttributes: (ProductType_productType_productAttributes | null)[] | null;
   taxType: ProductType_productType_taxType | null;
 }

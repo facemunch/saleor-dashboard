@@ -55,7 +55,6 @@ const ActionDialog: React.FC<ActionDialogProps> = props => {
             id: "confirm-button",
             handler: () => {
               rest.onConfirm();
-              console.log("Confirm Okay");
             }
           }
         ]}

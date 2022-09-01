@@ -135,6 +135,7 @@ export interface ProductVariantCreateData_product_productType_nonSelectionVarian
 export interface ProductVariantCreateData_product_productType {
   __typename: "ProductType";
   id: string;
+  isDigital: boolean;
   selectionVariantAttributes: (ProductVariantCreateData_product_productType_selectionVariantAttributes | null)[] | null;
   nonSelectionVariantAttributes: (ProductVariantCreateData_product_productType_nonSelectionVariantAttributes | null)[] | null;
 }

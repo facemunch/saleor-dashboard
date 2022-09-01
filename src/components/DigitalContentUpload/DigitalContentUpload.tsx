@@ -89,7 +89,7 @@ export const DigitalContentUpload: React.FC<DigitalContentUploadProps> = props =
                 })}
               >
                 <input {...getInputProps()} className={classes.fileField} />
-                <Typography className={classes.uploadText}>
+                <Typography component="span" className={classes.uploadText}>
                   {!uploading ? (
                     <FormattedMessage
                       defaultMessage={"Tap to upload file"}

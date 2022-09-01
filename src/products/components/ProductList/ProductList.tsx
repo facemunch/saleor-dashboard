@@ -124,10 +124,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
               onClick={
                 product &&
                 onRowClick(
-                  product.id,
-                  product.productType.name === "Digital product"
-                    ? "?isDigitalProduct=true"
-                    : ""
+                  product.id
                 )
               }
               className={classes.link}
@@ -153,8 +150,8 @@ export const ProductList: React.FC<ProductListProps> = props => {
                   •{" "}
                   {product.channelListings &&
                   product.channelListings.length > 0 &&
-                  product.channelListings[0].isPublished
-                    ? "published"
+                  product.channelListings[0].isAvailableForPurchase
+                    ? "available"
                     : "draft"}
                 </h4>
               </IonLabel>

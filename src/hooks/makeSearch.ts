@@ -1,3 +1,4 @@
+import { WatchQueryFetchPolicy } from "apollo-client/core/watchQueryOptions";
 import { DocumentNode } from "graphql";
 import { useState } from "react";
 import { QueryResult } from "react-apollo";
@@ -19,6 +20,7 @@ export interface UseSearchResult<TData, TVariables extends SearchVariables> {
 export type UseSearchOpts<TVariables extends SearchVariables> = Partial<{
   skip: boolean;
   variables: TVariables;
+  fetchPolicy?: WatchQueryFetchPolicy
 }>;
 export type UseSearchHook<TData, TVariables extends SearchVariables> = (
   opts: UseSearchOpts<TVariables>

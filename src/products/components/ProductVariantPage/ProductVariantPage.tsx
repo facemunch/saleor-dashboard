@@ -338,6 +338,7 @@ const ProductVariantPage: React.FC<ProductVariantPageProps> = ({
                     onChange={handlers.changeStock}
                     onFormDataChange={change}
                     onChangePreorderEndDate={handlers.changePreorderEndDate}
+                    isDigitalProduct={variant.product.productType.isDigital}
                     onEndPreorderTrigger={
                       !!variant?.preorder
                         ? () => setIsEndPreorderModalOpened(true)
