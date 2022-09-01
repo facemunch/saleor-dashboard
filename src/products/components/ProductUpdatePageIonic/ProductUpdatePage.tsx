@@ -332,15 +332,17 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
                       />
                     ) : (
                       <>
-                        <ProductShipping
-                          data={data}
-                          disabled={disabled}
-                          errors={errors}
-                          weightUnit={
-                            product?.weight?.unit || defaultWeightUnit
-                          }
-                          onChange={change}
-                        />
+                        {!isDigital && (
+                          <ProductShipping
+                            data={data}
+                            disabled={disabled}
+                            errors={errors}
+                            weightUnit={
+                              product?.weight?.unit || defaultWeightUnit
+                            }
+                            onChange={change}
+                          />
+                        )}
 
                         <CardSpacer />
                         <ProductStocks
