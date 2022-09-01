@@ -125,7 +125,6 @@ const MediaListContainer = ({ media, preview, onDelete, onEdit, ...props }) => (
     {media.map((mediaObj, index) => (
       <SortableMedia
         key={`item-${index}`}
-        index={index}
         media={mediaObj}
         onEdit={onEdit ? onEdit(mediaObj.id) : null}
         onDelete={onDelete(mediaObj.id)}
@@ -193,7 +192,7 @@ const ProductMedia: React.FC<ProductMediaProps> = props => {
         toolbar={
           <>
             <IonButton
-              onClick={imagesUpload.current?.click}
+              onClick={() => imagesUpload.current?.click()}
               size="small"
               color="primary"
               data-test="button-upload-image"
