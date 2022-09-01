@@ -195,8 +195,7 @@ export const ProductUpdatePage: React.FC<ProductUpdatePageProps> = ({
   );
 
   const hasVariants = product?.productType?.hasVariants;
-  const isDigitalProduct = product?.productType?.isDigital
-  ;
+  const isDigitalProduct = product?.productType?.isDigital;
   const taxTypeChoices =
     taxTypes?.map(taxType => ({
       label: taxType.description,
