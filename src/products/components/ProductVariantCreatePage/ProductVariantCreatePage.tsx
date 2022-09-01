@@ -230,6 +230,7 @@ const ProductVariantCreatePage: React.FC<ProductVariantCreatePageProps> = ({
               <CardSpacer />
               <ProductStocks
                 data={data}
+                isDigitalProduct={product.productType.isDigital}
                 disabled={disabled}
                 hasVariants={true}
                 onFormDataChange={change}

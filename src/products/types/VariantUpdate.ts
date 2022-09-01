@@ -212,6 +212,12 @@ export interface VariantUpdate_productVariantUpdate_productVariant_product_thumb
   url: string;
 }
 
+export interface VariantUpdate_productVariantUpdate_productVariant_product_productType {
+  __typename: "ProductType";
+  id: string;
+  isDigital: boolean;
+}
+
 export interface VariantUpdate_productVariantUpdate_productVariant_product_channelListings_channel {
   __typename: "Channel";
   id: string;
@@ -296,6 +302,7 @@ export interface VariantUpdate_productVariantUpdate_productVariant_product {
   media: VariantUpdate_productVariantUpdate_productVariant_product_media[] | null;
   name: string;
   thumbnail: VariantUpdate_productVariantUpdate_productVariant_product_thumbnail | null;
+  productType: VariantUpdate_productVariantUpdate_productVariant_product_productType;
   channelListings: VariantUpdate_productVariantUpdate_productVariant_product_channelListings[] | null;
   variants: (VariantUpdate_productVariantUpdate_productVariant_product_variants | null)[] | null;
 }
@@ -587,6 +594,12 @@ export interface VariantUpdate_productVariantStocksUpdate_productVariant_product
   url: string;
 }
 
+export interface VariantUpdate_productVariantStocksUpdate_productVariant_product_productType {
+  __typename: "ProductType";
+  id: string;
+  isDigital: boolean;
+}
+
 export interface VariantUpdate_productVariantStocksUpdate_productVariant_product_channelListings_channel {
   __typename: "Channel";
   id: string;
@@ -671,6 +684,7 @@ export interface VariantUpdate_productVariantStocksUpdate_productVariant_product
   media: VariantUpdate_productVariantStocksUpdate_productVariant_product_media[] | null;
   name: string;
   thumbnail: VariantUpdate_productVariantStocksUpdate_productVariant_product_thumbnail | null;
+  productType: VariantUpdate_productVariantStocksUpdate_productVariant_product_productType;
   channelListings: VariantUpdate_productVariantStocksUpdate_productVariant_product_channelListings[] | null;
   variants: (VariantUpdate_productVariantStocksUpdate_productVariant_product_variants | null)[] | null;
 }

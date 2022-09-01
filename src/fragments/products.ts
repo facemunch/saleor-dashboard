@@ -362,6 +362,10 @@ export const fragmentVariant = gql`
       thumbnail {
         url
       }
+      productType {
+        id
+        isDigital
+      }
       channelListings {
         publicationDate
         isPublished

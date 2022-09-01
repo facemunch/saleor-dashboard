@@ -591,6 +591,12 @@ export interface SimpleProductUpdate_productVariantUpdate_productVariant_product
   url: string;
 }
 
+export interface SimpleProductUpdate_productVariantUpdate_productVariant_product_productType {
+  __typename: "ProductType";
+  id: string;
+  isDigital: boolean;
+}
+
 export interface SimpleProductUpdate_productVariantUpdate_productVariant_product_channelListings_channel {
   __typename: "Channel";
   id: string;
@@ -675,6 +681,7 @@ export interface SimpleProductUpdate_productVariantUpdate_productVariant_product
   media: SimpleProductUpdate_productVariantUpdate_productVariant_product_media[] | null;
   name: string;
   thumbnail: SimpleProductUpdate_productVariantUpdate_productVariant_product_thumbnail | null;
+  productType: SimpleProductUpdate_productVariantUpdate_productVariant_product_productType;
   channelListings: SimpleProductUpdate_productVariantUpdate_productVariant_product_channelListings[] | null;
   variants: (SimpleProductUpdate_productVariantUpdate_productVariant_product_variants | null)[] | null;
 }
@@ -966,6 +973,12 @@ export interface SimpleProductUpdate_productVariantStocksCreate_productVariant_p
   url: string;
 }
 
+export interface SimpleProductUpdate_productVariantStocksCreate_productVariant_product_productType {
+  __typename: "ProductType";
+  id: string;
+  isDigital: boolean;
+}
+
 export interface SimpleProductUpdate_productVariantStocksCreate_productVariant_product_channelListings_channel {
   __typename: "Channel";
   id: string;
@@ -1050,6 +1063,7 @@ export interface SimpleProductUpdate_productVariantStocksCreate_productVariant_p
   media: SimpleProductUpdate_productVariantStocksCreate_productVariant_product_media[] | null;
   name: string;
   thumbnail: SimpleProductUpdate_productVariantStocksCreate_productVariant_product_thumbnail | null;
+  productType: SimpleProductUpdate_productVariantStocksCreate_productVariant_product_productType;
   channelListings: SimpleProductUpdate_productVariantStocksCreate_productVariant_product_channelListings[] | null;
   variants: (SimpleProductUpdate_productVariantStocksCreate_productVariant_product_variants | null)[] | null;
 }
@@ -1340,6 +1354,12 @@ export interface SimpleProductUpdate_productVariantStocksDelete_productVariant_p
   url: string;
 }
 
+export interface SimpleProductUpdate_productVariantStocksDelete_productVariant_product_productType {
+  __typename: "ProductType";
+  id: string;
+  isDigital: boolean;
+}
+
 export interface SimpleProductUpdate_productVariantStocksDelete_productVariant_product_channelListings_channel {
   __typename: "Channel";
   id: string;
@@ -1424,6 +1444,7 @@ export interface SimpleProductUpdate_productVariantStocksDelete_productVariant_p
   media: SimpleProductUpdate_productVariantStocksDelete_productVariant_product_media[] | null;
   name: string;
   thumbnail: SimpleProductUpdate_productVariantStocksDelete_productVariant_product_thumbnail | null;
+  productType: SimpleProductUpdate_productVariantStocksDelete_productVariant_product_productType;
   channelListings: SimpleProductUpdate_productVariantStocksDelete_productVariant_product_channelListings[] | null;
   variants: (SimpleProductUpdate_productVariantStocksDelete_productVariant_product_variants | null)[] | null;
 }
@@ -1715,6 +1736,12 @@ export interface SimpleProductUpdate_productVariantStocksUpdate_productVariant_p
   url: string;
 }
 
+export interface SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_productType {
+  __typename: "ProductType";
+  id: string;
+  isDigital: boolean;
+}
+
 export interface SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_channelListings_channel {
   __typename: "Channel";
   id: string;
@@ -1799,6 +1826,7 @@ export interface SimpleProductUpdate_productVariantStocksUpdate_productVariant_p
   media: SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_media[] | null;
   name: string;
   thumbnail: SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_thumbnail | null;
+  productType: SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_productType;
   channelListings: SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_channelListings[] | null;
   variants: (SimpleProductUpdate_productVariantStocksUpdate_productVariant_product_variants | null)[] | null;
 }

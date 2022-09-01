@@ -124,10 +124,7 @@ export const ProductList: React.FC<ProductListProps> = props => {
               onClick={
                 product &&
                 onRowClick(
-                  product.id,
-                  product.productType.isDigital === "Digital product"
-                    ? "?isDigitalProduct=true"
-                    : ""
+                  product.id
                 )
               }
               className={classes.link}

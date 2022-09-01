@@ -62,7 +62,6 @@ interface ProductVariantPriceProps {
   errors?: ProductChannelListingErrorFragment[];
   loading?: boolean;
   disabled?: boolean;
-  isDigitalProduct?: boolean;
   onChange?: (
     id: string,
     data: ChannelPriceArgs | ChannelPriceAndPreorderArgs

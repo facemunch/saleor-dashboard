@@ -42,7 +42,7 @@ import { useWarehouseList } from "@saleor/warehouses/queries";
 import { warehouseAddPath } from "@saleor/warehouses/urls";
 import React from "react";
 import { useIntl } from "react-intl";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { createHandler } from "./handlers";
 
@@ -60,6 +60,9 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
   const shop = useShop();
 
   const { goBack } = useHistory();
+
+  const { search } = useLocation();
+  const isDigitalProduct = search.includes("isDigitalProduct");
 
   const intl = useIntl();
   const [productCreateComplete, setProductCreateComplete] = React.useState(
@@ -104,17 +107,19 @@ export const ProductCreateView: React.FC<ProductCreateProps> = ({
   const [updateMetadata] = useMetadataUpdate({});
   const [updatePrivateMetadata] = usePrivateMetadataUpdate({});
 
-  const { data: selectedProductType } = useProductTypeQuery({
-    variables: {
-      id: selectedProductTypeId,
-      firstValues: VALUES_PAGINATE_BY
-    },
-    skip: !selectedProductTypeId,
-    fetchPolicy: "cache-first"
-  });
-
   const productTypes =
     mapEdgesToItems(searchProductTypesOpts?.data?.search) || [];
+
+  const productType = productTypes.find(type => type.isDigital == isDigitalProduct)
+
+  const { data: selectedProductType } = useProductTypeQuery({
+    variables: {
+      id: productType?.id,
+      firstValues: VALUES_PAGINATE_BY
+    },
+    skip: !productType?.id,
+    fetchPolicy: "cache-first"
+  });
 
   const { availableChannels } = useAppChannel(false);
   const allChannels: ChannelData[] = createSortedChannelsData(

@@ -22,7 +22,6 @@ export interface ChannelsAvailability
   errors?: ChannelsAvailabilityError[];
   isAutoPresentToPublished?: boolean;
   disabled?: boolean;
-  isDigitalProduct?: boolean;
   messages?: Messages;
   managePermissions: PermissionEnum[];
   onChange?: (id: string, data: ChannelOpts) => void;

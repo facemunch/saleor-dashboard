@@ -205,6 +205,12 @@ export interface ProductVariantDetails_productVariant_product_thumbnail {
   url: string;
 }
 
+export interface ProductVariantDetails_productVariant_product_productType {
+  __typename: "ProductType";
+  id: string;
+  isDigital: boolean;
+}
+
 export interface ProductVariantDetails_productVariant_product_channelListings_channel {
   __typename: "Channel";
   id: string;
@@ -289,6 +295,7 @@ export interface ProductVariantDetails_productVariant_product {
   media: ProductVariantDetails_productVariant_product_media[] | null;
   name: string;
   thumbnail: ProductVariantDetails_productVariant_product_thumbnail | null;
+  productType: ProductVariantDetails_productVariant_product_productType;
   channelListings: ProductVariantDetails_productVariant_product_channelListings[] | null;
   variants: (ProductVariantDetails_productVariant_product_variants | null)[] | null;
 }

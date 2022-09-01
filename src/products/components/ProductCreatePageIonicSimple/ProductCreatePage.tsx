@@ -19,9 +19,8 @@ import { SearchPages_search_edges_node } from "@saleor/searches/types/SearchPage
 import { SearchProductTypes_search_edges_node } from "@saleor/searches/types/SearchProductTypes";
 import { SearchWarehouses_search_edges_node } from "@saleor/searches/types/SearchWarehouses";
 import { PermissionEnum } from "@saleor/types/globalTypes";
-import React, { useEffect } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
 
 import { FetchMoreProps } from "../../../types";
 import ProductDetailsForm from "../ProductDetailsForm";
@@ -106,25 +105,13 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
   onAttributeSelectBlur
 }: ProductCreatePageProps) => {
   const intl = useIntl();
-  const { search } = useLocation();
-  const isDigitalProduct = search.includes("isDigitalProduct");
+  const isDigitalProduct = selectedProductType?.isDigital
 
   const [selectedCategory, setSelectedCategory] = useStateFromProps("");
 
   const categories = getChoices(categoryChoiceList);
 
   const productTypes = getChoices(productTypeChoiceList);
-
-  useEffect(() => {
-    if (productTypes.length === 0 || selectedProductType) return;
-    const digitalProduct = productTypes.find(
-      x =>
-        x.label === (isDigitalProduct ? "Digital product" : "Physical product")
-    );
-    digitalProduct?.value
-      ? onSelectProductType(digitalProduct.value)
-      : onSelectProductType(productTypes[0].value);
-  }, [productTypes, isDigitalProduct]);
 
   return (
     <>
@@ -186,7 +173,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                   {isSimpleProduct && (
                     <>
                       <ProductVariantPrice
-                        isDigitalProduct={isDigitalProduct}
                         ProductVariantChannelListings={data.channelListings}
                         errors={channelsErrors}
                         loading={loading}
@@ -253,7 +239,6 @@ export const ProductCreatePage: React.FC<ProductCreatePageProps> = ({
                     <CardSpacer />
                     {isSimpleProduct ? (
                       <ChannelsAvailabilityCard
-                        isDigitalProduct={isDigitalProduct}
                         isAutoPresentToPublished={true}
                         managePermissions={[PermissionEnum.MANAGE_PRODUCTS]}
                         messages={{

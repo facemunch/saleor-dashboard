@@ -233,6 +233,7 @@ const productTypeQuery = gql`
       id
       name
       hasVariants
+      isDigital
       productAttributes {
         id
         inputType
@@ -305,6 +306,7 @@ const productVariantCreateQuery = gql`
       name
       productType {
         id
+        isDigital
         selectionVariantAttributes: variantAttributes(
           variantSelection: VARIANT_SELECTION
         ) {
