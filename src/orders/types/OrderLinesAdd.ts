@@ -210,11 +210,17 @@ export interface OrderLinesAdd_orderLinesCreate_order_fulfillments_lines_orderLi
   endDate: any | null;
 }
 
+export interface OrderLinesAdd_orderLinesCreate_order_fulfillments_lines_orderLine_variant_digitalContent {
+  __typename: "DigitalContent";
+  id: string;
+}
+
 export interface OrderLinesAdd_orderLinesCreate_order_fulfillments_lines_orderLine_variant {
   __typename: "ProductVariant";
   id: string;
   quantityAvailable: number;
   preorder: OrderLinesAdd_orderLinesCreate_order_fulfillments_lines_orderLine_variant_preorder | null;
+  digitalContent: OrderLinesAdd_orderLinesCreate_order_fulfillments_lines_orderLine_variant_digitalContent | null;
 }
 
 export interface OrderLinesAdd_orderLinesCreate_order_fulfillments_lines_orderLine_unitDiscount {
@@ -312,11 +318,17 @@ export interface OrderLinesAdd_orderLinesCreate_order_lines_variant_preorder {
   endDate: any | null;
 }
 
+export interface OrderLinesAdd_orderLinesCreate_order_lines_variant_digitalContent {
+  __typename: "DigitalContent";
+  id: string;
+}
+
 export interface OrderLinesAdd_orderLinesCreate_order_lines_variant {
   __typename: "ProductVariant";
   id: string;
   quantityAvailable: number;
   preorder: OrderLinesAdd_orderLinesCreate_order_lines_variant_preorder | null;
+  digitalContent: OrderLinesAdd_orderLinesCreate_order_lines_variant_digitalContent | null;
 }
 
 export interface OrderLinesAdd_orderLinesCreate_order_lines_unitDiscount {

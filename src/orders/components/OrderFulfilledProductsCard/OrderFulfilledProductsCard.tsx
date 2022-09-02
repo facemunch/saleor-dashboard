@@ -115,6 +115,7 @@ const OrderFulfilledProductsCard: React.FC<OrderFulfilledProductsCardProps> = pr
         status={fulfillment?.status}
         trackingNumber={fulfillment?.trackingNumber}
         orderIsPaid={order?.isPaid}
+        isDigitalProduct={getLines().every(line => !!line.orderLine.variant.digitalContent)}
         fulfillmentAllowUnpaid={fulfillmentAllowUnpaid}
         onTrackingCodeAdd={onTrackingCodeAdd}
         onRefund={onRefund}

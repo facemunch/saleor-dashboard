@@ -21,11 +21,17 @@ export interface OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_f
   endDate: any | null;
 }
 
+export interface OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_fulfillment_lines_orderLine_variant_digitalContent {
+  __typename: "DigitalContent";
+  id: string;
+}
+
 export interface OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_fulfillment_lines_orderLine_variant {
   __typename: "ProductVariant";
   id: string;
   quantityAvailable: number;
   preorder: OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_fulfillment_lines_orderLine_variant_preorder | null;
+  digitalContent: OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_fulfillment_lines_orderLine_variant_digitalContent | null;
 }
 
 export interface OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_fulfillment_lines_orderLine_unitDiscount {
@@ -312,11 +318,17 @@ export interface OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_o
   endDate: any | null;
 }
 
+export interface OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_order_fulfillments_lines_orderLine_variant_digitalContent {
+  __typename: "DigitalContent";
+  id: string;
+}
+
 export interface OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_order_fulfillments_lines_orderLine_variant {
   __typename: "ProductVariant";
   id: string;
   quantityAvailable: number;
   preorder: OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_order_fulfillments_lines_orderLine_variant_preorder | null;
+  digitalContent: OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_order_fulfillments_lines_orderLine_variant_digitalContent | null;
 }
 
 export interface OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_order_fulfillments_lines_orderLine_unitDiscount {
@@ -414,11 +426,17 @@ export interface OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_o
   endDate: any | null;
 }
 
+export interface OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_order_lines_variant_digitalContent {
+  __typename: "DigitalContent";
+  id: string;
+}
+
 export interface OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_order_lines_variant {
   __typename: "ProductVariant";
   id: string;
   quantityAvailable: number;
   preorder: OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_order_lines_variant_preorder | null;
+  digitalContent: OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_order_lines_variant_digitalContent | null;
 }
 
 export interface OrderFulfillmentRefundProducts_orderFulfillmentRefundProducts_order_lines_unitDiscount {

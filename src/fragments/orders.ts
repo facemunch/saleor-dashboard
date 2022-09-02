@@ -84,6 +84,9 @@ export const fragmentOrderLine = gql`
       preorder {
         endDate
       }
+      digitalContent {
+        id
+      }
     }
     productName
     productSku

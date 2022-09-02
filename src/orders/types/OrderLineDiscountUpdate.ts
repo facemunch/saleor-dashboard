@@ -210,11 +210,17 @@ export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_fulfillme
   endDate: any | null;
 }
 
+export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_fulfillments_lines_orderLine_variant_digitalContent {
+  __typename: "DigitalContent";
+  id: string;
+}
+
 export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_fulfillments_lines_orderLine_variant {
   __typename: "ProductVariant";
   id: string;
   quantityAvailable: number;
   preorder: OrderLineDiscountUpdate_orderLineDiscountUpdate_order_fulfillments_lines_orderLine_variant_preorder | null;
+  digitalContent: OrderLineDiscountUpdate_orderLineDiscountUpdate_order_fulfillments_lines_orderLine_variant_digitalContent | null;
 }
 
 export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_fulfillments_lines_orderLine_unitDiscount {
@@ -312,11 +318,17 @@ export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_lines_var
   endDate: any | null;
 }
 
+export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_lines_variant_digitalContent {
+  __typename: "DigitalContent";
+  id: string;
+}
+
 export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_lines_variant {
   __typename: "ProductVariant";
   id: string;
   quantityAvailable: number;
   preorder: OrderLineDiscountUpdate_orderLineDiscountUpdate_order_lines_variant_preorder | null;
+  digitalContent: OrderLineDiscountUpdate_orderLineDiscountUpdate_order_lines_variant_digitalContent | null;
 }
 
 export interface OrderLineDiscountUpdate_orderLineDiscountUpdate_order_lines_unitDiscount {

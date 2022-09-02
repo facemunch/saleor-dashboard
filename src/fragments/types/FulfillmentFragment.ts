@@ -14,11 +14,17 @@ export interface FulfillmentFragment_lines_orderLine_variant_preorder {
   endDate: any | null;
 }
 
+export interface FulfillmentFragment_lines_orderLine_variant_digitalContent {
+  __typename: "DigitalContent";
+  id: string;
+}
+
 export interface FulfillmentFragment_lines_orderLine_variant {
   __typename: "ProductVariant";
   id: string;
   quantityAvailable: number;
   preorder: FulfillmentFragment_lines_orderLine_variant_preorder | null;
+  digitalContent: FulfillmentFragment_lines_orderLine_variant_digitalContent | null;
 }
 
 export interface FulfillmentFragment_lines_orderLine_unitDiscount {

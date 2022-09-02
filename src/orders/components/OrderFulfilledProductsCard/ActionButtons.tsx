@@ -12,6 +12,7 @@ interface AcionIonButtonsProps {
   trackingNumber?: string;
   orderIsPaid?: boolean;
   fulfillmentAllowUnpaid: boolean;
+  isDigitalProduct: boolean;
   onTrackingCodeAdd();
   onRefund();
   onApprove();
@@ -28,6 +29,7 @@ const ActionIonButtons: React.FC<AcionIonButtonsProps> = ({
   trackingNumber,
   orderIsPaid,
   fulfillmentAllowUnpaid,
+  isDigitalProduct,
   onTrackingCodeAdd,
   onRefund,
   onApprove
@@ -69,6 +71,8 @@ const ActionIonButtons: React.FC<AcionIonButtonsProps> = ({
       </CardActions>
     );
   }
+
+  if (isDigitalProduct) return null;
 
   return hasTrackingNumber ? (
     <CardActions>
