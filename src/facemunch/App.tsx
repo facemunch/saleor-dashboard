@@ -25,11 +25,17 @@ import ServiceWorker from "../containers/ServiceWorker/ServiceWorker";
 
 import { setContext } from "apollo-link-context";
 import Routes from "./Routes";
+import OnboardingProvider from "@saleor/components/Onboarding/Onboarding";
 
 interface IProps {
   onRouteUpdate?: (route: string) => void;
   ecomAccessToken?: string | null;
   ecomAPI?: string | null;
+  isDemoMode?: boolean;
+  isActiveSeller?: boolean;
+  isShowConnectMessage?: boolean;
+  connect?: () => void;
+  dismissConnectMessage?: () => void;
 }
 
 const createClient = () => {
@@ -103,7 +109,15 @@ const getApolloClient = (ecomAPI, ecomAccessToken) => {
   });
 };
 
-const App: React.FC<IProps> = ({ ecomAccessToken, ecomAPI }) => {
+const App: React.FC<IProps> = ({
+  ecomAccessToken,
+  ecomAPI,
+  isDemoMode,
+  isActiveSeller,
+  isShowConnectMessage,
+  connect,
+  dismissConnectMessage
+}) => {
   const apolloClient = useMemo(() => {
     return getClient(ecomAPI, ecomAccessToken);
   }, [ecomAPI, ecomAccessToken]);
@@ -121,7 +135,14 @@ const App: React.FC<IProps> = ({ ecomAccessToken, ecomAPI }) => {
                     <ShopProvider>
                       <AppChannelProvider>
                         <ExternalAppProvider>
-                          <Routes ecomAccessToken={ecomAccessToken} />
+                          <OnboardingProvider 
+                            isDemoMode={isDemoMode}
+                            isActiveSeller={isActiveSeller}
+                            isShowConnectMessage={isShowConnectMessage}
+                            connect={connect}
+                            dismissConnectMessage={dismissConnectMessage}>
+                            <Routes ecomAccessToken={ecomAccessToken} />
+                          </OnboardingProvider>
                         </ExternalAppProvider>
                       </AppChannelProvider>
                     </ShopProvider>
