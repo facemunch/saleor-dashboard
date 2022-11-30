@@ -18,6 +18,7 @@ import { Loader } from "frontend/ui/loader";
 import { useOnboarding } from "@saleor/components/Onboarding/Onboarding";
 import SVG from "react-inlinesvg";
 import ConnectImage from "./assets/connect.svg";
+import DoneImage from "./assets/done.svg";
 
 const useStyles = makeStyles(
   theme => ({
@@ -41,7 +42,7 @@ const useStyles = makeStyles(
       background: "white",
       padding: "1rem",
       flexDirection: "column",
-      margin: "2rem 1rem 1.5rem 1rem",
+      margin: "1rem 1rem 1.5rem 1rem",
       alignItems: "center",
       borderRadius: "1rem"
     },
@@ -49,6 +50,7 @@ const useStyles = makeStyles(
       color: "#101010",
       fontWeight: "800",
       fontSize: "20px",
+      marginTop: "0.5rem",
       lineHeight: "30px"
     },
     onboardingMessage: {
@@ -111,7 +113,7 @@ const HomePage: React.FC<HomePageProps> = props => {
         </div>
       ) : (
         <IonContent data-test-id="commerce-home-tab">
-          <div style={{ height: "20px" }} />
+          <div style={{ height: "44px" }} />
           {isDemoMode && (
             <div className={classes.onboarding}>
               <SVG src={ConnectImage} />
@@ -128,6 +130,26 @@ const HomePage: React.FC<HomePageProps> = props => {
                 onClick={connect}
               >
                 Connect to Stripe
+              </IonButton>
+            </div>
+          )}
+          {isShowConnectMessage && (
+            <div className={classes.onboarding}>
+              <SVG src={DoneImage} />
+              <IonText className={classes.onboardingHeader}>
+                Stripe connected
+              </IonText>
+              <IonText className={classes.onboardingMessage}>
+                You can now publish pages with products.
+              </IonText>
+              <IonButton
+                style={{ color: "#101010" }}
+                shape="round"
+                fill="outline"
+                className={classes.onboardingButton}
+                onClick={dismissConnectMessage}
+              >
+                Got it
               </IonButton>
             </div>
           )}

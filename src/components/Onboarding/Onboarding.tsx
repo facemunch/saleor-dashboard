@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export type OnboardingContextType = {
   isDemoMode?: boolean;
@@ -18,13 +18,25 @@ const OnboardingProvider: React.FC<OnboardingContextType> = ({
   dismissConnectMessage,
   children
 }) => {
-  const [state] = React.useState<OnboardingContextType>({
+  const [state, setState] = React.useState<OnboardingContextType>({
     isDemoMode,
     isActiveSeller,
     isShowConnectMessage,
     connect,
     dismissConnectMessage
   });
+
+  useEffect(() => {
+    if (isDemoMode !== state.isDemoMode) {
+      setState(prev => ({...prev, isDemoMode}))
+    }
+    if (isActiveSeller !== state.isActiveSeller) {
+      setState(prev => ({...prev, isActiveSeller}))
+    }
+    if (isShowConnectMessage !== state.isShowConnectMessage) {
+      setState(prev => ({...prev, isShowConnectMessage}))
+    }
+  }, [isDemoMode, isActiveSeller, isShowConnectMessage])
 
   return (
     <OnboardingContext.Provider value={state}>
