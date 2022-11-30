@@ -19,6 +19,7 @@ import { useOnboarding } from "@saleor/components/Onboarding/Onboarding";
 import SVG from "react-inlinesvg";
 import ConnectImage from "./assets/connect.svg";
 import DoneImage from "./assets/done.svg";
+import AlertImage from "./assets/alert.svg";
 
 const useStyles = makeStyles(
   theme => ({
@@ -102,6 +103,7 @@ const HomePage: React.FC<HomePageProps> = props => {
     isActiveSeller,
     isShowConnectMessage,
     connect,
+    goToStripe,
     dismissConnectMessage
   } = useOnboarding();
   const classes = useStyles(props);
@@ -150,6 +152,25 @@ const HomePage: React.FC<HomePageProps> = props => {
                 onClick={dismissConnectMessage}
               >
                 Got it
+              </IonButton>
+            </div>
+          )}
+          {!isActiveSeller && (
+            <div className={classes.onboarding}>
+              <SVG src={AlertImage} />
+              <IonText className={classes.onboardingHeader}>
+                Action required
+              </IonText>
+              <IonText className={classes.onboardingMessage}>
+                Stripe needs a few additional documents to enable your payments.
+              </IonText>
+              <IonButton
+                style={{ color: "#101010" }}
+                shape="round"
+                className={classes.onboardingButton}
+                onClick={goToStripe}
+              >
+                Visit Stripe
               </IonButton>
             </div>
           )}

@@ -35,6 +35,7 @@ interface IProps {
   isActiveSeller?: boolean;
   isShowConnectMessage?: boolean;
   connect?: () => void;
+  goToStripe?: () => void;
   dismissConnectMessage?: () => void;
 }
 
@@ -116,6 +117,7 @@ const App: React.FC<IProps> = ({
   isActiveSeller,
   isShowConnectMessage,
   connect,
+  goToStripe,
   dismissConnectMessage
 }) => {
   const apolloClient = useMemo(() => {
@@ -140,6 +142,7 @@ const App: React.FC<IProps> = ({
                             isActiveSeller={isActiveSeller}
                             isShowConnectMessage={isShowConnectMessage}
                             connect={connect}
+                            goToStripe={goToStripe}
                             dismissConnectMessage={dismissConnectMessage}>
                             <Routes ecomAccessToken={ecomAccessToken} />
                           </OnboardingProvider>

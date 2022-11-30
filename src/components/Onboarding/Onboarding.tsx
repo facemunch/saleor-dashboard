@@ -5,6 +5,7 @@ export type OnboardingContextType = {
   isActiveSeller?: boolean;
   isShowConnectMessage?: boolean;
   connect?: () => void;
+  goToStripe?: () => void;
   dismissConnectMessage?: () => void;
 };
 
@@ -15,6 +16,7 @@ const OnboardingProvider: React.FC<OnboardingContextType> = ({
   isActiveSeller,
   isShowConnectMessage,
   connect,
+  goToStripe,
   dismissConnectMessage,
   children
 }) => {
@@ -23,6 +25,7 @@ const OnboardingProvider: React.FC<OnboardingContextType> = ({
     isActiveSeller,
     isShowConnectMessage,
     connect,
+    goToStripe,
     dismissConnectMessage
   });
 
