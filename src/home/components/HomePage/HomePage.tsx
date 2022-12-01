@@ -161,7 +161,7 @@ const HomePage: React.FC<HomePageProps> = props => {
                 Action required
               </IonText>
               <IonText className={classes.onboardingMessage}>
-                Stripe needs a few additional documents to enable your payments.
+                Stripe needs an additional verification to enable your payments.
               </IonText>
               <IonButton
                 shape="round"
