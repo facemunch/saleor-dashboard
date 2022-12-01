@@ -63,7 +63,8 @@ const useStyles = makeStyles(
     },
     onboardingButton: {
       marginTop: "1rem",
-      fontWeight: "600"
+      fontWeight: "600",
+      color: "#101010",
     }
   }),
   { name: "HomePage" }
@@ -126,7 +127,6 @@ const HomePage: React.FC<HomePageProps> = props => {
                 Connect your account with Stripe to start accepting payments.
               </IonText>
               <IonButton
-                style={{ color: "#101010" }}
                 shape="round"
                 className={classes.onboardingButton}
                 onClick={connect}
@@ -145,7 +145,6 @@ const HomePage: React.FC<HomePageProps> = props => {
                 You can now publish pages with products.
               </IonText>
               <IonButton
-                style={{ color: "#101010" }}
                 shape="round"
                 fill="outline"
                 className={classes.onboardingButton}
@@ -165,7 +164,6 @@ const HomePage: React.FC<HomePageProps> = props => {
                 Stripe needs a few additional documents to enable your payments.
               </IonText>
               <IonButton
-                style={{ color: "#101010" }}
                 shape="round"
                 className={classes.onboardingButton}
                 onClick={goToStripe}
