@@ -64,7 +64,7 @@ const useStyles = makeStyles(
     onboardingButton: {
       marginTop: "1rem",
       fontWeight: "600",
-      color: "#101010",
+      color: "#101010"
     }
   }),
   { name: "HomePage" }
@@ -118,13 +118,16 @@ const HomePage: React.FC<HomePageProps> = props => {
         <IonContent data-test-id="commerce-home-tab">
           <div style={{ height: "44px" }} />
           {isDemoMode && (
-            <div className={classes.onboarding}>
+            <div
+              className={classes.onboarding}
+              data-test-id="commerce-stripe-connect-banner"
+            >
               <SVG src={ConnectImage} />
               <IonText className={classes.onboardingHeader}>
                 Start selling
               </IonText>
               <IonText className={classes.onboardingMessage}>
-                Connect your account with Stripe to start accepting payments.
+                Connect your account with Stripe to start accepting payments.
               </IonText>
               <IonButton
                 shape="round"
@@ -136,7 +139,10 @@ const HomePage: React.FC<HomePageProps> = props => {
             </div>
           )}
           {isShowConnectMessage && (
-            <div className={classes.onboarding}>
+            <div
+              className={classes.onboarding}
+              data-test-id="commerce-stripe-connected-banner"
+            >
               <SVG src={DoneImage} />
               <IonText className={classes.onboardingHeader}>
                 Stripe connected
@@ -155,7 +161,10 @@ const HomePage: React.FC<HomePageProps> = props => {
             </div>
           )}
           {!isActiveSeller && (
-            <div className={classes.onboarding}>
+            <div
+              className={classes.onboarding}
+              data-test-id="commerce-stripe-verify-banner"
+            >
               <SVG src={AlertImage} />
               <IonText className={classes.onboardingHeader}>
                 Action required
