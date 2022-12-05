@@ -105,7 +105,7 @@ const RoutesInner: React.FC<{ pathname: string }> = memo(({ pathname }) => {
                 clickable: true,
                 renderBullet: function(index, className) {
                   return (
-                    "<ion-segment-button data-test-id='commerce-tab-" +
+                    "<ion-segment-button style='margin: 0' data-test-id='commerce-tab-" +
                     menu[index].toLowerCase() +
                     "-trigger' class='ios in-segment segment-button-has-label segment-button-has-label-only segment-button-layout-icon-top ion-activatable ion-activatable-instant SideBarDrawer-menuItemBtn-150 " +
                     className +

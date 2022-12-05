@@ -13,14 +13,20 @@ import {
 import HomeActivityCard from "../HomeActivityCard";
 import HomeAnalyticsCard from "../HomeAnalyticsCard";
 import HomeProductListCard from "../HomeProductListCard";
-import { IonContent, IonCard } from "@ionic/react";
+import { IonContent, IonCard, IonText, IonButton } from "@ionic/react";
 import { Loader } from "frontend/ui/loader";
+import { useOnboarding } from "@saleor/components/Onboarding/Onboarding";
+import SVG from "react-inlinesvg";
+import ConnectImage from "./assets/connect.svg";
+import DoneImage from "./assets/done.svg";
+import AlertImage from "./assets/alert.svg";
+
 const useStyles = makeStyles(
   theme => ({
     cardContainer: {
       display: "flex",
-      top: "24px",
-      position: "relative"
+      justifyContent: "space-between",
+      margin: "1rem"
     },
     icon: {
       "& path": {
@@ -31,6 +37,34 @@ const useStyles = makeStyles(
       position: "fixed",
       top: "0",
       height: "calc(100% - 150px)"
+    },
+    onboarding: {
+      display: "flex",
+      background: "white",
+      padding: "1rem",
+      flexDirection: "column",
+      margin: "1rem 1rem 1.5rem 1rem",
+      alignItems: "center",
+      borderRadius: "1rem"
+    },
+    onboardingHeader: {
+      color: "#101010",
+      fontWeight: "800",
+      fontSize: "20px",
+      marginTop: "0.5rem",
+      lineHeight: "30px"
+    },
+    onboardingMessage: {
+      color: "#101010",
+      fontWeight: "400",
+      fontSize: "16px",
+      lineHeight: "20px",
+      opacity: "0.7"
+    },
+    onboardingButton: {
+      marginTop: "1rem",
+      fontWeight: "600",
+      color: "#101010"
     }
   }),
   { name: "HomePage" }
@@ -65,6 +99,14 @@ const HomePage: React.FC<HomePageProps> = props => {
     loading
   } = props;
 
+  const {
+    isDemoMode,
+    isActiveSeller,
+    isShowConnectMessage,
+    connect,
+    goToStripe,
+    dismissConnectMessage
+  } = useOnboarding();
   const classes = useStyles(props);
   return (
     <>
@@ -74,10 +116,73 @@ const HomePage: React.FC<HomePageProps> = props => {
         </div>
       ) : (
         <IonContent data-test-id="commerce-home-tab">
-          <div style={{ height: "20px" }} />
-
+          <div style={{ height: "44px" }} />
+          {isDemoMode && (
+            <div
+              className={classes.onboarding}
+              data-test-id="commerce-stripe-connect-banner"
+            >
+              <SVG src={ConnectImage} />
+              <IonText className={classes.onboardingHeader}>
+                Start selling
+              </IonText>
+              <IonText className={classes.onboardingMessage}>
+                Connect your account with Stripe to start accepting payments.
+              </IonText>
+              <IonButton
+                shape="round"
+                className={classes.onboardingButton}
+                onClick={connect}
+              >
+                Connect to Stripe
+              </IonButton>
+            </div>
+          )}
+          {isShowConnectMessage && (
+            <div
+              className={classes.onboarding}
+              data-test-id="commerce-stripe-connected-banner"
+            >
+              <SVG src={DoneImage} />
+              <IonText className={classes.onboardingHeader}>
+                Stripe connected
+              </IonText>
+              <IonText className={classes.onboardingMessage}>
+                You can now publish pages with products.
+              </IonText>
+              <IonButton
+                shape="round"
+                fill="outline"
+                className={classes.onboardingButton}
+                onClick={dismissConnectMessage}
+              >
+                Got it
+              </IonButton>
+            </div>
+          )}
+          {!isActiveSeller && (
+            <div
+              className={classes.onboarding}
+              data-test-id="commerce-stripe-verify-banner"
+            >
+              <SVG src={AlertImage} />
+              <IonText className={classes.onboardingHeader}>
+                Action required
+              </IonText>
+              <IonText className={classes.onboardingMessage}>
+                Stripe needs an additional verification to enable your payments.
+              </IonText>
+              <IonButton
+                shape="round"
+                className={classes.onboardingButton}
+                onClick={goToStripe}
+              >
+                Visit Stripe
+              </IonButton>
+            </div>
+          )}
           <div className={classes.cardContainer}>
-            <IonCard>
+            <IonCard style={{ margin: 0, marginInline: 0 }}>
               <HomeAnalyticsCard
                 title={"Sales"}
                 testId="sales-analytics"
@@ -100,7 +205,7 @@ const HomePage: React.FC<HomePageProps> = props => {
                 )}
               </HomeAnalyticsCard>
             </IonCard>
-            <IonCard>
+            <IonCard style={{ margin: 0, marginInline: 0 }}>
               <HomeAnalyticsCard
                 title={"Orders"}
                 testId="orders-analytics"
